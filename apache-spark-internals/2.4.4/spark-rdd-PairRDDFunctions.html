@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> PairRDDFunctions :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="http://books.japila.pl/apache-spark-internals/apache-spark-internals/2.4.4/spark-rdd-PairRDDFunctions.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -1778,118 +1778,164 @@
   <div class="edit-this-page"><a href="file:///antora/modules/ROOT/pages/spark-rdd-PairRDDFunctions.adoc">Edit this Page</a></div>
 </div>
 <article class="doc">
-<div class="sect1">
-<h2 id="pairrddfunctions"><a class="anchor" href="#pairrddfunctions"></a><a class="link" href="#pairrddfunctions"><a id="PairRDDFunctions"></a> PairRDDFunctions</a></h2>
+<h1 class="page"><a id="PairRDDFunctions"></a> PairRDDFunctions</h1>
+<div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Read up the scaladoc of <a href="http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions">PairRDDFunctions</a>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p><code>PairRDDFunctions</code> is an extension of <code>RDDs</code> of (key, value) pairs (<code>RDD[(K, V)]</code>) with extra <a href="#transformations">transformations</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>PairRDDFunctions</code> are available in RDDs of key-value pairs via Scala&#8217;s implicit conversion.</p>
+<p><code>PairRDDFunctions</code> is available in RDDs of key-value pairs via Scala implicit conversion.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
+<table id="transformations" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. PairRDDFunctions' Transformations</caption>
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
 <tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<strong>Partitioning</strong> is an advanced feature that is directly linked to (or inferred by) use of <code>PairRDDFunctions</code>. Read up about it in <a href="spark-rdd-partitions.adoc">Partitions and Partitioning</a>.
-</td>
+<th class="tableblock halign-left valign-top">Method</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="countapproxdistinctbykey-transformation"><a class="anchor" href="#countapproxdistinctbykey-transformation"></a><a class="link" href="#countapproxdistinctbykey-transformation"><a id="countApproxDistinctByKey"></a> <code>countApproxDistinctByKey</code> Transformation</a></h3>
-<div class="admonitionblock caution">
-<table>
+</thead>
+<tbody>
 <tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="foldbykey-transformation"><a class="anchor" href="#foldbykey-transformation"></a><a class="link" href="#foldbykey-transformation"><a id="foldByKey"></a> <code>foldByKey</code> Transformation</a></h3>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="aggregatebykey-transformation"><a class="anchor" href="#aggregatebykey-transformation"></a><a class="link" href="#aggregatebykey-transformation"><a id="aggregateByKey"></a> <code>aggregateByKey</code> Transformation</a></h3>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="combinebykey-transformation"><a class="anchor" href="#combinebykey-transformation"></a><a class="link" href="#combinebykey-transformation"><a id="combineByKey"></a> <code>combineByKey</code> Transformation</a></h3>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="partitionby-operator"><a class="anchor" href="#partitionby-operator"></a><a class="link" href="#partitionby-operator"><a id="partitionBy"></a> <code>partitionBy</code> Operator</a></h3>
-<div class="listingblock">
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aggregateByKey</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="aggregateByKey" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">partitionBy(partitioner: Partitioner): RDD[(K, V)]</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">aggregateByKey[U: ClassTag](
+  zeroValue: U)(
+    seqOp: (U, V) =&gt; U,
+    combOp: (U, U) =&gt; U): RDD[(K, U)]
+aggregateByKey[U: ClassTag](
+  zeroValue: U, numPartitions: Int)(
+    seqOp: (U, V) =&gt; U,
+    combOp: (U, U) =&gt; U): RDD[(K, U)]
+aggregateByKey[U: ClassTag](
+  zeroValue: U, partitioner: Partitioner)(
+    seqOp: (U, V) =&gt; U,
+    combOp: (U, U) =&gt; U): RDD[(K, U)]</code></pre>
 </div>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
+</div></div></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>combineByKey</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="combineByKey" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">combineByKey[C](
+  createCombiner: V =&gt; C,
+  mergeValue: (C, V) =&gt; C,
+  mergeCombiners: (C, C) =&gt; C): RDD[(K, C)]
+combineByKey[C](
+  createCombiner: V =&gt; C,
+  mergeValue: (C, V) =&gt; C,
+  mergeCombiners: (C, C) =&gt; C,
+  numPartitions: Int): RDD[(K, C)]
+combineByKey[C](
+  createCombiner: V =&gt; C,
+  mergeValue: (C, V) =&gt; C,
+  mergeCombiners: (C, C) =&gt; C,
+  partitioner: Partitioner,
+  mapSideCombine: Boolean = true,
+  serializer: Serializer = null): RDD[(K, C)]</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>countApproxDistinctByKey</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="countApproxDistinctByKey" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">countApproxDistinctByKey(
+  relativeSD: Double = 0.05): RDD[(K, Long)]
+countApproxDistinctByKey(
+  relativeSD: Double,
+  numPartitions: Int): RDD[(K, Long)]
+countApproxDistinctByKey(
+  relativeSD: Double,
+  partitioner: Partitioner): RDD[(K, Long)]
+countApproxDistinctByKey(
+  p: Int,
+  sp: Int,
+  partitioner: Partitioner): RDD[(K, Long)]</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>flatMapValues</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="flatMapValues" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">flatMapValues[U](
+  f: V =&gt; TraversableOnce[U]): RDD[(K, U)]</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>foldByKey</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="foldByKey" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">foldByKey(
+  zeroValue: V)(
+    func: (V, V) =&gt; V): RDD[(K, V)]
+foldByKey(
+  zeroValue: V, numPartitions: Int)(
+    func: (V, V) =&gt; V): RDD[(K, V)]
+foldByKey(
+  zeroValue: V,
+  partitioner: Partitioner)(
+    func: (V, V) =&gt; V): RDD[(K, V)]</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mapValues</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="mapValues" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">mapValues[U](
+  f: V =&gt; U): RDD[(K, U)]</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>partitionBy</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="partitionBy" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">partitionBy(
+  partitioner: Partitioner): RDD[(K, V)]</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>saveAsHadoopDataset</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="saveAsHadoopDataset" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">saveAsHadoopDataset(
+  conf: JobConf): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>saveAsHadoopDataset</code> uses the <code>SparkHadoopWriter</code> utility to <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">write the key-value RDD out</a> with a <a href="spark-internal-io-HadoopMapRedWriteConfigUtil.html" class="page">HadoopMapRedWriteConfigUtil</a> (for the given Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/mapred/JobConf.html">JobConf</a>)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>saveAsNewAPIHadoopDataset</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="saveAsNewAPIHadoopDataset" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">saveAsNewAPIHadoopDataset(
+  conf: Configuration): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>saveAsNewAPIHadoopDataset</code> uses the <code>SparkHadoopWriter</code> utility to <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">write the key-value RDD out</a> with a <a href="spark-internal-io-HadoopMapReduceWriteConfigUtil.html" class="page">HadoopMapReduceWriteConfigUtil</a> (for the given Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/conf/Configuration.html">Configuration</a>)</p>
+</div></div></td>
+</tr>
+</tbody>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="groupbykey-and-reducebykey-transformations"><a class="anchor" href="#groupbykey-and-reducebykey-transformations"></a><a class="link" href="#groupbykey-and-reducebykey-transformations"><a id="reduceByKey"></a><a id="groupByKey"></a> <code>groupByKey</code> and <code>reduceByKey</code> Transformations</a></h3>
+<div class="sect1">
+<h2 id="groupbykey-and-reducebykey-transformations"><a class="anchor" href="#groupbykey-and-reducebykey-transformations"></a><a class="link" href="#groupbykey-and-reducebykey-transformations"><a id="reduceByKey"></a><a id="groupByKey"></a> <code>groupByKey</code> and <code>reduceByKey</code> Transformations</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><code>reduceByKey</code> is sort of a particular case of <a href="#aggregateByKey">aggregateByKey</a>.</p>
 </div>
@@ -1927,23 +1973,10 @@ FIXME
 <p>or <code>mapValues</code> or plenty of other solutions. <em>FIXME, man</em>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="mapvalues-flatmapvalues"><a class="anchor" href="#mapvalues-flatmapvalues"></a><a class="link" href="#mapvalues-flatmapvalues"><a id="mapValues"></a><a id="flatMapValues"></a> mapValues, flatMapValues</a></h3>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="combinebykeywithclasstag-transformations"><a class="anchor" href="#combinebykeywithclasstag-transformations"></a><a class="link" href="#combinebykeywithclasstag-transformations"><a id="combineByKeyWithClassTag"></a> <code>combineByKeyWithClassTag</code> Transformations</a></h3>
+<div class="sect1">
+<h2 id="combinebykeywithclasstag-transformations"><a class="anchor" href="#combinebykeywithclasstag-transformations"></a><a class="link" href="#combinebykeywithclasstag-transformations"><a id="combineByKeyWithClassTag"></a> <code>combineByKeyWithClassTag</code> Transformations</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">combineByKeyWithClassTag[C](
@@ -1990,7 +2023,6 @@ combineByKeyWithClassTag[C](
 </td>
 </tr>
 </table>
-</div>
 </div>
 </div>
 </div>
