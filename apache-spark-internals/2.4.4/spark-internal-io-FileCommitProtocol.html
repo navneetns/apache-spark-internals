@@ -75,13 +75,31 @@
     <span class="nav-text">Job Commit Protocol</span>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="spark-internal-io-FileCommitProtocol.html">FileCommitProtocol</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-internal-io-HadoopMapReduceCommitProtocol.html">HadoopMapReduceCommitProtocol</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-internal-io-HadoopMapRedCommitProtocol.html">HadoopMapRedCommitProtocol</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spark-internal-io-SparkHadoopWriter.html">SparkHadoopWriter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-internal-io-HadoopWriteConfigUtil.html">HadoopWriteConfigUtil</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-internal-io-HadoopMapReduceWriteConfigUtil.html">HadoopMapReduceWriteConfigUtil</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-internal-io-HadoopMapRedWriteConfigUtil.html">HadoopMapRedWriteConfigUtil</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -1762,7 +1780,13 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>FileCommitProtocol</code> is an <a href="#contract">abstraction</a> of <a href="#implementations">job and task committers</a> that can setup, commit or abort a job or task.</p>
+<p><code>FileCommitProtocol</code> is an <a href="#contract">abstraction</a> of <a href="#implementations">committers</a> that can setup, commit or abort a job or task.</p>
+</div>
+<div class="paragraph">
+<p><code>FileCommitProtocol</code> is used when <code>SparkHadoopWriter</code> utility is used to <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">write an RDD out</a>.</p>
+</div>
+<div class="paragraph">
+<p>A concrete <a href="#implementations">FileCommitProtocol</a> is created using <a href="#instantiate">FileCommitProtocol.instantiate</a> utility.</p>
 </div>
 <table id="contract" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. FileCommitProtocol Contract (Abstract Methods Only)</caption>
@@ -1939,6 +1963,70 @@
 </td>
 <td class="content">
 <code>deleteWithJob</code> is used when&#8230;&#8203;FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="instantiating-filecommitprotocolinstantiate-utility"><a class="anchor" href="#instantiating-filecommitprotocolinstantiate-utility"></a><a class="link" href="#instantiating-filecommitprotocolinstantiate-utility"><a id="instantiate"></a> Instantiating FileCommitProtocol&#8201;&#8212;&#8201;<code>instantiate</code> Utility</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">instantiate(
+  className: String,
+  jobId: String,
+  outputPath: String,
+  dynamicPartitionOverwrite: Boolean = false): FileCommitProtocol</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>instantiate</code> prints out the following DEBUG message to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Creating committer [className]; job [jobId]; output=[outputPath]; dynamic=[dynamicPartitionOverwrite]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>instantiate</code> tries to find a constructor method that takes three arguments (two of type <code>String</code> and one <code>Boolean</code>) for the given <code>jobId</code>, <code>outputPath</code> and <code>dynamicPartitionOverwrite</code> flag.</p>
+</div>
+<div class="paragraph">
+<p><code>instantiate</code> prints out the following DEBUG message to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Using (String, String, Boolean) constructor</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In case of <code>NoSuchMethodException</code>, <code>instantiate</code> prints out the following DEBUG message to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Falling back to (String, String) constructor</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>instantiate</code> tries to find a constructor method that takes two arguments (two of type <code>String</code>) for the given <code>jobId</code> and <code>outputPath</code>.</p>
+</div>
+<div class="paragraph">
+<p>With two <code>String</code> arguments, <code>instantiate</code> requires that the given <code>dynamicPartitionOverwrite</code> flag is disabled (<code>false</code>) or throws an <code>IllegalArgumentException</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>requirement failed: Dynamic Partition Overwrite is enabled but the committer [className] does not have the appropriate constructor</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>instantiate</code> is used when <a href="spark-internal-io-HadoopMapRedWriteConfigUtil.html#createCommitter" class="page">HadoopMapRedWriteConfigUtil</a> and <a href="spark-internal-io-HadoopMapReduceWriteConfigUtil.html#createCommitter" class="page">HadoopMapReduceWriteConfigUtil</a> are requested to create a <a href="spark-internal-io-HadoopMapReduceCommitProtocol.html" class="page">HadoopMapReduceCommitProtocol</a>.
 </td>
 </tr>
 </table>
