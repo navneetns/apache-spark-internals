@@ -1785,6 +1785,31 @@
 <div class="paragraph">
 <p><code>SparkHadoopWriter</code> utility is used by <a href="spark-rdd-PairRDDFunctions.html#saveAsNewAPIHadoopDataset" class="page">RDD.saveAsNewAPIHadoopDataset</a> and <a href="spark-rdd-PairRDDFunctions.html#saveAsHadoopDataset" class="page">RDD.saveAsHadoopDataset</a> transformations.</p>
 </div>
+<div id="logging" class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.internal.io.SparkHadoopWriter</code> logger to see what happens inside.</p>
+</div>
+<div class="paragraph">
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.internal.io.SparkHadoopWriter=ALL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="spark-logging.html" class="page">Logging</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1864,7 +1889,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="executetask-internal-utility"><a class="anchor" href="#executetask-internal-utility"></a><a class="link" href="#executetask-internal-utility"><a id="executeTask"></a> <code>executeTask</code> Internal Utility</a></h2>
+<h2 id="writing-rdd-partitionexecutetask-internal-utility"><a class="anchor" href="#writing-rdd-partitionexecutetask-internal-utility"></a><a class="link" href="#writing-rdd-partitionexecutetask-internal-utility"><a id="executeTask"></a> Writing RDD Partition&#8201;&#8212;&#8201;<code>executeTask</code> Internal Utility</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -1880,7 +1905,30 @@
 </div>
 </div>
 <div class="paragraph">
-<p><code>executeTask</code>&#8230;&#8203;FIXME</p>
+<p><code>executeTask</code> requests the given <code>HadoopWriteConfigUtil</code> to <a href="spark-internal-io-HadoopWriteConfigUtil.html#createTaskAttemptContext" class="page">create a TaskAttemptContext</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>executeTask</code> requests the given <code>FileCommitProtocol</code> to <a href="spark-internal-io-FileCommitProtocol.html#setupTask" class="page">set up a task</a> with the <code>TaskAttemptContext</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>executeTask</code> requests the given <code>HadoopWriteConfigUtil</code> to <a href="spark-internal-io-HadoopWriteConfigUtil.html#initWriter" class="page">initWriter</a> (with the <code>TaskAttemptContext</code> and the given <code>sparkPartitionId</code>).</p>
+</div>
+<div class="paragraph">
+<p><code>executeTask</code> <a href="#initHadoopOutputMetrics">initHadoopOutputMetrics</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>executeTask</code> writes all rows of the RDD partition (from the given <code>Iterator[(K, V)]</code>). <code>executeTask</code> requests the given <code>HadoopWriteConfigUtil</code> to <a href="spark-internal-io-HadoopWriteConfigUtil.html#write" class="page">write</a>. In the end, <code>executeTask</code> requests the given <code>HadoopWriteConfigUtil</code> to <a href="spark-internal-io-HadoopWriteConfigUtil.html#closeWriter" class="page">closeWriter</a> and the given <code>FileCommitProtocol</code> to <a href="spark-internal-io-FileCommitProtocol.html#commitTask" class="page">commit the task</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>executeTask</code> updates metrics about writing data to external systems (<strong>bytesWritten</strong> and <strong>recordsWritten</strong>) every few records and at the end.</p>
+</div>
+<div class="paragraph">
+<p>In case of any errors, <code>executeTask</code> requests the given <code>HadoopWriteConfigUtil</code> to <a href="spark-internal-io-HadoopWriteConfigUtil.html#closeWriter" class="page">closeWriter</a> and the given <code>FileCommitProtocol</code> to <a href="spark-internal-io-FileCommitProtocol.html#abortTask" class="page">abort the task</a>. In the end, <code>executeTask</code> prints out the following ERROR message to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Task [taskAttemptID] aborted.</code></pre>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1890,6 +1938,32 @@
 </td>
 <td class="content">
 <code>executeTask</code> is used when <code>SparkHadoopWriter</code> utility is used to <a href="#write">write</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="inithadoopoutputmetrics-utility"><a class="anchor" href="#inithadoopoutputmetrics-utility"></a><a class="link" href="#inithadoopoutputmetrics-utility"><a id="initHadoopOutputMetrics"></a> <code>initHadoopOutputMetrics</code> Utility</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">initHadoopOutputMetrics(
+  context: TaskContext): (OutputMetrics, () =&gt; Long)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>initHadoopOutputMetrics</code>&#8230;&#8203;FIXME</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>initHadoopOutputMetrics</code> is used when <code>SparkHadoopWriter</code> utility is used to <a href="#executeTask">executeTask</a>.
 </td>
 </tr>
 </table>

@@ -1778,7 +1778,7 @@
 <article class="doc">
 <h1 class="page">HadoopWriteConfigUtil</h1>
 <div class="paragraph">
-<p><code>HadoopWriteConfigUtil[K, V]</code> is an <a href="#contract">abstraction</a> of <a href="#implementations">configurers of key-value pairs writers</a> used for saving an RDD of key-value pairs using a Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/mapreduce/OutputFormat.html">OutputFormat</a>.</p>
+<p><code>HadoopWriteConfigUtil[K, V]</code> is an <a href="#contract">abstraction</a> of <a href="#implementations">writer configurers</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>HadoopWriteConfigUtil</code> is used for <a href="spark-internal-io-SparkHadoopWriter.html" class="page">SparkHadoopWriter</a> utility when requested to <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">write an RDD of key-value pairs</a> (for <a href="spark-rdd-PairRDDFunctions.html#saveAsNewAPIHadoopDataset" class="page">RDD.saveAsNewAPIHadoopDataset</a> and <a href="spark-rdd-PairRDDFunctions.html#saveAsHadoopDataset" class="page">RDD.saveAsHadoopDataset</a> transformations).</p>
@@ -1844,6 +1844,9 @@
   splitId: Int,
   taskAttemptId: Int): TaskAttemptContext</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Creates a Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/mapreduce/TaskAttemptContext.html">TaskAttemptContext</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -1872,6 +1875,12 @@
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">write(
   pair: (K, V)): Unit</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Writes out the key-value pair</p>
+</div>
+<div class="paragraph">
+<p>Used when <code>SparkHadoopWriter</code> is requested to <a href="spark-internal-io-SparkHadoopWriter.html#executeTask" class="page">executeTask</a> (while <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">writing out key-value pairs of a partition</a>)</p>
 </div></div></td>
 </tr>
 </tbody>
