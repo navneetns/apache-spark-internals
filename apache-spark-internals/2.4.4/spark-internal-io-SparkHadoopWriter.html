@@ -1780,12 +1780,15 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>SparkHadoopWriter</code> is&#8230;&#8203;FIXME</p>
+<p><code>SparkHadoopWriter</code> utility is used to <a href="#write">write a key-value RDD (as a Hadoop OutputFormat)</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>SparkHadoopWriter</code> utility is used by <a href="spark-rdd-PairRDDFunctions.html#saveAsNewAPIHadoopDataset" class="page">RDD.saveAsNewAPIHadoopDataset</a> and <a href="spark-rdd-PairRDDFunctions.html#saveAsHadoopDataset" class="page">RDD.saveAsHadoopDataset</a> transformations.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="writing-key-value-rdd-outwrite-utility"><a class="anchor" href="#writing-key-value-rdd-outwrite-utility"></a><a class="link" href="#writing-key-value-rdd-outwrite-utility"><a id="write"></a> Writing Key-Value RDD Out&#8201;&#8212;&#8201;<code>write</code> Utility</a></h2>
+<h2 id="writing-key-value-rdd-out-as-hadoop-outputformatwrite-utility"><a class="anchor" href="#writing-key-value-rdd-out-as-hadoop-outputformatwrite-utility"></a><a class="link" href="#writing-key-value-rdd-out-as-hadoop-outputformatwrite-utility"><a id="write"></a> Writing Key-Value RDD Out (As Hadoop OutputFormat)&#8201;&#8212;&#8201;<code>write</code> Utility</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -1794,8 +1797,38 @@
   config: HadoopWriteConfigUtil[K, V]): Unit</code></pre>
 </div>
 </div>
+<div id="write-commitJobId" class="paragraph">
+<p><code>write</code> uses the id of the given RDD as the <code>commitJobId</code>.</p>
+</div>
+<div id="write-jobTrackerId" class="paragraph">
+<p><code>write</code> creates a <code>jobTrackerId</code> with the current date.</p>
+</div>
+<div id="write-jobContext" class="paragraph">
+<p><code>write</code> requests the given <code>HadoopWriteConfigUtil</code> to <a href="spark-internal-io-HadoopWriteConfigUtil.html#createJobContext" class="page">create a Hadoop JobContext</a> (for the <a href="#write-jobTrackerId">jobTrackerId</a> and <a href="#write-commitJobId">commitJobId</a>).</p>
+</div>
 <div class="paragraph">
-<p><code>write</code>&#8230;&#8203;FIXME</p>
+<p><code>write</code> requests the given <code>HadoopWriteConfigUtil</code> to <a href="spark-internal-io-HadoopWriteConfigUtil.html#initOutputFormat" class="page">initOutputFormat</a> with the Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/mapreduce/JobContext.html">JobContext</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>write</code> requests the given <code>HadoopWriteConfigUtil</code> to <a href="spark-internal-io-HadoopWriteConfigUtil.html#assertConf" class="page">assertConf</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>write</code> requests the given <code>HadoopWriteConfigUtil</code> to <a href="spark-internal-io-HadoopWriteConfigUtil.html#createCommitter" class="page">create a HadoopMapReduceCommitProtocol committer</a> for the <a href="#write-commitJobId">commitJobId</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>write</code> requests the <code>HadoopMapReduceCommitProtocol</code> to <a href="spark-internal-io-HadoopMapReduceCommitProtocol.html#setupJob" class="page">setupJob</a> (with the <a href="#write-jobContext">jobContext</a>).</p>
+</div>
+<div class="paragraph">
+<p><a id="write-runJob"></a><a id="write-executeTask"></a>
+<code>write</code> uses the <code>SparkContext</code> (of the given RDD) to <a href="spark-SparkContext.html#runJob" class="page">run a Spark job asynchronously</a> for the given RDD with the <a href="#executeTask">executeTask</a> partition function.</p>
+</div>
+<div id="write-commitJob" class="paragraph">
+<p>In the end, <code>write</code> requests the <a href="#write-committer">HadoopMapReduceCommitProtocol</a> to <a href="spark-internal-io-HadoopMapReduceCommitProtocol.html#commitJob" class="page">commit the job</a> and prints out the following INFO message to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Job [getJobID] committed.</code></pre>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1808,6 +1841,25 @@
 </td>
 </tr>
 </table>
+</div>
+<div class="sect2">
+<h3 id="write-utility-and-throwables"><a class="anchor" href="#write-utility-and-throwables"></a><a class="link" href="#write-utility-and-throwables"><a id="write-Throwable"></a> <code>write</code> Utility And Throwables</a></h3>
+<div class="paragraph">
+<p>In case of any <code>Throwable</code>, <code>write</code> prints out the following ERROR message to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Aborting job [getJobID].</code></pre>
+</div>
+</div>
+<div id="write-abortJob" class="paragraph">
+<p><code>write</code> requests the <a href="#write-committer">HadoopMapReduceCommitProtocol</a> to <a href="spark-internal-io-HadoopMapReduceCommitProtocol.html#abortJob" class="page">abort the job</a> and throws a <code>SparkException</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Job aborted.</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
