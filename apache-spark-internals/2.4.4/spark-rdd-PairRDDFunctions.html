@@ -75,6 +75,9 @@
     <span class="nav-text">Job Commit Protocol</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spark-internal-io-SparkHadoopWriter.html">SparkHadoopWriter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="spark-internal-io-FileCommitProtocol.html">FileCommitProtocol</a>
 <ul class="nav-list">
@@ -85,9 +88,6 @@
     <a class="nav-link" href="spark-internal-io-HadoopMapRedCommitProtocol.html">HadoopMapRedCommitProtocol</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-internal-io-SparkHadoopWriter.html">SparkHadoopWriter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1954,7 +1954,7 @@ saveAsHadoopFile[F &lt;: OutputFormat[K, V]](
 <p>Saves this RDD of key-value pairs (<code>RDD[K,V]</code>) to any Hadoop-supported storage system with new Hadoop API (using a Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/conf/Configuration.html">Configuration</a> object for that storage system).</p>
 </div>
 <div class="paragraph">
-<p>The configuration should set relevant output params (an output format, output paths, e.g. a table name to write to) in the same way as it would be configured for a Hadoop MapReduce job.</p>
+<p>The configuration should set relevant output params (an <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/mapreduce/OutputFormat.html">output format</a>, output paths, e.g. a table name to write to) in the same way as it would be configured for a Hadoop MapReduce job.</p>
 </div>
 <div class="paragraph">
 <p><code>saveAsNewAPIHadoopDataset</code> uses the <code>SparkHadoopWriter</code> utility to <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">write the key-value RDD out</a> with a <a href="spark-internal-io-HadoopMapReduceWriteConfigUtil.html" class="page">HadoopMapReduceWriteConfigUtil</a> (for the given Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/conf/Configuration.html">Configuration</a>)</p>
