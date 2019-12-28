@@ -1918,6 +1918,31 @@ foldByKey(
 </div></div></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>saveAsHadoopFile</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="saveAsHadoopFile" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">saveAsHadoopFile(
+  path: String,
+  keyClass: Class[_],
+  valueClass: Class[_],
+  outputFormatClass: Class[_ &lt;: OutputFormat[_, _]],
+  codec: Class[_ &lt;: CompressionCodec]): Unit
+saveAsHadoopFile(
+  path: String,
+  keyClass: Class[_],
+  valueClass: Class[_],
+  outputFormatClass: Class[_ &lt;: OutputFormat[_, _]],
+  conf: JobConf = new JobConf(self.context.hadoopConfiguration),
+  codec: Option[Class[_ &lt;: CompressionCodec]] = None): Unit
+saveAsHadoopFile[F &lt;: OutputFormat[K, V]](
+  path: String)(implicit fm: ClassTag[F]): Unit
+saveAsHadoopFile[F &lt;: OutputFormat[K, V]](
+  path: String,
+  codec: Class[_ &lt;: CompressionCodec])(implicit fm: ClassTag[F]): Unit</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>saveAsNewAPIHadoopDataset</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="saveAsNewAPIHadoopDataset" class="listingblock">
 <div class="content">
@@ -1926,7 +1951,28 @@ foldByKey(
 </div>
 </div>
 <div class="paragraph">
+<p>Saves this RDD of key-value pairs (<code>RDD[K,V]</code>) to any Hadoop-supported storage system with new Hadoop API (using a Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/conf/Configuration.html">Configuration</a> object for that storage system).</p>
+</div>
+<div class="paragraph">
+<p>The configuration should set relevant output params (an output format, output paths, e.g. a table name to write to) in the same way as it would be configured for a Hadoop MapReduce job.</p>
+</div>
+<div class="paragraph">
 <p><code>saveAsNewAPIHadoopDataset</code> uses the <code>SparkHadoopWriter</code> utility to <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">write the key-value RDD out</a> with a <a href="spark-internal-io-HadoopMapReduceWriteConfigUtil.html" class="page">HadoopMapReduceWriteConfigUtil</a> (for the given Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/conf/Configuration.html">Configuration</a>)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>saveAsNewAPIHadoopFile</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="saveAsNewAPIHadoopFile" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">saveAsNewAPIHadoopFile(
+  path: String,
+  keyClass: Class[_],
+  valueClass: Class[_],
+  outputFormatClass: Class[_ &lt;: NewOutputFormat[_, _]],
+  conf: Configuration = self.context.hadoopConfiguration): Unit
+saveAsNewAPIHadoopFile[F &lt;: NewOutputFormat[K, V]](
+  path: String)(implicit fm: ClassTag[F]): Unit</code></pre>
+</div>
 </div></div></td>
 </tr>
 </tbody>
