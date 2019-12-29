@@ -1789,7 +1789,7 @@
 <p>A concrete <a href="#implementations">FileCommitProtocol</a> is created using <a href="#instantiate">FileCommitProtocol.instantiate</a> utility.</p>
 </div>
 <table id="contract" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. FileCommitProtocol Contract (Abstract Methods Only)</caption>
+<caption class="title">Table 1. FileCommitProtocol Contract</caption>
 <colgroup>
 <col style="width: 30%;">
 <col style="width: 70%;">
@@ -1916,6 +1916,14 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-internal-io-HadoopMapRedCommitProtocol.html" class="page">HadoopMapRedCommitProtocol</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="HadoopMapRedCommitProtocol"></a></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SQLHadoopMapReduceCommitProtocol</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="SQLHadoopMapReduceCommitProtocol"></a> Used for batch queries (Spark SQL)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ManifestFileCommitProtocol</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ManifestFileCommitProtocol"></a> Used for streaming queries (Spark Structured Streaming)</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1949,7 +1957,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="instantiating-filecommitprotocolinstantiate-utility"><a class="anchor" href="#instantiating-filecommitprotocolinstantiate-utility"></a><a class="link" href="#instantiating-filecommitprotocolinstantiate-utility"><a id="instantiate"></a> Instantiating FileCommitProtocol&#8201;&#8212;&#8201;<code>instantiate</code> Utility</a></h2>
+<h2 id="instantiating-filecommitprotocol-committerinstantiate-utility"><a class="anchor" href="#instantiating-filecommitprotocol-committerinstantiate-utility"></a><a class="link" href="#instantiating-filecommitprotocol-committerinstantiate-utility"><a id="instantiate"></a> Instantiating FileCommitProtocol Committer&#8201;&#8212;&#8201;<code>instantiate</code> Utility</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -1969,10 +1977,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p><code>instantiate</code> tries to find a constructor method that takes three arguments (two of type <code>String</code> and one <code>Boolean</code>) for the given <code>jobId</code>, <code>outputPath</code> and <code>dynamicPartitionOverwrite</code> flag.</p>
-</div>
-<div class="paragraph">
-<p><code>instantiate</code> prints out the following DEBUG message to the logs:</p>
+<p><code>instantiate</code> tries to find a constructor method that takes three arguments (two of type <code>String</code> and one <code>Boolean</code>) for the given <code>jobId</code>, <code>outputPath</code> and <code>dynamicPartitionOverwrite</code> flag. If found, <code>instantiate</code> prints out the following DEBUG message to the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
