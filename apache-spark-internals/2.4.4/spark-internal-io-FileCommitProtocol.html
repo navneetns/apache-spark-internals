@@ -72,39 +72,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Job Commit Protocol</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-internal-io-SparkHadoopWriter.html">SparkHadoopWriter</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-internal-io-FileCommitProtocol.html">FileCommitProtocol</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-internal-io-HadoopMapReduceCommitProtocol.html">HadoopMapReduceCommitProtocol</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-internal-io-HadoopMapRedCommitProtocol.html">HadoopMapRedCommitProtocol</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-internal-io-HadoopWriteConfigUtil.html">HadoopWriteConfigUtil</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-internal-io-HadoopMapReduceWriteConfigUtil.html">HadoopMapReduceWriteConfigUtil</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-internal-io-HadoopMapRedWriteConfigUtil.html">HadoopMapRedWriteConfigUtil</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
     <span class="nav-text">Block Storage System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -481,6 +448,36 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-TaskLocation.html">TaskLocation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-internal-io-SparkHadoopWriter.html">SparkHadoopWriter</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-internal-io-FileCommitProtocol.html">FileCommitProtocol</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="spark-internal-io-HadoopMapReduceCommitProtocol.html">HadoopMapReduceCommitProtocol</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="spark-internal-io-HadoopMapRedCommitProtocol.html">HadoopMapRedCommitProtocol</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-internal-io-HadoopWriteConfigUtil.html">HadoopWriteConfigUtil</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="spark-internal-io-HadoopMapReduceWriteConfigUtil.html">HadoopMapReduceWriteConfigUtil</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="spark-internal-io-HadoopMapRedWriteConfigUtil.html">HadoopMapRedWriteConfigUtil</a>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-core-AppStatusStore.html">AppStatusStore</a>
@@ -1769,7 +1766,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Apache Spark</a></li>
-    <li>Job Commit Protocol</li>
+    <li><a href="spark-rdd.html">RDD</a></li>
+    <li><a href="spark-internal-io-SparkHadoopWriter.html">SparkHadoopWriter</a></li>
     <li><a href="spark-internal-io-FileCommitProtocol.html">FileCommitProtocol</a></li>
   </ul>
 </nav>
@@ -1780,7 +1778,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>FileCommitProtocol</code> is an <a href="#contract">abstraction</a> of <a href="#implementations">committers</a> that can setup, commit or abort a job or task.</p>
+<p><code>FileCommitProtocol</code> is an <a href="#contract">abstraction</a> of <a href="#implementations">committers</a> that can setup, commit or abort a Spark job or task (while writing out a key-value RDD and the partitions).</p>
 </div>
 <div class="paragraph">
 <p><code>FileCommitProtocol</code> is used for <a href="spark-rdd-PairRDDFunctions.html#saveAsNewAPIHadoopDataset" class="page">RDD.saveAsNewAPIHadoopDataset</a> and <a href="spark-rdd-PairRDDFunctions.html#saveAsHadoopDataset" class="page">RDD.saveAsHadoopDataset</a> transformations (that use <code>SparkHadoopWriter</code> utility to <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">write a key-value RDD out</a>).</p>
@@ -1808,6 +1806,22 @@
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">abortJob(
   jobContext: JobContext): Unit</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Aborts a job</p>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SparkHadoopWriter</code> utility is used to <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">write a key-value RDD</a></p>
+</li>
+<li>
+<p>(Spark SQL) <code>FileFormatWriter</code> utility is used to write a result of a structured query</p>
+</li>
+</ul>
 </div></div></td>
 </tr>
 <tr>
@@ -1817,6 +1831,22 @@
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">abortTask(
   taskContext: TaskAttemptContext): Unit</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Intercepts that a Spark task is (about to be) aborted</p>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SparkHadoopWriter</code> utility is used to <a href="spark-internal-io-SparkHadoopWriter.html#executeTask" class="page">write an RDD partition</a></p>
+</li>
+<li>
+<p>(Spark SQL) <code>FileFormatDataWriter</code> is requested to abort (when <code>FileFormatWriter</code> utility is used to write a result of a structured query)</p>
+</li>
+</ul>
 </div></div></td>
 </tr>
 <tr>
@@ -1827,6 +1857,19 @@
   jobContext: JobContext,
   taskCommits: Seq[TaskCommitMessage]): Unit</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SparkHadoopWriter</code> utility is used to <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">write a key-value RDD</a></p>
+</li>
+<li>
+<p>(Spark SQL) <code>FileFormatWriter</code> utility is used to write a result of a structured query</p>
+</li>
+</ul>
 </div></div></td>
 </tr>
 <tr>
@@ -1836,6 +1879,19 @@
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">commitTask(
   taskContext: TaskAttemptContext): TaskCommitMessage</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SparkHadoopWriter</code> utility is used to <a href="spark-internal-io-SparkHadoopWriter.html#executeTask" class="page">write an RDD partition</a></p>
+</li>
+<li>
+<p>(Spark SQL) <code>FileFormatDataWriter</code> is requested to commit (when <code>FileFormatWriter</code> utility is used to write a result of a structured query)</p>
+</li>
+</ul>
 </div></div></td>
 </tr>
 <tr>
@@ -1847,6 +1903,16 @@
   dir: Option[String],
   ext: String): String</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>(Spark SQL) <code>SingleDirectoryDataWriter</code> and <code>DynamicPartitionDataWriter</code> are requested to <code>write</code> (and in turn <code>newOutputWriter</code>)</p>
+</li>
+</ul>
 </div></div></td>
 </tr>
 <tr>
@@ -1858,6 +1924,16 @@
   absoluteDir: String,
   ext: String): String</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>(Spark SQL) <code>DynamicPartitionDataWriter</code> is requested to <code>write</code></p>
+</li>
+</ul>
 </div></div></td>
 </tr>
 <tr>
@@ -1867,6 +1943,16 @@
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">onTaskCommit(
   taskCommit: TaskCommitMessage): Unit = {}</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>(Spark SQL) <code>FileFormatWriter</code> is requested to <code>write</code></p>
+</li>
+</ul>
 </div></div></td>
 </tr>
 <tr>
@@ -1876,6 +1962,19 @@
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">setupJob(
   jobContext: JobContext): Unit</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SparkHadoopWriter</code> utility is used to <a href="spark-internal-io-SparkHadoopWriter.html#executeTask" class="page">write an RDD partition</a> (while <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">writing out a key-value RDD</a>)</p>
+</li>
+<li>
+<p>(Spark SQL) <code>FileFormatWriter</code> utility is used to write a result of a structured query</p>
+</li>
+</ul>
 </div></div></td>
 </tr>
 <tr>
@@ -1890,7 +1989,17 @@
 <p>Sets up the task with the Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/mapreduce/TaskAttemptContext.html">TaskAttemptContext</a></p>
 </div>
 <div class="paragraph">
-<p>Used when <code>SparkHadoopWriter</code> is requested to <a href="spark-internal-io-SparkHadoopWriter.html#executeTask" class="page">executeTask</a> (while <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">writing out a key-value RDD</a>)</p>
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SparkHadoopWriter</code> is requested to <a href="spark-internal-io-SparkHadoopWriter.html#executeTask" class="page">write an RDD partition</a> (while <a href="spark-internal-io-SparkHadoopWriter.html#write" class="page">writing out a key-value RDD</a>)</p>
+</li>
+<li>
+<p>(Spark SQL) <code>FileFormatWriter</code> utility is used to write out a RDD partition (while writing out a result of a structured query)</p>
+</li>
+</ul>
 </div></div></td>
 </tr>
 </tbody>
@@ -1926,34 +2035,6 @@
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="deletewithjob-method"><a class="anchor" href="#deletewithjob-method"></a><a class="link" href="#deletewithjob-method"><a id="deleteWithJob"></a> <code>deleteWithJob</code> Method</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">deleteWithJob(
-  fs: FileSystem,
-  path: Path,
-  recursive: Boolean): Boolean</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>deleteWithJob</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>deleteWithJob</code> is used when&#8230;&#8203;FIXME
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -2010,7 +2091,50 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>instantiate</code> is used when <a href="spark-internal-io-HadoopMapRedWriteConfigUtil.html#createCommitter" class="page">HadoopMapRedWriteConfigUtil</a> and <a href="spark-internal-io-HadoopMapReduceWriteConfigUtil.html#createCommitter" class="page">HadoopMapReduceWriteConfigUtil</a> are requested to create a <a href="spark-internal-io-HadoopMapReduceCommitProtocol.html" class="page">HadoopMapReduceCommitProtocol</a>.
+<div class="paragraph">
+<p><code>instantiate</code> is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="spark-internal-io-HadoopMapRedWriteConfigUtil.html#createCommitter" class="page">HadoopMapRedWriteConfigUtil</a> and <a href="spark-internal-io-HadoopMapReduceWriteConfigUtil.html#createCommitter" class="page">HadoopMapReduceWriteConfigUtil</a> are requested to create a <a href="spark-internal-io-HadoopMapReduceCommitProtocol.html" class="page">HadoopMapReduceCommitProtocol</a> committer</p>
+</li>
+<li>
+<p>(Spark SQL) <code>InsertIntoHadoopFsRelationCommand</code>, <code>InsertIntoHiveDirCommand</code>, and <code>InsertIntoHiveTable</code> logical commands are executed</p>
+</li>
+<li>
+<p>(Spark Structured Streaming) <code>FileStreamSink</code> is requested to <code>addBatch</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deletewithjob-method"><a class="anchor" href="#deletewithjob-method"></a><a class="link" href="#deletewithjob-method"><a id="deleteWithJob"></a> <code>deleteWithJob</code> Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">deleteWithJob(
+  fs: FileSystem,
+  path: Path,
+  recursive: Boolean): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>deleteWithJob</code> simply requests the Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/fs/FileSystem.html">FileSystem</a> to delete a directory.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>deleteWithJob</code> is used when <code>InsertIntoHadoopFsRelationCommand</code> logical command (Spark SQL) is executed.
 </td>
 </tr>
 </table>
