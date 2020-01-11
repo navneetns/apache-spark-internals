@@ -1790,7 +1790,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Spark History Server</strong> is the web UI for <a href="../spark-SparkListener-EventLoggingListener.html" class="page">completed</a> and running (aka <em>incomplete</em>) Spark applications. It is an extension of Spark&#8217;s <a href="#webui:spark-webui.adoc" class="page unresolved">web UI</a>.</p>
+<p><strong>Spark History Server</strong> is the web UI of <a href="../spark-SparkListener-EventLoggingListener.html" class="page">completed</a> and still running (aka <em>incomplete</em>) Spark applications with event log collection enabled (using <a href="../spark-SparkListener-EventLoggingListener.html#spark_eventLog_enabled" class="page">spark.eventLog.enabled</a> configuration property).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1798,27 +1798,18 @@
 </div>
 <div class="title">Figure 1. History Server&#8217;s web UI</div>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Enable collecting events in your Spark applications using <a href="../spark-SparkListener-EventLoggingListener.html#spark_eventLog_enabled" class="page">spark.eventLog.enabled</a> Spark property.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Spark History Server is an extension of Spark&#8217;s <a href="../webui/index.html" class="page">web UI</a>.</p>
 </div>
 <div class="paragraph">
-<p>You can start History Server by executing <a href="#start_history_server_sh">start-history-server.sh</a> shell script and stop it using <a href="#stop_history_server_sh">stop-history-server.sh</a>.</p>
+<p>Spark History Server can be started using <a href="#start_history_server_sh">start-history-server.sh</a> and stopped using <a href="#stop_history_server_sh">stop-history-server.sh</a> shell scripts.</p>
 </div>
 <div class="paragraph">
 <p><code>start-history-server.sh</code> accepts <code>--properties-file [propertiesFile]</code> command-line option that specifies the properties file with the custom <a href="../spark-properties.html" class="page">Spark properties</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ ./sbin/start-history-server.sh --properties-file history.properties</code></pre>
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">$ ./sbin/start-history-server.sh --properties-file history.properties</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1855,11 +1846,11 @@ Enable collecting events in your Spark applications using <a href="../spark-Spar
 <h2 id="starting-history-serverstart-history-server-sh-shell-script"><a class="anchor" href="#starting-history-serverstart-history-server-sh-shell-script"></a><a class="link" href="#starting-history-serverstart-history-server-sh-shell-script"><a id="start_history_server_sh"></a> Starting History Server&#8201;&#8212;&#8201;<code>start-history-server.sh</code> Shell Script</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can start a <code>HistoryServer</code> instance by executing <code>$SPARK_HOME/sbin/start-history-server.sh</code> script (where <code>SPARK_HOME</code> is the directory of your Spark installation).</p>
+<p><code>$SPARK_HOME/sbin/start-history-server.sh</code> shell script (where <code>SPARK_HOME</code> is the directory of your Spark installation) is used to start a Spark History Server instance.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ ./sbin/start-history-server.sh
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">$ ./sbin/start-history-server.sh
 starting org.apache.spark.deploy.history.HistoryServer, logging to .../spark/logs/spark-jacek-org.apache.spark.deploy.history.HistoryServer-1-japila.out</code></pre>
 </div>
 </div>
@@ -1868,7 +1859,7 @@ starting org.apache.spark.deploy.history.HistoryServer, logging to .../spark/log
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ ./bin/spark-class org.apache.spark.deploy.history.HistoryServer</code></pre>
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">$ ./bin/spark-class org.apache.spark.deploy.history.HistoryServer</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1884,7 +1875,7 @@ Using the more explicit approach with <code>spark-class</code> to start Spark Hi
 </table>
 </div>
 <div class="paragraph">
-<p>When started, it prints out the following INFO message to the logs:</p>
+<p>When started, <code>start-history-server.sh</code> prints out the following INFO message to the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1892,7 +1883,7 @@ Using the more explicit approach with <code>spark-class</code> to start Spark Hi
 </div>
 </div>
 <div class="paragraph">
-<p>It registers signal handlers (using <code>SignalUtils</code>) for <code>TERM</code>, <code>HUP</code>, <code>INT</code> to log their execution:</p>
+<p><code>start-history-server.sh</code> registers signal handlers (using <code>SignalUtils</code>) for <code>TERM</code>, <code>HUP</code>, <code>INT</code> to log their execution:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1900,7 +1891,7 @@ Using the more explicit approach with <code>spark-class</code> to start Spark Hi
 </div>
 </div>
 <div class="paragraph">
-<p>It inits security if enabled (using <code>spark.history.kerberos.enabled</code> setting).</p>
+<p><code>start-history-server.sh</code> inits security if enabled (using <code>spark.history.kerberos.enabled</code> setting).</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -1915,13 +1906,13 @@ FIXME Describe <code>initSecurity</code>
 </table>
 </div>
 <div class="paragraph">
-<p>It creates a <code>SecurityManager</code>.</p>
+<p><code>start-history-server.sh</code> creates a <code>SecurityManager</code>.</p>
 </div>
 <div class="paragraph">
-<p>It creates a <a href="ApplicationHistoryProvider.html" class="page">ApplicationHistoryProvider</a> (by reading <a href="#spark_history_provider">spark.history.provider</a>).</p>
+<p><code>start-history-server.sh</code> creates a <a href="ApplicationHistoryProvider.html" class="page">ApplicationHistoryProvider</a> (by reading <a href="#spark_history_provider">spark.history.provider</a>).</p>
 </div>
 <div class="paragraph">
-<p>It <a href="HistoryServer.html#creating-instance" class="page">creates a <code>HistoryServer</code></a> and requests it to bind to <a href="#spark_history_ui_port">spark.history.ui.port</a> port.</p>
+<p>In the end, <code>start-history-server.sh</code> creates a <a href="HistoryServer.html" class="page">HistoryServer</a> and requests it to bind to the port as configured using <a href="#spark_history_ui_port">spark.history.ui.port</a> Spark property.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1938,7 +1929,7 @@ FIXME Describe <code>initSecurity</code>
 </table>
 </div>
 <div class="paragraph">
-<p>You should see the following INFO message in the logs:</p>
+<p><code>start-history-server.sh</code> prints out the following INFO message to the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1946,7 +1937,7 @@ FIXME Describe <code>initSecurity</code>
 </div>
 </div>
 <div class="paragraph">
-<p>It registers a shutdown hook to call <code>stop</code> on the <code>HistoryServer</code> instance.</p>
+<p><code>start-history-server.sh</code> registers a shutdown hook to call <code>stop</code> on the <code>HistoryServer</code> instance.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1966,25 +1957,24 @@ Use <a href="#stop_history_server">stop-history-server.sh</a> shell script to to
 <h2 id="stopping-history-serverstop-history-server-sh-shell-script"><a class="anchor" href="#stopping-history-serverstop-history-server-sh-shell-script"></a><a class="link" href="#stopping-history-serverstop-history-server-sh-shell-script"><a id="stop_history_server_sh"></a> Stopping History Server&#8201;&#8212;&#8201;<code>stop-history-server.sh</code> Shell Script</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can stop a running instance of <code>HistoryServer</code> using <code>$SPARK_HOME/sbin/stop-history-server.sh</code> shell script.</p>
+<p><code>$SPARK_HOME/sbin/stop-history-server.sh</code> shell script (where <code>SPARK_HOME</code> is the directory of your Spark installation) is used to stop a running instance of Spark History Server.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ ./sbin/stop-history-server.sh
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">$ ./sbin/stop-history-server.sh
 stopping org.apache.spark.deploy.history.HistoryServer</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h2>
+<h2 id="spark-properties"><a class="anchor" href="#spark-properties"></a><a class="link" href="#spark-properties"><a id="properties"></a> Spark Properties</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Spark Properties</caption>
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 50%;">
+<col style="width: 30%;">
+<col style="width: 30%;">
+<col style="width: 40%;">
 </colgroup>
 <thead>
 <tr>
@@ -1995,44 +1985,44 @@ stopping org.apache.spark.deploy.history.HistoryServer</code></pre>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_history_ui_port"></a> <code>spark.history.ui.port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.ui.port</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>18080</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The port of the History Server&#8217;s UI.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_history_ui_port"></a> The port of the History Server&#8217;s UI.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_history_fs_logDirectory"></a> <code>spark.history.fs.logDirectory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.fs.logDirectory</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>file:/tmp/spark-events</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The directory with the event logs. The directory has to exist before starting History Server.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_history_fs_logDirectory"></a> The directory with the event logs. The directory has to exist before starting History Server.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.retainedApplications</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>50</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">How many Spark applications to retain.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.retainedApplications"></a> How many Spark applications to retain.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.ui.maxApplications</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">(unbounded)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">how many Spark applications to show in the UI.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.ui.maxApplications"></a> how many Spark applications to show in the UI.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.kerberos.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable security when working with HDFS with security enabled (Kerberos).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.kerberos.enabled"></a> Enable security when working with HDFS with security enabled (Kerberos).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.kerberos.principal</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">(empty)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Kerberos principal. Required when <code>spark.history.kerberos.enabled</code> is enabled.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.kerberos.principal"></a> Kerberos principal. Required when <code>spark.history.kerberos.enabled</code> is enabled.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.kerberos.keytab</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">(empty)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Keytab to use for login to Kerberos. Required when <code>spark.history.kerberos.enabled</code> is enabled.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.kerberos.keytab"></a> Keytab to use for login to Kerberos. Required when <code>spark.history.kerberos.enabled</code> is enabled.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_history_provider"></a> <code>spark.history.provider</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.provider</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="FsHistoryProvider.html" class="page">org.apache.spark.deploy.history.FsHistoryProvider</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The fully-qualified class name for a <a href="ApplicationHistoryProvider.html" class="page">ApplicationHistoryProvider</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_history_provider"></a> The fully-qualified class name for a <a href="ApplicationHistoryProvider.html" class="page">ApplicationHistoryProvider</a>.</p></td>
 </tr>
 </tbody>
 </table>
