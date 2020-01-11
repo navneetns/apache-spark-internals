@@ -1790,7 +1790,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Spark History Server</strong> is the web UI for <a href="spark-SparkListener-EventLoggingListener.adoc">completed</a> and running (aka <em>incomplete</em>) Spark applications. It is an extension of Spark&#8217;s <a href="spark-webui.adoc">web UI</a>.</p>
+<p><strong>Spark History Server</strong> is the web UI for <a href="../spark-SparkListener-EventLoggingListener.html" class="page">completed</a> and running (aka <em>incomplete</em>) Spark applications. It is an extension of Spark&#8217;s <a href="#webui:spark-webui.adoc" class="page unresolved">web UI</a>.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1805,16 +1805,16 @@
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Enable collecting events in your Spark applications using <a href="spark-SparkListener-EventLoggingListener.adoc#spark_eventLog_enabled">spark.eventLog.enabled</a> Spark property.
+Enable collecting events in your Spark applications using <a href="../spark-SparkListener-EventLoggingListener.html#spark_eventLog_enabled" class="page">spark.eventLog.enabled</a> Spark property.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>You can start History Server by executing <a href="#start_history_server_sh"><code>start-history-server.sh</code> shell script</a> and stop it using <a href="#stop_history_server_sh"><code>stop-history-server.sh</code></a>.</p>
+<p>You can start History Server by executing <a href="#start_history_server_sh">start-history-server.sh</a> shell script and stop it using <a href="#stop_history_server_sh">stop-history-server.sh</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>start-history-server.sh</code> accepts <code>--properties-file [propertiesFile]</code> command-line option that specifies the properties file with the custom <a href="spark-properties.adoc">Spark properties</a>.</p>
+<p><code>start-history-server.sh</code> accepts <code>--properties-file [propertiesFile]</code> command-line option that specifies the properties file with the custom <a href="../spark-properties.html" class="page">Spark properties</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1822,7 +1822,7 @@ Enable collecting events in your Spark applications using <a href="spark-SparkLi
 </div>
 </div>
 <div class="paragraph">
-<p>If not specified explicitly, Spark History Server uses the default configuration file, i.e. <a href="spark-properties.adoc#spark-defaults-conf">spark-defaults.conf</a>.</p>
+<p>If not specified explicitly, Spark History Server uses the default configuration file, i.e. <a href="../spark-properties.html#spark-defaults-conf" class="page">spark-defaults.conf</a>.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1843,7 +1843,7 @@ Enable collecting events in your Spark applications using <a href="spark-SparkLi
 </div>
 </div>
 <div class="paragraph">
-<p>Refer to <a href="spark-logging.adoc">Logging</a>.</p>
+<p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
 </div>
 </td>
 </tr>
@@ -1852,7 +1852,7 @@ Enable collecting events in your Spark applications using <a href="spark-SparkLi
 </div>
 </div>
 <div class="sect1">
-<h2 id="starting-history-serverstart-history-server-sh-script"><a class="anchor" href="#starting-history-serverstart-history-server-sh-script"></a><a class="link" href="#starting-history-serverstart-history-server-sh-script"><a id="start_history_server_sh"></a> Starting History Server&#8201;&#8212;&#8201;<code>start-history-server.sh</code> script</a></h2>
+<h2 id="starting-history-serverstart-history-server-sh-shell-script"><a class="anchor" href="#starting-history-serverstart-history-server-sh-shell-script"></a><a class="link" href="#starting-history-serverstart-history-server-sh-shell-script"><a id="start_history_server_sh"></a> Starting History Server&#8201;&#8212;&#8201;<code>start-history-server.sh</code> Shell Script</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>You can start a <code>HistoryServer</code> instance by executing <code>$SPARK_HOME/sbin/start-history-server.sh</code> script (where <code>SPARK_HOME</code> is the directory of your Spark installation).</p>
@@ -1864,7 +1864,7 @@ starting org.apache.spark.deploy.history.HistoryServer, logging to .../spark/log
 </div>
 </div>
 <div class="paragraph">
-<p>Internally, <code>start-history-server.sh</code> script starts <a href="HistoryServer.html#main" class="page">org.apache.spark.deploy.history.HistoryServer</a> standalone application for execution (using <code>spark-daemon.sh</code> shell script).</p>
+<p>Internally, <code>start-history-server.sh</code> script starts <a href="HistoryServer.html" class="page">org.apache.spark.deploy.history.HistoryServer</a> standalone application (using <code>spark-daemon.sh</code> shell script).</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1888,7 +1888,7 @@ Using the more explicit approach with <code>spark-class</code> to start Spark Hi
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>INFO HistoryServer: Started daemon with process name: [processName]</code></pre>
+<pre class="highlightjs highlight"><code>Started daemon with process name: [processName]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1896,7 +1896,7 @@ Using the more explicit approach with <code>spark-class</code> to start Spark Hi
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>ERROR HistoryServer: RECEIVED SIGNAL [signal]</code></pre>
+<pre class="highlightjs highlight"><code>RECEIVED SIGNAL [signal]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1942,7 +1942,7 @@ FIXME Describe <code>initSecurity</code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>INFO HistoryServer: Bound HistoryServer to [host], and started at [webUrl]</code></pre>
+<pre class="highlightjs highlight"><code>Bound HistoryServer to [host], and started at [webUrl]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1963,7 +1963,7 @@ Use <a href="#stop_history_server">stop-history-server.sh</a> shell script to to
 </div>
 </div>
 <div class="sect1">
-<h2 id="stopping-history-serverstop-history-server-sh-script"><a class="anchor" href="#stopping-history-serverstop-history-server-sh-script"></a><a class="link" href="#stopping-history-serverstop-history-server-sh-script"><a id="stop_history_server_sh"></a> Stopping History Server&#8201;&#8212;&#8201;<code>stop-history-server.sh</code> script</a></h2>
+<h2 id="stopping-history-serverstop-history-server-sh-shell-script"><a class="anchor" href="#stopping-history-serverstop-history-server-sh-shell-script"></a><a class="link" href="#stopping-history-serverstop-history-server-sh-shell-script"><a id="stop_history_server_sh"></a> Stopping History Server&#8201;&#8212;&#8201;<code>stop-history-server.sh</code> Shell Script</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>You can stop a running instance of <code>HistoryServer</code> using <code>$SPARK_HOME/sbin/stop-history-server.sh</code> shell script.</p>
