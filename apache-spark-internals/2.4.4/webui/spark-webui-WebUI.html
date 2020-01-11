@@ -921,33 +921,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-history-server.html">Spark History Server</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-HistoryServer.html">HistoryServer</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-SQLHistoryListener.html">SQLHistoryListener</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-FsHistoryProvider.html">FsHistoryProvider</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-HistoryServerArguments.html">HistoryServerArguments</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-ApplicationCacheOperations.html">ApplicationCacheOperations</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-ApplicationCache.html">ApplicationCache</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
     <span class="nav-text">Monitoring, Tuning, Debugging and Testing</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -1468,6 +1441,37 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../spark-history-server/index.html">Spark History Server</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/HistoryServer.html">HistoryServer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/SQLHistoryListener.html">SQLHistoryListener</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/FsHistoryProvider.html">FsHistoryProvider</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/HistoryServerArguments.html">HistoryServerArguments</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/ApplicationCacheOperations.html">ApplicationCacheOperations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/ApplicationCache.html">ApplicationCache</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../spark-local/index.html">Spark local</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -1883,7 +1887,7 @@ abstract class WebUI {
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-history-server-HistoryServer.adoc">HistoryServer</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../spark-history-server/HistoryServer.html" class="page">HistoryServer</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="HistoryServer"></a> Used in Spark History Server</p></td>
 </tr>
 <tr>
@@ -2167,7 +2171,7 @@ abstract class WebUI {
 <p><code>WebUI</code> is requested to <a href="#attachTab">attach a WebUITab</a> (the <a href="spark-webui-WebUITab.adoc#pages">WebUIPages</a> actually)</p>
 </li>
 <li>
-<p><a href="spark-history-server-HistoryServer.adoc#initialize">HistoryServer</a>, Spark Standalone&#8217;s <code>MasterWebUI</code> and <code>WorkerWebUI</code>, Spark on Mesos' <code>MesosClusterUI</code> are requested to <code>initialize</code></p>
+<p><a href="../spark-history-server/HistoryServer.html#initialize" class="page">HistoryServer</a>, Spark Standalone&#8217;s <code>MasterWebUI</code> and <code>WorkerWebUI</code>, Spark on Mesos' <code>MesosClusterUI</code> are requested to <code>initialize</code></p>
 </li>
 </ul>
 </div>
@@ -2248,7 +2252,7 @@ abstract class WebUI {
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#implementations">web UIs</a> (i.e. <a href="spark-history-server-HistoryServer.adoc#initialize">HistoryServer</a>, Spark Standalone&#8217;s <code>MasterWebUI</code> and <code>WorkerWebUI</code>, Spark on Mesos' <code>MesosClusterUI</code>, <a href="spark-webui-SparkUI.adoc#initialize">SparkUI</a>) are requested to initialize</p>
+<p><a href="#implementations">web UIs</a> (i.e. <a href="../spark-history-server/HistoryServer.html#initialize" class="page">HistoryServer</a>, Spark Standalone&#8217;s <code>MasterWebUI</code> and <code>WorkerWebUI</code>, Spark on Mesos' <code>MesosClusterUI</code>, <a href="spark-webui-SparkUI.adoc#initialize">SparkUI</a>) are requested to initialize</p>
 </li>
 <li>
 <p><code>WebUI</code> is requested to <a href="#attachPage">attach a page to web UI</a> and <a href="#addStaticHandler">addStaticHandler</a></p>
@@ -2257,7 +2261,7 @@ abstract class WebUI {
 <p><code>SparkContext</code> is created (and <a href="spark-SparkContext-creating-instance-internals.adoc#metricsSystem">attaches the driver metrics servlet handler to the web UI</a>)</p>
 </li>
 <li>
-<p><code>HistoryServer</code> is requested to <a href="spark-history-server-HistoryServer.adoc#attachSparkUI">attachSparkUI</a></p>
+<p><code>HistoryServer</code> is requested to <a href="../spark-history-server/HistoryServer.html#attachSparkUI" class="page">attachSparkUI</a></p>
 </li>
 <li>
 <p>Spark Standalone&#8217;s <code>Master</code> and <code>Worker</code> are requested to <code>onStart</code> (and attach their metrics servlet handlers to the web ui)</p>

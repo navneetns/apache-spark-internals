@@ -921,33 +921,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-history-server.html">Spark History Server</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-HistoryServer.html">HistoryServer</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-SQLHistoryListener.html">SQLHistoryListener</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-FsHistoryProvider.html">FsHistoryProvider</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-HistoryServerArguments.html">HistoryServerArguments</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-ApplicationCacheOperations.html">ApplicationCacheOperations</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server-ApplicationCache.html">ApplicationCache</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
     <span class="nav-text">Monitoring, Tuning, Debugging and Testing</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -1459,6 +1432,37 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-mllib/spark-mllib-MLUtils.html">MLUtils</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../spark-history-server/index.html">Spark History Server</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/HistoryServer.html">HistoryServer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/SQLHistoryListener.html">SQLHistoryListener</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/FsHistoryProvider.html">FsHistoryProvider</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/HistoryServerArguments.html">HistoryServerArguments</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/ApplicationCacheOperations.html">ApplicationCacheOperations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/ApplicationCache.html">ApplicationCache</a>
   </li>
 </ul>
   </li>
@@ -2493,7 +2497,7 @@ A Spark application&#8217;s exit codes are passed directly to <a href="#finish">
 <div class="title">Figure 4. Registering ApplicationMaster with YARN ResourceManager</div>
 </div>
 <div class="paragraph">
-<p>Internally, <code>registerAM</code> first takes the application and attempt ids, and creates the URL of <a href="../spark-history-server.adoc">Spark History Server</a> for the Spark application, i.e. <code>[address]/history/[appId]/[attemptId]</code>, by <a href="../spark-SparkHadoopUtil.adoc#substituteHadoopVariables">substituting Hadoop variables</a> (using the internal <a href="#yarnConf">YarnConfiguration</a>) in the optional <a href="spark-yarn-settings.adoc#spark.yarn.historyServer.address">spark.yarn.historyServer.address</a> setting.</p>
+<p>Internally, <code>registerAM</code> first takes the application and attempt ids, and creates the URL of <a href="../spark-history-server/index.html" class="page">Spark History Server</a> for the Spark application, i.e. <code>[address]/history/[appId]/[attemptId]</code>, by <a href="../spark-SparkHadoopUtil.adoc#substituteHadoopVariables">substituting Hadoop variables</a> (using the internal <a href="#yarnConf">YarnConfiguration</a>) in the optional <a href="spark-yarn-settings.adoc#spark.yarn.historyServer.address">spark.yarn.historyServer.address</a> setting.</p>
 </div>
 <div class="paragraph">
 <p><code>registerAM</code> then creates a <a href="../spark-rpc.adoc#RpcEndpointAddress">RpcEndpointAddress</a> for the driver&#8217;s <a href="../spark-CoarseGrainedSchedulerBackend.adoc#CoarseGrainedScheduler">CoarseGrainedScheduler RPC endpoint</a> available at <a href="../spark-driver.adoc#spark.driver.host">spark.driver.host</a> and <a href="../spark-driver.adoc#spark.driver.port">spark.driver.port</a>.</p>
