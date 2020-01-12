@@ -937,9 +937,6 @@
     <a class="nav-link" href="spark-SparkListener-AppStatusListener.html">AppStatusListener</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-SparkListener-EventLoggingListener.html">EventLoggingListener</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-SparkListener-ExecutorAllocationListener.html">ExecutorAllocationListener</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -1445,6 +1442,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-history-server/HistoryServer.html">HistoryServer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spark-history-server/EventLoggingListener.html">EventLoggingListener</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-history-server/SQLHistoryListener.html">SQLHistoryListener</a>
@@ -1989,10 +1989,10 @@ Use <code>sc.getConf.get("spark.executor.id")</code> to know where the code is e
 <p>It sets the jars and files based on <code>spark.jars</code> and <code>spark.files</code>, respectively. These are files that are required for proper task execution on executors.</p>
 </div>
 <div class="paragraph">
-<p>If <a href="spark-SparkListener-EventLoggingListener.adoc">event logging</a> is enabled, i.e. <a href="spark-SparkListener-EventLoggingListener.adoc#spark_eventLog_enabled">spark.eventLog.enabled</a> flag is <code>true</code>, the internal field <code>_eventLogDir</code> is set to the value of <a href="spark-SparkListener-EventLoggingListener.adoc#spark_eventLog_dir">spark.eventLog.dir</a> setting or the default value <code>/tmp/spark-events</code>.</p>
+<p>If <a href="spark-history-server/EventLoggingListener.html" class="page">event logging</a> is enabled, i.e. <a href="EventLoggingListener.adoc#spark_eventLog_enabled">spark.eventLog.enabled</a> flag is <code>true</code>, the internal field <code>_eventLogDir</code> is set to the value of <a href="EventLoggingListener.adoc#spark_eventLog_dir">spark.eventLog.dir</a> setting or the default value <code>/tmp/spark-events</code>.</p>
 </div>
 <div id="_eventLogCodec" class="paragraph">
-<p>Also, if <a href="spark-SparkListener-EventLoggingListener.adoc#spark_eventLog_compress">spark.eventLog.compress</a> is enabled (it is not by default), the short name of the <a href="spark-CompressionCodec.adoc">CompressionCodec</a> is assigned to <code>_eventLogCodec</code>. The config key is <a href="spark-service-broadcastmanager.adoc#spark_io_compression_codec">spark.io.compression.codec</a> (default: <code>lz4</code>).</p>
+<p>Also, if <a href="spark-history-server/EventLoggingListener.html#spark_eventLog_compress" class="page">spark.eventLog.compress</a> is enabled (it is not by default), the short name of the <a href="spark-CompressionCodec.adoc">CompressionCodec</a> is assigned to <code>_eventLogCodec</code>. The config key is <a href="spark-service-broadcastmanager.adoc#spark_io_compression_codec">spark.io.compression.codec</a> (default: <code>lz4</code>).</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -2235,7 +2235,7 @@ The unique identifier of a Spark application is used to initialize <a href="spar
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>_applicationAttemptId</code> is used when <code>SparkContext</code> is requested for the <a href="spark-SparkContext.adoc#applicationAttemptId">unique identifier of execution attempt of a Spark application</a> and when <code>EventLoggingListener</code> <a href="spark-SparkListener-EventLoggingListener.adoc#creating-instance">is created</a>.
+<code>_applicationAttemptId</code> is used when <code>SparkContext</code> is requested for the <a href="spark-SparkContext.adoc#applicationAttemptId">unique identifier of execution attempt of a Spark application</a> and when <code>EventLoggingListener</code> <a href="spark-history-server/EventLoggingListener.html#creating-instance" class="page">is created</a>.
 </td>
 </tr>
 </table>
@@ -2277,7 +2277,7 @@ The unique identifier of a Spark application is used to initialize <a href="spar
 <p><code>SparkContext</code> requests the <code>MetricsSystem</code> for a <a href="spark-metrics-MetricsSystem.adoc#getServletHandlers">JSON servlet handler</a> and requests the <a href="#_ui">SparkUI</a> to <a href="spark-webui-WebUI.adoc#attachHandler">attach it</a>.</p>
 </div>
 <div id="_eventLogger" class="paragraph">
-<p><code>_eventLogger</code> is created and started if <code>isEventLogEnabled</code>. It uses <a href="spark-SparkListener-EventLoggingListener.adoc">EventLoggingListener</a> that gets registered to <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a>.</p>
+<p><code>_eventLogger</code> is created and started if <code>isEventLogEnabled</code>. It uses <a href="spark-history-server/EventLoggingListener.html" class="page">EventLoggingListener</a> that gets registered to <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a>.</p>
 </div>
 <div class="admonitionblock caution">
 <table>

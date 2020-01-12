@@ -937,9 +937,6 @@
     <a class="nav-link" href="spark-SparkListener-AppStatusListener.html">AppStatusListener</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-SparkListener-EventLoggingListener.html">EventLoggingListener</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-SparkListener-ExecutorAllocationListener.html">ExecutorAllocationListener</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -1447,6 +1444,9 @@
     <a class="nav-link" href="spark-history-server/HistoryServer.html">HistoryServer</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spark-history-server/EventLoggingListener.html">EventLoggingListener</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-history-server/SQLHistoryListener.html">SQLHistoryListener</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -1797,7 +1797,7 @@
 <p><code>SparkListener</code> extends <a href="#SparkListenerInterface">SparkListenerInterface</a> with all the <em>callback methods</em> being no-op/do-nothing.</p>
 </div>
 <div class="paragraph">
-<p>Spark <a href="#builtin-implementations">relies on <code>SparkListeners</code> internally</a> to manage communication between internal components in the distributed environment for a Spark application, e.g. <a href="spark-webui.adoc">web UI</a>, <a href="spark-SparkListener-EventLoggingListener.adoc">event persistence</a> (for History Server), <a href="spark-ExecutorAllocationManager.adoc">dynamic allocation of executors</a>, <a href="spark-HeartbeatReceiver.adoc">keeping track of executors (using <code>HeartbeatReceiver</code>)</a> and others.</p>
+<p>Spark <a href="#builtin-implementations">relies on <code>SparkListeners</code> internally</a> to manage communication between internal components in the distributed environment for a Spark application, e.g. <a href="spark-webui.adoc">web UI</a>, <a href="spark-history-server/EventLoggingListener.html" class="page">event persistence</a> (for History Server), <a href="spark-ExecutorAllocationManager.adoc">dynamic allocation of executors</a>, <a href="spark-HeartbeatReceiver.adoc">keeping track of executors (using <code>HeartbeatReceiver</code>)</a> and others.</p>
 </div>
 <div class="paragraph">
 <p>You can develop your own custom <code>SparkListener</code> and register it using <a href="spark-SparkContext.adoc#addSparkListener">SparkContext.addSparkListener</a> method or <a href="spark-scheduler-LiveListenerBus.adoc#spark_extraListeners">spark.extraListeners</a> Spark property.</p>
@@ -2001,7 +2001,7 @@ Developing a custom SparkListener is an excellent introduction to low-level deta
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-SparkListener-EventLoggingListener.adoc">EventLoggingListener</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-history-server/EventLoggingListener.html" class="page">EventLoggingListener</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Logs JSON-encoded events to a file that can later be read by <a href="spark-history-server/index.html" class="page">History Server</a></p></td>
 </tr>
 <tr>

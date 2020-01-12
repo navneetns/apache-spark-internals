@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/2.4.4/spark-on-yarn/spark-yarn-AMEndpoint.html">
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/2.4.4/spark-history-server/EventLoggingListener.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -1438,31 +1438,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-history-server/index.html">Spark History Server</a>
+    <a class="nav-link" href="index.html">Spark History Server</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server/HistoryServer.html">HistoryServer</a>
+    <a class="nav-link" href="HistoryServer.html">HistoryServer</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="EventLoggingListener.html">EventLoggingListener</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server/EventLoggingListener.html">EventLoggingListener</a>
+    <a class="nav-link" href="SQLHistoryListener.html">SQLHistoryListener</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server/SQLHistoryListener.html">SQLHistoryListener</a>
+    <a class="nav-link" href="FsHistoryProvider.html">FsHistoryProvider</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server/FsHistoryProvider.html">FsHistoryProvider</a>
+    <a class="nav-link" href="ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server/ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
+    <a class="nav-link" href="HistoryServerArguments.html">HistoryServerArguments</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server/HistoryServerArguments.html">HistoryServerArguments</a>
+    <a class="nav-link" href="ApplicationCacheOperations.html">ApplicationCacheOperations</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server/ApplicationCacheOperations.html">ApplicationCacheOperations</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-history-server/ApplicationCache.html">ApplicationCache</a>
+    <a class="nav-link" href="ApplicationCache.html">ApplicationCache</a>
   </li>
 </ul>
   </li>
@@ -1491,88 +1491,88 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Spark on YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/index.html">Spark on YARN</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnShuffleService.html">YarnShuffleService&#8201;&#8212;&#8201;ExternalShuffleService on YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnShuffleService.html">YarnShuffleService&#8201;&#8212;&#8201;ExternalShuffleService on YARN</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-ExecutorRunnable.html">ExecutorRunnable</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-ExecutorRunnable.html">ExecutorRunnable</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-client.html">Client</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-client.html">Client</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-yarnrmclient.html">YarnRMClient</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnrmclient.html">YarnRMClient</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-applicationmaster.html">ApplicationMaster</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-applicationmaster.html">ApplicationMaster</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="spark-yarn-AMEndpoint.html">AMEndpoint&#8201;&#8212;&#8201;ApplicationMaster RPC Endpoint</a>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-AMEndpoint.html">AMEndpoint&#8201;&#8212;&#8201;ApplicationMaster RPC Endpoint</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnClusterManager.html">YarnClusterManager&#8201;&#8212;&#8201;ExternalClusterManager for YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnClusterManager.html">YarnClusterManager&#8201;&#8212;&#8201;ExternalClusterManager for YARN</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-taskschedulers.html">TaskSchedulers for YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-taskschedulers.html">TaskSchedulers for YARN</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-yarnscheduler.html">YarnScheduler</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnscheduler.html">YarnScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-yarnclusterscheduler.html">YarnClusterScheduler</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnclusterscheduler.html">YarnClusterScheduler</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-schedulerbackends.html">SchedulerBackends for YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-schedulerbackends.html">SchedulerBackends for YARN</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-yarnschedulerbackend.html">YarnSchedulerBackend</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnschedulerbackend.html">YarnSchedulerBackend</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-client-yarnclientschedulerbackend.html">YarnClientSchedulerBackend</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-client-yarnclientschedulerbackend.html">YarnClientSchedulerBackend</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-cluster-yarnclusterschedulerbackend.html">YarnClusterSchedulerBackend</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-cluster-yarnclusterschedulerbackend.html">YarnClusterSchedulerBackend</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-cluster-YarnSchedulerEndpoint.html">YarnSchedulerEndpoint RPC Endpoint</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-cluster-YarnSchedulerEndpoint.html">YarnSchedulerEndpoint RPC Endpoint</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnAllocator.html">YarnAllocator</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnAllocator.html">YarnAllocator</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-introduction.html">Introduction to Hadoop YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-introduction.html">Introduction to Hadoop YARN</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-cluster-setup.html">Setting up YARN Cluster</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-cluster-setup.html">Setting up YARN Cluster</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-kerberos.html">Kerberos</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-kerberos.html">Kerberos</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-ConfigurableCredentialManager.html">ConfigurableCredentialManager</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-ConfigurableCredentialManager.html">ConfigurableCredentialManager</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-ClientDistributedCacheManager.html">ClientDistributedCacheManager</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-ClientDistributedCacheManager.html">ClientDistributedCacheManager</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnSparkHadoopUtil.html">YarnSparkHadoopUtil</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnSparkHadoopUtil.html">YarnSparkHadoopUtil</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-settings.html">Settings</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-settings.html">Settings</a>
   </li>
 </ul>
   </li>
@@ -1773,98 +1773,79 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li><a href="index.html">Spark on YARN</a></li>
-    <li><a href="spark-yarn-applicationmaster.html">ApplicationMaster</a></li>
-    <li><a href="spark-yarn-AMEndpoint.html">AMEndpoint&#8201;&#8212;&#8201;ApplicationMaster RPC Endpoint</a></li>
+    <li><a href="index.html">Spark History Server</a></li>
+    <li><a href="EventLoggingListener.html">EventLoggingListener</a></li>
   </ul>
 </nav>
 <div class="page-versions">
   <button class="version-menu-toggle" title="Show other versions of page">2.4.4</button>
   <div class="version-menu">
-    <a class="version is-current" href="spark-yarn-AMEndpoint.html">2.4.4</a>
-    <a class="version" href="../../2.4.3/spark-on-yarn/spark-yarn-AMEndpoint.html">2.4.3</a>
+    <a class="version is-current" href="EventLoggingListener.html">2.4.4</a>
+    <a class="version is-missing" href="../../2.4.3/index.html">2.4.3</a>
   </div>
 </div>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/v2.4.4/modules/spark-on-yarn/pages/spark-yarn-AMEndpoint.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/v2.4.4/modules/spark-history-server/pages/EventLoggingListener.adoc">Edit this Page</a></div>
   </div>
 <article class="doc">
 <div class="sect1">
-<h2 id="amendpointapplicationmaster-rpc-endpoint"><a class="anchor" href="#amendpointapplicationmaster-rpc-endpoint"></a><a class="link" href="#amendpointapplicationmaster-rpc-endpoint"><a id="AMEndpoint"></a> AMEndpoint&#8201;&#8212;&#8201;ApplicationMaster RPC Endpoint</a></h2>
+<h2 id="eventlogginglistenerspark-listener-for-persisting-events"><a class="anchor" href="#eventlogginglistenerspark-listener-for-persisting-events"></a><a class="link" href="#eventlogginglistenerspark-listener-for-persisting-events"><a id="EventLoggingListener"></a> EventLoggingListener&#8201;&#8212;&#8201;Spark Listener for Persisting Events</a></h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="onstart-callback"><a class="anchor" href="#onstart-callback"></a><a class="link" href="#onstart-callback"><a id="onStart"></a> onStart Callback</a></h3>
 <div class="paragraph">
-<p>When <code>onStart</code> is called, <code>AMEndpoint</code> communicates with the driver (the <code>driver</code> remote RPC Endpoint reference) by sending a one-way <code>RegisterClusterManager</code> message with a reference to itself.</p>
+<p><code>EventLoggingListener</code> is a <a href="spark-scheduler-SparkListener.adoc">SparkListener</a> that <a href="#logEvent">persists JSON-encoded events</a> to a file.</p>
 </div>
 <div class="paragraph">
-<p>After <code>RegisterClusterManager</code> has been sent (and received by <a href="spark-yarn-cluster-YarnSchedulerEndpoint.adoc#RegisterClusterManager">YarnSchedulerEndpoint</a>) the communication between the RPC endpoints of <a href="#ApplicationMaster">ApplicationMaster</a> (YARN) and <a href="spark-yarn-yarnschedulerbackend.adoc">YarnSchedulerBackend</a> (the Spark driver) is considered established.</p>
+<p>When <a href="#spark_eventLog_enabled">event logging is enabled</a>, <code>EventLoggingListener</code> writes events to a log file under <a href="#spark_eventLog_dir">spark.eventLog.dir</a> directory. All <a href="spark-scheduler-SparkListener.adoc">Spark events</a> are logged (except  <a href="spark-scheduler-SparkListener.adoc#SparkListenerBlockUpdated">SparkListenerBlockUpdated</a> and <a href="spark-scheduler-SparkListener.adoc#SparkListenerExecutorMetricsUpdate">SparkListenerExecutorMetricsUpdate</a>).</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="rpc-messages"><a class="anchor" href="#rpc-messages"></a><a class="link" href="#rpc-messages"><a id="messages"></a> RPC Messages</a></h3>
-<div class="sect3">
-<h4 id="addwebuifilter"><a class="anchor" href="#addwebuifilter"></a><a class="link" href="#addwebuifilter"><a id="AddWebUIFilter"></a> AddWebUIFilter</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">AddWebUIFilter(
-  filterName: String,
-  filterParams: Map[String, String],
-  proxyBase: String)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When <code>AddWebUIFilter</code> arrives, you should see the following INFO message in the logs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>INFO ApplicationMaster$AMEndpoint: Add WebUI Filter. [addWebUIFilter]</code></pre>
-</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Use <a href="index.html" class="page">Spark History Server</a> to view the event logs in a browser.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>It then passes the <code>AddWebUIFilter</code> message on to the driver&#8217;s scheduler backend (through <a href="spark-yarn-cluster-YarnSchedulerEndpoint.adoc#AddWebUIFilter">YarnScheduler RPC Endpoint</a>).</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="requestexecutors"><a class="anchor" href="#requestexecutors"></a><a class="link" href="#requestexecutors"><a id="RequestExecutors"></a> RequestExecutors</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">RequestExecutors(
-  requestedTotal: Int,
-  localityAwareTasks: Int,
-  hostToLocalTaskCount: Map[String, Int])</code></pre>
-</div>
+<p>Events can optionally be <a href="#compressing-events">compressed</a>.</p>
 </div>
 <div class="paragraph">
-<p>When <code>RequestExecutors</code> arrives, <code>AMEndpoint</code> <a href="spark-yarn-YarnAllocator.adoc#requestTotalExecutorsWithPreferredLocalities">requests <code>YarnAllocator</code> for executors given locality preferences</a>.</p>
+<p>In-flight log files are with <code>.inprogress</code> extension.</p>
 </div>
 <div class="paragraph">
-<p>If the <code>requestedTotal</code> number of executors is different than the current number, <a href="#resetAllocatorInterval">resetAllocatorInterval</a> is executed.</p>
+<p><code>EventLoggingListener</code> is a <code>private[spark]</code> class in <code>org.apache.spark.scheduler</code> package.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Enable <code>INFO</code> logging level for <code>org.apache.spark.scheduler.EventLoggingListener</code> logger to see what happens inside <code>EventLoggingListener</code>.</p>
 </div>
 <div class="paragraph">
-<p>In case when <code>YarnAllocator</code> is not available yet, you should see the following WARN message in the logs:</p>
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>WARN Container allocator is not ready to request executors yet.</code></pre>
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.scheduler.EventLoggingListener=INFO</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The response is <code>false</code> then.</p>
+<p>Refer to <a href="spark-logging.adoc">Logging</a>.</p>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
-<h3 id="resetallocatorinterval"><a class="anchor" href="#resetallocatorinterval"></a><a class="link" href="#resetallocatorinterval"><a id="resetAllocatorInterval"></a> resetAllocatorInterval</a></h3>
+<h3 id="creating-eventlogginglistener-instance"><a class="anchor" href="#creating-eventlogginglistener-instance"></a><a class="link" href="#creating-eventlogginglistener-instance"><a id="creating-instance"></a> Creating EventLoggingListener Instance</a></h3>
 <div class="paragraph">
-<p>When <a href="#RequestExecutors">RequestExecutors</a> message arrives, it calls <code>resetAllocatorInterval</code> procedure.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">resetAllocatorInterval(): Unit</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>resetAllocatorInterval</code> requests <code>allocatorLock</code> monitor lock and sets the internal <code>nextAllocationInterval</code> attribute to be <code>initialAllocationInterval</code> internal attribute. It then wakes up all threads waiting on <code>allocatorLock</code>.</p>
+<p><code>EventLoggingListener</code> requires an application id (<code>appId</code>), the application&#8217;s optional attempt id (<code>appAttemptId</code>), <code>logBaseDir</code>, a <a href="spark-SparkConf.adoc">SparkConf</a> (as <code>sparkConf</code>) and Hadoop&#8217;s <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/conf/Configuration.html">Configuration</a> (as <code>hadoopConf</code>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1873,11 +1854,205 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-A thread waits on a monitor by calling one of the <code>Object.wait</code> methods.
+When initialized with no Hadoop&#8217;s <code>Configuration</code> it calls <a href="spark-SparkHadoopUtil.adoc#newConfiguration">SparkHadoopUtil.get.newConfiguration(sparkConf)</a>.
 </td>
 </tr>
 </table>
 </div>
+</div>
+<div class="sect2">
+<h3 id="starting-eventlogginglistenerstart-method"><a class="anchor" href="#starting-eventlogginglistenerstart-method"></a><a class="link" href="#starting-eventlogginglistenerstart-method"><a id="start"></a> Starting EventLoggingListener&#8201;&#8212;&#8201;<code>start</code> method</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">start(): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>start</code> checks whether <code>logBaseDir</code> is really a directory, and if it is not, it throws a <code>IllegalArgumentException</code> with the following message:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Log directory [logBaseDir] does not exist.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The log file&#8217;s working name is created based on <code>appId</code> with or without the compression codec used and <code>appAttemptId</code>, i.e. <code>local-1461696754069</code>. It also uses <code>.inprogress</code> extension.</p>
+</div>
+<div class="paragraph">
+<p>If <a href="#spark_eventLog_overwrite">overwrite is enabled</a>, you should see the WARN message:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>WARN EventLoggingListener: Event log [path] already exists. Overwriting...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The working log <code>.inprogress</code> is attempted to be deleted. In case it could not be deleted, the following WARN message is printed out to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>WARN EventLoggingListener: Error deleting [path]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The buffered output stream is created with metadata with Spark&#8217;s version and <code>SparkListenerLogStart</code> class' name as the first line.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>{"Event":"SparkListenerLogStart","Spark Version":"2.0.0-SNAPSHOT"}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, <code>EventLoggingListener</code> is ready for event logging and you should see the following INFO message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>INFO EventLoggingListener: Logging events to [logPath]</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>start</code> is executed while <a href="spark-SparkContext-creating-instance-internals.adoc#_eventLogger"><code>SparkContext</code> is created</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging-event-as-jsonlogevent-method"><a class="anchor" href="#logging-event-as-jsonlogevent-method"></a><a class="link" href="#logging-event-as-jsonlogevent-method"><a id="logEvent"></a> Logging Event as JSON&#8201;&#8212;&#8201;<code>logEvent</code> method</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">logEvent(event: SparkListenerEvent, flushLogger: Boolean = false)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>logEvent</code> logs <code>event</code> as JSON.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="stopping-eventlogginglistenerstop-method"><a class="anchor" href="#stopping-eventlogginglistenerstop-method"></a><a class="link" href="#stopping-eventlogginglistenerstop-method"><a id="stop"></a> Stopping EventLoggingListener&#8201;&#8212;&#8201;<code>stop</code> method</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>stop</code> closes <code>PrintWriter</code> for the log file and renames the file to be without <code>.inprogress</code> extension.</p>
+</div>
+<div class="paragraph">
+<p>If the target log file exists (one without <code>.inprogress</code> extension), it overwrites the file if <a href="#spark_eventLog_overwrite">spark.eventLog.overwrite</a> is enabled. You should see the following WARN message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>WARN EventLoggingListener: Event log [target] already exists. Overwriting...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the target log file exists and overwrite is disabled, an <code>java.io.IOException</code> is thrown with the following message:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Target log file already exists ([logPath])</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>stop</code> is executed while <a href="spark-SparkContext.adoc#stop"><code>SparkContext</code> is stopped</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="compressing-logged-events"><a class="anchor" href="#compressing-logged-events"></a><a class="link" href="#compressing-logged-events"><a id="compressing-events"></a> Compressing Logged Events</a></h3>
+<div class="paragraph">
+<p>If <a href="#spark_eventLog_compress">event compression is enabled</a>, events are compressed using <a href="spark-CompressionCodec.adoc#createCodec">CompressionCodec</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Refer to <a href="spark-CompressionCodec.adoc">CompressionCodec</a> to learn about the available compression codecs.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Spark Properties</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Spark Property</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_enabled"></a> <code>spark.eventLog.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables (<code>true</code>) or disables (<code>false</code>) persisting Spark events.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_dir"></a> <code>spark.eventLog.dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/tmp/spark-events</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Directory where events are logged, e.g. <code>hdfs://namenode:8021/directory</code>.</p>
+<p class="tableblock">The directory must exist before <a href="spark-SparkContext-creating-instance-internals.adoc#_eventLogger">Spark starts up</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_buffer_kb"></a> <code>spark.eventLog.buffer.kb</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>100</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Size of the buffer to use when writing to output streams.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_overwrite"></a> <code>spark.eventLog.overwrite</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables (<code>true</code>) or disables (<code>false</code>) deleting (or at least overwriting) an existing <code>.inprogress</code> log file.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_compress"></a> <code>spark.eventLog.compress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables (<code>true</code>) or disables (<code>false</code>) <a href="#compressing-events">event compression</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_testing"></a> <code>spark.eventLog.testing</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal flag for testing purposes that enables adding JSON events to the internal <code>loggedEvents</code> array.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
