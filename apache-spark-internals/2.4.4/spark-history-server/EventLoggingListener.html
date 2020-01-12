@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> EventLoggingListener&#8201;&#8212;&#8201;Spark Listener For Persisting Events :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/2.4.4/spark-history-server/EventLoggingListener.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -1441,6 +1441,9 @@
     <a class="nav-link" href="index.html">Spark History Server</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuration-properties.html">Configuration Properties</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="HistoryServer.html">HistoryServer</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
@@ -1787,14 +1790,14 @@
   <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/v2.4.4/modules/spark-history-server/pages/EventLoggingListener.adoc">Edit this Page</a></div>
   </div>
 <article class="doc">
-<div class="sect1">
-<h2 id="eventlogginglistenerspark-listener-for-persisting-events"><a class="anchor" href="#eventlogginglistenerspark-listener-for-persisting-events"></a><a class="link" href="#eventlogginglistenerspark-listener-for-persisting-events"><a id="EventLoggingListener"></a> EventLoggingListener&#8201;&#8212;&#8201;Spark Listener for Persisting Events</a></h2>
+<h1 class="page"><a id="EventLoggingListener"></a> EventLoggingListener&#8201;&#8212;&#8201;Spark Listener For Persisting Events</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>EventLoggingListener</code> is a <a href="spark-scheduler-SparkListener.adoc">SparkListener</a> that <a href="#logEvent">persists JSON-encoded events</a> to a file.</p>
+<p><code>EventLoggingListener</code> is a <a href="../spark-scheduler-SparkListener.html" class="page">SparkListener</a> that <a href="#logEvent">persists JSON-encoded events</a> of a Spark application with event logging enabled (based on <a href="configuration-properties.html#spark.eventLog.enabled" class="page">spark.eventLog.enabled</a> configuration property).</p>
 </div>
 <div class="paragraph">
-<p>When <a href="#spark_eventLog_enabled">event logging is enabled</a>, <code>EventLoggingListener</code> writes events to a log file under <a href="#spark_eventLog_dir">spark.eventLog.dir</a> directory. All <a href="spark-scheduler-SparkListener.adoc">Spark events</a> are logged (except  <a href="spark-scheduler-SparkListener.adoc#SparkListenerBlockUpdated">SparkListenerBlockUpdated</a> and <a href="spark-scheduler-SparkListener.adoc#SparkListenerExecutorMetricsUpdate">SparkListenerExecutorMetricsUpdate</a>).</p>
+<p><code>EventLoggingListener</code> writes out log files to a directory (based on <a href="configuration-properties.html#spark.eventLog.dir" class="page">spark.eventLog.dir</a> configuration property). All <a href="../spark-scheduler-SparkListener.html" class="page">Spark events</a> are logged (but <a href="../spark-scheduler-SparkListener.html#SparkListenerBlockUpdated" class="page">SparkListenerBlockUpdated</a> and <a href="../spark-scheduler-SparkListener.html#SparkListenerExecutorMetricsUpdate" class="page">SparkListenerExecutorMetricsUpdate</a>).</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1803,21 +1806,18 @@
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Use <a href="index.html" class="page">Spark History Server</a> to view the event logs in a browser.
+Use <a href="index.html" class="page">Spark History Server</a> to view the event logs in a browser (similarly to <a href="../webui/index.html" class="page">web UI</a> of a Spark application).
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Events can optionally be <a href="#compressing-events">compressed</a>.</p>
+<div id="inprogress-extension" class="paragraph">
+<p><code>EventLoggingListener</code> uses <strong>.inprogress</strong> file extension for in-flight event log files of active Spark applications.</p>
 </div>
 <div class="paragraph">
-<p>In-flight log files are with <code>.inprogress</code> extension.</p>
+<p><code>EventLoggingListener</code> can compress events (based on <a href="configuration-properties.html#spark.eventLog.compress" class="page">spark.eventLog.compress</a> configuration property).</p>
 </div>
-<div class="paragraph">
-<p><code>EventLoggingListener</code> is a <code>private[spark]</code> class in <code>org.apache.spark.scheduler</code> package.</p>
-</div>
-<div class="admonitionblock tip">
+<div id="logging" class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
@@ -1825,27 +1825,52 @@ Use <a href="index.html" class="page">Spark History Server</a> to view the event
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Enable <code>INFO</code> logging level for <code>org.apache.spark.scheduler.EventLoggingListener</code> logger to see what happens inside <code>EventLoggingListener</code>.</p>
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.scheduler.EventLoggingListener</code> logger to see what happens inside.</p>
 </div>
 <div class="paragraph">
 <p>Add the following line to <code>conf/log4j.properties</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.scheduler.EventLoggingListener=INFO</code></pre>
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.scheduler.EventLoggingListener=ALL</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Refer to <a href="spark-logging.adoc">Logging</a>.</p>
+<p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="creating-eventlogginglistener-instance"><a class="anchor" href="#creating-eventlogginglistener-instance"></a><a class="link" href="#creating-eventlogginglistener-instance"><a id="creating-instance"></a> Creating EventLoggingListener Instance</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-eventlogginglistener-instance"><a class="anchor" href="#creating-eventlogginglistener-instance"></a><a class="link" href="#creating-eventlogginglistener-instance"><a id="creating-instance"></a> Creating EventLoggingListener Instance</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><code>EventLoggingListener</code> requires an application id (<code>appId</code>), the application&#8217;s optional attempt id (<code>appAttemptId</code>), <code>logBaseDir</code>, a <a href="spark-SparkConf.adoc">SparkConf</a> (as <code>sparkConf</code>) and Hadoop&#8217;s <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/conf/Configuration.html">Configuration</a> (as <code>hadoopConf</code>).</p>
+<p><code>EventLoggingListener</code> takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="appId"></a> Application ID</p>
+</li>
+<li>
+<p><a id="appAttemptId"></a> Application Attempt ID (optional)</p>
+</li>
+<li>
+<p><a id="logBaseDir"></a> Log Directory</p>
+</li>
+<li>
+<p><a id="sparkConf"></a> <a href="../spark-SparkConf.html" class="page">SparkConf</a></p>
+</li>
+<li>
+<p><a id="hadoopConf"></a> Hadoop <a href="https://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/conf/Configuration.html">Configuration</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>EventLoggingListener</code> initializes the <a href="#internal-properties">internal properties</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1854,14 +1879,16 @@ Use <a href="index.html" class="page">Spark History Server</a> to view the event
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-When initialized with no Hadoop&#8217;s <code>Configuration</code> it calls <a href="spark-SparkHadoopUtil.adoc#newConfiguration">SparkHadoopUtil.get.newConfiguration(sparkConf)</a>.
+When initialized with no <a href="#hadoopConf">Hadoop Configuration</a>, <code>EventLoggingListener</code> uses <code>SparkHadoopUtil</code> utility to <a href="../spark-SparkHadoopUtil.html#newConfiguration" class="page">create a new one</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="starting-eventlogginglistenerstart-method"><a class="anchor" href="#starting-eventlogginglistenerstart-method"></a><a class="link" href="#starting-eventlogginglistenerstart-method"><a id="start"></a> Starting EventLoggingListener&#8201;&#8212;&#8201;<code>start</code> method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="starting-eventlogginglistenerstart-method"><a class="anchor" href="#starting-eventlogginglistenerstart-method"></a><a class="link" href="#starting-eventlogginglistenerstart-method"><a id="start"></a> Starting EventLoggingListener&#8201;&#8212;&#8201;<code>start</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">start(): Unit</code></pre>
@@ -1883,7 +1910,7 @@ When initialized with no Hadoop&#8217;s <code>Configuration</code> it calls <a h
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>WARN EventLoggingListener: Event log [path] already exists. Overwriting...</code></pre>
+<pre class="highlightjs highlight"><code>Event log [path] already exists. Overwriting...</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1891,7 +1918,7 @@ When initialized with no Hadoop&#8217;s <code>Configuration</code> it calls <a h
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>WARN EventLoggingListener: Error deleting [path]</code></pre>
+<pre class="highlightjs highlight"><code>Error deleting [path]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1907,7 +1934,7 @@ When initialized with no Hadoop&#8217;s <code>Configuration</code> it calls <a h
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>INFO EventLoggingListener: Logging events to [logPath]</code></pre>
+<pre class="highlightjs highlight"><code>Logging events to [logPath]</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1917,21 +1944,25 @@ When initialized with no Hadoop&#8217;s <code>Configuration</code> it calls <a h
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>start</code> is executed while <a href="spark-SparkContext-creating-instance-internals.adoc#_eventLogger"><code>SparkContext</code> is created</a>.
+<code>start</code> is executed while <code>SparkContext</code> is <a href="../spark-SparkContext-creating-instance-internals.html#_eventLogger" class="page">created</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="logging-event-as-jsonlogevent-method"><a class="anchor" href="#logging-event-as-jsonlogevent-method"></a><a class="link" href="#logging-event-as-jsonlogevent-method"><a id="logEvent"></a> Logging Event as JSON&#8201;&#8212;&#8201;<code>logEvent</code> method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="logging-event-as-jsonlogevent-method"><a class="anchor" href="#logging-event-as-jsonlogevent-method"></a><a class="link" href="#logging-event-as-jsonlogevent-method"><a id="logEvent"></a> Logging Event as JSON&#8201;&#8212;&#8201;<code>logEvent</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">logEvent(event: SparkListenerEvent, flushLogger: Boolean = false)</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">logEvent(
+  event: SparkListenerEvent,
+  flushLogger: Boolean = false): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>logEvent</code> logs <code>event</code> as JSON.</p>
+<p><code>logEvent</code> logs the given <code>event</code> as JSON.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -1946,8 +1977,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="stopping-eventlogginglistenerstop-method"><a class="anchor" href="#stopping-eventlogginglistenerstop-method"></a><a class="link" href="#stopping-eventlogginglistenerstop-method"><a id="stop"></a> Stopping EventLoggingListener&#8201;&#8212;&#8201;<code>stop</code> method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="stopping-eventlogginglistenerstop-method"><a class="anchor" href="#stopping-eventlogginglistenerstop-method"></a><a class="link" href="#stopping-eventlogginglistenerstop-method"><a id="stop"></a> Stopping EventLoggingListener&#8201;&#8212;&#8201;<code>stop</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(): Unit</code></pre>
@@ -1961,7 +1994,7 @@ FIXME
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>WARN EventLoggingListener: Event log [target] already exists. Overwriting...</code></pre>
+<pre class="highlightjs highlight"><code>Event log [target] already exists. Overwriting...</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1979,79 +2012,9 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>stop</code> is executed while <a href="spark-SparkContext.adoc#stop"><code>SparkContext</code> is stopped</a>.
+<code>stop</code> is executed while <code>SparkContext</code> is requested to <a href="../spark-SparkContext.html#stop" class="page">stop</a>.
 </td>
 </tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="compressing-logged-events"><a class="anchor" href="#compressing-logged-events"></a><a class="link" href="#compressing-logged-events"><a id="compressing-events"></a> Compressing Logged Events</a></h3>
-<div class="paragraph">
-<p>If <a href="#spark_eventLog_compress">event compression is enabled</a>, events are compressed using <a href="spark-CompressionCodec.adoc#createCodec">CompressionCodec</a>.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Refer to <a href="spark-CompressionCodec.adoc">CompressionCodec</a> to learn about the available compression codecs.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Spark Properties</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Spark Property</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_enabled"></a> <code>spark.eventLog.enabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enables (<code>true</code>) or disables (<code>false</code>) persisting Spark events.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_dir"></a> <code>spark.eventLog.dir</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/tmp/spark-events</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Directory where events are logged, e.g. <code>hdfs://namenode:8021/directory</code>.</p>
-<p class="tableblock">The directory must exist before <a href="spark-SparkContext-creating-instance-internals.adoc#_eventLogger">Spark starts up</a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_buffer_kb"></a> <code>spark.eventLog.buffer.kb</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>100</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Size of the buffer to use when writing to output streams.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_overwrite"></a> <code>spark.eventLog.overwrite</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enables (<code>true</code>) or disables (<code>false</code>) deleting (or at least overwriting) an existing <code>.inprogress</code> log file.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_compress"></a> <code>spark.eventLog.compress</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enables (<code>true</code>) or disables (<code>false</code>) <a href="#compressing-events">event compression</a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_eventLog_testing"></a> <code>spark.eventLog.testing</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internal flag for testing purposes that enables adding JSON events to the internal <code>loggedEvents</code> array.</p></td>
-</tr>
-</tbody>
 </table>
 </div>
 </div>
