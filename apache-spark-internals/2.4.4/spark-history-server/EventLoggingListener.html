@@ -1797,7 +1797,10 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>EventLoggingListener</code> is a <a href="../spark-scheduler-SparkListener.html" class="page">SparkListener</a> that is responsible for <a href="#logEvent">writing out JSON-encoded events</a> of a Spark application with event logging enabled (based on <a href="configuration-properties.html#spark.eventLog.enabled" class="page">spark.eventLog.enabled</a> configuration property).</p>
+<p><code>EventLoggingListener</code> is a <a href="../spark-scheduler-SparkListener.html" class="page">SparkListener</a> that <a href="#logEvent">writes out JSON-encoded events</a> of a Spark application with event logging enabled (based on <a href="configuration-properties.html#spark.eventLog.enabled" class="page">spark.eventLog.enabled</a> configuration property).</p>
+</div>
+<div class="paragraph">
+<p><code>EventLoggingListener</code> supports custom <a href="configuration-properties.html#EventLoggingListener" class="page">configuration properties</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>EventLoggingListener</code> writes out log files to a directory (based on <a href="configuration-properties.html#spark.eventLog.dir" class="page">spark.eventLog.dir</a> configuration property). All <a href="../spark-scheduler-SparkListener.html" class="page">Spark events</a> are logged (but <a href="../spark-scheduler-SparkListener.html#SparkListenerBlockUpdated" class="page">SparkListenerBlockUpdated</a> and <a href="../spark-scheduler-SparkListener.html#SparkListenerExecutorMetricsUpdate" class="page">SparkListenerExecutorMetricsUpdate</a>).</p>
@@ -1814,8 +1817,9 @@ Use <a href="index.html" class="page">Spark History Server</a> to view the event
 </tr>
 </table>
 </div>
-<div id="inprogress-extension" class="paragraph">
-<p><code>EventLoggingListener</code> uses <strong>.inprogress</strong> file extension for in-flight event log files of active Spark applications.</p>
+<div class="paragraph">
+<p><a id="inprogress-extension"></a><a id="IN_PROGRESS"></a>
+<code>EventLoggingListener</code> uses <strong>.inprogress</strong> file extension for in-flight event log files of active Spark applications.</p>
 </div>
 <div class="paragraph">
 <p><code>EventLoggingListener</code> can compress events (based on <a href="configuration-properties.html#spark.eventLog.compress" class="page">spark.eventLog.compress</a> configuration property).</p>
@@ -1890,6 +1894,31 @@ When initialized with no <a href="#hadoopConf">Hadoop Configuration</a>, <code>E
 </div>
 </div>
 <div class="sect1">
+<h2 id="event-log-filelogpath-property"><a class="anchor" href="#event-log-filelogpath-property"></a><a class="link" href="#event-log-filelogpath-property"><a id="logPath"></a> Event Log File&#8201;&#8212;&#8201;<code>logPath</code> Property</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">logPath: String</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>logPath</code> is&#8230;&#8203;FIXME</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>logPath</code> is used when <code>EventLoggingListener</code> is requested to <a href="#start">start</a> and <a href="#stop">stop</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="starting-eventlogginglistenerstart-method"><a class="anchor" href="#starting-eventlogginglistenerstart-method"></a><a class="link" href="#starting-eventlogginglistenerstart-method"><a id="start"></a> Starting EventLoggingListener&#8201;&#8212;&#8201;<code>start</code> Method</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -1898,12 +1927,7 @@ When initialized with no <a href="#hadoopConf">Hadoop Configuration</a>, <code>E
 </div>
 </div>
 <div class="paragraph">
-<p><code>start</code> checks whether <code>logBaseDir</code> is really a directory, and if it is not, it throws a <code>IllegalArgumentException</code> with the following message:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>Log directory [logBaseDir] does not exist.</code></pre>
-</div>
+<p><code>start</code> deletes the <a href="#logPath">logPath</a> with the <a href="#IN_PROGRESS">.inprogress</a> extension.</p>
 </div>
 <div class="paragraph">
 <p>The log file&#8217;s working name is created based on <code>appId</code> with or without the compression codec used and <code>appAttemptId</code>, i.e. <code>local-1461696754069</code>. It also uses <code>.inprogress</code> extension.</p>
@@ -1940,6 +1964,14 @@ When initialized with no <a href="#hadoopConf">Hadoop Configuration</a>, <code>E
 <pre class="highlightjs highlight"><code>Logging events to [logPath]</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><code>start</code> throws an <code>IllegalArgumentException</code> when the <a href="#logBaseDir">logBaseDir</a> is not a directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Log directory [logBaseDir] is not a directory.</code></pre>
+</div>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1955,7 +1987,7 @@ When initialized with no <a href="#hadoopConf">Hadoop Configuration</a>, <code>E
 </div>
 </div>
 <div class="sect1">
-<h2 id="logging-event-as-jsonlogevent-method"><a class="anchor" href="#logging-event-as-jsonlogevent-method"></a><a class="link" href="#logging-event-as-jsonlogevent-method"><a id="logEvent"></a> Logging Event as JSON&#8201;&#8212;&#8201;<code>logEvent</code> Method</a></h2>
+<h2 id="logging-event-in-json-formatlogevent-method"><a class="anchor" href="#logging-event-in-json-formatlogevent-method"></a><a class="link" href="#logging-event-in-json-formatlogevent-method"><a id="logEvent"></a> Logging Event (In JSON Format)&#8201;&#8212;&#8201;<code>logEvent</code> Method</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2020,6 +2052,78 @@ FIXME
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getlogpath-utility"><a class="anchor" href="#getlogpath-utility"></a><a class="link" href="#getlogpath-utility"><a id="getLogPath"></a> <code>getLogPath</code> Utility</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getLogPath(
+  logBaseDir: URI,
+  appId: String,
+  appAttemptId: Option[String],
+  compressionCodecName: Option[String] = None): String</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>getLogPath</code>&#8230;&#8203;FIXME</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>getLogPath</code> is used when <code>EventLoggingListener</code> is <a href="#creating-instance">created</a> (for the <a href="#logPath">logPath</a>).
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hadoopDataStream</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="hadoopDataStream"></a> Hadoop <a href="http://hadoop.apache.org/docs/r2.7.3/api/org/apache/hadoop/fs/FSDataOutputStream.html">FSDataOutputStream</a> (default: <code>None</code>)</p>
+</div>
+<div class="paragraph">
+<p>Used when&#8230;&#8203;FIXME</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>writer</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="writer"></a> <a href="https://docs.oracle.com/javase/8/docs/api/java/io/PrintWriter.html">java.io.PrintWriter</a> for <a href="#logEvent">writing out events</a> to the <a href="#logPath">event log file</a>.</p>
+</div>
+<div class="paragraph">
+<p>Initialized when <code>EventLoggingListener</code> is requested to <a href="#start">start</a></p>
+</div>
+<div class="paragraph">
+<p>Used when <code>EventLoggingListener</code> is requested to <a href="#logEvent">logEvent</a></p>
+</div>
+<div class="paragraph">
+<p>Closed when <code>EventLoggingListener</code> is requested to <a href="#stop">stop</a></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </article>
