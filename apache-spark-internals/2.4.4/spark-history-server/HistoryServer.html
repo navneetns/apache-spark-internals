@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> HistoryServer&#8201;&#8212;&#8201;WebUI For Active And Completed Spark Applications :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/2.4.4/spark-history-server/HistoryServer.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -1453,10 +1453,13 @@
     <a class="nav-link" href="SQLHistoryListener.html">SQLHistoryListener</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="FsHistoryProvider.html">FsHistoryProvider</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="HistoryServerArguments.html">HistoryServerArguments</a>
@@ -1790,11 +1793,11 @@
   <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/v2.4.4/modules/spark-history-server/pages/HistoryServer.adoc">Edit this Page</a></div>
   </div>
 <article class="doc">
-<div class="sect1">
-<h2 id="historyserverwebui-for-active-and-completed-spark-applications"><a class="anchor" href="#historyserverwebui-for-active-and-completed-spark-applications"></a><a class="link" href="#historyserverwebui-for-active-and-completed-spark-applications"><a id="HistoryServer"></a> HistoryServer&#8201;&#8212;&#8201;WebUI For Active And Completed Spark Applications</a></h2>
+<h1 class="page"><a id="HistoryServer"></a> HistoryServer&#8201;&#8212;&#8201;WebUI For Active And Completed Spark Applications</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>HistoryServer</code> is the <a href="spark-webui-WebUI.adoc">web UI</a> for running (active) and completed Spark applications.</p>
+<p><code>HistoryServer</code> is an extension of the <a href="../webui/spark-webui-WebUI.html" class="page">web UI</a> for reviewing event logs of running (active) and completed Spark applications with event log collection enabled (based on <a href="configuration-properties.html#spark.eventLog.enabled" class="page">spark.eventLog.enabled</a> configuration property).</p>
 </div>
 <div class="paragraph">
 <p><code>HistoryServer</code> is <a href="#creating-instance">created</a> when&#8230;&#8203;FIXME</p>
@@ -1802,32 +1805,19 @@
 <div class="paragraph">
 <p><code>HistoryServer</code> uses the <a href="#loaderServlet">HttpServlet</a> to handle requests to <code>/*</code> URI that <a href="#doGet">FIXME</a>.</p>
 </div>
-<table id="internal-registries" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. HistoryServer&#8217;s Internal Properties (e.g. Registries, Counters and Flags)</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>appCache</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="appCache"></a> <a href="ApplicationCache.html" class="page">ApplicationCache</a></p>
-<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>loaderServlet</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="loaderServlet"></a> Java Servlets' <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html">HttpServlet</a></p>
-<p class="tableblock">Used exclusively when <code>HistoryServer</code> is requested to <a href="#initialize">initialize</a> (and <a href="spark-webui-WebUI.adoc#attachHandler">attaches the servlet to the web UI</a> to handle <code>/*</code> URI)</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock tip">
+<div id="ApplicationCacheOperations" class="paragraph">
+<p><code>HistoryServer</code> is a <a href="ApplicationCacheOperations.html" class="page">ApplicationCacheOperations</a>.</p>
+</div>
+<div id="UIRoot" class="paragraph">
+<p><code>HistoryServer</code> is a <a href="../rest-api/spark-api-UIRoot.html" class="page">UIRoot</a>.</p>
+</div>
+<div id="retainedApplications" class="paragraph">
+<p><code>HistoryServer</code> uses <a href="configuration-properties.html#spark.history.retainedApplications" class="page">spark.history.retainedApplications</a> configuration property (default: <code>50</code>) for&#8230;&#8203;FIXME</p>
+</div>
+<div id="maxApplications" class="paragraph">
+<p><code>HistoryServer</code> uses <a href="configuration-properties.html#spark.history.ui.maxApplications" class="page">spark.history.ui.maxApplications</a> configuration property (default: <code>unbounded</code>) for&#8230;&#8203;FIXME</p>
+</div>
+<div id="logging" class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
@@ -1835,25 +1825,83 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Enable <code>INFO</code> logging level for <code>org.apache.spark.deploy.history.HistoryServer</code> logger to see what happens inside.</p>
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.deploy.history.HistoryServer</code> logger to see what happens inside.</p>
 </div>
 <div class="paragraph">
 <p>Add the following line to <code>conf/log4j.properties</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.deploy.history.HistoryServer=INFO</code></pre>
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.deploy.history.HistoryServer=ALL</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Refer to <a href="spark-logging.adoc">Logging</a>.</p>
+<p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="attachsparkui-method"><a class="anchor" href="#attachsparkui-method"></a><a class="link" href="#attachsparkui-method"><a id="attachSparkUI"></a> <code>attachSparkUI</code> Method</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-historyserver-instance"><a class="anchor" href="#creating-historyserver-instance"></a><a class="link" href="#creating-historyserver-instance"><a id="creating-instance"></a> Creating HistoryServer Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>HistoryServer</code> takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="conf"></a> <a href="../spark-SparkConf.html" class="page">SparkConf</a></p>
+</li>
+<li>
+<p><a id="provider"></a> <a href="ApplicationHistoryProvider.html" class="page">ApplicationHistoryProvider</a></p>
+</li>
+<li>
+<p><a id="securityManager"></a> <code>SecurityManager</code></p>
+</li>
+<li>
+<p><a id="port"></a> Port number</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>HistoryServer</code> initializes the <a href="#internal-properties">internal properties</a>.</p>
+</div>
+<div class="paragraph">
+<p>While being created, <code>HistoryServer</code> is requested to <a href="#initialize">initialize</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="initializing-historyserverinitialize-method"><a class="anchor" href="#initializing-historyserverinitialize-method"></a><a class="link" href="#initializing-historyserverinitialize-method"><a id="initialize"></a> Initializing HistoryServer&#8201;&#8212;&#8201;<code>initialize</code> Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">initialize(): Unit</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>initialize</code> is part of <a href="../webui/spark-webui-WebUI.html#initialize" class="page">WebUI Contract</a> to initialize web components.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>initialize</code>&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="attachsparkui-method"><a class="anchor" href="#attachsparkui-method"></a><a class="link" href="#attachsparkui-method"><a id="attachSparkUI"></a> <code>attachSparkUI</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">attachSparkUI(
@@ -1879,31 +1927,10 @@
 <p><code>attachSparkUI</code>&#8230;&#8203;FIXME</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="initializing-historyserverinitialize-method"><a class="anchor" href="#initializing-historyserverinitialize-method"></a><a class="link" href="#initializing-historyserverinitialize-method"><a id="initialize"></a> Initializing HistoryServer&#8201;&#8212;&#8201;<code>initialize</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">initialize(): Unit</code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>initialize</code> is part of <a href="spark-webui-WebUI.adoc#initialize">WebUI Contract</a> to initialize web components.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>initialize</code>&#8230;&#8203;FIXME</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="launching-historyserver-standalone-applicationmain-method"><a class="anchor" href="#launching-historyserver-standalone-applicationmain-method"></a><a class="link" href="#launching-historyserver-standalone-applicationmain-method"><a id="main"></a> Launching HistoryServer Standalone Application&#8201;&#8212;&#8201;<code>main</code> Method</a></h3>
+<div class="sect1">
+<h2 id="launching-historyserver-standalone-applicationmain-method"><a class="anchor" href="#launching-historyserver-standalone-applicationmain-method"></a><a class="link" href="#launching-historyserver-standalone-applicationmain-method"><a id="main"></a> Launching HistoryServer Standalone Application&#8201;&#8212;&#8201;<code>main</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">main(argStrings: Array[String]): Unit</code></pre>
@@ -1913,33 +1940,10 @@
 <p><code>main</code>&#8230;&#8203;FIXME</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-historyserver-instance"><a class="anchor" href="#creating-historyserver-instance"></a><a class="link" href="#creating-historyserver-instance"><a id="creating-instance"></a> Creating HistoryServer Instance</a></h3>
-<div class="paragraph">
-<p><code>HistoryServer</code> takes the following when created:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a id="conf"></a> <a href="spark-SparkConf.adoc">SparkConf</a></p>
-</li>
-<li>
-<p><a id="provider"></a> <a href="ApplicationHistoryProvider.html" class="page">ApplicationHistoryProvider</a></p>
-</li>
-<li>
-<p><a id="securityManager"></a> <code>SecurityManager</code></p>
-</li>
-<li>
-<p><a id="port"></a> Port number</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>HistoryServer</code> initializes the <a href="#internal-registries">internal registries and counters</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="requesting-spark-application-uigetappui-method"><a class="anchor" href="#requesting-spark-application-uigetappui-method"></a><a class="link" href="#requesting-spark-application-uigetappui-method"><a id="getAppUI"></a> Requesting Spark Application UI&#8201;&#8212;&#8201;<code>getAppUI</code> Method</a></h3>
+<div class="sect1">
+<h2 id="requesting-spark-application-uigetappui-method"><a class="anchor" href="#requesting-spark-application-uigetappui-method"></a><a class="link" href="#requesting-spark-application-uigetappui-method"><a id="getAppUI"></a> Requesting Spark Application UI&#8201;&#8212;&#8201;<code>getAppUI</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getAppUI(appId: String, attemptId: Option[String]): Option[LoadedAppUI]</code></pre>
@@ -1961,8 +1965,10 @@
 <p><code>getAppUI</code>&#8230;&#8203;FIXME</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="withsparkui-method"><a class="anchor" href="#withsparkui-method"></a><a class="link" href="#withsparkui-method"><a id="withSparkUI"></a> <code>withSparkUI</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="withsparkui-method"><a class="anchor" href="#withsparkui-method"></a><a class="link" href="#withsparkui-method"><a id="withSparkUI"></a> <code>withSparkUI</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">withSparkUI[T](appId: String, attemptId: Option[String])(fn: SparkUI =&gt; T): T</code></pre>
@@ -1984,8 +1990,10 @@
 <p><code>withSparkUI</code>&#8230;&#8203;FIXME</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="loadappui-internal-method"><a class="anchor" href="#loadappui-internal-method"></a><a class="link" href="#loadappui-internal-method"><a id="loadAppUi"></a> <code>loadAppUi</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="loadappui-internal-method"><a class="anchor" href="#loadappui-internal-method"></a><a class="link" href="#loadappui-internal-method"><a id="loadAppUi"></a> <code>loadAppUi</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">loadAppUi(appId: String, attemptId: Option[String]): Boolean</code></pre>
@@ -2007,8 +2015,10 @@
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="doget-method"><a class="anchor" href="#doget-method"></a><a class="link" href="#doget-method"><a id="doGet"></a> <code>doGet</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="doget-method"><a class="anchor" href="#doget-method"></a><a class="link" href="#doget-method"><a id="doGet"></a> <code>doGet</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">doGet(req: HttpServletRequest, res: HttpServletResponse): Unit</code></pre>
@@ -2042,6 +2052,42 @@
 </table>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>appCache</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="appCache"></a> <a href="ApplicationCache.html" class="page">ApplicationCache</a> for this <code>HistoryServer</code> and <a href="#retainedApplications">retainedApplications</a></p>
+</div>
+<div class="paragraph">
+<p>Used when&#8230;&#8203;FIXME</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>loaderServlet</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="loaderServlet"></a> Java Servlets' <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html">HttpServlet</a></p>
+</div>
+<div class="paragraph">
+<p>Used exclusively when <code>HistoryServer</code> is requested to <a href="#initialize">initialize</a> (and <a href="spark-webui-WebUI.adoc#attachHandler">attaches the servlet to the web UI</a> to handle <code>/*</code> URI)</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </article>

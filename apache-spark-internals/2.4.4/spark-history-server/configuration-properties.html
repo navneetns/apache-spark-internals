@@ -1453,10 +1453,13 @@
     <a class="nav-link" href="SQLHistoryListener.html">SQLHistoryListener</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="FsHistoryProvider.html">FsHistoryProvider</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="HistoryServerArguments.html">HistoryServerArguments</a>
@@ -1794,6 +1797,18 @@
 <div class="paragraph">
 <p>The following contains the configuration properties of <a href="#EventLoggingListener">EventLoggingListener</a> and <a href="#HistoryServer">Spark History Server</a>.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="EventLoggingListener.html" class="page">EventLoggingListener</a> is responsible for writing out JSON-encoded events of a Spark application to an event log file that <a href="HistoryServer.html" class="page">HistoryServer</a> can display in a web UI-based interface.
+</td>
+</tr>
+</table>
+</div>
 <table id="EventLoggingListener" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. EventLoggingListener&#8217;s Spark Properties</caption>
 <colgroup>
@@ -1881,7 +1896,7 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.fs.logDirectory</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.fs.logDirectory"></a> The directory with event log files. The directory has to exist before starting History Server.</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.fs.logDirectory"></a> The directory for event log files. The directory has to exist before starting History Server.</p>
 <p class="tableblock">Default: <code>file:/tmp/spark-events</code></p></td>
 </tr>
 <tr>
@@ -1906,17 +1921,17 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.retainedApplications</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.retainedApplications"></a> How many Spark applications to retain.</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.retainedApplications"></a> How many Spark applications <a href="HistoryServer.html#retainedApplications" class="page">HistoryServer</a> should retain</p>
 <p class="tableblock">Default: <code>50</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.ui.maxApplications</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.ui.maxApplications"></a> how many Spark applications to show in the UI.</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.ui.maxApplications"></a><a id="HISTORY_UI_MAX_APPS"></a> How many Spark applications <a href="HistoryServer.html#maxApplications" class="page">HistoryServer</a> should show in the UI</p>
 <p class="tableblock">Default: (unbounded)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.history.ui.port</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.ui.port"></a> The port of History Server&#8217;s web UI.</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.history.ui.port"></a><a id="HISTORY_SERVER_UI_PORT"></a> The port of History Server&#8217;s web UI.</p>
 <p class="tableblock">Default: <code>18080</code></p></td>
 </tr>
 </tbody>

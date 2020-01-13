@@ -1453,10 +1453,13 @@
     <a class="nav-link" href="SQLHistoryListener.html">SQLHistoryListener</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="FsHistoryProvider.html">FsHistoryProvider</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="HistoryServerArguments.html">HistoryServerArguments</a>
@@ -1808,7 +1811,7 @@
 <p>Spark History Server can be started using <a href="#start_history_server_sh">start-history-server.sh</a> and stopped using <a href="#stop_history_server_sh">stop-history-server.sh</a> shell scripts.</p>
 </div>
 <div class="paragraph">
-<p><code>start-history-server.sh</code> accepts <code>--properties-file [propertiesFile]</code> command-line option that specifies the properties file with the custom <a href="../spark-properties.html" class="page">Spark properties</a>.</p>
+<p>Spark History Server supports custom <a href="configuration-properties.html#HistoryServer" class="page">configuration properties</a> that can be defined using <code>--properties-file [propertiesFile]</code> command-line option. The properties file can have any valid <code>spark.</code>-prefixed Spark property.</p>
 </div>
 <div class="listingblock">
 <div class="content">
