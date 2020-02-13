@@ -1797,7 +1797,7 @@
 <div class="title">Figure 1. Welcome Page of web UI &mdash; Jobs Tab</div>
 </div>
 <div class="paragraph">
-<p>Every Spark application (<code>SparkContext</code>) starts a <a href="../spark-SparkContext-creating-instance-internals.html#ui" class="page">web UI</a> that is available at <code>http://[driverHostname]:4040</code> by default.</p>
+<p>Every Spark application (<a href="../spark-SparkContext.html" class="page">SparkContext</a>) starts a <a href="../spark-SparkContext-creating-instance-internals.html#ui" class="page">web UI</a> that is available at <code>http://[driverHostname]:4040</code> by default.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1806,7 +1806,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The default port can be changed using <a href="spark-webui-properties.html#spark.ui.port" class="page">spark.ui.port</a> configuration property. <code>SparkContext</code> will increase the port if it is already taken until an open port is found.
+The default port can be changed using <a href="spark-webui-properties.html#spark.ui.port" class="page">spark.ui.port</a> configuration property. <code>SparkContext</code> will increase the port if it is already taken until a free one is found.
 </td>
 </tr>
 </table>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title>Jobs Tab :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/webui/spark-webui-jobs.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -1787,11 +1787,11 @@
   <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/webui/pages/spark-webui-jobs.adoc">Edit this Page</a></div>
   </div>
 <article class="doc">
-<div class="sect1">
-<h2 id="jobs-tab"><a class="anchor" href="#jobs-tab"></a><a class="link" href="#jobs-tab">Jobs Tab</a></h2>
+<h1 class="page">Jobs Tab</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Jobs</strong> tab in <a href="spark-webui.adoc">web UI</a> shows <a href="spark-webui-AllJobsPage.adoc">status of all Spark jobs</a> in a Spark application (i.e. a <a href="spark-SparkContext.adoc">SparkContext</a>).</p>
+<p><strong>Jobs</strong> tab in <a href="index.html" class="page">web UI</a> shows <a href="spark-webui-AllJobsPage.html" class="page">status of all Spark jobs</a> in a Spark application (<a href="../spark-SparkContext.html" class="page">SparkContext</a>).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1800,7 +1800,7 @@
 <div class="title">Figure 1. Jobs Tab in Web UI</div>
 </div>
 <div class="paragraph">
-<p>The Jobs tab is available under <code>/jobs</code> URL, i.e. <a href="http://localhost:4040/jobs" class="bare">http://localhost:4040/jobs</a>.</p>
+<p>Jobs tab is available under <code>/jobs</code> URL (e.g. <a href="http://localhost:4040/jobs" class="bare">http://localhost:4040/jobs</a>).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1809,15 +1809,18 @@
 <div class="title">Figure 2. Event Timeline in Jobs Tab</div>
 </div>
 <div class="paragraph">
-<p>The Jobs tab consists of two pages, i.e. <a href="spark-webui-AllJobsPage.adoc">All Jobs</a> and <a href="#JobPage">Details for Job</a> pages.</p>
+<p>The Jobs tab consists of two pages, i.e. <a href="spark-webui-AllJobsPage.html" class="page">All Jobs</a> and <a href="#JobPage">Details for Job</a> pages.</p>
 </div>
 <div class="paragraph">
-<p>Internally, the Jobs tab is represented by <a href="spark-webui-JobsTab.adoc">JobsTab</a>.</p>
+<p>Internally, the Jobs tab is represented by <a href="spark-webui-JobsTab.html" class="page">JobsTab</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="details-for-jobjobpage-page"><a class="anchor" href="#details-for-jobjobpage-page"></a><a class="link" href="#details-for-jobjobpage-page"><a id="JobPage"></a> Details for Job&#8201;&#8212;&#8201;<code>JobPage</code> Page</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="details-for-jobjobpage-page"><a class="anchor" href="#details-for-jobjobpage-page"></a><a class="link" href="#details-for-jobjobpage-page"><a id="JobPage"></a> Details for Job&#8201;&#8212;&#8201;<code>JobPage</code> Page</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>When you click a job in <a href="spark-webui-AllJobsPage.adoc">AllJobsPage</a>, you see the <strong>Details for Job</strong> page.</p>
+<p>When you click a job in <a href="spark-webui-AllJobsPage.html" class="page">AllJobsPage</a>, you see the <strong>Details for Job</strong> page.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1826,7 +1829,7 @@
 <div class="title">Figure 3. Details for Job Page</div>
 </div>
 <div class="paragraph">
-<p><code>JobPage</code> is a <a href="spark-webui-WebUIPage.adoc">WebUIPage</a> that shows statistics and stage list for a given job.</p>
+<p><code>JobPage</code> is a <a href="spark-webui-WebUIPage.html" class="page">WebUIPage</a> that shows statistics and stage list for a given job.</p>
 </div>
 <div class="paragraph">
 <p>Details for Job page is registered under <code>/job</code> URL, i.e. <code><a href="http://localhost:4040/jobs/job/?id=0" class="bare">http://localhost:4040/jobs/job/?id=0</a></code> and accepts one mandatory <code>id</code> request parameter as a job identifier.</p>
@@ -1866,7 +1869,6 @@ A job can be in a running, succeeded, failed or unknown state.
 <img src="_images/spark-webui-jobs-details-for-job-four-stages.png" alt="spark webui jobs details for job four stages">
 </div>
 <div class="title">Figure 6. Details for Job Page with Four Stages</div>
-</div>
 </div>
 </div>
 </div>
