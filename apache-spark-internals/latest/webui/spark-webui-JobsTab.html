@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> JobsTab :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/webui/spark-webui-JobsTab.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -1046,7 +1046,22 @@
     <a class="nav-link" href="index.html">Web UI</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="spark-webui-jobs.html">Jobs</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-webui-JobsTab.html">JobsTab</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="spark-webui-AllJobsPage.html">AllJobsPage</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="spark-webui-JobPage.html">JobPage</a>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-webui-stages.html">Stages</a>
@@ -1059,18 +1074,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-webui-executors.html">Executors</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-webui-JobsTab.html">JobsTab</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-webui-AllJobsPage.html">AllJobsPage</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-webui-JobPage.html">JobPage</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1781,46 +1784,31 @@
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
     <li><a href="index.html">Web UI</a></li>
+    <li><a href="spark-webui-jobs.html">Jobs</a></li>
     <li><a href="spark-webui-JobsTab.html">JobsTab</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/webui/pages/spark-webui-JobsTab.adoc">Edit this Page</a></div>
   </div>
 <article class="doc">
-<div class="sect1">
-<h2 id="jobstab"><a class="anchor" href="#jobstab"></a><a class="link" href="#jobstab"><a id="JobsTab"></a> JobsTab</a></h2>
+<h1 class="page"><a id="JobsTab"></a> JobsTab</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div id="prefix" class="paragraph">
-<p><code>JobsTab</code> is a <a href="spark-webui-SparkUITab.adoc">SparkUITab</a> with <strong>jobs</strong> <a href="spark-webui-SparkUITab.adoc#prefix">prefix</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>JobsTab</code> is <a href="#creating-instance">created</a> exclusively when <code>SparkUI</code> is <a href="spark-webui-SparkUI.adoc#initialize">initialized</a>.</p>
-</div>
-<div id="creating-instance" class="paragraph">
-<p><code>JobsTab</code> takes the following when created:</p>
+<p><code>JobsTab</code> is a <a href="spark-webui-SparkUITab.html" class="page">SparkUITab</a> with the <a href="spark-webui-SparkUITab.html#prefix" class="page">prefix</a> as <strong>jobs</strong> and the following pages:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="parent"></a> Parent <a href="spark-webui-SparkUI.adoc">SparkUI</a></p>
+<p><a href="spark-webui-AllJobsPage.html" class="page">AllJobsPage</a></p>
 </li>
 <li>
-<p><a id="store"></a> <a href="spark-core-AppStatusStore.adoc">AppStatusStore</a></p>
+<p><a href="spark-webui-JobPage.html" class="page">JobPage</a></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>When <a href="#creating-instance">created</a>, <code>JobsTab</code> creates the following pages and <a href="spark-webui-WebUITab.adoc#attachPage">attaches</a> them immediately:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="spark-webui-AllJobsPage.adoc">AllJobsPage</a></p>
-</li>
-<li>
-<p><a href="spark-webui-JobPage.adoc">JobPage</a></p>
-</li>
-</ul>
+<p><code>JobsTab</code> is <a href="#creating-instance">created</a> when <code>SparkUI</code> is requested to <a href="spark-webui-SparkUI.html#initialize" class="page">initialize</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1829,16 +1817,51 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The Jobs tab uses <a href="spark-webui-JobProgressListener.adoc">JobProgressListener</a> to access statistics of job executions in a Spark application to display.
+The Jobs tab uses <a href="spark-webui-JobProgressListener.html" class="page">JobProgressListener</a> to access statistics of job executions in a Spark application to display.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="handlekillrequest-method"><a class="anchor" href="#handlekillrequest-method"></a><a class="link" href="#handlekillrequest-method"><a id="handleKillRequest"></a> <code>handleKillRequest</code> Method</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-jobstab-instance"><a class="anchor" href="#creating-jobstab-instance"></a><a class="link" href="#creating-jobstab-instance"><a id="creating-instance"></a> Creating JobsTab Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>JobsTab</code> takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="parent"></a> <a href="spark-webui-SparkUI.html" class="page">SparkUI</a></p>
+</li>
+<li>
+<p><a id="store"></a> <a href="../spark-core-AppStatusStore.html" class="page">AppStatusStore</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>While <a href="#creating-instance">being created</a>, <code>JobsTab</code> creates and <a href="spark-webui-WebUITab.html#attachPage" class="page">attaches</a> the pages:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="spark-webui-AllJobsPage.html" class="page">AllJobsPage</a></p>
+</li>
+<li>
+<p><a href="spark-webui-JobPage.html" class="page">JobPage</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="handlekillrequest-method"><a class="anchor" href="#handlekillrequest-method"></a><a class="link" href="#handlekillrequest-method"><a id="handleKillRequest"></a> <code>handleKillRequest</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleKillRequest(request: HttpServletRequest): Unit</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleKillRequest(
+  request: HttpServletRequest): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1851,11 +1874,35 @@ The Jobs tab uses <a href="spark-webui-JobProgressListener.adoc">JobProgressList
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>handleKillRequest</code> is used when&#8230;&#8203;FIXME
+<code>handleKillRequest</code> is used when <code>SparkUI</code> is requested to <a href="spark-webui-SparkUI.html#initialize" class="page">initialize</a> (and registers the <code>/jobs/job/kill</code> URL handler).
 </td>
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="isfairscheduler-method"><a class="anchor" href="#isfairscheduler-method"></a><a class="link" href="#isfairscheduler-method"><a id="isFairScheduler"></a> <code>isFairScheduler</code> Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">isFairScheduler: Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>isFairScheduler</code>&#8230;&#8203;FIXME</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>isFairScheduler</code> is used when <code>JobPage</code> is requested to <a href="spark-webui-JobPage.html#render" class="page">render itself (as a HTML page)</a>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
