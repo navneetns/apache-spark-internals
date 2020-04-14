@@ -72,17 +72,11 @@
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleManager.html">ShuffleManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-SortShuffleManager.html">SortShuffleManager</a>
+    <a class="nav-link" href="shuffle/ShuffleManager.html">ShuffleManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="shuffle/SortShuffleManager.html">SortShuffleManager</a>
   </li>
 </ul>
   </li>
@@ -103,6 +97,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="shuffle/spark-shuffle-ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -118,10 +121,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -1872,7 +1875,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="shuffleManager"></a> <a href="#ShuffleManager">shuffleManager</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-shuffle-ShuffleManager.adoc">ShuffleManager</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -2023,7 +2026,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 </div>
 <div class="paragraph">
 <p><a id="ShuffleManager"></a><a id="create-ShuffleManager"></a>
-<code>create</code> creates a <a href="spark-shuffle-ShuffleManager.adoc">ShuffleManager</a> given the value of <a href="spark-configuration-properties.html#spark.shuffle.manager" class="page">spark.shuffle.manager</a> Spark property.</p>
+<code>create</code> creates a <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a> given the value of <a href="spark-configuration-properties.html#spark.shuffle.manager" class="page">spark.shuffle.manager</a> Spark property.</p>
 </div>
 <div class="paragraph">
 <p><a id="MemoryManager"></a><a id="create-MemoryManager"></a>
@@ -2339,7 +2342,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 <p><a href="spark-service-mapoutputtracker.adoc#stop">MapOutputTracker</a></p>
 </li>
 <li>
-<p><a href="spark-shuffle-ShuffleManager.adoc#stop">ShuffleManager</a></p>
+<p><a href="shuffle/ShuffleManager.html#stop" class="page">ShuffleManager</a></p>
 </li>
 <li>
 <p><a href="spark-service-broadcastmanager.adoc#stop">BroadcastManager</a></p>

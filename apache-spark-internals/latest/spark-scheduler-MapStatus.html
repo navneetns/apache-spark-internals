@@ -72,17 +72,11 @@
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleManager.html">ShuffleManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-SortShuffleManager.html">SortShuffleManager</a>
+    <a class="nav-link" href="shuffle/ShuffleManager.html">ShuffleManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="shuffle/SortShuffleManager.html">SortShuffleManager</a>
   </li>
 </ul>
   </li>
@@ -103,6 +97,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="shuffle/spark-shuffle-ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -118,10 +121,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -1819,7 +1822,7 @@
 <p><code>MapStatus</code> is the <a href="#contract">abstraction</a> of <a href="#implementations">shuffle map output statuses</a> that are metadata of shuffle map outputs with <a href="#getSizeForBlock">estimated size for the reduce block</a> and <a href="#location">block location</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>MapStatus</code> is <a href="#apply">created</a> as the result of <a href="spark-scheduler-ShuffleMapTask.html#runTask" class="page">executing a ShuffleMapTask</a> (after a <a href="#spark-shuffle-ShuffleManager.adoc#getWriter" class="page unresolved">ShuffleWriter</a> has <a href="#spark-shuffle-ShuffleWriter.adoc#stop" class="page unresolved">finished writing partition records successfully</a>).</p>
+<p><code>MapStatus</code> is <a href="#apply">created</a> as the result of <a href="spark-scheduler-ShuffleMapTask.html#runTask" class="page">executing a ShuffleMapTask</a> (after a <a href="shuffle/ShuffleManager.html#getWriter" class="page">ShuffleWriter</a> has <a href="#spark-shuffle-ShuffleWriter.adoc#stop" class="page unresolved">finished writing partition records successfully</a>).</p>
 </div>
 <div class="paragraph">
 <p>After a <a href="spark-scheduler-ShuffleMapTask.html#runTask" class="page">ShuffleMapTask has finished execution successfully</a>, <code>DAGScheduler</code> is requested to <a href="spark-scheduler-DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a> (of the <code>ShuffleMapTask</code>) that requests the <a href="spark-scheduler-DAGScheduler.html#mapOutputTracker" class="page">MapOutputTrackerMaster</a> to <a href="spark-service-MapOutputTrackerMaster.html#registerMapOutput" class="page">register the MapStatus</a>.</p>

@@ -72,17 +72,11 @@
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleManager.html">ShuffleManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-SortShuffleManager.html">SortShuffleManager</a>
+    <a class="nav-link" href="shuffle/ShuffleManager.html">ShuffleManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="shuffle/SortShuffleManager.html">SortShuffleManager</a>
   </li>
 </ul>
   </li>
@@ -103,6 +97,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="shuffle/spark-shuffle-ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -118,10 +121,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -2806,7 +2809,7 @@ FIXME
 <p><a id="mapOutputTracker"></a> <a href="spark-service-mapoutputtracker.adoc">MapOutputTracker</a></p>
 </li>
 <li>
-<p><a id="shuffleManager"></a> <a href="spark-shuffle-ShuffleManager.adoc">ShuffleManager</a></p>
+<p><a id="shuffleManager"></a> <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a></p>
 </li>
 <li>
 <p><a href="#blockTransferService">BlockTransferService</a></p>
@@ -3069,7 +3072,7 @@ It is executed when a <a href="#initialize"><code>BlockManager</code> is initial
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>ExecutorShuffleInfo</code> uses <code>localDirs</code> and <code>subDirsPerLocalDir</code> from <a href="spark-DiskBlockManager.adoc">DiskBlockManager</a> and the class name of the constructor <a href="spark-shuffle-ShuffleManager.adoc">ShuffleManager</a>.
+The <code>ExecutorShuffleInfo</code> uses <code>localDirs</code> and <code>subDirsPerLocalDir</code> from <a href="spark-DiskBlockManager.adoc">DiskBlockManager</a> and the class name of the constructor <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a>.
 </td>
 </tr>
 </table>

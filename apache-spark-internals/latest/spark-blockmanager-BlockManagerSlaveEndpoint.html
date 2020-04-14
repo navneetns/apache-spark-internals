@@ -72,17 +72,11 @@
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleManager.html">ShuffleManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-SortShuffleManager.html">SortShuffleManager</a>
+    <a class="nav-link" href="shuffle/ShuffleManager.html">ShuffleManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="shuffle/SortShuffleManager.html">SortShuffleManager</a>
   </li>
 </ul>
   </li>
@@ -103,6 +97,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="shuffle/spark-shuffle-ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -118,10 +121,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -1987,7 +1990,7 @@ Handling <code>RemoveRdd</code> messages happens on a separate thread. See <a hr
 <p>If <a href="spark-service-mapoutputtracker.adoc">MapOutputTracker</a> was given (when the RPC endpoint was created), it calls <a href="spark-service-mapoutputtracker.adoc#unregisterShuffle">MapOutputTracker to unregister the <code>shuffleId</code> shuffle</a>.</p>
 </div>
 <div class="paragraph">
-<p>It then calls <a href="spark-shuffle-ShuffleManager.adoc#unregisterShuffle">ShuffleManager to unregister the <code>shuffleId</code> shuffle</a>.</p>
+<p>It then calls <a href="shuffle/ShuffleManager.html#unregisterShuffle" class="page">ShuffleManager to unregister the <code>shuffleId</code> shuffle</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2124,7 +2127,7 @@ Handling <code>RemoveBroadcast</code> messages happens on a separate thread. See
 <div class="sect2">
 <h3 id="blockmanagerslaveendpoint-thread-pool"><a class="anchor" href="#blockmanagerslaveendpoint-thread-pool"></a><a class="link" href="#blockmanagerslaveendpoint-thread-pool"><a id="asyncThreadPool"></a> BlockManagerSlaveEndpoint Thread Pool</a></h3>
 <div class="paragraph">
-<p><code>BlockManagerSlaveEndpoint</code> uses <strong>block-manager-slave-async-thread-pool</strong> daemon thread pool (<code>asyncThreadPool</code>) for some messages to talk to other Spark services, i.e. <code>BlockManager</code>, <a href="spark-service-mapoutputtracker.adoc">MapOutputTracker</a>, <a href="spark-shuffle-ShuffleManager.adoc">ShuffleManager</a> in a non-blocking, asynchronous way.</p>
+<p><code>BlockManagerSlaveEndpoint</code> uses <strong>block-manager-slave-async-thread-pool</strong> daemon thread pool (<code>asyncThreadPool</code>) for some messages to talk to other Spark services, i.e. <code>BlockManager</code>, <a href="spark-service-mapoutputtracker.adoc">MapOutputTracker</a>, <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a> in a non-blocking, asynchronous way.</p>
 </div>
 <div class="paragraph">
 <p>The reason for the async thread pool is that the block-related operations might take quite some time and to release the main RPC thread other threads are spawned to talk to the external services and pass responses on to the clients.</p>

@@ -72,17 +72,11 @@
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleManager.html">ShuffleManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-SortShuffleManager.html">SortShuffleManager</a>
+    <a class="nav-link" href="shuffle/ShuffleManager.html">ShuffleManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="shuffle/SortShuffleManager.html">SortShuffleManager</a>
   </li>
 </ul>
   </li>
@@ -103,6 +97,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="shuffle/spark-shuffle-ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -118,10 +121,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -1945,7 +1948,7 @@
 </div>
 </li>
 <li>
-<p>Accessing services, e.g. <a href="#statusStore">AppStatusStore</a>, <a href="#taskScheduler">TaskScheduler</a>, <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a>, <a href="spark-BlockManager.adoc">BlockManager</a>, <a href="spark-SchedulerBackend.adoc">SchedulerBackends</a>, <a href="spark-shuffle-ShuffleManager.adoc">ShuffleManager</a> and the <a href="#cleaner">optional ContextCleaner</a>.</p>
+<p>Accessing services, e.g. <a href="#statusStore">AppStatusStore</a>, <a href="#taskScheduler">TaskScheduler</a>, <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a>, <a href="spark-BlockManager.adoc">BlockManager</a>, <a href="spark-SchedulerBackend.adoc">SchedulerBackends</a>, <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a> and the <a href="#cleaner">optional ContextCleaner</a>.</p>
 </li>
 <li>
 <p><a href="#runJob">Running jobs synchronously</a></p>
@@ -3214,7 +3217,7 @@ FIXME Why is HttpFileServer used for addJar?
 <div id="nextShuffleId" class="ulist">
 <ul>
 <li>
-<p>shuffle ids using <code>nextShuffleId</code> internal counter for <a href="spark-scheduler-ShuffleMapStage.adoc">registering shuffle dependencies</a> to <a href="spark-shuffle-ShuffleManager.adoc">Shuffle Service</a>.</p>
+<p>shuffle ids using <code>nextShuffleId</code> internal counter for <a href="spark-scheduler-ShuffleMapStage.adoc">registering shuffle dependencies</a> to <a href="shuffle/ShuffleManager.html" class="page">Shuffle Service</a>.</p>
 </li>
 </ul>
 </div>

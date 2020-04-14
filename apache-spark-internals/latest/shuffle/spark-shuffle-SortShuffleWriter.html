@@ -72,17 +72,11 @@
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-shuffle-ShuffleManager.html">ShuffleManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-shuffle-SortShuffleManager.html">SortShuffleManager</a>
+    <a class="nav-link" href="ShuffleManager.html">ShuffleManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="SortShuffleManager.html">SortShuffleManager</a>
   </li>
 </ul>
   </li>
@@ -103,6 +97,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="spark-shuffle-ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -118,10 +121,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+    <a class="nav-link" href="spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -1816,7 +1819,7 @@
 <h2 id="sortshufflewriterfallback-shufflewriter"><a class="anchor" href="#sortshufflewriterfallback-shufflewriter"></a><a class="link" href="#sortshufflewriterfallback-shufflewriter"><a id="SortShuffleWriter"></a> SortShuffleWriter&#8201;&#8212;&#8201;Fallback ShuffleWriter</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>SortShuffleWriter</code> is a concrete <a href="spark-shuffle-ShuffleWriter.adoc">ShuffleWriter</a> that is used when <a href="spark-shuffle-SortShuffleManager.adoc#getWriter"><code>SortShuffleManager</code> returns a <code>ShuffleWriter</code> for <code>ShuffleHandle</code></a> (and the more specialized <a href="spark-shuffle-BypassMergeSortShuffleWriter.adoc">BypassMergeSortShuffleWriter</a> and <a href="spark-shuffle-UnsafeShuffleWriter.adoc">UnsafeShuffleWriter</a> could not be used).</p>
+<p><code>SortShuffleWriter</code> is a concrete <a href="spark-shuffle-ShuffleWriter.adoc">ShuffleWriter</a> that is used when <a href="SortShuffleManager.html#getWriter" class="page"><code>SortShuffleManager</code> returns a <code>ShuffleWriter</code> for <code>ShuffleHandle</code></a> (and the more specialized <a href="spark-shuffle-BypassMergeSortShuffleWriter.adoc">BypassMergeSortShuffleWriter</a> and <a href="spark-shuffle-UnsafeShuffleWriter.adoc">UnsafeShuffleWriter</a> could not be used).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1907,7 +1910,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>SortShuffleWriter</code> is created when <a href="spark-shuffle-SortShuffleManager.adoc#getWriter"><code>SortShuffleManager</code> returns a <code>ShuffleWriter</code> for the fallback <code>BaseShuffleHandle</code></a>.
+<code>SortShuffleWriter</code> is created when <a href="SortShuffleManager.html#getWriter" class="page"><code>SortShuffleManager</code> returns a <code>ShuffleWriter</code> for the fallback <code>BaseShuffleHandle</code></a>.
 </td>
 </tr>
 </table>

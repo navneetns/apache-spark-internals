@@ -72,17 +72,11 @@
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleManager.html">ShuffleManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-SortShuffleManager.html">SortShuffleManager</a>
+    <a class="nav-link" href="shuffle/ShuffleManager.html">ShuffleManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="shuffle/SortShuffleManager.html">SortShuffleManager</a>
   </li>
 </ul>
   </li>
@@ -103,6 +97,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="shuffle/spark-shuffle-ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -118,10 +121,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -1817,7 +1820,7 @@
 <h2 id="shufflemaptasktask-to-compute-mapstatus-for-shufflemapstage"><a class="anchor" href="#shufflemaptasktask-to-compute-mapstatus-for-shufflemapstage"></a><a class="link" href="#shufflemaptasktask-to-compute-mapstatus-for-shufflemapstage"><a id="ShuffleMapTask"></a> ShuffleMapTask&#8201;&#8212;&#8201;Task to Compute MapStatus for ShuffleMapStage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>ShuffleMapTask</code> is a concrete <a href="spark-scheduler-Task.html" class="page">Task</a> that <a href="#runTask">computes a MapStatus</a>, i.e. writes the result of executing a <a href="#taskBinary">serialized task code</a> over the records (in a <a href="#partition">RDD partition</a>) to the <a href="spark-shuffle-ShuffleManager.adoc">shuffle system</a> and returns information about the <a href="spark-BlockManager.adoc">BlockManager</a> and estimated size of the result shuffle blocks.</p>
+<p><code>ShuffleMapTask</code> is a concrete <a href="spark-scheduler-Task.html" class="page">Task</a> that <a href="#runTask">computes a MapStatus</a>, i.e. writes the result of executing a <a href="#taskBinary">serialized task code</a> over the records (in a <a href="#partition">RDD partition</a>) to the <a href="shuffle/ShuffleManager.html" class="page">shuffle system</a> and returns information about the <a href="spark-BlockManager.adoc">BlockManager</a> and estimated size of the result shuffle blocks.</p>
 </div>
 <div class="paragraph">
 <p><code>ShuffleMapTask</code> is created exclusively when <code>DAGScheduler</code> is requested to <a href="spark-scheduler-DAGScheduler.html#submitMissingTasks" class="page">submitting missing tasks of a ShuffleMapStage</a>.</p>
@@ -1945,7 +1948,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p><code>runTask</code> writes the result (<em>records</em>) of executing the <a href="#taskBinary">serialized task code</a> over the records (in the <a href="#partition">RDD partition</a>) to the <a href="spark-shuffle-ShuffleManager.adoc">shuffle system</a> and returns a <a href="spark-scheduler-MapStatus.adoc">MapStatus</a> (with the <a href="spark-BlockManager.adoc">BlockManager</a> and an estimated size of the result shuffle blocks).</p>
+<p><code>runTask</code> writes the result (<em>records</em>) of executing the <a href="#taskBinary">serialized task code</a> over the records (in the <a href="#partition">RDD partition</a>) to the <a href="shuffle/ShuffleManager.html" class="page">shuffle system</a> and returns a <a href="spark-scheduler-MapStatus.adoc">MapStatus</a> (with the <a href="spark-BlockManager.adoc">BlockManager</a> and an estimated size of the result shuffle blocks).</p>
 </div>
 <div class="paragraph">
 <p>Internally, <code>runTask</code> requests the <a href="spark-SparkEnv.html" class="page">SparkEnv</a> for the new instance of <a href="spark-SparkEnv.html#closureSerializer" class="page">closure serializer</a> and requests it to <a href="spark-Serializer.html#deserialize" class="page">deserialize</a> the <a href="#taskBinary">taskBinary</a> (into a tuple of a <a href="#spark-rdd-RDD.adoc" class="page unresolved">RDD</a> and a <a href="#spark-rdd-ShuffleDependency.adoc" class="page unresolved">ShuffleDependency</a>).</p>
@@ -1954,7 +1957,7 @@
 <p><code>runTask</code> measures the <a href="spark-scheduler-Task.html#_executorDeserializeTime" class="page">thread</a> and <a href="spark-scheduler-Task.html#_executorDeserializeCpuTime" class="page">CPU</a> deserialization times.</p>
 </div>
 <div class="paragraph">
-<p><code>runTask</code> requests the <a href="spark-SparkEnv.html" class="page">SparkEnv</a> for the <a href="spark-SparkEnv.html#shuffleManager" class="page">ShuffleManager</a> and requests it for a <a href="#spark-shuffle-ShuffleManager.adoc#getWriter" class="page unresolved">ShuffleWriter</a> (for the <a href="#spark-rdd-ShuffleDependency.adoc#shuffleHandle" class="page unresolved">ShuffleHandle</a>, the <a href="spark-scheduler-Task.html#partitionId" class="page">RDD partition</a>, and the <a href="spark-TaskContext.html" class="page">TaskContext</a>).</p>
+<p><code>runTask</code> requests the <a href="spark-SparkEnv.html" class="page">SparkEnv</a> for the <a href="spark-SparkEnv.html#shuffleManager" class="page">ShuffleManager</a> and requests it for a <a href="shuffle/ShuffleManager.html#getWriter" class="page">ShuffleWriter</a> (for the <a href="#spark-rdd-ShuffleDependency.adoc#shuffleHandle" class="page unresolved">ShuffleHandle</a>, the <a href="spark-scheduler-Task.html#partitionId" class="page">RDD partition</a>, and the <a href="spark-TaskContext.html" class="page">TaskContext</a>).</p>
 </div>
 <div class="paragraph">
 <p><code>runTask</code> then requests the <a href="#rdd">RDD</a> for the <a href="#spark-rdd-RDD.adoc#iterator" class="page unresolved">records</a> (of the <a href="#partition">partition</a>) that the <code>ShuffleWriter</code> is requested to <a href="#spark-shuffle-ShuffleWriter.adoc#write" class="page unresolved">write out</a> (to the shuffle system).</p>

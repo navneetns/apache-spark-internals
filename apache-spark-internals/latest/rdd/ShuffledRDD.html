@@ -72,17 +72,11 @@
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleManager.html">ShuffleManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../shuffle/spark-shuffle-SortShuffleManager.html">SortShuffleManager</a>
+    <a class="nav-link" href="../shuffle/ShuffleManager.html">ShuffleManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="../shuffle/SortShuffleManager.html">SortShuffleManager</a>
   </li>
 </ul>
   </li>
@@ -103,6 +97,15 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -118,10 +121,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="../shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -1914,10 +1917,10 @@ scala&gt; println(sorted.toDebugString)
 <p><code>compute</code> takes the only <a href="spark-rdd-RDD.html#dependencies" class="page">dependency</a> that is assumed a <a href="spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> (<code>ShuffleDependency[K, V, C]</code>).</p>
 </div>
 <div class="paragraph">
-<p><code>compute</code> uses the <a href="../spark-SparkEnv.html" class="page">SparkEnv</a> to access the <a href="#ROOT:spark-shuffle-ShuffleManager.adoc#shuffleManager" class="page unresolved">ShuffleManager</a>.</p>
+<p><code>compute</code> uses the <a href="../spark-SparkEnv.html" class="page">SparkEnv</a> to access the <a href="../shuffle/ShuffleManager.html#shuffleManager" class="page">ShuffleManager</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>compute</code> requests <code>ShuffleManager</code> for a <a href="#ROOT:spark-shuffle-ShuffleManager.adoc#getReader" class="page unresolved">ShuffleReader</a> to <a href="#ROOT:spark-shuffle-ShuffleReader.adoc#read" class="page unresolved">read</a> the key-value pairs from the <a href="spark-rdd-ShuffleDependency.html#shuffleHandle" class="page">ShuffleHandle</a> for the input <code>split</code> partition.</p>
+<p><code>compute</code> requests <code>ShuffleManager</code> for a <a href="../shuffle/ShuffleManager.html#getReader" class="page">ShuffleReader</a> to <a href="#ROOT:spark-shuffle-ShuffleReader.adoc#read" class="page unresolved">read</a> the key-value pairs from the <a href="spark-rdd-ShuffleDependency.html#shuffleHandle" class="page">ShuffleHandle</a> for the input <code>split</code> partition.</p>
 </div>
 </div>
 <div class="sect2">

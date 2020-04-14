@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/metrics/spark-metrics-Sink.html">
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/shuffle/ShuffleManager.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -71,68 +71,68 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../shuffle/ShuffleManager.html">ShuffleManager</a>
+    <a class="nav-link" href="ShuffleManager.html">ShuffleManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/SortShuffleManager.html">SortShuffleManager</a>
+    <a class="nav-link" href="SortShuffleManager.html">SortShuffleManager</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleHandle.html">ShuffleHandle</a>
+    <a class="nav-link" href="spark-shuffle-ShuffleHandle.html">ShuffleHandle</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BaseShuffleHandle.html">BaseShuffleHandle</a>
+    <a class="nav-link" href="spark-shuffle-BaseShuffleHandle.html">BaseShuffleHandle</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BypassMergeSortShuffleHandle.html">BypassMergeSortShuffleHandle</a>
+    <a class="nav-link" href="spark-shuffle-BypassMergeSortShuffleHandle.html">BypassMergeSortShuffleHandle</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-SerializedShuffleHandle.html">SerializedShuffleHandle</a>
+    <a class="nav-link" href="spark-shuffle-SerializedShuffleHandle.html">SerializedShuffleHandle</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
+    <a class="nav-link" href="spark-shuffle-ShuffleReader.html">ShuffleReader</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleWriter.html">ShuffleWriter</a>
+    <a class="nav-link" href="spark-shuffle-ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html">BypassMergeSortShuffleWriter</a>
+    <a class="nav-link" href="spark-shuffle-BypassMergeSortShuffleWriter.html">BypassMergeSortShuffleWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-SortShuffleWriter.html">SortShuffleWriter</a>
+    <a class="nav-link" href="spark-shuffle-SortShuffleWriter.html">SortShuffleWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-UnsafeShuffleWriter.html">UnsafeShuffleWriter</a>
+    <a class="nav-link" href="spark-shuffle-UnsafeShuffleWriter.html">UnsafeShuffleWriter</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
+    <a class="nav-link" href="spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleExternalSorter.html">ShuffleExternalSorter</a>
+    <a class="nav-link" href="spark-shuffle-ShuffleExternalSorter.html">ShuffleExternalSorter</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleInMemorySorter.html">ShuffleInMemorySorter</a>
+    <a class="nav-link" href="spark-shuffle-ShuffleInMemorySorter.html">ShuffleInMemorySorter</a>
   </li>
 </ul>
   </li>
@@ -1220,41 +1220,41 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Spark Metrics</a>
+    <a class="nav-link" href="../metrics/index.html">Spark Metrics</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-metrics-MetricsSystem.html">MetricsSystem</a>
+    <a class="nav-link" href="../metrics/spark-metrics-MetricsSystem.html">MetricsSystem</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-metrics-MetricsConfig.html">MetricsConfig</a>
+    <a class="nav-link" href="../metrics/spark-metrics-MetricsConfig.html">MetricsConfig</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-metrics-Source.html">Source</a>
+    <a class="nav-link" href="../metrics/spark-metrics-Source.html">Source</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGSchedulerSource.html">DAGSchedulerSourcer</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-metrics-Sink.html">Sink</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-metrics-MetricsServlet.html">MetricsServlet JSON Metrics Sink</a>
+    <a class="nav-link" href="../metrics/spark-scheduler-DAGSchedulerSource.html">DAGSchedulerSourcer</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-metrics-properties.html">Metrics Configuration Properties</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../metrics/spark-metrics-Sink.html">Sink</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../metrics/spark-metrics-MetricsServlet.html">MetricsServlet JSON Metrics Sink</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../metrics/spark-metrics-properties.html">Metrics Configuration Properties</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-executor-TaskMetrics.html">TaskMetrics</a>
+    <a class="nav-link" href="../metrics/spark-executor-TaskMetrics.html">TaskMetrics</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-executor-ShuffleWriteMetrics.html">ShuffleWriteMetrics</a>
+    <a class="nav-link" href="../metrics/spark-executor-ShuffleWriteMetrics.html">ShuffleWriteMetrics</a>
   </li>
 </ul>
   </li>
@@ -1806,48 +1806,42 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li><a href="index.html">Spark Metrics</a></li>
-    <li><a href="spark-metrics-Sink.html">Sink</a></li>
+    <li>Shuffle System</li>
+    <li><a href="ShuffleManager.html">ShuffleManager</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/metrics/pages/spark-metrics-Sink.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/shuffle/pages/ShuffleManager.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
 <div class="sect1">
-<h2 id="sinkcontract-of-metrics-sinks"><a class="anchor" href="#sinkcontract-of-metrics-sinks"></a><a class="link" href="#sinkcontract-of-metrics-sinks"><a id="Sink"></a> Sink&#8201;&#8212;&#8201;Contract of Metrics Sinks</a></h2>
+<h2 id="shufflemanager-contractpluggable-shuffle-systems"><a class="anchor" href="#shufflemanager-contractpluggable-shuffle-systems"></a><a class="link" href="#shufflemanager-contractpluggable-shuffle-systems"><a id="ShuffleManager"></a> ShuffleManager Contract&#8201;&#8212;&#8201;Pluggable Shuffle Systems</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>Sink</code> is a <a href="#contract">contract</a> of <strong>metrics sinks</strong>.</p>
+<p><code>ShuffleManager</code> is a <a href="#contract">contract</a> of <a href="#implementations">shuffle systems</a> that manage shuffle metadata on the driver (using shuffle IDs or <a href="spark-shuffle-ShuffleHandle.html" class="page">ShuffleHandle</a>) and allow running tasks on executors to access the metadata.</p>
 </div>
-<div id="contract" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">package org.apache.spark.metrics.sink
-
-trait Sink {
-  def start(): Unit
-  def stop(): Unit
-  def report(): Unit
-}</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
+<div id="implementations" class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>Sink</code> is a <code>private[spark]</code> contract.
+<div class="paragraph">
+<p><a href="SortShuffleManager.html" class="page">SortShuffleManager</a> (short name: <code>sort</code> or <code>tungsten-sort</code>) is the default implementation of the <a href="#contract">ShuffleManager Contract</a> in Apache Spark.</p>
+</div>
+<div class="paragraph">
+<p>Use <a href="../spark-configuration-properties.html#spark.shuffle.manager" class="page">spark.shuffle.manager</a> configuration property to set up a custom <code>ShuffleManager</code>.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Sink Contract</caption>
+<table id="contract" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. ShuffleManager Contract</caption>
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
+<col style="width: 30%;">
+<col style="width: 70%;">
 </colgroup>
 <thead>
 <tr>
@@ -1857,73 +1851,148 @@ trait Sink {
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>start</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="start"></a> Used when&#8230;&#8203;FIXME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>getReader</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="getReader" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getReader[K, C](
+  handle: ShuffleHandle,
+  startPartition: Int,
+  endPartition: Int,
+  context: TaskContext): ShuffleReader[K, C]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gives <a href="spark-shuffle-ShuffleReader.html" class="page">ShuffleReader</a> to read shuffle data in the <a href="spark-shuffle-ShuffleHandle.html" class="page">ShuffleHandle</a></p>
+</div>
+<div class="paragraph">
+<p>Used when the following RDDs are requested to <a href="../rdd/spark-rdd-RDD.html#compute" class="page">compute a partition</a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../rdd/spark-rdd-CoGroupedRDD.html" class="page">CoGroupedRDD</a></p>
+</li>
+<li>
+<p><a href="../rdd/ShuffledRDD.html" class="page">ShuffledRDD</a></p>
+</li>
+<li>
+<p><a href="../rdd/spark-rdd-SubtractedRDD.html" class="page">SubtractedRDD</a></p>
+</li>
+<li>
+<p><code>ShuffledRowRDD</code> (Spark SQL)</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>getWriter</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="getWriter" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getWriter[K, V](
+  handle: ShuffleHandle,
+  mapId: Int,
+  context: TaskContext): ShuffleWriter[K, V]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gives <a href="spark-shuffle-ShuffleWriter.html" class="page">ShuffleWriter</a> to write shuffle data in the <a href="spark-shuffle-ShuffleHandle.html" class="page">ShuffleHandle</a></p>
+</div>
+<div class="paragraph">
+<p>Used exclusively when <code>ShuffleMapTask</code> is requested to <a href="../spark-scheduler-ShuffleMapTask.html#runTask" class="page">run</a> (and requests the <a href="spark-shuffle-ShuffleWriter.html" class="page">ShuffleWriter</a> to write records for a partition)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>registerShuffle</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="registerShuffle" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">registerShuffle[K, V, C](
+  shuffleId: Int,
+  numMaps: Int,
+  dependency: ShuffleDependency[K, V, C]): ShuffleHandle</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Registers a shuffle (by the given <code>shuffleId</code> and <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>) and returns a <a href="spark-shuffle-ShuffleHandle.html" class="page">ShuffleHandle</a></p>
+</div>
+<div class="paragraph">
+<p>Used exclusively when <code>ShuffleDependency</code> is <a href="../rdd/spark-rdd-ShuffleDependency.html#shuffleHandle" class="page">created</a> (and registers itself with the shuffle system)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>shuffleBlockResolver</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="shuffleBlockResolver" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">shuffleBlockResolver: ShuffleBlockResolver</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gives <a href="spark-shuffle-ShuffleBlockResolver.html" class="page">ShuffleBlockResolver</a> of the shuffle system</p>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SortShuffleManager</code> is requested for a <a href="SortShuffleManager.html#getWriter" class="page">ShuffleWriter for a ShuffleHandle</a>, to <a href="SortShuffleManager.html#unregisterShuffle" class="page">unregister a shuffle</a> and <a href="SortShuffleManager.html#stop" class="page">stop</a></p>
+</li>
+<li>
+<p><code>BlockManager</code> is requested to <a href="../spark-BlockManager.html#getBlockData" class="page">get shuffle data</a> and <a href="../spark-BlockManager.html#getLocalBytes" class="page">getLocalBytes</a></p>
+</li>
+</ul>
+</div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>stop</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="stop"></a> Used when&#8230;&#8203;FIXME</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="stop" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Stops the shuffle system</p>
+</div>
+<div class="paragraph">
+<p>Used when <code>SparkEnv</code> is requested to <a href="../spark-SparkEnv.html#stop" class="page">stop</a></p>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>report</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="report"></a> Used when&#8230;&#8203;FIXME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>unregisterShuffle</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="unregisterShuffle" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">unregisterShuffle(
+  shuffleId: Int): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unregisters a shuffle (given <code>shuffleId</code>)</p>
+</div>
+<div class="paragraph">
+<p>Used when <code>BlockManagerSlaveEndpoint</code> is requested to <a href="../spark-blockmanager-BlockManagerSlaveEndpoint.html#RemoveShuffle" class="page">receives a RemoveShuffle message</a></p>
+</div></div></td>
 </tr>
 </tbody>
 </table>
-<table id="implementations" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Sinks</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Sink</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ConsoleSink</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ConsoleSink"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CsvSink</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CsvSink"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GraphiteSink</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="GraphiteSink"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>JmxSink</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="JmxSink"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-metrics-MetricsServlet.adoc">MetricsServlet</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="MetricsServlet"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Slf4jSink</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="Slf4jSink"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>StatsdSink</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="StatsdSink"></a></p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-All known <a href="#implementations">Sinks</a> in Spark 2.3 are in <code>org.apache.spark.metrics.sink</code> Scala package.
-</td>
-</tr>
-</table>
+<div class="sect2">
+<h3 id="accessing-shufflemanager-using-sparkenv"><a class="anchor" href="#accessing-shufflemanager-using-sparkenv"></a><a class="link" href="#accessing-shufflemanager-using-sparkenv"><a id="SparkEnv"></a> Accessing ShuffleManager using SparkEnv</a></h3>
+<div class="paragraph">
+<p>The driver and executor access the <code>ShuffleManager</code> instance using <a href="spark-SparkEnv.adoc#shuffleManager">SparkEnv.shuffleManager</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">val shuffleManager = SparkEnv.get.shuffleManager</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="further-reading-or-watching"><a class="anchor" href="#further-reading-or-watching"></a><a class="link" href="#further-reading-or-watching"><a id="i-want-more"></a> Further Reading or Watching</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>(slides) <a href="http://www.slideshare.net/colorant/spark-shuffle-introduction">Spark shuffle introduction</a> by <a href="http://blog.csdn.net/colorant/">Raymond Liu</a> (aka <em>colorant</em>).</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
