@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Spark Configuration Properties :: The Internals Of Apache Spark</title>
+    <title>Untitled :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-configuration-properties.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -72,13 +72,10 @@
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/ShuffleManager.html">ShuffleManager</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="shuffle/SortShuffleManager.html">SortShuffleManager</a>
   </li>
-</ul>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="shuffle/ShuffleManager.html">ShuffleManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1813,7 +1810,9 @@
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Spark Configuration Properties</h1>
+<div class="sect1">
+<h2 id="spark-configuration-properties"><a class="anchor" href="#spark-configuration-properties"></a><a class="link" href="#spark-configuration-properties">Spark Configuration Properties</a></h2>
+<div class="sectionbody">
 <table id="properties" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Spark Configuration Properties</caption>
 <colgroup>
@@ -2210,6 +2209,15 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 </div></div></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.shuffle.sort.bypassMergeThreshold</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="spark.shuffle.sort.bypassMergeThreshold"></a> Maximum number of reduce partitions below which <a href="shuffle/SortShuffleManager.html" class="page">SortShuffleManager</a> avoids merge-sorting data for no map-side aggregation</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>200</code></p>
+</div></div></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.shuffle.sort.initialBufferSize</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="spark.shuffle.sort.initialBufferSize"></a> Initial buffer size for sorting</p>
@@ -2314,6 +2322,8 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 </tr>
 </tbody>
 </table>
+</div>
+</div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

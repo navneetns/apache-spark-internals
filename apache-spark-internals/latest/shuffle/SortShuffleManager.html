@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title>SortShuffleManager :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/shuffle/SortShuffleManager.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -71,14 +71,11 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Shuffle System</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="ShuffleManager.html">ShuffleManager</a>
-<ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="SortShuffleManager.html">SortShuffleManager</a>
   </li>
-</ul>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ShuffleManager.html">ShuffleManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1807,7 +1804,6 @@
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
     <li>Shuffle System</li>
-    <li><a href="ShuffleManager.html">ShuffleManager</a></li>
     <li><a href="SortShuffleManager.html">SortShuffleManager</a></li>
   </ul>
 </nav>
@@ -1815,11 +1811,11 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="sortshufflemanagerthe-default-and-only-sort-based-shuffle-system"><a class="anchor" href="#sortshufflemanagerthe-default-and-only-sort-based-shuffle-system"></a><a class="link" href="#sortshufflemanagerthe-default-and-only-sort-based-shuffle-system"><a id="SortShuffleManager"></a> SortShuffleManager&#8201;&#8212;&#8201;The Default (And Only) Sort-Based Shuffle System</a></h2>
+<h1 class="page">SortShuffleManager</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>SortShuffleManager</strong> is the default and only <a href="ShuffleManager.html" class="page">ShuffleManager</a> in Spark with the short name <code>sort</code> or <code>tungsten-sort</code>.</p>
+<p><strong>SortShuffleManager</strong> is the default and only known <a href="ShuffleManager.html" class="page">ShuffleManager</a> in Apache Spark (with the short name <code>sort</code> or <code>tungsten-sort</code>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1828,61 +1824,136 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You can use <a href="../spark-configuration-properties.html#spark.shuffle.manager" class="page">spark.shuffle.manager</a> Spark property to activate your own implementation of <a href="ShuffleManager.html#contract" class="page">ShuffleManager contract</a>.
+Use <a href="../spark-configuration-properties.html#spark.shuffle.manager" class="page">spark.shuffle.manager</a> configuration property to activate custom <a href="ShuffleManager.html" class="page">ShuffleManager</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>SortShuffleManager</code> is <a href="#creating-instance">created</a> when <code>SparkEnv</code> is <a href="../spark-SparkEnv.html#ShuffleManager" class="page">created</a> (on the driver and executors at the very beginning of a Spark application&#8217;s lifecycle).</p>
+<p>SortShuffleManager is <a href="#creating-instance">created</a> when <code>SparkEnv</code> is <a href="../spark-SparkEnv.html#ShuffleManager" class="page">created</a> (on the driver and executors at the very beginning of a Spark application&#8217;s lifecycle).</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/SortShuffleManager.png" alt="SortShuffleManager">
+</div>
+<div class="title">Figure 1. SortShuffleManager and SparkEnv (Driver and Executors)</div>
 </div>
 <div id="MAX_SHUFFLE_OUTPUT_PARTITIONS_FOR_SERIALIZED_MODE" class="paragraph">
-<p><code>SortShuffleManager</code> allows for <code>(1 &lt;&lt; 24)</code> partition identifiers that can be encoded (i.e. <code>16777216</code>).</p>
+<p>SortShuffleManager allows for <code>(1 &lt;&lt; 24)</code> partition identifiers that can be encoded (i.e. <code>16777216</code>).</p>
 </div>
-<div id="logging" class="admonitionblock tip">
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div id="conf" class="paragraph">
+<p>SortShuffleManager takes a single <a href="../spark-SparkConf.html" class="page">SparkConf</a> to be created.</p>
+</div>
+<div class="paragraph">
+<p>SortShuffleManager initializes the <a href="#internal-properties">internal properties</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="indexshuffleblockresolver"><a class="anchor" href="#indexshuffleblockresolver"></a><a class="link" href="#indexshuffleblockresolver"><a id="shuffleBlockResolver"></a> IndexShuffleBlockResolver</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">shuffleBlockResolver: ShuffleBlockResolver</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.shuffle.sort.SortShuffleManager$</code> logger to see what happens inside.</p>
-</div>
-<div class="paragraph">
-<p>Add the following line to <code>conf/log4j.properties</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.shuffle.sort.SortShuffleManager$=ALL</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
-</div>
+<code>shuffleBlockResolver</code> is part of the <a href="ShuffleManager.html#shuffleBlockResolver" class="page">ShuffleManager</a> abstraction.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="creating-sortshufflemanager-instance"><a class="anchor" href="#creating-sortshufflemanager-instance"></a><a class="link" href="#creating-sortshufflemanager-instance"><a id="creating-instance"></a> Creating SortShuffleManager Instance</a></h3>
 <div class="paragraph">
-<p><code>SortShuffleManager</code> takes a <a href="../spark-SparkConf.html" class="page">SparkConf</a>.</p>
+<p><code>shuffleBlockResolver</code> is an <a href="spark-shuffle-IndexShuffleBlockResolver.html" class="page">IndexShuffleBlockResolver</a> that is created immediately when SortShuffleManager is.</p>
 </div>
 <div class="paragraph">
-<p><code>SortShuffleManager</code> makes sure that <a href="#spark_shuffle_spill">spark.shuffle.spill</a> Spark property is enabled. If not you should see the following WARN message in the logs:</p>
+<p><code>shuffleBlockResolver</code> is used when SortShuffleManager is requested for a <a href="#getWriter">ShuffleWriter for a given partition</a>, to <a href="#unregisterShuffle">unregister a shuffle metadata</a> and <a href="#stop">stop</a>.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting-shufflewriter-for-shufflehandlegetwriter-method"><a class="anchor" href="#getting-shufflewriter-for-shufflehandlegetwriter-method"></a><a class="link" href="#getting-shufflewriter-for-shufflehandlegetwriter-method"><a id="getWriter"></a> Getting ShuffleWriter For ShuffleHandle&#8201;&#8212;&#8201;<code>getWriter</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>WARN SortShuffleManager: spark.shuffle.spill was set to false, but this configuration is ignored as of Spark 1.6+. Shuffle will continue to spill to disk when necessary.</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getWriter[K, V](
+  handle: ShuffleHandle,
+  mapId: Int,
+  context: TaskContext): ShuffleWriter[K, V]</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>getWriter</code> is part of <a href="ShuffleManager.html#getWriter" class="page">ShuffleManager</a> contract to give a <a href="spark-shuffle-ShuffleWriter.html" class="page">ShuffleWriter</a> for a given <a href="spark-shuffle-ShuffleHandle.html" class="page">ShuffleHandle</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p><code>SortShuffleManager</code> initializes the <a href="#internal-registries">internal registries and counters</a>.</p>
+<p>Internally, <code>getWriter</code> registers the given ShuffleHandle (by the <a href="spark-shuffle-ShuffleHandle.html#shuffleId" class="page">shuffleId</a> and <a href="spark-shuffle-BaseShuffleHandle.html#numMaps" class="page">numMaps</a>) in the <a href="#numMapsForShuffle">numMapsForShuffle</a> internal registry unless already done.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+getWriter expects that the input ShuffleHandle is of type <a href="spark-shuffle-BaseShuffleHandle.html" class="page">BaseShuffleHandle</a>. Moreover, getWriter further expects that in two (out of three cases) it is a more specialized <a href="spark-shuffle-IndexShuffleBlockResolver.html" class="page">IndexShuffleBlockResolver</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>getWriter</code> then creates a new ShuffleWriter based on the type of the given ShuffleHandle.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">ShuffleHandle</th>
+<th class="tableblock halign-left valign-top">ShuffleWriter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-shuffle-SerializedShuffleHandle.html" class="page">SerializedShuffleHandle</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-shuffle-UnsafeShuffleWriter.html" class="page">UnsafeShuffleWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-shuffle-BypassMergeSortShuffleHandle.html" class="page">BypassMergeSortShuffleHandle</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-shuffle-BypassMergeSortShuffleWriter.html" class="page">BypassMergeSortShuffleWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-shuffle-BaseShuffleHandle.html" class="page">BaseShuffleHandle</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-shuffle-SortShuffleWriter.html" class="page">SortShuffleWriter</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="unregistering-shuffleunregistershuffle-method"><a class="anchor" href="#unregistering-shuffleunregistershuffle-method"></a><a class="link" href="#unregistering-shuffleunregistershuffle-method"><a id="unregisterShuffle"></a> Unregistering Shuffle&#8201;&#8212;&#8201;<code>unregisterShuffle</code> Method</a></h3>
+<div class="sect1">
+<h2 id="unregistering-shuffleunregistershuffle-method"><a class="anchor" href="#unregistering-shuffleunregistershuffle-method"></a><a class="link" href="#unregistering-shuffleunregistershuffle-method"><a id="unregisterShuffle"></a> Unregistering Shuffle&#8201;&#8212;&#8201;<code>unregisterShuffle</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">unregisterShuffle(shuffleId: Int): Boolean</code></pre>
@@ -1907,8 +1978,10 @@ You can use <a href="../spark-configuration-properties.html#spark.shuffle.manage
 <p>If the given <code>shuffleId</code> was registered, <code>unregisterShuffle</code> requests the <a href="#shuffleBlockResolver">IndexShuffleBlockResolver</a> to <a href="spark-shuffle-IndexShuffleBlockResolver.html#removeDataByMap" class="page">remove the shuffle index and data files</a> one by one (up to the number of mappers producing the output for the shuffle).</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-shufflehandle-for-shuffledependencyregistershuffle-method"><a class="anchor" href="#creating-shufflehandle-for-shuffledependencyregistershuffle-method"></a><a class="link" href="#creating-shufflehandle-for-shuffledependencyregistershuffle-method"><a id="registerShuffle"></a> Creating ShuffleHandle (For ShuffleDependency)&#8201;&#8212;&#8201;<code>registerShuffle</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="creating-shufflehandle-for-shuffledependencyregistershuffle-method"><a class="anchor" href="#creating-shufflehandle-for-shuffledependencyregistershuffle-method"></a><a class="link" href="#creating-shufflehandle-for-shuffledependencyregistershuffle-method"><a id="registerShuffle"></a> Creating ShuffleHandle (For ShuffleDependency)&#8201;&#8212;&#8201;<code>registerShuffle</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">registerShuffle[K, V, C](
@@ -1958,74 +2031,10 @@ FIXME Copy the conditions
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting-shufflewriter-for-shufflehandlegetwriter-method"><a class="anchor" href="#getting-shufflewriter-for-shufflehandlegetwriter-method"></a><a class="link" href="#getting-shufflewriter-for-shufflehandlegetwriter-method"><a id="getWriter"></a> Getting ShuffleWriter For ShuffleHandle&#8201;&#8212;&#8201;<code>getWriter</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getWriter[K, V](
-  handle: ShuffleHandle,
-  mapId: Int,
-  context: TaskContext): ShuffleWriter[K, V]</code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>getWriter</code> is part of <a href="ShuffleManager.html#getWriter" class="page">ShuffleManager</a> contract.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Internally, <code>getWriter</code> makes sure that a <code>ShuffleHandle</code> is associated with its <code>numMaps</code> in <a href="#numMapsForShuffle"><code>numMapsForShuffle</code> internal registry</a>.</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME Associated?! What&#8217;s that?
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>getWriter</code> expects that the input <code>handle</code> is of type <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a> (despite the signature that says that it can work with any <code>ShuffleHandle</code>). Moreover, <code>getWriter</code> further expects that in 2 (out of 3 cases) the input <code>handle</code> is a more specialized <a href="spark-shuffle-IndexShuffleBlockResolver.adoc">IndexShuffleBlockResolver</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>getWriter</code> then returns a new <code>ShuffleWriter</code> for the input <code>ShuffleHandle</code>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="spark-shuffle-UnsafeShuffleWriter.adoc">UnsafeShuffleWriter</a> for <a href="spark-shuffle-SerializedShuffleHandle.adoc">SerializedShuffleHandle</a>.</p>
-</li>
-<li>
-<p><a href="spark-shuffle-BypassMergeSortShuffleWriter.adoc">BypassMergeSortShuffleWriter</a> for <a href="spark-shuffle-BypassMergeSortShuffleHandle.adoc">BypassMergeSortShuffleHandle</a>.</p>
-</li>
-<li>
-<p><a href="spark-shuffle-SortShuffleWriter.adoc">SortShuffleWriter</a> for <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a>.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="creating-blockstoreshufflereader-for-shufflehandle-and-reduce-partitionsgetreader-method"><a class="anchor" href="#creating-blockstoreshufflereader-for-shufflehandle-and-reduce-partitionsgetreader-method"></a><a class="link" href="#creating-blockstoreshufflereader-for-shufflehandle-and-reduce-partitionsgetreader-method"><a id="getReader"></a> Creating BlockStoreShuffleReader For ShuffleHandle And Reduce Partitions&#8201;&#8212;&#8201;<code>getReader</code> Method</a></h3>
+<div class="sect1">
+<h2 id="creating-blockstoreshufflereader-for-shufflehandle-and-reduce-partitionsgetreader-method"><a class="anchor" href="#creating-blockstoreshufflereader-for-shufflehandle-and-reduce-partitionsgetreader-method"></a><a class="link" href="#creating-blockstoreshufflereader-for-shufflehandle-and-reduce-partitionsgetreader-method"><a id="getReader"></a> Creating BlockStoreShuffleReader For ShuffleHandle And Reduce Partitions&#8201;&#8212;&#8201;<code>getReader</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getReader[K, C](
@@ -2063,8 +2072,10 @@ FIXME Associated?! What&#8217;s that?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="stopping-sortshufflemanagerstop-method"><a class="anchor" href="#stopping-sortshufflemanagerstop-method"></a><a class="link" href="#stopping-sortshufflemanagerstop-method"><a id="stop"></a> Stopping SortShuffleManager&#8201;&#8212;&#8201;<code>stop</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="stopping-sortshufflemanagerstop-method"><a class="anchor" href="#stopping-sortshufflemanagerstop-method"></a><a class="link" href="#stopping-sortshufflemanagerstop-method"><a id="stop"></a> Stopping SortShuffleManager&#8201;&#8212;&#8201;<code>stop</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(): Unit</code></pre>
@@ -2086,8 +2097,10 @@ FIXME Associated?! What&#8217;s that?
 <p><code>stop</code> simply requests the <a href="#shuffleBlockResolver">IndexShuffleBlockResolver</a> to <a href="spark-shuffle-IndexShuffleBlockResolver.html#stop" class="page">stop</a> (which actually does nothing).</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="considering-bypassmergesortshufflehandle-for-shufflehandleshouldbypassmergesort-method"><a class="anchor" href="#considering-bypassmergesortshufflehandle-for-shufflehandleshouldbypassmergesort-method"></a><a class="link" href="#considering-bypassmergesortshufflehandle-for-shufflehandleshouldbypassmergesort-method"><a id="shouldBypassMergeSort"></a> Considering BypassMergeSortShuffleHandle for ShuffleHandle&#8201;&#8212;&#8201;<code>shouldBypassMergeSort</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="considering-bypassmergesortshufflehandle-for-shufflehandleshouldbypassmergesort-method"><a class="anchor" href="#considering-bypassmergesortshufflehandle-for-shufflehandleshouldbypassmergesort-method"></a><a class="link" href="#considering-bypassmergesortshufflehandle-for-shufflehandleshouldbypassmergesort-method"><a id="shouldBypassMergeSort"></a> Considering BypassMergeSortShuffleHandle for ShuffleHandle&#8201;&#8212;&#8201;<code>shouldBypassMergeSort</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">shouldBypassMergeSort(conf: SparkConf, dep: ShuffleDependency[_, _, _]): Boolean</code></pre>
@@ -2116,14 +2129,16 @@ FIXME Associated?! What&#8217;s that?
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>shouldBypassMergeSort</code> is exclusively used when <a href="#registerShuffle"><code>SortShuffleManager</code> selects a <code>ShuffleHandle</code></a> (for a <code>ShuffleDependency</code>).
+<code>shouldBypassMergeSort</code> is exclusively used when <a href="#registerShuffle">SortShuffleManager selects a <code>ShuffleHandle</code></a> (for a <code>ShuffleDependency</code>).
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="considering-serializedshufflehandle-for-shufflehandlecanuseserializedshuffle-method"><a class="anchor" href="#considering-serializedshufflehandle-for-shufflehandlecanuseserializedshuffle-method"></a><a class="link" href="#considering-serializedshufflehandle-for-shufflehandlecanuseserializedshuffle-method"><a id="canUseSerializedShuffle"></a> Considering SerializedShuffleHandle for ShuffleHandle&#8201;&#8212;&#8201;<code>canUseSerializedShuffle</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="considering-serializedshufflehandle-for-shufflehandlecanuseserializedshuffle-method"><a class="anchor" href="#considering-serializedshufflehandle-for-shufflehandlecanuseserializedshuffle-method"></a><a class="link" href="#considering-serializedshufflehandle-for-shufflehandlecanuseserializedshuffle-method"><a id="canUseSerializedShuffle"></a> Considering SerializedShuffleHandle for ShuffleHandle&#8201;&#8212;&#8201;<code>canUseSerializedShuffle</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">canUseSerializedShuffle(dependency: ShuffleDependency[_, _, _]): Boolean</code></pre>
@@ -2172,39 +2187,35 @@ DEBUG Can't use serialized shuffle for shuffle [id] because it has more than [nu
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>canUseSerializedShuffle</code> is exclusively used when <a href="#registerShuffle"><code>SortShuffleManager</code> selects a <code>ShuffleHandle</code></a> (for a <code>ShuffleDependency</code>).
+<code>canUseSerializedShuffle</code> is exclusively used when <a href="#registerShuffle">SortShuffleManager selects a <code>ShuffleHandle</code></a> (for a <code>ShuffleDependency</code>).
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Spark Properties</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Spark Property</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_shuffle_sort_bypassMergeThreshold"></a> <code>spark.shuffle.sort.bypassMergeThreshold</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>200</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of reduce partitions below which <code>SortShuffleManager</code> avoids merge-sorting data if there is no map-side aggregation either.</p></td>
-</tr>
-</tbody>
-</table>
 </div>
-<div class="sect2">
-<h3 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h3>
+<div class="sect1">
+<h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.shuffle.sort.SortShuffleManager$</code> logger to see what happens inside.</p>
+</div>
+<div class="paragraph">
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.shuffle.sort.SortShuffleManager$=ALL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 30%;">
@@ -2219,17 +2230,10 @@ DEBUG Can't use serialized shuffle for shuffle [id] because it has more than [nu
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>numMapsForShuffle</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="numMapsForShuffle"></a> Number of mappers producing the output for a shuffle</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>shuffleBlockResolver</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="shuffleBlockResolver"></a> <a href="spark-shuffle-IndexShuffleBlockResolver.adoc">IndexShuffleBlockResolver</a> created when <a href="#creating-instance">SortShuffleManager is created</a> and used throughout the lifetime of the owning <code>SortShuffleManager</code>.</p>
-<p class="tableblock"><code>shuffleBlockResolver</code> is part of <a href="ShuffleManager.html#shuffleBlockResolver" class="page">ShuffleManager contract</a>.</p>
-<p class="tableblock">Beside the <a href="ShuffleManager.html#shuffleBlockResolver" class="page">uses due to the contract</a>, <code>shuffleBlockResolver</code> is used in <code>unregisterShuffle</code> and stopped in <code>stop</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="numMapsForShuffle"></a> Lookup table with the number of mappers producing the output for a shuffle (as <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html">java.util.concurrent.ConcurrentHashMap</a>)</p></td>
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 </article>
