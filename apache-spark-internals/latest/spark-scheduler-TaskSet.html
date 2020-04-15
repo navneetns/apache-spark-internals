@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
@@ -1816,7 +1816,7 @@
 <h2 id="tasksetset-of-missing-tasks-of-stage"><a class="anchor" href="#tasksetset-of-missing-tasks-of-stage"></a><a class="link" href="#tasksetset-of-missing-tasks-of-stage"><a id="TaskSet"></a> TaskSet&#8201;&#8212;&#8201;Set of Missing Tasks (of Stage)</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>TaskSet</code> is a <a href="#tasks">collection of independent tasks</a> of a single <a href="#stageId">stage</a> (and a <a href="#stageAttemptId">stage execution attempt</a>) that are <strong>missing</strong> (<em>uncomputed</em>), i.e. for which computation results are unavailable (as RDD blocks on <a href="spark-BlockManager.html" class="page">BlockManagers</a> on executors).</p>
+<p><code>TaskSet</code> is a <a href="#tasks">collection of independent tasks</a> of a single <a href="#stageId">stage</a> (and a <a href="#stageAttemptId">stage execution attempt</a>) that are <strong>missing</strong> (<em>uncomputed</em>), i.e. for which computation results are unavailable (as RDD blocks on <a href="BlockManager.html" class="page">BlockManagers</a> on executors).</p>
 </div>
 <div class="paragraph">
 <p>In other words, a <code>TaskSet</code> represents the missing partitions of a stage that (as tasks) can be run right away based on the data that is already on the cluster, e.g. map output files from previous stages, though they may fail if this data becomes unavailable.</p>

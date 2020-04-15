@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
@@ -1804,7 +1804,7 @@
   <ul>
     <li><a href="index.html">Apache Spark</a></li>
     <li>Block Storage System</li>
-    <li><a href="spark-BlockManager.html">BlockManager</a></li>
+    <li><a href="BlockManager.html">BlockManager</a></li>
     <li><a href="spark-DiskBlockManager.html">DiskBlockManager</a></li>
   </ul>
 </nav>
@@ -1831,7 +1831,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>DiskBlockManager</code> is used exclusively by <a href="spark-DiskStore.adoc">DiskStore</a> and created when <a href="spark-BlockManager.adoc#creating-instance"><code>BlockManager</code> is created</a> (and passed to <code>DiskStore</code>).
+<code>DiskBlockManager</code> is used exclusively by <a href="spark-DiskStore.adoc">DiskStore</a> and created when <a href="BlockManager.html#creating-instance" class="page"><code>BlockManager</code> is created</a> (and passed to <code>DiskStore</code>).
 </td>
 </tr>
 </table>
@@ -2131,7 +2131,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getAllBlocks</code> is used exclusively when <code>BlockManager</code> is requested to <a href="spark-BlockManager.adoc#getMatchingBlockIds">find IDs of existing blocks for a given filter</a>.
+<code>getAllBlocks</code> is used exclusively when <code>BlockManager</code> is requested to <a href="BlockManager.html#getMatchingBlockIds" class="page">find IDs of existing blocks for a given filter</a>.
 </td>
 </tr>
 </table>
@@ -2196,7 +2196,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>stop</code> is used exclusively when <code>BlockManager</code> is requested to <a href="spark-BlockManager.adoc#stop">stop</a>.
+<code>stop</code> is used exclusively when <code>BlockManager</code> is requested to <a href="BlockManager.html#stop" class="page">stop</a>.
 </td>
 </tr>
 </table>
@@ -2272,7 +2272,7 @@ FIXME
 <p><code>DiskBlockManager</code> is requested to <a href="#getFile">getFile</a>, initialize <a href="#subDirs">subDirs</a> and <a href="#doStop">stop</a></p>
 </li>
 <li>
-<p><code>BlockManager</code> is requested to <a href="spark-BlockManager.adoc#registerWithExternalShuffleServer">register the executor&#8217;s BlockManager with an external shuffle server</a></p>
+<p><code>BlockManager</code> is requested to <a href="BlockManager.html#registerWithExternalShuffleServer" class="page">register the executor&#8217;s BlockManager with an external shuffle server</a></p>
 </li>
 <li>
 <p>PySpark&#8217;s <code>BasePythonRunner</code> is requested to <code>compute</code></p>
@@ -2294,7 +2294,7 @@ FIXME
 <p><code>DiskBlockManager</code> is <a href="#subDirs">created</a> and is requested to <a href="#getFile">getFile</a></p>
 </li>
 <li>
-<p><code>BlockManager</code> is requested to <a href="spark-BlockManager.adoc#registerWithExternalShuffleServer">register the executor&#8217;s BlockManager with an external shuffle server</a></p>
+<p><code>BlockManager</code> is requested to <a href="BlockManager.html#registerWithExternalShuffleServer" class="page">register the executor&#8217;s BlockManager with an external shuffle server</a></p>
 </li>
 </ul>
 </div></div></td>

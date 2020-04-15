@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="../BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../spark-MemoryStore.html">MemoryStore</a>
@@ -1911,7 +1911,7 @@
 <p><code>getOrCompute</code> creates a <a href="spark-BlockDataManager.adoc#RDDBlockId">RDDBlockId</a> for the <a href="#id">RDD id</a> and the <a href="spark-rdd-Partition.adoc#index">partition index</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>getOrCompute</code> requests the <code>BlockManager</code> to <a href="spark-BlockManager.adoc#getOrElseUpdate">getOrElseUpdate</a> for the block ID (with the <a href="#storageLevel">storage level</a> and the <code>makeIterator</code> function).</p>
+<p><code>getOrCompute</code> requests the <code>BlockManager</code> to <a href="../BlockManager.html#getOrElseUpdate" class="page">getOrElseUpdate</a> for the block ID (with the <a href="#storageLevel">storage level</a> and the <code>makeIterator</code> function).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1929,7 +1929,7 @@
 <p><code>getOrCompute</code> records whether&#8230;&#8203;FIXME (readCachedBlock)</p>
 </div>
 <div class="paragraph">
-<p><code>getOrCompute</code> branches off per the response from the <a href="spark-BlockManager.adoc#getOrElseUpdate">BlockManager</a> and whether the internal <code>readCachedBlock</code> flag is now on or still off. In either case, <code>getOrCompute</code> creates an <a href="spark-InterruptibleIterator.adoc">InterruptibleIterator</a>.</p>
+<p><code>getOrCompute</code> branches off per the response from the <a href="../BlockManager.html#getOrElseUpdate" class="page">BlockManager</a> and whether the internal <code>readCachedBlock</code> flag is now on or still off. In either case, <code>getOrCompute</code> creates an <a href="spark-InterruptibleIterator.adoc">InterruptibleIterator</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1956,7 +1956,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>BlockResult</code> could be found in a local block manager or fetched from a remote block manager. It may also have been stored (persisted) just now. In either case, the <code>BlockResult</code> is available (and <a href="spark-BlockManager.adoc#getOrElseUpdate">BlockManager.getOrElseUpdate</a> gives a <code>Left</code> value with the <code>BlockResult</code>).
+The <code>BlockResult</code> could be found in a local block manager or fetched from a remote block manager. It may also have been stored (persisted) just now. In either case, the <code>BlockResult</code> is available (and <a href="../BlockManager.html#getOrElseUpdate" class="page">BlockManager.getOrElseUpdate</a> gives a <code>Left</code> value with the <code>BlockResult</code>).
 </td>
 </tr>
 </table>
@@ -1971,7 +1971,7 @@ The <code>BlockResult</code> could be found in a local block manager or fetched 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="spark-BlockManager.adoc#getOrElseUpdate">BlockManager.getOrElseUpdate</a> gives a <code>Right(iter)</code> value to indicate an error with a block.
+<a href="../BlockManager.html#getOrElseUpdate" class="page">BlockManager.getOrElseUpdate</a> gives a <code>Right(iter)</code> value to indicate an error with a block.
 </td>
 </tr>
 </table>

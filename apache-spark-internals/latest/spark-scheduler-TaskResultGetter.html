@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
@@ -2032,7 +2032,7 @@ Read up on <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurre
 </div>
 </div>
 <div class="paragraph">
-<p>The task <a href="spark-scheduler-TaskSchedulerImpl.adoc#handleTaskGettingResult">notifies <code>TaskSchedulerImpl</code> that it is about to fetch a remote block for a task result</a>. It then <a href="spark-BlockManager.adoc#getRemoteBytes">gets the block from remote block managers (as serialized bytes)</a>.</p>
+<p>The task <a href="spark-scheduler-TaskSchedulerImpl.adoc#handleTaskGettingResult">notifies <code>TaskSchedulerImpl</code> that it is about to fetch a remote block for a task result</a>. It then <a href="BlockManager.html#getRemoteBytes" class="page">gets the block from remote block managers (as serialized bytes)</a>.</p>
 </div>
 <div class="paragraph">
 <p>When the block could not be fetched, <a href="spark-scheduler-TaskSchedulerImpl.adoc#handleFailedTask"><code>TaskSchedulerImpl</code> is informed</a> (with <code>TaskResultLost</code> task failure reason) and the task simply returns.</p>

@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
@@ -1804,7 +1804,7 @@
   <ul>
     <li><a href="index.html">Apache Spark</a></li>
     <li>Block Storage System</li>
-    <li><a href="spark-BlockManager.html">BlockManager</a></li>
+    <li><a href="BlockManager.html">BlockManager</a></li>
     <li><a href="spark-BlockManager-ShuffleMetricsSource.html">ShuffleMetricsSource</a></li>
   </ul>
 </nav>
@@ -1816,7 +1816,7 @@
 <h2 id="shufflemetricssourcemetrics-source-of-blockmanager-for-shuffle-related-metrics"><a class="anchor" href="#shufflemetricssourcemetrics-source-of-blockmanager-for-shuffle-related-metrics"></a><a class="link" href="#shufflemetricssourcemetrics-source-of-blockmanager-for-shuffle-related-metrics"><a id="ShuffleMetricsSource"></a> ShuffleMetricsSource&#8201;&#8212;&#8201;Metrics Source of BlockManager for Shuffle-Related Metrics</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>ShuffleMetricsSource</code> is the <a href="spark-metrics-Source.adoc">metrics source</a> of a <a href="spark-BlockManager.adoc">BlockManager</a> for <a href="#metrics">shuffle-related metrics</a>.</p>
+<p><code>ShuffleMetricsSource</code> is the <a href="spark-metrics-Source.adoc">metrics source</a> of a <a href="BlockManager.html" class="page">BlockManager</a> for <a href="#metrics">shuffle-related metrics</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>ShuffleMetricsSource</code> lives on a Spark executor and is <a href="spark-Executor.adoc#creating-instance-BlockManager-shuffleMetricsSource">registered only when a Spark application runs in a non-local / cluster mode</a>.</p>
@@ -1828,7 +1828,7 @@
 <div class="title">Figure 1. Registering ShuffleMetricsSource with "executor" MetricsSystem</div>
 </div>
 <div class="paragraph">
-<p><code>ShuffleMetricsSource</code> is <a href="#creating-instance">created</a> exclusively when <code>BlockManager</code> is requested for the <a href="spark-BlockManager.adoc#shuffleMetricsSource">shuffleMetricsSource</a>.</p>
+<p><code>ShuffleMetricsSource</code> is <a href="#creating-instance">created</a> exclusively when <code>BlockManager</code> is requested for the <a href="BlockManager.html#shuffleMetricsSource" class="page">shuffleMetricsSource</a>.</p>
 </div>
 <div class="paragraph">
 <p>When <a href="#creating-instance">created</a>, <code>ShuffleMetricsSource</code> gets a <a href="#metricSet">MetricSet</a> that <code>BlockManager</code> requests from the <a href="spark-ShuffleClient.adoc#shuffleMetrics">ShuffleClient</a> (only <a href="spark-Executor.adoc#creating-instance-BlockManager-shuffleMetricsSource">when in a non-local / cluster mode</a>).</p>

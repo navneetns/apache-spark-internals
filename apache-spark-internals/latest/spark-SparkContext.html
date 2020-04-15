@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
@@ -1945,7 +1945,7 @@
 </div>
 </li>
 <li>
-<p>Accessing services, e.g. <a href="#statusStore">AppStatusStore</a>, <a href="#taskScheduler">TaskScheduler</a>, <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a>, <a href="spark-BlockManager.adoc">BlockManager</a>, <a href="spark-SchedulerBackend.adoc">SchedulerBackends</a>, <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a> and the <a href="#cleaner">optional ContextCleaner</a>.</p>
+<p>Accessing services, e.g. <a href="#statusStore">AppStatusStore</a>, <a href="#taskScheduler">TaskScheduler</a>, <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a>, <a href="BlockManager.html" class="page">BlockManager</a>, <a href="spark-SchedulerBackend.adoc">SchedulerBackends</a>, <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a> and the <a href="#cleaner">optional ContextCleaner</a>.</p>
 </li>
 <li>
 <p><a href="#runJob">Running jobs synchronously</a></p>
@@ -2148,7 +2148,7 @@ addFile(path: String, recursive: Boolean): Unit</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>unpersistRDD</code> uses <code>SparkEnv</code> <a href="spark-SparkEnv.adoc#blockManager">to access the current <code>BlockManager</code></a> that is in turn used to <a href="spark-BlockManager.adoc#master">access the current <code>BlockManagerMaster</code></a>.
+<code>unpersistRDD</code> uses <code>SparkEnv</code> <a href="spark-SparkEnv.adoc#blockManager">to access the current <code>BlockManager</code></a> that is in turn used to <a href="BlockManager.html#master" class="page">access the current <code>BlockManagerMaster</code></a>.
 </td>
 </tr>
 </table>
@@ -2637,7 +2637,7 @@ Changing the <code>SparkConf</code> object does not change the current configura
 </div>
 </div>
 <div class="paragraph">
-<p><code>getExecutorStorageStatus</code> <a href="spark-BlockManagerMaster.adoc#getStorageStatus">requests <code>BlockManagerMaster</code> for storage status</a> (of all <a href="spark-BlockManager.adoc">BlockManagers</a>).</p>
+<p><code>getExecutorStorageStatus</code> <a href="spark-BlockManagerMaster.adoc#getStorageStatus">requests <code>BlockManagerMaster</code> for storage status</a> (of all <a href="BlockManager.html" class="page">BlockManagers</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2975,7 +2975,7 @@ FIXME
 </table>
 </div>
 <div class="paragraph">
-<p><code>unpersist</code> removes an RDD from the master&#8217;s <a href="spark-BlockManager.adoc">Block Manager</a> (calls <code>removeRdd(rddId: Int, blocking: Boolean)</code>) and the internal <a href="#persistentRdds">persistentRdds</a> mapping.</p>
+<p><code>unpersist</code> removes an RDD from the master&#8217;s <a href="BlockManager.html" class="page">Block Manager</a> (calls <code>removeRdd(rddId: Int, blocking: Boolean)</code>) and the internal <a href="#persistentRdds">persistentRdds</a> mapping.</p>
 </div>
 <div class="paragraph">
 <p>It finally posts <a href="spark-scheduler-SparkListener.adoc#SparkListenerUnpersistRDD">SparkListenerUnpersistRDD</a> message to <code>listenerBus</code>.</p>

@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="../BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../spark-MemoryStore.html">MemoryStore</a>
@@ -2048,7 +2048,7 @@ FIXME
 <div class="ulist">
 <ul>
 <li>
-<p><a id="blockManager"></a> <a href="#spark-BlockManager.adoc" class="page unresolved">BlockManager</a></p>
+<p><a id="blockManager"></a> <a href="../BlockManager.html" class="page">BlockManager</a></p>
 </li>
 <li>
 <p><a id="shuffleBlockResolver"></a> <a href="spark-shuffle-IndexShuffleBlockResolver.html" class="page">IndexShuffleBlockResolver</a></p>
@@ -2226,7 +2226,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <p><code>closeAndWriteOutput</code> creates a temporary file to <a href="#mergeSpills">merge spill files</a>, deletes them afterwards, and requests <code>IndexShuffleBlockResolver</code> to write index file and commit.</p>
 </div>
 <div class="paragraph">
-<p><code>closeAndWriteOutput</code> creates a <a href="spark-scheduler-MapStatus.adoc">MapStatus</a> with the <a href="spark-BlockManager.adoc#shuffleServerId">location of the executor&#8217;s <code>BlockManager</code></a> and partition lengths in the merged file.</p>
+<p><code>closeAndWriteOutput</code> creates a <a href="spark-scheduler-MapStatus.adoc">MapStatus</a> with the <a href="../BlockManager.html#shuffleServerId" class="page">location of the executor&#8217;s <code>BlockManager</code></a> and partition lengths in the merged file.</p>
 </div>
 <div class="paragraph">
 <p>If there is an issue with deleting spill files, you should see the following ERROR message in the logs:</p>
@@ -2327,7 +2327,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <p><a id="mapStatus"></a> <a href="#spark-scheduler-MapStatus.adoc" class="page unresolved">MapStatus</a></p>
 </div>
 <div class="paragraph">
-<p>Created when <code>UnsafeShuffleWriter</code> is requested to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a> (with the <a href="#spark-BlockManager.adoc#shuffleServerId" class="page unresolved">BlockManagerId</a> of the <a href="#blockManager">BlockManager</a> and <code>partitionLengths</code>)</p>
+<p>Created when <code>UnsafeShuffleWriter</code> is requested to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a> (with the <a href="../BlockManager.html#shuffleServerId" class="page">BlockManagerId</a> of the <a href="#blockManager">BlockManager</a> and <code>partitionLengths</code>)</p>
 </div>
 <div class="paragraph">
 <p>Returned when <code>UnsafeShuffleWriter</code> is requested to <a href="#stop">stop</a></p>

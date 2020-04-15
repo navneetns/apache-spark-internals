@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
@@ -1824,7 +1824,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>the unique identifier for a <a href="spark-BlockManager.adoc">BlockManager</a> (as <a href="spark-BlockManager.adoc#BlockManagerId">BlockManagerId</a>)</p>
+<p>the unique identifier for a <a href="BlockManager.html" class="page">BlockManager</a> (as <a href="BlockManager.html#BlockManagerId" class="page">BlockManagerId</a>)</p>
 </li>
 <li>
 <p><code>shuffleId</code></p>
@@ -1847,7 +1847,7 @@
 <p>When <code>FetchFailedException</code> is reported, <a href="spark-Executor-TaskRunner.adoc#run-FetchFailedException"><code>TaskRunner</code> catches it and notifies <code>ExecutorBackend</code></a> (with <code>TaskState.FAILED</code> task state).</p>
 </div>
 <div class="paragraph">
-<p>The root <code>cause</code> of the <code>FetchFailedException</code> is usually because the <a href="spark-Executor.adoc">executor</a> (with the <a href="spark-BlockManager.adoc">BlockManager</a> for the shuffle blocks) is lost (i.e. no longer available) due to:</p>
+<p>The root <code>cause</code> of the <code>FetchFailedException</code> is usually because the <a href="spark-Executor.adoc">executor</a> (with the <a href="BlockManager.html" class="page">BlockManager</a> for the shuffle blocks) is lost (i.e. no longer available) due to:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">

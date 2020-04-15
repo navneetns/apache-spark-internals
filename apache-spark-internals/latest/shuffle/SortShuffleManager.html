@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="../BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../spark-MemoryStore.html">MemoryStore</a>
@@ -2198,14 +2198,14 @@ DEBUG Can't use serialized shuffle for shuffle [id] because it has more than [nu
 <h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.shuffle.sort.SortShuffleManager$</code> logger to see what happens inside.</p>
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.shuffle.sort.SortShuffleManager</code> logger to see what happens inside.</p>
 </div>
 <div class="paragraph">
 <p>Add the following line to <code>conf/log4j.properties</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.shuffle.sort.SortShuffleManager$=ALL</code></pre>
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.shuffle.sort.SortShuffleManager=ALL</code></pre>
 </div>
 </div>
 <div class="paragraph">

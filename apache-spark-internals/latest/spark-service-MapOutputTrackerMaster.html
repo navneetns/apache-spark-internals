@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
@@ -2111,7 +2111,7 @@ The dispatcher threads are started immediately when <a href="#creating-instance"
 </div>
 </div>
 <div class="paragraph">
-<p><code>getPreferredLocationsForShuffle</code> finds the locations (i.e. <a href="spark-BlockManager.adoc">BlockManagers</a>) with the most map outputs for the input <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <a href="spark-rdd-Partition.adoc">Partition</a>.</p>
+<p><code>getPreferredLocationsForShuffle</code> finds the locations (i.e. <a href="BlockManager.html" class="page">BlockManagers</a>) with the most map outputs for the input <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <a href="spark-rdd-Partition.adoc">Partition</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2211,7 +2211,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 </div>
 </div>
 <div class="paragraph">
-<p><code>getLocationsWithLargestOutputs</code> returns <a href="spark-BlockManager.adoc#BlockManagerId">BlockManagerId</a>s with the largest size (of all the shuffle blocks they manage) above the input <code>fractionThreshold</code> (given the total size of all the shuffle blocks for the shuffle across all <a href="spark-BlockManager.adoc">BlockManagers</a>).</p>
+<p><code>getLocationsWithLargestOutputs</code> returns <a href="BlockManager.html#BlockManagerId" class="page">BlockManagerId</a>s with the largest size (of all the shuffle blocks they manage) above the input <code>fractionThreshold</code> (given the total size of all the shuffle blocks for the shuffle across all <a href="BlockManager.html" class="page">BlockManagers</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2258,7 +2258,7 @@ The input <code>numReducers</code> is not used.
 </table>
 </div>
 <div class="paragraph">
-<p><code>getLocationsWithLargestOutputs</code> iterates over the <code>MapStatus</code> array and builds an interim mapping between <a href="spark-BlockManager.adoc#BlockManagerId">BlockManagerId</a> and the cumulative sum of shuffle blocks across <a href="spark-BlockManager.adoc">BlockManagers</a>.</p>
+<p><code>getLocationsWithLargestOutputs</code> iterates over the <code>MapStatus</code> array and builds an interim mapping between <a href="BlockManager.html#BlockManagerId" class="page">BlockManagerId</a> and the cumulative sum of shuffle blocks across <a href="BlockManager.html" class="page">BlockManagers</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>

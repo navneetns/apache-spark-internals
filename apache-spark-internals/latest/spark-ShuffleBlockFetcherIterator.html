@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
@@ -1962,10 +1962,10 @@ FIXME
 <p><a id="shuffleClient"></a> <a href="spark-ShuffleClient.adoc">ShuffleClient</a></p>
 </li>
 <li>
-<p><a id="blockManager"></a> <a href="spark-BlockManager.adoc">BlockManager</a></p>
+<p><a id="blockManager"></a> <a href="BlockManager.html" class="page">BlockManager</a></p>
 </li>
 <li>
-<p><a id="blocksByAddress"></a> Blocks to fetch per <a href="spark-BlockManager.adoc">BlockManager</a> (as <code>Seq[(BlockManagerId, Seq[(BlockId, Long)])]</code>)</p>
+<p><a id="blocksByAddress"></a> Blocks to fetch per <a href="BlockManager.html" class="page">BlockManager</a> (as <code>Seq[(BlockManagerId, Seq[(BlockId, Long)])]</code>)</p>
 </li>
 <li>
 <p><a id="streamWrapper"></a> Function to wrap the returned input stream (as <code>(BlockId, InputStream) &#8658; InputStream</code>)</p>
@@ -1996,7 +1996,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>initialize</code> registers a task cleanup and fetches shuffle blocks from remote and local <a href="spark-BlockManager.adoc">BlockManagers</a>.</p>
+<p><code>initialize</code> registers a task cleanup and fetches shuffle blocks from remote and local <a href="BlockManager.html" class="page">BlockManagers</a>.</p>
 </div>
 <div class="paragraph">
 <p>Internally, <code>initialize</code> <a href="spark-TaskContext.adoc#addTaskCompletionListener">registers a <code>TaskCompletionListener</code></a> (that will <a href="#cleanup">clean up</a> right after the task finishes).</p>
@@ -2011,7 +2011,7 @@ FIXME
 <p>As <code>ShuffleBlockFetcherIterator</code> is in initialization phase, <code>initialize</code> makes sure that <a href="#reqsInFlight">reqsInFlight</a> and <a href="#bytesInFlight">bytesInFlight</a> internal counters are both <code>0</code>. Otherwise, <code>initialize</code> throws an exception.</p>
 </div>
 <div class="paragraph">
-<p><code>initialize</code> <a href="#fetchUpToMaxBytes">fetches shuffle blocks</a> (from remote <a href="spark-BlockManager.adoc">BlockManagers</a>).</p>
+<p><code>initialize</code> <a href="#fetchUpToMaxBytes">fetches shuffle blocks</a> (from remote <a href="BlockManager.html" class="page">BlockManagers</a>).</p>
 </div>
 <div class="paragraph">
 <p>You should see the following INFO message in the logs:</p>
@@ -2070,7 +2070,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The input <code>FetchRequest</code> contains the remote <a href="spark-BlockManager.adoc#BlockManagerId">BlockManagerId</a> address and the shuffle blocks to fetch (as a sequence of <a href="spark-BlockDataManager.adoc#BlockId">BlockId</a> and their sizes).
+The input <code>FetchRequest</code> contains the remote <a href="BlockManager.html#BlockManagerId" class="page">BlockManagerId</a> address and the shuffle blocks to fetch (as a sequence of <a href="spark-BlockDataManager.adoc#BlockId">BlockId</a> and their sizes).
 </td>
 </tr>
 </table>

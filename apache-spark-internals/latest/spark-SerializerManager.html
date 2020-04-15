@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
@@ -1827,7 +1827,7 @@ FIXME
 </table>
 </div>
 <div class="paragraph">
-<p>When <a href="spark-SparkEnv.adoc#create"><code>SparkEnv</code> is created</a> (either for the driver or executors), it instantiates <code>SerializerManager</code> that is then used to create a <a href="spark-BlockManager.adoc">BlockManager</a>.</p>
+<p>When <a href="spark-SparkEnv.adoc#create"><code>SparkEnv</code> is created</a> (either for the driver or executors), it instantiates <code>SerializerManager</code> that is then used to create a <a href="BlockManager.html" class="page">BlockManager</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>SerializerManager</code> <a href="#getSerializer">automatically selects the "best" serializer for shuffle blocks</a> that could either be <code>KryoSerializer</code> <a href="#canUseKryo">when a RDD&#8217;s types are known to be compatible with Kryo</a> or the <a href="#creating-instance">default <code>Serializer</code></a>.</p>

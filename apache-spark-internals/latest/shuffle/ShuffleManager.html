@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="../BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../spark-MemoryStore.html">MemoryStore</a>
@@ -1815,7 +1815,7 @@
 <h2 id="shufflemanager-contractpluggable-shuffle-systems"><a class="anchor" href="#shufflemanager-contractpluggable-shuffle-systems"></a><a class="link" href="#shufflemanager-contractpluggable-shuffle-systems"><a id="ShuffleManager"></a> ShuffleManager Contract&#8201;&#8212;&#8201;Pluggable Shuffle Systems</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>ShuffleManager</code> is a <a href="#contract">contract</a> of <a href="#implementations">shuffle systems</a> that manage shuffle metadata on the driver (using shuffle IDs or <a href="spark-shuffle-ShuffleHandle.html" class="page">ShuffleHandle</a>) and allow running tasks on executors to access the metadata.</p>
+<p><strong>ShuffleManager</strong> is a <a href="#contract">contract</a> of <a href="#implementations">shuffle systems</a> that manage shuffle metadata on the driver (using shuffle IDs or <a href="spark-shuffle-ShuffleHandle.html" class="page">ShuffleHandle</a>) and allow running tasks on executors to access the metadata.</p>
 </div>
 <div id="implementations" class="admonitionblock note">
 <table>
@@ -1833,6 +1833,9 @@
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>ShuffleManager is used to create a <a href="../BlockManager.html#shuffleManager" class="page">BlockManager</a>.</p>
 </div>
 <table id="contract" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. ShuffleManager Contract</caption>
@@ -1934,7 +1937,7 @@
 <p><code>SortShuffleManager</code> is requested for a <a href="SortShuffleManager.html#getWriter" class="page">ShuffleWriter for a ShuffleHandle</a>, to <a href="SortShuffleManager.html#unregisterShuffle" class="page">unregister a shuffle</a> and <a href="SortShuffleManager.html#stop" class="page">stop</a></p>
 </li>
 <li>
-<p><code>BlockManager</code> is requested to <a href="../spark-BlockManager.html#getBlockData" class="page">get shuffle data</a> and <a href="../spark-BlockManager.html#getLocalBytes" class="page">getLocalBytes</a></p>
+<p><code>BlockManager</code> is requested to <a href="../BlockManager.html#getBlockData" class="page">get shuffle data</a> and <a href="../BlockManager.html#getLocalBytes" class="page">getLocalBytes</a></p>
 </li>
 </ul>
 </div></div></td>

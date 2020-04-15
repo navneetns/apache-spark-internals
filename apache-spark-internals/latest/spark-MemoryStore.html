@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
@@ -1804,7 +1804,7 @@
   <ul>
     <li><a href="index.html">Apache Spark</a></li>
     <li>Block Storage System</li>
-    <li><a href="spark-BlockManager.html">BlockManager</a></li>
+    <li><a href="BlockManager.html">BlockManager</a></li>
     <li><a href="spark-MemoryStore.html">MemoryStore</a></li>
   </ul>
 </nav>
@@ -1819,7 +1819,7 @@
 <p><code>MemoryStore</code> is the <strong>memory store</strong> for blocks of data.</p>
 </div>
 <div class="paragraph">
-<p><code>MemoryStore</code> is <a href="#creating-instance">created</a> exclusively when <code>BlockManager</code> is <a href="spark-BlockManager.adoc#memoryStore">created</a>.</p>
+<p><code>MemoryStore</code> is <a href="#creating-instance">created</a> exclusively when <code>BlockManager</code> is <a href="BlockManager.html#memoryStore" class="page">created</a>.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1828,7 +1828,7 @@
 <div class="title">Figure 1. Creating MemoryStore</div>
 </div>
 <div class="paragraph">
-<p>The "idiom" to access the current <code>MemoryStore</code> is to request <code>SparkEnv</code> for the <a href="spark-SparkEnv.adoc#blockManager">BlockManager</a> that manages the <a href="spark-BlockManager.adoc#memoryStore">MemoryStore</a>.</p>
+<p>The "idiom" to access the current <code>MemoryStore</code> is to request <code>SparkEnv</code> for the <a href="spark-SparkEnv.adoc#blockManager">BlockManager</a> that manages the <a href="BlockManager.html#memoryStore" class="page">MemoryStore</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2196,7 +2196,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>putIteratorAsValues</code> is used when <code>BlockManager</code> stores  <a href="spark-BlockManager.adoc#doPutBytes">bytes of a block</a> or <a href="spark-BlockManager.adoc#doPutIterator">iterator of values of a block</a> or when <a href="spark-BlockManager.adoc#maybeCacheDiskValuesInMemory">attempting to cache spilled values read from disk</a>.
+<code>putIteratorAsValues</code> is used when <code>BlockManager</code> stores  <a href="BlockManager.html#doPutBytes" class="page">bytes of a block</a> or <a href="BlockManager.html#doPutIterator" class="page">iterator of values of a block</a> or when <a href="BlockManager.html#maybeCacheDiskValuesInMemory" class="page">attempting to cache spilled values read from disk</a>.
 </td>
 </tr>
 </table>

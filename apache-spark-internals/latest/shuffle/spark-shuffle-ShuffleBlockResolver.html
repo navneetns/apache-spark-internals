@@ -273,7 +273,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="../BlockManager.html">BlockManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../spark-MemoryStore.html">MemoryStore</a>
@@ -1815,7 +1815,7 @@
 <h2 id="shuffleblockresolver-contract"><a class="anchor" href="#shuffleblockresolver-contract"></a><a class="link" href="#shuffleblockresolver-contract"><a id="ShuffleBlockResolver"></a> ShuffleBlockResolver Contract</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>ShuffleBlockResolver</code> is the <a href="#contract">abstraction</a> of <a href="#implementations">shuffle block resolvers</a> that <a href="#spark-BlockManager.adoc" class="page unresolved">BlockManager</a> uses to <a href="#getBlockData">retrieve a shuffle block data</a> for a logical shuffle block identifier (i.e. map, reduce, and shuffle).</p>
+<p><code>ShuffleBlockResolver</code> is the <a href="#contract">abstraction</a> of <a href="#implementations">shuffle block resolvers</a> that <a href="../BlockManager.html" class="page">BlockManager</a> uses to <a href="#getBlockData">retrieve a shuffle block data</a> for a logical shuffle block identifier (i.e. map, reduce, and shuffle).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1846,14 +1846,15 @@ Shuffle block data files are often referred to as <strong>map outputs files</str
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>getBlockData</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="getBlockData" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getBlockData(blockId: ShuffleBlockId): ManagedBuffer</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getBlockData(
+  blockId: ShuffleBlockId): ManagedBuffer</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Retrieves the data (as a <a href="#spark-ManagedBuffer.adoc" class="page unresolved">ManagedBuffer</a>) for the given <a href="#spark-BlockDataManager.adoc#ShuffleBlockId" class="page unresolved">block</a> (a tuple of <code>shuffleId</code>, <code>mapId</code> and <code>reduceId</code>).</p>
 </div>
 <div class="paragraph">
-<p>Used when <code>BlockManager</code> is requested to retrieve a <a href="#spark-BlockManager.adoc#getLocalBytes" class="page unresolved">block data from a local block manager</a> and <a href="#spark-BlockManager.adoc#getBlockData" class="page unresolved">block data</a></p>
+<p>Used when <code>BlockManager</code> is requested to retrieve a <a href="../BlockManager.html#getLocalBytes" class="page">block data from a local block manager</a> and <a href="../BlockManager.html#getBlockData" class="page">block data</a></p>
 </div></div></td>
 </tr>
 <tr>
