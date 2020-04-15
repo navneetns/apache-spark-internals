@@ -118,10 +118,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
+    <a class="nav-link" href="shuffle/ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="shuffle/IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -2349,7 +2349,7 @@ FIXME
 </table>
 </div>
 <div class="paragraph">
-<p>For a <a href="spark-BlockId.html" class="page">BlockId</a> of a shuffle (a ShuffleBlockId), getBlockData requests the <a href="#shuffleManager">ShuffleManager</a> for the <a href="shuffle/ShuffleManager.html#shuffleBlockResolver" class="page">ShuffleBlockResolver</a> that is then requested for <a href="shuffle/spark-shuffle-ShuffleBlockResolver.html#getBlockData" class="page">getBlockData</a>.</p>
+<p>For a <a href="spark-BlockId.html" class="page">BlockId</a> of a shuffle (a ShuffleBlockId), getBlockData requests the <a href="#shuffleManager">ShuffleManager</a> for the <a href="shuffle/ShuffleManager.html#shuffleBlockResolver" class="page">ShuffleBlockResolver</a> that is then requested for <a href="shuffle/ShuffleBlockResolver.html#getBlockData" class="page">getBlockData</a>.</p>
 </div>
 <div class="paragraph">
 <p>Otherwise, getBlockData <a href="#getLocalBytes">getLocalBytes</a> for the given BlockId.</p>
@@ -4163,7 +4163,7 @@ FIXME When would <code>info.tellMaster</code> be <code>true</code>?
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.storage.BlockManager=TRACE</code></pre>
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.storage.BlockManager=ALL</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -118,10 +118,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
+    <a class="nav-link" href="ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -1887,7 +1887,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="spark-shuffle-IndexShuffleBlockResolver.adoc">IndexShuffleBlockResolver</a></p>
+<p><a href="IndexShuffleBlockResolver.adoc">IndexShuffleBlockResolver</a></p>
 </li>
 <li>
 <p><a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a></p>
@@ -1963,7 +1963,7 @@
 <p><code>write</code> <a href="spark-ExternalSorter.adoc#insertAll">inserts all the records to <code>ExternalSorter</code></a></p>
 </div>
 <div class="paragraph">
-<p><code>write</code> <a href="spark-shuffle-IndexShuffleBlockResolver.adoc#getDataFile">requests <code>IndexShuffleBlockResolver</code> for the shuffle data output file</a> (for the <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <code>mapId</code>) and creates a temporary file for the shuffle data file in the same directory.</p>
+<p><code>write</code> <a href="IndexShuffleBlockResolver.adoc#getDataFile">requests <code>IndexShuffleBlockResolver</code> for the shuffle data output file</a> (for the <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <code>mapId</code>) and creates a temporary file for the shuffle data file in the same directory.</p>
 </div>
 <div class="paragraph">
 <p><code>write</code> creates a <a href="spark-BlockDataManager.adoc#ShuffleBlockId">ShuffleBlockId</a> (for the <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <code>mapId</code> and the special <code>IndexShuffleBlockResolver.NOOP_REDUCE_ID</code> reduce id).</p>
@@ -1972,7 +1972,7 @@
 <p><code>write</code> <a href="spark-ExternalSorter.adoc#writePartitionedFile">requests <code>ExternalSorter</code> to write all the records (previously inserted in) into the temporary partitioned file in the disk store</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>write</code> <a href="spark-shuffle-IndexShuffleBlockResolver.adoc#writeIndexFileAndCommit">requests <code>IndexShuffleBlockResolver</code> to write an index file</a> (for the temporary partitioned file).</p>
+<p><code>write</code> <a href="IndexShuffleBlockResolver.adoc#writeIndexFileAndCommit">requests <code>IndexShuffleBlockResolver</code> to write an index file</a> (for the temporary partitioned file).</p>
 </div>
 <div class="paragraph">
 <p><code>write</code> creates a <code>MapStatus</code> (with the <a href="../BlockManager.html#shuffleServerId" class="page">location of the shuffle server</a> that serves the executor&#8217;s shuffle files and the sizes of the shuffle partitioned file&#8217;s partitions).</p>

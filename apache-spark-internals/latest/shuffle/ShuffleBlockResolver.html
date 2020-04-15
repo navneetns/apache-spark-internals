@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/shuffle/spark-shuffle-UnsafeShuffleWriter.html">
+    <title> ShuffleBlockResolver :: The Internals Of Apache Spark</title>
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/shuffle/ShuffleBlockResolver.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -111,12 +111,12 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-shuffle-SortShuffleWriter.html">SortShuffleWriter</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-shuffle-UnsafeShuffleWriter.html">UnsafeShuffleWriter</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
@@ -1804,96 +1804,16 @@
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
     <li>Shuffle System</li>
-    <li><a href="spark-shuffle-ShuffleWriter.html">ShuffleWriter</a></li>
-    <li><a href="spark-shuffle-UnsafeShuffleWriter.html">UnsafeShuffleWriter</a></li>
+    <li><a href="ShuffleBlockResolver.html">ShuffleBlockResolver</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/shuffle/pages/spark-shuffle-UnsafeShuffleWriter.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/shuffle/pages/ShuffleBlockResolver.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="unsafeshufflewritershufflewriter-for-serializedshufflehandle"><a class="anchor" href="#unsafeshufflewritershufflewriter-for-serializedshufflehandle"></a><a class="link" href="#unsafeshufflewritershufflewriter-for-serializedshufflehandle"><a id="UnsafeShuffleWriter"></a> UnsafeShuffleWriter&#8201;&#8212;&#8201;ShuffleWriter for SerializedShuffleHandle</a></h2>
-<div class="sectionbody">
+<h1 class="page"><a id="ShuffleBlockResolver"></a> ShuffleBlockResolver</h1>
 <div class="paragraph">
-<p><code>UnsafeShuffleWriter</code> is a concrete <a href="spark-shuffle-ShuffleWriter.html" class="page">ShuffleWriter</a> for <a href="spark-shuffle-SerializedShuffleHandle.html" class="page">SerializedShuffleHandles</a>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>When requested to <a href="#write">write</a>, <code>UnsafeShuffleWriter</code> simply <a href="#insertRecordIntoSorter">inserts every record into ShuffleExternalSorter</a> followed by <a href="#closeAndWriteOutput">closing the internal resources and writing out merged spill files</a> (that, among other things, creates the <a href="#mapStatus">MapStatus</a>).</p>
-</li>
-<li>
-<p>When requested to <a href="#stop">stop</a>, <code>UnsafeShuffleWriter</code> records the peak execution memory metric and returns the <a href="#mapStatus">mapStatus</a> (that was created when requested to <a href="#write">write</a>).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>UnsafeShuffleWriter</code> is <a href="#creating-instance">created</a> exclusively when <code>SortShuffleManager</code> is requested for a <a href="SortShuffleManager.html#getWriter" class="page">ShuffleWriter</a> for a <a href="spark-shuffle-SerializedShuffleHandle.html" class="page">SerializedShuffleHandle</a>.</p>
-</div>
-<div id="transferToEnabled" class="paragraph">
-<p><code>UnsafeShuffleWriter</code> can use a <a href="#mergeSpillsWithTransferTo">specialized NIO-based fast merge procedure</a> that avoids extra serialization/deserialization when <a href="#spark-configuration-properties.adoc#spark.file.transferTo" class="page unresolved">spark.file.transferTo</a> configuration property (default: <code>true</code>) is enabled.</p>
-</div>
-<div id="initialSortBufferSize" class="paragraph">
-<p><code>UnsafeShuffleWriter</code> uses the <a href="#initialSortBufferSize">initial buffer size for sorting</a> (default: <code>4096</code>) when creating a <a href="#sorter">ShuffleExternalSorter</a> (when requested to <a href="#open">open</a>).</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Use <a href="#spark-configuration-properties.adoc#spark.shuffle.sort.initialBufferSize" class="page unresolved">spark.shuffle.sort.initialBufferSize</a> configuration property to change the default buffer size.
-</td>
-</tr>
-</table>
-</div>
-<div id="DEFAULT_INITIAL_SER_BUFFER_SIZE" class="paragraph">
-<p><code>UnsafeShuffleWriter</code> uses a fixed buffer size for the <a href="#serBuffer">output stream of serialized data written into a byte array</a> (default: <code>1024 * 1024</code>).</p>
-</div>
-<div id="inputBufferSizeInBytes" class="paragraph">
-<p><code>UnsafeShuffleWriter</code> uses the <a href="#spark-configuration-properties.adoc#spark.shuffle.file.buffer" class="page unresolved">spark.shuffle.file.buffer</a> configuration property (default: <code>32k</code>) for&#8230;&#8203;FIXME</p>
-</div>
-<div id="outputBufferSizeInBytes" class="paragraph">
-<p><code>UnsafeShuffleWriter</code> uses the <a href="#spark-configuration-properties.adoc#spark.shuffle.unsafe.file.output.buffer" class="page unresolved">spark.shuffle.unsafe.file.output.buffer</a> configuration property (default: <code>32k</code>) for&#8230;&#8203;FIXME</p>
-</div>
-<div id="logging" class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Enable <code>ALL</code> logging levels for <code>org.apache.spark.shuffle.sort.UnsafeShuffleWriter</code> logger to see what happens inside.</p>
-</div>
-<div class="paragraph">
-<p>Add the following line to <code>conf/log4j.properties</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.shuffle.sort.UnsafeShuffleWriter=ALL</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Refer to <a href="#spark-logging.adoc" class="page unresolved">Logging</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="mergespillswithtransferto-internal-method"><a class="anchor" href="#mergespillswithtransferto-internal-method"></a><a class="link" href="#mergespillswithtransferto-internal-method"><a id="mergeSpillsWithTransferTo"></a> <code>mergeSpillsWithTransferTo</code> Internal Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long[] mergeSpillsWithTransferTo(
-  SpillInfo[] spills,
-  File outputFile)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>mergeSpillsWithTransferTo</code>&#8230;&#8203;FIXME</p>
+<p><strong>ShuffleBlockResolver</strong> is an <a href="#contract">abstraction</a> of <a href="#implementations">shuffle block resolvers</a> that <a href="../BlockManager.html" class="page">BlockManager</a> uses to <a href="#getBlockData">retrieve a shuffle block data</a> for a logical shuffle block identifier (i.e. map, reduce, and shuffle).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1902,587 +1822,67 @@ Use <a href="#spark-configuration-properties.adoc#spark.shuffle.sort.initialBuff
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>mergeSpillsWithTransferTo</code> is used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="#mergeSpills">mergeSpills</a> (with the <a href="#transferToEnabled">transferToEnabled</a> flag enabled and no encryption).
+Shuffle block data files are often referred to as <strong>map outputs files</strong>.
 </td>
 </tr>
 </table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="forcing-shuffleexternalsorter-to-spill-to-disk-freeing-up-execution-memoryforcesortertospill-internal-method"><a class="anchor" href="#forcing-shuffleexternalsorter-to-spill-to-disk-freeing-up-execution-memoryforcesortertospill-internal-method"></a><a class="link" href="#forcing-shuffleexternalsorter-to-spill-to-disk-freeing-up-execution-memoryforcesortertospill-internal-method"><a id="forceSorterToSpill"></a> Forcing ShuffleExternalSorter to Spill To Disk (Freeing Up Execution Memory)&#8201;&#8212;&#8201;<code>forceSorterToSpill</code> Internal Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void forceSorterToSpill()</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>forceSorterToSpill</code> simply requests the <a href="#sorter">ShuffleExternalSorter</a> to <a href="spark-shuffle-ShuffleExternalSorter.html#spill" class="page">spill to disk (and free up execution memory)</a>.</p>
-</div>
-<div class="admonitionblock note">
+<div id="implementations" class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>forceSorterToSpill</code> is used exclusively for testing.
+<a href="IndexShuffleBlockResolver.html" class="page">IndexShuffleBlockResolver</a> is the default and only known ShuffleBlockResolver in Apache Spark.
 </td>
 </tr>
 </table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="mergespills-internal-method"><a class="anchor" href="#mergespills-internal-method"></a><a class="link" href="#mergespills-internal-method"><a id="mergeSpills"></a> <code>mergeSpills</code> Internal Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long[] mergeSpills(
-  SpillInfo[] spills,
-  File outputFile)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>mergeSpills</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>mergeSpills</code> is used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="updatepeakmemoryused-internal-method"><a class="anchor" href="#updatepeakmemoryused-internal-method"></a><a class="link" href="#updatepeakmemoryused-internal-method"><a id="updatePeakMemoryUsed"></a> <code>updatePeakMemoryUsed</code> Internal Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void updatePeakMemoryUsed()</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>updatePeakMemoryUsed</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>updatePeakMemoryUsed</code> is used when <code>UnsafeShuffleWriter</code> is requested for the <a href="#getPeakMemoryUsedBytes">peak memory used</a> and to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="writing-records-to-shuffle-systemwrite-method"><a class="anchor" href="#writing-records-to-shuffle-systemwrite-method"></a><a class="link" href="#writing-records-to-shuffle-systemwrite-method"><a id="write"></a> Writing Records to Shuffle System&#8201;&#8212;&#8201;<code>write</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void write(Iterator&lt;Product2&lt;K, V&gt;&gt; records)</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>write</code> is part of the <a href="spark-shuffle-ShuffleWriter.html#write" class="page">ShuffleWriter Contract</a> to write records to a shuffle system.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Internally, <code>write</code> traverses the input sequence of records (for a RDD partition) and <a href="#insertRecordIntoSorter">insertRecordIntoSorter</a> one by one. When all the records have been processed, <code>write</code> <a href="#closeAndWriteOutput">closes internal resources and writes spill files merged</a>.</p>
-</div>
-<div class="paragraph">
-<p>In the end, <code>write</code> <a href="spark-shuffle-ShuffleExternalSorter.adoc#cleanupResources">requests <code>ShuffleExternalSorter</code> to clean after itself</a>.</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="stopping-shufflewriterstop-method"><a class="anchor" href="#stopping-shufflewriterstop-method"></a><a class="link" href="#stopping-shufflewriterstop-method"><a id="stop"></a> Stopping ShuffleWriter&#8201;&#8212;&#8201;<code>stop</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">Option&lt;MapStatus&gt; stop(boolean success)</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>stop</code> is part of the <a href="spark-shuffle-ShuffleWriter.html#stop" class="page">ShuffleWriter Contract</a> to stop the <a href="spark-shuffle-ShuffleWriter.html" class="page">ShuffleWriter</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>stop</code>&#8230;&#8203;FIXME</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="creating-unsafeshufflewriter-instance"><a class="anchor" href="#creating-unsafeshufflewriter-instance"></a><a class="link" href="#creating-unsafeshufflewriter-instance"><a id="creating-instance"></a> Creating UnsafeShuffleWriter Instance</a></h3>
-<div class="paragraph">
-<p><code>UnsafeShuffleWriter</code> takes the following to be created:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a id="blockManager"></a> <a href="../BlockManager.html" class="page">BlockManager</a></p>
-</li>
-<li>
-<p><a id="shuffleBlockResolver"></a> <a href="IndexShuffleBlockResolver.html" class="page">IndexShuffleBlockResolver</a></p>
-</li>
-<li>
-<p><a id="memoryManager"></a> <a href="#spark-memory-TaskMemoryManager.adoc" class="page unresolved">TaskMemoryManager</a></p>
-</li>
-<li>
-<p><a id="handle"></a> <a href="spark-shuffle-SerializedShuffleHandle.html" class="page">SerializedShuffleHandle</a></p>
-</li>
-<li>
-<p><a id="mapId"></a> Map ID</p>
-</li>
-<li>
-<p><a id="taskContext"></a> <a href="#spark-TaskContext.adoc" class="page unresolved">TaskContext</a></p>
-</li>
-<li>
-<p><a id="sparkConf"></a> <a href="#spark-SparkConf.adoc" class="page unresolved">SparkConf</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>UnsafeShuffleWriter</code> requests the <a href="#handle">SerializedShuffleHandle</a> for the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> that is then requested for the <a href="#spark-rdd-ShuffleDependency.adoc#partitioner" class="page unresolved">Partitioner</a> and, in the end, for the <a href="#spark-rdd-Partitioner.adoc#numPartitions" class="page unresolved">number of partitions</a>. <code>UnsafeShuffleWriter</code> makes sure that the number of shuffle output partitions is below <a href="SortShuffleManager.html#MAX_SHUFFLE_OUTPUT_PARTITIONS_FOR_SERIALIZED_MODE" class="page"><code>(1 &lt;&lt; 24)</code> partition identifiers that can be encoded</a> and throws an <code>IllegalArgumentException</code> if not met:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>UnsafeShuffleWriter can only be used for shuffles with at most 16777215 reduce partitions</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The number of shuffle output partitions is first enforced when <a href="SortShuffleManager.html#canUseSerializedShuffle" class="page"><code>SortShuffleManager</code> checks if <code>SerializedShuffleHandle</code> can be used for <code>ShuffleHandle</code></a> (that eventually leads to <code>UnsafeShuffleWriter</code>).
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>In the end, <code>UnsafeShuffleWriter</code> <a href="#open">creates a ShuffleExternalSorter and a SerializationStream</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="opening-unsafeshufflewriter-creating-shuffleexternalsorter-and-serializationstreamopen-internal-method"><a class="anchor" href="#opening-unsafeshufflewriter-creating-shuffleexternalsorter-and-serializationstreamopen-internal-method"></a><a class="link" href="#opening-unsafeshufflewriter-creating-shuffleexternalsorter-and-serializationstreamopen-internal-method"><a id="open"></a> Opening UnsafeShuffleWriter (Creating ShuffleExternalSorter and SerializationStream)&#8201;&#8212;&#8201;<code>open</code> Internal Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void open()</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>open</code> makes sure that the internal reference to <a href="spark-shuffle-ShuffleExternalSorter.adoc">ShuffleExternalSorter</a> (as <code>sorter</code>) is not defined and <a href="spark-shuffle-ShuffleExternalSorter.adoc#creating-instance">creates one itself</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>open</code> creates a new byte array output stream (as <code>serBuffer</code>) with the buffer capacity of <code>1M</code>.</p>
-</div>
-<div class="paragraph">
-<p><code>open</code> creates a new <a href="spark-SerializationStream.adoc">SerializationStream</a> for the new byte array output stream using <a href="spark-SerializerInstance.adoc">SerializerInstance</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>SerializerInstance</code> was defined when <a href="#creating-instance"><code>UnsafeShuffleWriter</code> was created</a> (and is exactly the one used to <a href="spark-rdd-ShuffleDependency.adoc#creating-instance">create the <code>ShuffleDependency</code></a>).
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>open</code> is used exclusively when <code>UnsafeShuffleWriter</code> is <a href="#creating-instance">created</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="inserting-record-into-shuffleexternalsorterinsertrecordintosorter-method"><a class="anchor" href="#inserting-record-into-shuffleexternalsorterinsertrecordintosorter-method"></a><a class="link" href="#inserting-record-into-shuffleexternalsorterinsertrecordintosorter-method"><a id="insertRecordIntoSorter"></a> Inserting Record Into ShuffleExternalSorter&#8201;&#8212;&#8201;<code>insertRecordIntoSorter</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void insertRecordIntoSorter(Product2&lt;K, V&gt; record)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>insertRecordIntoSorter</code> <a href="spark-rdd-Partitioner.adoc#getPartition">calculates the partition for the key of the input <code>record</code></a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>Partitioner</code> is defined when <a href="#creating-instance"><code>UnsafeShuffleWriter</code> is created</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>insertRecordIntoSorter</code> then writes the key and the value of the input <code>record</code> to <a href="spark-SerializationStream.adoc">SerializationStream</a> and calculates the size of the serialized buffer.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>SerializationStream</code> is created when <a href="#open"><code>UnsafeShuffleWriter</code> opens</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>In the end, <code>insertRecordIntoSorter</code> <a href="spark-shuffle-ShuffleExternalSorter.adoc#insertRecord">inserts the serialized buffer to <code>ShuffleExternalSorter</code></a> (as <code>Platform.BYTE_ARRAY_OFFSET</code> ).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>ShuffleExternalSorter</code> is created when <a href="#open"><code>UnsafeShuffleWriter</code> opens</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>insertRecordIntoSorter</code> is used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="#write">write records</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="closing-internal-resources-and-writing-out-merged-spill-filescloseandwriteoutput-method"><a class="anchor" href="#closing-internal-resources-and-writing-out-merged-spill-filescloseandwriteoutput-method"></a><a class="link" href="#closing-internal-resources-and-writing-out-merged-spill-filescloseandwriteoutput-method"><a id="closeAndWriteOutput"></a> Closing Internal Resources and Writing Out Merged Spill Files&#8201;&#8212;&#8201;<code>closeAndWriteOutput</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void closeAndWriteOutput()</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>closeAndWriteOutput</code> first <a href="#updatePeakMemoryUsed">updates peak memory used</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>closeAndWriteOutput</code> removes the internal <code>ByteArrayOutputStream</code> and <a href="spark-SerializationStream.adoc">SerializationStream</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>closeAndWriteOutput</code> requests <a href="spark-shuffle-ShuffleExternalSorter.adoc#closeAndGetSpills"><code>ShuffleExternalSorter</code> to close itself and return <code>SpillInfo</code> metadata</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>closeAndWriteOutput</code> removes the internal <code>ShuffleExternalSorter</code>.</p>
-</div>
-<div class="paragraph">
-<p><code>closeAndWriteOutput</code> requests <code>IndexShuffleBlockResolver</code> for the data file for the <code>shuffleId</code> and <code>mapId</code>.</p>
-</div>
-<div class="paragraph">
-<p><code>closeAndWriteOutput</code> creates a temporary file to <a href="#mergeSpills">merge spill files</a>, deletes them afterwards, and requests <code>IndexShuffleBlockResolver</code> to write index file and commit.</p>
-</div>
-<div class="paragraph">
-<p><code>closeAndWriteOutput</code> creates a <a href="spark-scheduler-MapStatus.adoc">MapStatus</a> with the <a href="../BlockManager.html#shuffleServerId" class="page">location of the executor&#8217;s <code>BlockManager</code></a> and partition lengths in the merged file.</p>
-</div>
-<div class="paragraph">
-<p>If there is an issue with deleting spill files, you should see the following ERROR message in the logs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>ERROR Error while deleting spill file [path]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If there is an issue with deleting the temporary file, you should see the following ERROR message in the logs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>ERROR Error while deleting temp file [path]</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>closeAndWriteOutput</code> is used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="#write">write records</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="mergespillswithfilestream-internal-method"><a class="anchor" href="#mergespillswithfilestream-internal-method"></a><a class="link" href="#mergespillswithfilestream-internal-method"><a id="mergeSpillsWithFileStream"></a> <code>mergeSpillsWithFileStream</code> Internal Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long[] mergeSpillsWithFileStream(
-  SpillInfo[] spills,
-  File outputFile,
-  @Nullable CompressionCodec compressionCodec)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>mergeSpillsWithFileStream</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>mergeSpillsWithFileStream</code> is used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="#mergeSpills">mergeSpills</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="getting-peak-memory-usedgetpeakmemoryusedbytes-method"><a class="anchor" href="#getting-peak-memory-usedgetpeakmemoryusedbytes-method"></a><a class="link" href="#getting-peak-memory-usedgetpeakmemoryusedbytes-method"><a id="getPeakMemoryUsedBytes"></a> Getting Peak Memory Used&#8201;&#8212;&#8201;<code>getPeakMemoryUsedBytes</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long getPeakMemoryUsedBytes()</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>getPeakMemoryUsedBytes</code> simply <a href="#updatePeakMemoryUsed">updatePeakMemoryUsed</a> and returns the internal <a href="#peakMemoryUsedBytes">peakMemoryUsedBytes</a> registry.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>getPeakMemoryUsedBytes</code> is used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="#stop">stop</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-registries"></a> Internal Properties</a></h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. UnsafeShuffleWriter&#8217;s Internal Properties (e.g. Registries, Counters and Flags)</caption>
+<table id="contract" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. ShuffleBlockResolver Contract</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 75%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Method</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mapStatus</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="mapStatus"></a> <a href="#spark-scheduler-MapStatus.adoc" class="page unresolved">MapStatus</a></p>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>getBlockData</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="getBlockData" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getBlockData(
+  blockId: ShuffleBlockId): ManagedBuffer</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Created when <code>UnsafeShuffleWriter</code> is requested to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a> (with the <a href="../BlockManager.html#shuffleServerId" class="page">BlockManagerId</a> of the <a href="#blockManager">BlockManager</a> and <code>partitionLengths</code>)</p>
+<p>Retrieves the data (as a <a href="#spark-ManagedBuffer.adoc" class="page unresolved">ManagedBuffer</a>) for the given <a href="#spark-BlockDataManager.adoc#ShuffleBlockId" class="page unresolved">block</a> (a tuple of <code>shuffleId</code>, <code>mapId</code> and <code>reduceId</code>).</p>
 </div>
 <div class="paragraph">
-<p>Returned when <code>UnsafeShuffleWriter</code> is requested to <a href="#stop">stop</a></p>
+<p>Used when <code>BlockManager</code> is requested to retrieve a <a href="../BlockManager.html#getLocalBytes" class="page">block data from a local block manager</a> and <a href="../BlockManager.html#getBlockData" class="page">block data</a></p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>partitioner</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="partitioner"></a> <a href="#spark-rdd-Partitioner.adoc" class="page unresolved">Partitioner</a> (as used by the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> of the <a href="#handle">SerializedShuffleHandle</a>)</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stop</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="stop" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(): Unit</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Used when <code>UnsafeShuffleWriter</code> is requested for the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#open">open</a> (and create a <a href="spark-shuffle-ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a> with the given <a href="#spark-rdd-Partitioner.adoc#numPartitions" class="page unresolved">number of partitions</a>)</p>
-</li>
-<li>
-<p><a href="#insertRecordIntoSorter">insertRecordIntoSorter</a> (and request the <a href="#spark-rdd-Partitioner.adoc#getPartition" class="page unresolved">partition for the key</a>)</p>
-</li>
-<li>
-<p><a href="#mergeSpills">mergeSpills</a>, <a href="#mergeSpillsWithFileStream">mergeSpillsWithFileStream</a> and <a href="#mergeSpillsWithTransferTo">mergeSpillsWithTransferTo</a> (for the <a href="#spark-rdd-Partitioner.adoc#numPartitions" class="page unresolved">number of partitions</a> to create partition lengths)</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>peakMemoryUsedBytes</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="peakMemoryUsedBytes"></a> Peak memory used (in bytes) that is updated exclusively in <a href="#updatePeakMemoryUsed">updatePeakMemoryUsed</a> (after requesting the <a href="#sorter">ShuffleExternalSorter</a> for <a href="spark-shuffle-ShuffleExternalSorter.html#getPeakMemoryUsedBytes" class="page">getPeakMemoryUsedBytes</a>)</p>
+<p>Stops the <code>ShuffleBlockResolver</code></p>
 </div>
 <div class="paragraph">
-<p>Use <a href="#getPeakMemoryUsedBytes">getPeakMemoryUsedBytes</a> to access the current value</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>serBuffer</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="serBuffer"></a> <a href="https://docs.oracle.com/javase/8/docs/api/java/io/ByteArrayOutputStream.html">java.io.ByteArrayOutputStream</a> of serialized data (written into a byte array of <a href="#DEFAULT_INITIAL_SER_BUFFER_SIZE">1MB</a> initial size)</p>
-</div>
-<div class="paragraph">
-<p>Used when <code>UnsafeShuffleWriter</code> is requested for the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#open">open</a> (and create the internal <a href="#serOutputStream">SerializationStream</a>)</p>
-</li>
-<li>
-<p><a href="#insertRecordIntoSorter">insertRecordIntoSorter</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Destroyed (<code>null</code>) when requested to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>serializer</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="serializer"></a> <a href="#spark-SerializerInstance.adoc" class="page unresolved">SerializerInstance</a> (that is a new instance of the <a href="#spark-rdd-ShuffleDependency.adoc#serializer" class="page unresolved">Serializer</a> of the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> of the <a href="#handle">SerializedShuffleHandle</a>)</p>
-</div>
-<div class="paragraph">
-<p>Used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="#open">open</a> (and creates the <a href="#serOutputStream">SerializationStream</a>)</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>serOutputStream</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="serOutputStream"></a> <a href="#spark-SerializationStream.adoc" class="page unresolved">SerializationStream</a>  (that is created when the <a href="#serializer">SerializerInstance</a> is requested to <a href="#spark-SerializerInstance.adoc#serializeStream" class="page unresolved">serializeStream</a> with the <a href="#serBuffer">ByteArrayOutputStream</a>)</p>
-</div>
-<div class="paragraph">
-<p>Used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="#insertRecordIntoSorter">insertRecordIntoSorter</a></p>
-</div>
-<div class="paragraph">
-<p>Destroyed (<code>null</code>) when requested to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>shuffleId</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="shuffleId"></a> <a href="#spark-rdd-ShuffleDependency.adoc#shuffleId" class="page unresolved">Shuffle ID</a> (of the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> of the <a href="#handle">SerializedShuffleHandle</a>)</p>
-</div>
-<div class="paragraph">
-<p>Used exclusively when requested to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sorter</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="sorter"></a> <a href="spark-shuffle-ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a></p>
-</div>
-<div class="paragraph">
-<p>Initialized when <code>UnsafeShuffleWriter</code> is requested to <a href="#open">open</a> (while being <a href="#creating-instance">created</a>)</p>
-</div>
-<div class="paragraph">
-<p>Used when <code>UnsafeShuffleWriter</code> is requested for the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#updatePeakMemoryUsed">Updating peak memory used</a></p>
-</li>
-<li>
-<p><a href="#write">Writing records</a></p>
-</li>
-<li>
-<p><a href="#closeAndWriteOutput">Closing internal resources and writing out merged spill files</a></p>
-</li>
-<li>
-<p><a href="#insertRecordIntoSorter">Inserting a record into ShuffleExternalSorter</a></p>
-</li>
-<li>
-<p><a href="#forceSorterToSpill">Forcing ShuffleExternalSorter to spill to disk (freeing up execution memory)</a> (for testing)</p>
-</li>
-<li>
-<p><a href="#stop">stop</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Destroyed (<code>null</code>) when requested to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>writeMetrics</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="writeMetrics"></a> <a href="#spark-executor-ShuffleWriteMetrics.adoc" class="page unresolved">ShuffleWriteMetrics</a> (of the <a href="#spark-TaskContext.adoc#taskMetrics" class="page unresolved">TaskMetrics</a> of the <a href="#taskContext">TaskContext</a>)</p>
-</div>
-<div class="paragraph">
-<p>Used when <code>UnsafeShuffleWriter</code> is requested for the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#open">open</a> (and creates the <a href="#sorter">ShuffleExternalSorter</a>)</p>
-</li>
-<li>
-<p><a href="#mergeSpills">mergeSpills</a></p>
-</li>
-<li>
-<p><a href="#mergeSpillsWithFileStream">mergeSpillsWithFileStream</a></p>
-</li>
-<li>
-<p><a href="#mergeSpillsWithTransferTo">mergeSpillsWithTransferTo</a></p>
-</li>
-</ul>
+<p>Used when <code>SortShuffleManager</code> is requested to <a href="SortShuffleManager.html#stop" class="page">stop</a></p>
 </div></div></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

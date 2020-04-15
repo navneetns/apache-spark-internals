@@ -118,10 +118,10 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-shuffle-ShuffleBlockResolver.html">ShuffleBlockResolver</a>
+    <a class="nav-link" href="ShuffleBlockResolver.html">ShuffleBlockResolver</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-shuffle-IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
+    <a class="nav-link" href="IndexShuffleBlockResolver.html">IndexShuffleBlockResolver</a>
   </li>
 </ul>
   </li>
@@ -1875,7 +1875,7 @@ Use <a href="../spark-configuration-properties.html#spark.shuffle.manager" class
 </table>
 </div>
 <div class="paragraph">
-<p><code>shuffleBlockResolver</code> is an <a href="spark-shuffle-IndexShuffleBlockResolver.html" class="page">IndexShuffleBlockResolver</a> that is created immediately when SortShuffleManager is.</p>
+<p><code>shuffleBlockResolver</code> is an <a href="IndexShuffleBlockResolver.html" class="page">IndexShuffleBlockResolver</a> that is created immediately when SortShuffleManager is.</p>
 </div>
 <div class="paragraph">
 <p><code>shuffleBlockResolver</code> is used when SortShuffleManager is requested for a <a href="#getWriter">ShuffleWriter for a given partition</a>, to <a href="#unregisterShuffle">unregister a shuffle metadata</a> and <a href="#stop">stop</a>.</p>
@@ -1915,7 +1915,7 @@ Use <a href="../spark-configuration-properties.html#spark.shuffle.manager" class
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-getWriter expects that the input ShuffleHandle is of type <a href="spark-shuffle-BaseShuffleHandle.html" class="page">BaseShuffleHandle</a>. Moreover, getWriter further expects that in two (out of three cases) it is a more specialized <a href="spark-shuffle-IndexShuffleBlockResolver.html" class="page">IndexShuffleBlockResolver</a>.
+getWriter expects that the input ShuffleHandle is of type <a href="spark-shuffle-BaseShuffleHandle.html" class="page">BaseShuffleHandle</a>. Moreover, getWriter further expects that in two (out of three cases) it is a more specialized <a href="IndexShuffleBlockResolver.html" class="page">IndexShuffleBlockResolver</a>.
 </td>
 </tr>
 </table>
@@ -1975,7 +1975,7 @@ getWriter expects that the input ShuffleHandle is of type <a href="spark-shuffle
 <p><code>unregisterShuffle</code> tries to remove the given <code>shuffleId</code> from the <a href="#numMapsForShuffle">numMapsForShuffle</a> internal registry.</p>
 </div>
 <div class="paragraph">
-<p>If the given <code>shuffleId</code> was registered, <code>unregisterShuffle</code> requests the <a href="#shuffleBlockResolver">IndexShuffleBlockResolver</a> to <a href="spark-shuffle-IndexShuffleBlockResolver.html#removeDataByMap" class="page">remove the shuffle index and data files</a> one by one (up to the number of mappers producing the output for the shuffle).</p>
+<p>If the given <code>shuffleId</code> was registered, <code>unregisterShuffle</code> requests the <a href="#shuffleBlockResolver">IndexShuffleBlockResolver</a> to <a href="IndexShuffleBlockResolver.html#removeDataByMap" class="page">remove the shuffle index and data files</a> one by one (up to the number of mappers producing the output for the shuffle).</p>
 </div>
 </div>
 </div>
@@ -2094,7 +2094,7 @@ FIXME Copy the conditions
 </table>
 </div>
 <div class="paragraph">
-<p><code>stop</code> simply requests the <a href="#shuffleBlockResolver">IndexShuffleBlockResolver</a> to <a href="spark-shuffle-IndexShuffleBlockResolver.html#stop" class="page">stop</a> (which actually does nothing).</p>
+<p><code>stop</code> simply requests the <a href="#shuffleBlockResolver">IndexShuffleBlockResolver</a> to <a href="IndexShuffleBlockResolver.html#stop" class="page">stop</a> (which actually does nothing).</p>
 </div>
 </div>
 </div>
