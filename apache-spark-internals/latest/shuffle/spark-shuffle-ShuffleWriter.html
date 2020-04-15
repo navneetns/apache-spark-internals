@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> ShuffleWriter :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/shuffle/spark-shuffle-ShuffleWriter.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -1811,63 +1811,25 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="shufflewriter-contract"><a class="anchor" href="#shufflewriter-contract"></a><a class="link" href="#shufflewriter-contract"><a id="ShuffleWriter"></a> ShuffleWriter Contract</a></h2>
+<h1 class="page"><a id="ShuffleWriter"></a> ShuffleWriter</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>ShuffleWriter</code> is the <a href="#contract">contract</a> of <a href="#implementations">shuffle writers</a> that can <a href="#write">write</a> a sequence of key-value records (of a RDD partition) to a shuffle system.</p>
+<p><strong>ShuffleWriter</strong> of K keys and V values (<code>ShuffleWriter[K, V]</code>) is an abstraction of <a href="#implementations">shuffle writers</a> that can <a href="#write">write key-value records</a> (of a RDD partition) to a shuffle system.</p>
 </div>
 <div class="paragraph">
-<p><code>ShuffleWriter</code> is used exclusively when <a href="#spark-scheduler-ShuffleMapTask.adoc" class="page unresolved">ShuffleMapTask</a> is requested to <a href="#spark-scheduler-ShuffleMapTask.adoc#runTask" class="page unresolved">run</a>.</p>
+<p>ShuffleWriter is used when <a href="../spark-scheduler-ShuffleMapTask.html" class="page">ShuffleMapTask</a> is requested to <a href="../spark-scheduler-ShuffleMapTask.html#runTask" class="page">run</a>.</p>
 </div>
-<table id="contract" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. ShuffleWriter Contract</caption>
+</div>
+</div>
+<div class="sect1">
+<h2 id="shufflewriters"><a class="anchor" href="#shufflewriters"></a><a class="link" href="#shufflewriters"><a id="implementations"></a> ShuffleWriters</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. ShuffleWriters</caption>
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Method</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stop</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div id="stop" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(success: Boolean): Option[MapStatus]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Stops (<em>closes</em>) the <code>ShuffleWriter</code> and returns a <a href="#spark-scheduler-MapStatus.adoc" class="page unresolved">MapStatus</a> if the writing completed successfully. The <code>success</code> flag is the status of the task execution.</p>
-</div>
-<div class="paragraph">
-<p>Used exclusively when <code>ShuffleMapTask</code> is requested to <a href="#spark-scheduler-ShuffleMapTask.adoc#runTask" class="page unresolved">run</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>write</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div id="write" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">write(records: Iterator[Product2[K, V]]): Unit</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Writes a sequence of key-value records to a shuffle system</p>
-</div>
-<div class="paragraph">
-<p>Used exclusively when <code>ShuffleMapTask</code> is requested to <a href="#spark-scheduler-ShuffleMapTask.adoc#runTask" class="page unresolved">run</a></p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<table id="implementations" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. ShuffleWriters</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
+<col style="width: 30%;">
+<col style="width: 70%;">
 </colgroup>
 <thead>
 <tr>
@@ -1877,19 +1839,53 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-shuffle-BypassMergeSortShuffleWriter.html" class="page">BypassMergeSortShuffleWriter</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="BypassMergeSortShuffleWriter"></a> <code>ShuffleWriter</code> for <a href="spark-shuffle-BypassMergeSortShuffleHandle.html" class="page">BypassMergeSortShuffleHandles</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="spark-shuffle-BypassMergeSortShuffleWriter.html" class="page">BypassMergeSortShuffleWriter</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="BypassMergeSortShuffleWriter"></a> ShuffleWriter for <a href="spark-shuffle-BypassMergeSortShuffleHandle.html" class="page">BypassMergeSortShuffleHandles</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-shuffle-SortShuffleWriter.html" class="page">SortShuffleWriter</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="SortShuffleWriter"></a> Fallback <code>ShuffleWriter</code> (when neither <a href="#BypassMergeSortShuffleWriter">BypassMergeSortShuffleWriter</a> nor <a href="#UnsafeShuffleWriter">UnsafeShuffleWriter</a> could be used)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="spark-shuffle-SortShuffleWriter.html" class="page">SortShuffleWriter</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="SortShuffleWriter"></a> Fallback ShuffleWriter (when neither <a href="#BypassMergeSortShuffleWriter">BypassMergeSortShuffleWriter</a> nor <a href="#UnsafeShuffleWriter">UnsafeShuffleWriter</a> could be used)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-shuffle-UnsafeShuffleWriter.html" class="page">UnsafeShuffleWriter</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="UnsafeShuffleWriter"></a> <code>ShuffleWriter</code> for <a href="spark-shuffle-SerializedShuffleHandle.html" class="page">SerializedShuffleHandles</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="spark-shuffle-UnsafeShuffleWriter.html" class="page">UnsafeShuffleWriter</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="UnsafeShuffleWriter"></a> ShuffleWriter for <a href="spark-shuffle-SerializedShuffleHandle.html" class="page">SerializedShuffleHandles</a></p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="stopping-shufflewriter"><a class="anchor" href="#stopping-shufflewriter"></a><a class="link" href="#stopping-shufflewriter"><a id="stop"></a> Stopping ShuffleWriter</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(
+  success: Boolean): Option[MapStatus]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Stops (<em>closes</em>) the ShuffleWriter and returns a <a href="../spark-scheduler-MapStatus.html" class="page">MapStatus</a> if the writing completed successfully. The <code>success</code> flag is the status of the task execution.</p>
+</div>
+<div class="paragraph">
+<p>stop is used when ShuffleMapTask is requested to <a href="../spark-scheduler-ShuffleMapTask.html#runTask" class="page">run</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="writing-partition-records-out-to-shuffle-system"><a class="anchor" href="#writing-partition-records-out-to-shuffle-system"></a><a class="link" href="#writing-partition-records-out-to-shuffle-system"><a id="write"></a> Writing Partition Records Out to Shuffle System</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">write(
+  records: Iterator[Product2[K, V]]): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Writes key-value records out to a shuffle system.</p>
+</div>
+<div class="paragraph">
+<p>write is used when <code>ShuffleMapTask</code> is requested to <a href="../spark-scheduler-ShuffleMapTask.html#runTask" class="page">run</a></p>
+</div>
 </div>
 </div>
 </article>

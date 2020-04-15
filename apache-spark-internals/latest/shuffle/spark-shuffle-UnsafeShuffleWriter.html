@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> UnsafeShuffleWriter :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/shuffle/spark-shuffle-UnsafeShuffleWriter.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -1812,11 +1812,11 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="unsafeshufflewritershufflewriter-for-serializedshufflehandle"><a class="anchor" href="#unsafeshufflewritershufflewriter-for-serializedshufflehandle"></a><a class="link" href="#unsafeshufflewritershufflewriter-for-serializedshufflehandle"><a id="UnsafeShuffleWriter"></a> UnsafeShuffleWriter&#8201;&#8212;&#8201;ShuffleWriter for SerializedShuffleHandle</a></h2>
+<h1 class="page"><a id="UnsafeShuffleWriter"></a> UnsafeShuffleWriter</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>UnsafeShuffleWriter</code> is a concrete <a href="spark-shuffle-ShuffleWriter.html" class="page">ShuffleWriter</a> for <a href="spark-shuffle-SerializedShuffleHandle.html" class="page">SerializedShuffleHandles</a>:</p>
+<p><code>UnsafeShuffleWriter</code> is a <a href="spark-shuffle-ShuffleWriter.html" class="page">ShuffleWriter</a> for <a href="spark-shuffle-SerializedShuffleHandle.html" class="page">SerializedShuffleHandles</a>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1829,7 +1829,7 @@
 </ul>
 </div>
 <div class="paragraph">
-<p><code>UnsafeShuffleWriter</code> is <a href="#creating-instance">created</a> exclusively when <code>SortShuffleManager</code> is requested for a <a href="SortShuffleManager.html#getWriter" class="page">ShuffleWriter</a> for a <a href="spark-shuffle-SerializedShuffleHandle.html" class="page">SerializedShuffleHandle</a>.</p>
+<p><code>UnsafeShuffleWriter</code> is <a href="#creating-instance">created</a> when <code>SortShuffleManager</code> is requested for a <a href="SortShuffleManager.html#getWriter" class="page">ShuffleWriter</a> for a <a href="spark-shuffle-SerializedShuffleHandle.html" class="page">SerializedShuffleHandle</a>.</p>
 </div>
 <div id="transferToEnabled" class="paragraph">
 <p><code>UnsafeShuffleWriter</code> can use a <a href="#mergeSpillsWithTransferTo">specialized NIO-based fast merge procedure</a> that avoids extra serialization/deserialization when <a href="#spark-configuration-properties.adoc#spark.file.transferTo" class="page unresolved">spark.file.transferTo</a> configuration property (default: <code>true</code>) is enabled.</p>
@@ -1858,33 +1858,11 @@ Use <a href="#spark-configuration-properties.adoc#spark.shuffle.sort.initialBuff
 <div id="outputBufferSizeInBytes" class="paragraph">
 <p><code>UnsafeShuffleWriter</code> uses the <a href="#spark-configuration-properties.adoc#spark.shuffle.unsafe.file.output.buffer" class="page unresolved">spark.shuffle.unsafe.file.output.buffer</a> configuration property (default: <code>32k</code>) for&#8230;&#8203;FIXME</p>
 </div>
-<div id="logging" class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Enable <code>ALL</code> logging levels for <code>org.apache.spark.shuffle.sort.UnsafeShuffleWriter</code> logger to see what happens inside.</p>
-</div>
-<div class="paragraph">
-<p>Add the following line to <code>conf/log4j.properties</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.shuffle.sort.UnsafeShuffleWriter=ALL</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Refer to <a href="#spark-logging.adoc" class="page unresolved">Logging</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="mergespillswithtransferto-internal-method"><a class="anchor" href="#mergespillswithtransferto-internal-method"></a><a class="link" href="#mergespillswithtransferto-internal-method"><a id="mergeSpillsWithTransferTo"></a> <code>mergeSpillsWithTransferTo</code> Internal Method</a></h3>
+<div class="sect1">
+<h2 id="mergespillswithtransferto-internal-method"><a class="anchor" href="#mergespillswithtransferto-internal-method"></a><a class="link" href="#mergespillswithtransferto-internal-method"><a id="mergeSpillsWithTransferTo"></a> <code>mergeSpillsWithTransferTo</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long[] mergeSpillsWithTransferTo(
@@ -1908,8 +1886,10 @@ Use <a href="#spark-configuration-properties.adoc#spark.shuffle.sort.initialBuff
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="forcing-shuffleexternalsorter-to-spill-to-disk-freeing-up-execution-memoryforcesortertospill-internal-method"><a class="anchor" href="#forcing-shuffleexternalsorter-to-spill-to-disk-freeing-up-execution-memoryforcesortertospill-internal-method"></a><a class="link" href="#forcing-shuffleexternalsorter-to-spill-to-disk-freeing-up-execution-memoryforcesortertospill-internal-method"><a id="forceSorterToSpill"></a> Forcing ShuffleExternalSorter to Spill To Disk (Freeing Up Execution Memory)&#8201;&#8212;&#8201;<code>forceSorterToSpill</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="forcing-shuffleexternalsorter-to-spill-to-disk-freeing-up-execution-memoryforcesortertospill-internal-method"><a class="anchor" href="#forcing-shuffleexternalsorter-to-spill-to-disk-freeing-up-execution-memoryforcesortertospill-internal-method"></a><a class="link" href="#forcing-shuffleexternalsorter-to-spill-to-disk-freeing-up-execution-memoryforcesortertospill-internal-method"><a id="forceSorterToSpill"></a> Forcing ShuffleExternalSorter to Spill To Disk (Freeing Up Execution Memory)&#8201;&#8212;&#8201;<code>forceSorterToSpill</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void forceSorterToSpill()</code></pre>
@@ -1931,8 +1911,10 @@ Use <a href="#spark-configuration-properties.adoc#spark.shuffle.sort.initialBuff
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="mergespills-internal-method"><a class="anchor" href="#mergespills-internal-method"></a><a class="link" href="#mergespills-internal-method"><a id="mergeSpills"></a> <code>mergeSpills</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="mergespills-internal-method"><a class="anchor" href="#mergespills-internal-method"></a><a class="link" href="#mergespills-internal-method"><a id="mergeSpills"></a> <code>mergeSpills</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long[] mergeSpills(
@@ -1956,8 +1938,10 @@ Use <a href="#spark-configuration-properties.adoc#spark.shuffle.sort.initialBuff
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="updatepeakmemoryused-internal-method"><a class="anchor" href="#updatepeakmemoryused-internal-method"></a><a class="link" href="#updatepeakmemoryused-internal-method"><a id="updatePeakMemoryUsed"></a> <code>updatePeakMemoryUsed</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="updatepeakmemoryused-internal-method"><a class="anchor" href="#updatepeakmemoryused-internal-method"></a><a class="link" href="#updatepeakmemoryused-internal-method"><a id="updatePeakMemoryUsed"></a> <code>updatePeakMemoryUsed</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void updatePeakMemoryUsed()</code></pre>
@@ -1979,8 +1963,10 @@ Use <a href="#spark-configuration-properties.adoc#spark.shuffle.sort.initialBuff
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="writing-records-to-shuffle-systemwrite-method"><a class="anchor" href="#writing-records-to-shuffle-systemwrite-method"></a><a class="link" href="#writing-records-to-shuffle-systemwrite-method"><a id="write"></a> Writing Records to Shuffle System&#8201;&#8212;&#8201;<code>write</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="writing-records-to-shuffle-systemwrite-method"><a class="anchor" href="#writing-records-to-shuffle-systemwrite-method"></a><a class="link" href="#writing-records-to-shuffle-systemwrite-method"><a id="write"></a> Writing Records to Shuffle System&#8201;&#8212;&#8201;<code>write</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void write(Iterator&lt;Product2&lt;K, V&gt;&gt; records)</code></pre>
@@ -2017,8 +2003,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="stopping-shufflewriterstop-method"><a class="anchor" href="#stopping-shufflewriterstop-method"></a><a class="link" href="#stopping-shufflewriterstop-method"><a id="stop"></a> Stopping ShuffleWriter&#8201;&#8212;&#8201;<code>stop</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="stopping-shufflewriterstop-method"><a class="anchor" href="#stopping-shufflewriterstop-method"></a><a class="link" href="#stopping-shufflewriterstop-method"><a id="stop"></a> Stopping ShuffleWriter&#8201;&#8212;&#8201;<code>stop</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">Option&lt;MapStatus&gt; stop(boolean success)</code></pre>
@@ -2040,8 +2028,10 @@ FIXME
 <p><code>stop</code>&#8230;&#8203;FIXME</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-unsafeshufflewriter-instance"><a class="anchor" href="#creating-unsafeshufflewriter-instance"></a><a class="link" href="#creating-unsafeshufflewriter-instance"><a id="creating-instance"></a> Creating UnsafeShuffleWriter Instance</a></h3>
+</div>
+<div class="sect1">
+<h2 id="creating-unsafeshufflewriter-instance"><a class="anchor" href="#creating-unsafeshufflewriter-instance"></a><a class="link" href="#creating-unsafeshufflewriter-instance"><a id="creating-instance"></a> Creating UnsafeShuffleWriter Instance</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><code>UnsafeShuffleWriter</code> takes the following to be created:</p>
 </div>
@@ -2094,8 +2084,10 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <p>In the end, <code>UnsafeShuffleWriter</code> <a href="#open">creates a ShuffleExternalSorter and a SerializationStream</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="opening-unsafeshufflewriter-creating-shuffleexternalsorter-and-serializationstreamopen-internal-method"><a class="anchor" href="#opening-unsafeshufflewriter-creating-shuffleexternalsorter-and-serializationstreamopen-internal-method"></a><a class="link" href="#opening-unsafeshufflewriter-creating-shuffleexternalsorter-and-serializationstreamopen-internal-method"><a id="open"></a> Opening UnsafeShuffleWriter (Creating ShuffleExternalSorter and SerializationStream)&#8201;&#8212;&#8201;<code>open</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="opening-unsafeshufflewriter-creating-shuffleexternalsorter-and-serializationstreamopen-internal-method"><a class="anchor" href="#opening-unsafeshufflewriter-creating-shuffleexternalsorter-and-serializationstreamopen-internal-method"></a><a class="link" href="#opening-unsafeshufflewriter-creating-shuffleexternalsorter-and-serializationstreamopen-internal-method"><a id="open"></a> Opening UnsafeShuffleWriter (Creating ShuffleExternalSorter and SerializationStream)&#8201;&#8212;&#8201;<code>open</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void open()</code></pre>
@@ -2135,8 +2127,10 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="inserting-record-into-shuffleexternalsorterinsertrecordintosorter-method"><a class="anchor" href="#inserting-record-into-shuffleexternalsorterinsertrecordintosorter-method"></a><a class="link" href="#inserting-record-into-shuffleexternalsorterinsertrecordintosorter-method"><a id="insertRecordIntoSorter"></a> Inserting Record Into ShuffleExternalSorter&#8201;&#8212;&#8201;<code>insertRecordIntoSorter</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="inserting-record-into-shuffleexternalsorterinsertrecordintosorter-method"><a class="anchor" href="#inserting-record-into-shuffleexternalsorterinsertrecordintosorter-method"></a><a class="link" href="#inserting-record-into-shuffleexternalsorterinsertrecordintosorter-method"><a id="insertRecordIntoSorter"></a> Inserting Record Into ShuffleExternalSorter&#8201;&#8212;&#8201;<code>insertRecordIntoSorter</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void insertRecordIntoSorter(Product2&lt;K, V&gt; record)</code></pre>
@@ -2200,8 +2194,10 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="closing-internal-resources-and-writing-out-merged-spill-filescloseandwriteoutput-method"><a class="anchor" href="#closing-internal-resources-and-writing-out-merged-spill-filescloseandwriteoutput-method"></a><a class="link" href="#closing-internal-resources-and-writing-out-merged-spill-filescloseandwriteoutput-method"><a id="closeAndWriteOutput"></a> Closing Internal Resources and Writing Out Merged Spill Files&#8201;&#8212;&#8201;<code>closeAndWriteOutput</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="closing-internal-resources-and-writing-out-merged-spill-filescloseandwriteoutput-method"><a class="anchor" href="#closing-internal-resources-and-writing-out-merged-spill-filescloseandwriteoutput-method"></a><a class="link" href="#closing-internal-resources-and-writing-out-merged-spill-filescloseandwriteoutput-method"><a id="closeAndWriteOutput"></a> Closing Internal Resources and Writing Out Merged Spill Files&#8201;&#8212;&#8201;<code>closeAndWriteOutput</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void closeAndWriteOutput()</code></pre>
@@ -2257,8 +2253,10 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="mergespillswithfilestream-internal-method"><a class="anchor" href="#mergespillswithfilestream-internal-method"></a><a class="link" href="#mergespillswithfilestream-internal-method"><a id="mergeSpillsWithFileStream"></a> <code>mergeSpillsWithFileStream</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="mergespillswithfilestream-internal-method"><a class="anchor" href="#mergespillswithfilestream-internal-method"></a><a class="link" href="#mergespillswithfilestream-internal-method"><a id="mergeSpillsWithFileStream"></a> <code>mergeSpillsWithFileStream</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long[] mergeSpillsWithFileStream(
@@ -2283,8 +2281,10 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting-peak-memory-usedgetpeakmemoryusedbytes-method"><a class="anchor" href="#getting-peak-memory-usedgetpeakmemoryusedbytes-method"></a><a class="link" href="#getting-peak-memory-usedgetpeakmemoryusedbytes-method"><a id="getPeakMemoryUsedBytes"></a> Getting Peak Memory Used&#8201;&#8212;&#8201;<code>getPeakMemoryUsedBytes</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="getting-peak-memory-usedgetpeakmemoryusedbytes-method"><a class="anchor" href="#getting-peak-memory-usedgetpeakmemoryusedbytes-method"></a><a class="link" href="#getting-peak-memory-usedgetpeakmemoryusedbytes-method"><a id="getPeakMemoryUsedBytes"></a> Getting Peak Memory Used&#8201;&#8212;&#8201;<code>getPeakMemoryUsedBytes</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long getPeakMemoryUsedBytes()</code></pre>
@@ -2306,8 +2306,29 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-registries"></a> Internal Properties</a></h3>
+</div>
+<div class="sect1">
+<h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging levels for <code>org.apache.spark.shuffle.sort.UnsafeShuffleWriter</code> logger to see what happens inside.</p>
+</div>
+<div class="paragraph">
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.shuffle.sort.UnsafeShuffleWriter=ALL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-registries"></a> Internal Properties</a></h2>
+<div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. UnsafeShuffleWriter&#8217;s Internal Properties (e.g. Registries, Counters and Flags)</caption>
 <colgroup>
@@ -2480,7 +2501,6 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 </article>

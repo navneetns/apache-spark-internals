@@ -1816,13 +1816,29 @@
 <h2 id="serializedshufflehandlemarker-interface-for-serialized-shuffle-handles"><a class="anchor" href="#serializedshufflehandlemarker-interface-for-serialized-shuffle-handles"></a><a class="link" href="#serializedshufflehandlemarker-interface-for-serialized-shuffle-handles"><a id="SerializedShuffleHandle"></a> SerializedShuffleHandle&#8201;&#8212;&#8201;Marker Interface for Serialized Shuffle Handles</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>SerializedShuffleHandle</code> is a <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a> with no additional methods or fields and serves only to identify the choice of a <strong>serialized shuffle</strong>.</p>
+<p><strong>SerializedShuffleHandle</strong> is a <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a> to identify the choice of a <strong>serialized shuffle</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Like <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a>, <code>SerializedShuffleHandle</code> takes <code>shuffleId</code>, <code>numMaps</code>, and a <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a>.</p>
+<p>Like <a href="spark-shuffle-BaseShuffleHandle.html" class="page">BaseShuffleHandle</a>, SerializedShuffleHandle takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="shuffleId"></a> Shuffle ID</p>
+</li>
+<li>
+<p><a id="numMaps"></a> Number of mappers</p>
+</li>
+<li>
+<p><a id="dependency"></a> <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> (<code>ShuffleDependency[K, V, V]</code>)</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><code>SerializedShuffleHandle</code> is created when <a href="SortShuffleManager.html#registerShuffle" class="page"><code>SortShuffleManager</code> is requested for a <code>ShuffleHandle</code></a> (for a <code>ShuffleDependency</code>) and the <a href="SortShuffleManager.adoc#canUseSerializedShuffle">conditions hold</a> (but for <a href="SortShuffleManager.adoc#shouldBypassMergeSort"><code>BypassMergeSortShuffleHandle</code> do not</a> which are checked first).</p>
+<p>SerializedShuffleHandle is created when SortShuffleManager is requested for a <a href="SortShuffleManager.html#registerShuffle" class="page">ShuffleHandle</a> (for a <code>ShuffleDependency</code>) and the <a href="SortShuffleManager.adoc#canUseSerializedShuffle">conditions hold</a> (but for <a href="SortShuffleManager.adoc#shouldBypassMergeSort"><code>BypassMergeSortShuffleHandle</code> do not</a> which are checked first).</p>
+</div>
+<div class="paragraph">
+<p>SerializedShuffleHandle is used to create a <a href="spark-shuffle-UnsafeShuffleWriter.html#handle" class="page">UnsafeShuffleWriter</a>.</p>
 </div>
 </div>
 </div>

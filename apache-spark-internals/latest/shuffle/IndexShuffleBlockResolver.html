@@ -1816,20 +1816,20 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>IndexShuffleBlockResolver</strong> is a concrete <a href="ShuffleBlockResolver.html" class="page">ShuffleBlockResolver</a> that manages shuffle block data and uses <strong>shuffle index files</strong> for faster shuffle data access.</p>
+<p><strong>IndexShuffleBlockResolver</strong> is a <a href="ShuffleBlockResolver.html" class="page">ShuffleBlockResolver</a> that manages shuffle block data and uses <strong>shuffle index files</strong> for faster shuffle data access.</p>
 </div>
 <div class="paragraph">
-<p>IndexShuffleBlockResolver can <a href="#writeIndexFileAndCommit">write</a>, <a href="#getBlockData">look up</a> and <a href="#removeDataByMap">remove</a> shuffle block index and data files (given shuffle and
-map IDs).</p>
-</div>
-<div class="paragraph">
-<p>IndexShuffleBlockResolver is <a href="#creating-instance">created</a> and managed by <a href="SortShuffleManager.html#shuffleBlockResolver" class="page">SortShuffleManager</a> (so it <a href="ShuffleManager.html#shuffleBlockResolver" class="page">can access shuffle block data</a>).</p>
+<p>IndexShuffleBlockResolver is <a href="#creating-instance">created</a> for <a href="SortShuffleManager.html#shuffleBlockResolver" class="page">SortShuffleManager</a> (for <a href="ShuffleManager.html#shuffleBlockResolver" class="page">retrieving shuffle block data</a>).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="_images/IndexShuffleBlockResolver-SortShuffleManager.png" alt="IndexShuffleBlockResolver SortShuffleManager">
 </div>
-<div class="title">Figure 1. SortShuffleManager creates IndexShuffleBlockResolver</div>
+<div class="title">Figure 1. IndexShuffleBlockResolver and SortShuffleManager</div>
+</div>
+<div class="paragraph">
+<p>IndexShuffleBlockResolver can <a href="#writeIndexFileAndCommit">write</a>, <a href="#getBlockData">look up</a> and <a href="#removeDataByMap">remove</a> shuffle block index and data files (given shuffle and
+map IDs).</p>
 </div>
 <div class="paragraph">
 <p>IndexShuffleBlockResolver is later used to create the <a href="SortShuffleManager.html#getWriter" class="page">ShuffleWriter</a> given a <a href="spark-shuffle-ShuffleHandle.html" class="page">ShuffleHandle</a>.</p>
@@ -1837,7 +1837,7 @@ map IDs).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-indexshuffleblockresolver-instance"><a class="anchor" href="#creating-indexshuffleblockresolver-instance"></a><a class="link" href="#creating-indexshuffleblockresolver-instance"><a id="creating-instance"></a> Creating IndexShuffleBlockResolver Instance</a></h2>
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>IndexShuffleBlockResolver takes the following to be created:</p>
