@@ -75,6 +75,12 @@
     <a class="nav-link" href="BlockManager.html">BlockManager</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="DiskBlockManager.html">DiskBlockManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="DiskStore.html">DiskStore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-BlockDataManager.html">BlockDataManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -95,9 +101,6 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryPool.html">MemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-DiskStore.html">DiskStore</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-RpcHandler.html">RpcHandler</a>
@@ -122,15 +125,12 @@
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManagerMaster.html">BlockManagerMaster</a>
+    <a class="nav-link" href="BlockManagerMaster.html">BlockManagerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="spark-blockmanager-BlockManagerMasterEndpoint.html">BlockManagerMasterEndpoint</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-DiskBlockManager.html">DiskBlockManager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -157,6 +157,9 @@
     <a class="nav-link" href="spark-blockmanager-StorageStatus.html">StorageStatus</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
 </ul>
   </li>
@@ -757,9 +760,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-OneForOneStreamManager.html">OneForOneStreamManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-ExternalSorter.html">ExternalSorter</a>
@@ -1843,52 +1843,52 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>disk.diskSpaceUsed_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="spark-BlockManagerMaster.adoc#getStorageStatus">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their disk space used (<code>diskUsed</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their disk space used (<code>diskUsed</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.maxMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="spark-BlockManagerMaster.adoc#getStorageStatus">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their maximum memory limit (<code>maxMem</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their maximum memory limit (<code>maxMem</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.maxOffHeapMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="spark-BlockManagerMaster.adoc#getStorageStatus">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their off-heap memory remaining (<code>maxOffHeapMem</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their off-heap memory remaining (<code>maxOffHeapMem</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.maxOnHeapMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="spark-BlockManagerMaster.adoc#getStorageStatus">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their on-heap memory remaining (<code>maxOnHeapMem</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their on-heap memory remaining (<code>maxOnHeapMem</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.memUsed_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="spark-BlockManagerMaster.adoc#getStorageStatus">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their memory used (<code>memUsed</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their memory used (<code>memUsed</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.offHeapMemUsed_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="spark-BlockManagerMaster.adoc#getStorageStatus">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their off-heap memory used (<code>offHeapMemUsed</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their off-heap memory used (<code>offHeapMemUsed</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.onHeapMemUsed_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="spark-BlockManagerMaster.adoc#getStorageStatus">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their on-heap memory used (<code>onHeapMemUsed</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their on-heap memory used (<code>onHeapMemUsed</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.remainingMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="spark-BlockManagerMaster.adoc#getStorageStatus">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their memory remaining (<code>memRemaining</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their memory remaining (<code>memRemaining</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.remainingOffHeapMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="spark-BlockManagerMaster.adoc#getStorageStatus">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their off-heap memory remaining (<code>offHeapMemRemaining</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their off-heap memory remaining (<code>offHeapMemRemaining</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.remainingOnHeapMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="spark-BlockManagerMaster.adoc#getStorageStatus">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their on-heap memory remaining (<code>onHeapMemRemaining</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their on-heap memory remaining (<code>onHeapMemRemaining</code>).</p></td>
 </tr>
 </tbody>
 </table>

@@ -75,6 +75,12 @@
     <a class="nav-link" href="BlockManager.html">BlockManager</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="DiskBlockManager.html">DiskBlockManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="DiskStore.html">DiskStore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-BlockDataManager.html">BlockDataManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -95,9 +101,6 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryPool.html">MemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-DiskStore.html">DiskStore</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-RpcHandler.html">RpcHandler</a>
@@ -122,15 +125,12 @@
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManagerMaster.html">BlockManagerMaster</a>
+    <a class="nav-link" href="BlockManagerMaster.html">BlockManagerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="spark-blockmanager-BlockManagerMasterEndpoint.html">BlockManagerMasterEndpoint</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-DiskBlockManager.html">DiskBlockManager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -157,6 +157,9 @@
     <a class="nav-link" href="spark-blockmanager-StorageStatus.html">StorageStatus</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
 </ul>
   </li>
@@ -757,9 +760,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-OneForOneStreamManager.html">OneForOneStreamManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-ExternalSorter.html">ExternalSorter</a>
@@ -1904,7 +1904,7 @@ Use <a href="../tools/spark-submit.html" class="page">spark-submit</a>'s command
 <p><a id="rpcEnv"></a> <a href="../spark-rpc.html" class="page">RpcEnv</a></p>
 </li>
 <li>
-<p><a id="master"></a> <a href="spark-BlockManagerMaster.adoc">BlockManagerMaster</a></p>
+<p><a id="master"></a> <a href="BlockManagerMaster.html" class="page">BlockManagerMaster</a></p>
 </li>
 <li>
 <p><a id="serializerManager"></a> <a href="../spark-SerializerManager.html" class="page">SerializerManager</a></p>
@@ -1948,7 +1948,7 @@ Use <a href="../tools/spark-submit.html" class="page">spark-submit</a>'s command
 <p>When created, BlockManager sets <a href="#externalShuffleServiceEnabled">externalShuffleServiceEnabled</a> internal flag per <a href="../spark-ExternalShuffleService.html#spark.shuffle.service.enabled" class="page">spark.shuffle.service.enabled</a> Spark property.</p>
 </div>
 <div class="paragraph">
-<p>BlockManager then creates an instance of <a href="spark-DiskBlockManager.adoc">DiskBlockManager</a> (requesting <code>deleteFilesOnStop</code> when an external shuffle service is not in use).</p>
+<p>BlockManager then creates an instance of <a href="DiskBlockManager.html" class="page">DiskBlockManager</a> (requesting <code>deleteFilesOnStop</code> when an external shuffle service is not in use).</p>
 </div>
 <div class="paragraph">
 <p>BlockManager creates an instance of <a href="spark-BlockInfoManager.adoc">BlockInfoManager</a> (as <code>blockInfoManager</code>).</p>
@@ -1957,7 +1957,7 @@ Use <a href="../tools/spark-submit.html" class="page">spark-submit</a>'s command
 <p>BlockManager creates <strong>block-manager-future</strong> daemon cached thread pool with 128 threads maximum (as <code>futureExecutionContext</code>).</p>
 </div>
 <div class="paragraph">
-<p>BlockManager creates a <a href="spark-MemoryStore.html" class="page">MemoryStore</a> and <a href="spark-DiskStore.html" class="page">DiskStore</a>.</p>
+<p>BlockManager creates a <a href="spark-MemoryStore.html" class="page">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a>.</p>
 </div>
 <div class="paragraph">
 <p><a href="../spark-MemoryManager.html" class="page">MemoryManager</a> gets the <a href="spark-MemoryStore.adoc">MemoryStore</a> object assigned.</p>
@@ -2015,15 +2015,56 @@ FIXME Describe the YARN-specific part.
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#getBlockData">Retrieving a block data</a></p>
+<p><a href="#getBlockData">Retrieving a block data</a> (for shuffle blocks)</p>
 </li>
 <li>
-<p><a href="#getLocalBytes">Retrieving a non-shuffle block data</a></p>
+<p><a href="#getLocalBytes">Retrieving a non-shuffle block data</a> (for shuffle blocks anyway)</p>
 </li>
 <li>
 <p><a href="#registerWithExternalShuffleServer">Registering an executor with a local external shuffle service</a> (when <a href="#initialize">initialized</a> on an executor with <a href="#externalShuffleServiceEnabled">externalShuffleServiceEnabled</a>)</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="blockmanager-and-diskblockmanager"><a class="anchor" href="#blockmanager-and-diskblockmanager"></a><a class="link" href="#blockmanager-and-diskblockmanager"><a id="diskBlockManager"></a> BlockManager and DiskBlockManager</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When <a href="#creating-instance">created</a>, BlockManager creates a <a href="DiskBlockManager.html" class="page">DiskBlockManager</a>.</p>
+</div>
+<div class="paragraph">
+<p>BlockManager uses the BlockManager for the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Creating a <a href="#diskStore">DiskStore</a></p>
+</li>
+<li>
+<p><a href="#registerWithExternalShuffleServer">Registering an executor with a local external shuffle service</a> (when <a href="#initialize">initialized</a> on an executor with <a href="#externalShuffleServiceEnabled">externalShuffleServiceEnabled</a>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The BlockManager is available as <code>diskBlockManager</code> reference to other Spark systems.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">import org.apache.spark.SparkEnv
+SparkEnv.get.blockManager.diskBlockManager</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="blockmanager-and-diskstore"><a class="anchor" href="#blockmanager-and-diskstore"></a><a class="link" href="#blockmanager-and-diskstore"><a id="diskStore"></a> BlockManager and DiskStore</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When <a href="#creating-instance">created</a>, BlockManager creates a <a href="DiskStore.html" class="page">DiskStore</a> (with the <a href="#diskBlockManager">DiskBlockManager</a>).</p>
+</div>
+<div class="paragraph">
+<p>BlockManager uses the DiskStore when requested to <a href="#getStatus">getStatus</a>, <a href="#getCurrentBlockStatus">getCurrentBlockStatus</a>, <a href="#getLocalValues">getLocalValues</a>, <a href="#doGetLocalBytes">doGetLocalBytes</a>, <a href="#doPutBytes">doPutBytes</a>, <a href="#doPutIterator">doPutIterator</a>, <a href="#dropFromMemory">dropFromMemory</a>, <a href="#removeBlockInternal">removeBlockInternal</a>.</p>
 </div>
 </div>
 </div>
@@ -2171,22 +2212,20 @@ FIXME
 </div>
 </div>
 <div class="sect1">
-<h2 id="getlocalvalues-method"><a class="anchor" href="#getlocalvalues-method"></a><a class="link" href="#getlocalvalues-method"><a id="getLocalValues"></a> <code>getLocalValues</code> Method</a></h2>
+<h2 id="getlocalvalues-method"><a class="anchor" href="#getlocalvalues-method"></a><a class="link" href="#getlocalvalues-method"><a id="getLocalValues"></a> getLocalValues Method</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getLocalValues(blockId: BlockId): Option[BlockResult]</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getLocalValues(
+  blockId: BlockId): Option[BlockResult]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>getLocalValues</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="paragraph">
-<p>Internally, when <code>getLocalValues</code> is executed, you should see the following DEBUG message in the logs:</p>
+<p><code>getLocalValues</code> prints out the following DEBUG message to the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>DEBUG BlockManager: Getting local block [blockId]</code></pre>
+<pre class="highlightjs highlight"><code>Getting local block [blockId]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2197,7 +2236,7 @@ FIXME
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>DEBUG Block [blockId] was not found</code></pre>
+<pre class="highlightjs highlight"><code>Block [blockId] was not found</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2205,7 +2244,7 @@ FIXME
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>DEBUG Level for block [blockId] is [level]</code></pre>
+<pre class="highlightjs highlight"><code>Level for block [blockId] is [level]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2450,7 +2489,7 @@ FIXME How is <code>shuffleClient</code> used?
 <p><a href="spark-MemoryStore.adoc">MemoryStore</a> for memory storage level.</p>
 </li>
 <li>
-<p><a href="spark-DiskStore.adoc">DiskStore</a> for disk storage level.</p>
+<p><a href="DiskStore.html" class="page">DiskStore</a> for disk storage level.</p>
 </li>
 <li>
 <p><code>ExternalBlockStore</code> for OFF_HEAP storage level.</p>
@@ -2564,7 +2603,7 @@ FIXME How is <code>shuffleClient</code> used?
 </div>
 </div>
 <div class="paragraph">
-<p>And <a href="spark-DiskStore.adoc#putBytes"><code>DiskStore</code> stores the bytes</a>.</p>
+<p>And <a href="DiskStore.html#putBytes" class="page"><code>DiskStore</code> stores the bytes</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2573,13 +2612,13 @@ FIXME How is <code>shuffleClient</code> used?
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="spark-DiskStore.adoc">DiskStore</a> is requested to store the bytes of a block with memory and disk storage level only when <a href="spark-MemoryStore.adoc">MemoryStore</a> has failed.
+<a href="DiskStore.html" class="page">DiskStore</a> is requested to store the bytes of a block with memory and disk storage level only when <a href="spark-MemoryStore.adoc">MemoryStore</a> has failed.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>If the storage level is to use disk only, <a href="spark-DiskStore.adoc#putBytes"><code>DiskStore</code> stores the bytes</a>.</p>
+<p>If the storage level is to use disk only, <a href="DiskStore.html#putBytes" class="page"><code>DiskStore</code> stores the bytes</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>doPutBytes</code> requests <a href="#getCurrentBlockStatus">current block status</a> and if the block was successfully stored, and the driver should know about it (<code>tellMaster</code>), the function <a href="#reportBlockStatus">reports the current storage status of the block to the driver</a>. The <a href="../metrics/spark-executor-TaskMetrics.html#incUpdatedBlockStatuses" class="page">current <code>TaskContext</code> metrics are updated with the updated block status</a> (only when executed inside a task where <code>TaskContext</code> is available).</p>
@@ -2699,7 +2738,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>removeBlock</code> removes the <code>blockId</code> block from the <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="spark-DiskStore.adoc">DiskStore</a>.</p>
+<p><code>removeBlock</code> removes the <code>blockId</code> block from the <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a>.</p>
 </div>
 <div class="paragraph">
 <p>When executed, it prints out the following DEBUG message to the logs:</p>
@@ -2718,7 +2757,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p>Otherwise, with a write lock for the block, the block is removed from <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="spark-DiskStore.adoc">DiskStore</a> (see <a href="spark-MemoryStore.adoc#remove">Removing Block in <code>MemoryStore</code></a> and <a href="spark-DiskStore.adoc#remove">Removing Block in <code>DiskStore</code></a>).</p>
+<p>Otherwise, with a write lock for the block, the block is removed from <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a> (see <a href="spark-MemoryStore.adoc#remove">Removing Block in <code>MemoryStore</code></a> and <a href="DiskStore.html#remove" class="page">Removing Block in <code>DiskStore</code></a>).</p>
 </div>
 <div class="paragraph">
 <p>If both removals fail, it prints out the following WARN message:</p>
@@ -2895,7 +2934,7 @@ The method must be called before a BlockManager can be considered fully operable
 <p>Initializes the internal shuffle client, be it <a href="spark-ShuffleClient-ExternalShuffleClient.adoc">ExternalShuffleClient</a> or <a href="spark-BlockTransferService.adoc">BlockTransferService</a>.</p>
 </li>
 <li>
-<p><a href="spark-BlockManagerMaster.adoc#registerBlockManager">Registers itself with the driver&#8217;s <code>BlockManagerMaster</code></a> (using the <code>id</code>, <code>maxMemory</code> and its <code>slaveEndpoint</code>).</p>
+<p><a href="BlockManagerMaster.html#registerBlockManager" class="page">Registers itself with the driver&#8217;s <code>BlockManagerMaster</code></a> (using the <code>id</code>, <code>maxMemory</code> and its <code>slaveEndpoint</code>).</p>
 <div class="paragraph">
 <p>The <code>BlockManagerMaster</code> reference is passed in when the <a href="#creating-instance">BlockManager is created</a> on the driver and executors.</p>
 </div>
@@ -2941,7 +2980,7 @@ FIXME Describe <code>shuffleServerId</code>. Where is it used?
 </div>
 </div>
 <div class="paragraph">
-<p>It <a href="spark-BlockManagerMaster.adoc#registerBlockManager">registers itself to the driver&#8217;s BlockManagerMaster</a> passing the <a href="#BlockManagerId">BlockManagerId</a>, the maximum memory (as <code>maxMemory</code>), and the <a href="spark-blockmanager-BlockManagerSlaveEndpoint.adoc">BlockManagerSlaveEndpoint</a>.</p>
+<p>It <a href="BlockManagerMaster.html#registerBlockManager" class="page">registers itself to the driver&#8217;s BlockManagerMaster</a> passing the <a href="#BlockManagerId">BlockManagerId</a>, the maximum memory (as <code>maxMemory</code>), and the <a href="spark-blockmanager-BlockManagerSlaveEndpoint.adoc">BlockManagerSlaveEndpoint</a>.</p>
 </div>
 <div class="paragraph">
 <p>Ultimately, if the initialization happens on an executor and the <a href="#externalShuffleServiceEnabled">External Shuffle Service is used</a>, it <a href="#registerWithExternalShuffleServer">registers to the shuffle service</a>.</p>
@@ -3001,7 +3040,7 @@ It is executed when a <a href="#initialize">BlockManager is initialized on an ex
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>ExecutorShuffleInfo</code> uses <code>localDirs</code> and <code>subDirsPerLocalDir</code> from <a href="spark-DiskBlockManager.adoc">DiskBlockManager</a> and the class name of the constructor <a href="../shuffle/ShuffleManager.html" class="page">ShuffleManager</a>.
+The <code>ExecutorShuffleInfo</code> uses <code>localDirs</code> and <code>subDirsPerLocalDir</code> from <a href="DiskBlockManager.html" class="page">DiskBlockManager</a> and the class name of the constructor <a href="../shuffle/ShuffleManager.html" class="page">ShuffleManager</a>.
 </td>
 </tr>
 </table>
@@ -3060,10 +3099,10 @@ registerWithExternalShuffleServer is used when BlockManager is requested to <a h
 </div>
 </div>
 <div class="paragraph">
-<p><code>reregister</code> then <a href="spark-BlockManagerMaster.adoc#registerBlockManager">registers itself to the driver&#8217;s <code>BlockManagerMaster</code></a> (just as it was when <a href="#initialize">BlockManager was initializing</a>). It passes the <a href="#BlockManagerId">BlockManagerId</a>, the maximum memory (as <code>maxMemory</code>), and the <a href="spark-blockmanager-BlockManagerSlaveEndpoint.adoc">BlockManagerSlaveEndpoint</a>.</p>
+<p><code>reregister</code> then <a href="BlockManagerMaster.html#registerBlockManager" class="page">registers itself to the driver&#8217;s <code>BlockManagerMaster</code></a> (just as it was when <a href="#initialize">BlockManager was initializing</a>). It passes the <a href="#BlockManagerId">BlockManagerId</a>, the maximum memory (as <code>maxMemory</code>), and the <a href="spark-blockmanager-BlockManagerSlaveEndpoint.adoc">BlockManagerSlaveEndpoint</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>reregister</code> will then report all the local blocks to the <a href="spark-BlockManagerMaster.adoc">BlockManagerMaster</a>.</p>
+<p><code>reregister</code> will then report all the local blocks to the <a href="BlockManagerMaster.html" class="page">BlockManagerMaster</a>.</p>
 </div>
 <div class="paragraph">
 <p>You should see the following INFO message in the logs:</p>
@@ -3077,7 +3116,7 @@ registerWithExternalShuffleServer is used when BlockManager is requested to <a h
 <p>For each block metadata (in <a href="spark-BlockInfoManager.adoc">BlockInfoManager</a>) it <a href="#getCurrentBlockStatus">gets block current status</a> and <a href="#tryToReportBlockStatus">tries to send it to the BlockManagerMaster</a>.</p>
 </div>
 <div class="paragraph">
-<p>If there is an issue communicating to the <a href="spark-BlockManagerMaster.adoc">BlockManagerMaster</a>, you should see the following ERROR message in the logs:</p>
+<p>If there is an issue communicating to the <a href="BlockManagerMaster.html" class="page">BlockManagerMaster</a>, you should see the following ERROR message in the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3110,7 +3149,7 @@ registerWithExternalShuffleServer is used when BlockManager is requested to <a h
 </div>
 </div>
 <div class="paragraph">
-<p><code>getCurrentBlockStatus</code> returns the current <code>BlockStatus</code> of the <code>BlockId</code> block (with the block&#8217;s current <a href="spark-rdd-StorageLevel.adoc">StorageLevel</a>, memory and disk sizes). It uses <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="spark-DiskStore.adoc">DiskStore</a> for size and other information.</p>
+<p><code>getCurrentBlockStatus</code> returns the current <code>BlockStatus</code> of the <code>BlockId</code> block (with the block&#8217;s current <a href="spark-rdd-StorageLevel.adoc">StorageLevel</a>, memory and disk sizes). It uses <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a> for size and other information.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3119,7 +3158,7 @@ registerWithExternalShuffleServer is used when BlockManager is requested to <a h
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Most of the information to build <code>BlockStatus</code> is already in <code>BlockInfo</code> except that it may not necessarily reflect the current state per <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="spark-DiskStore.adoc">DiskStore</a>.
+Most of the information to build <code>BlockStatus</code> is already in <code>BlockInfo</code> except that it may not necessarily reflect the current state per <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a>.
 </td>
 </tr>
 </table>
@@ -3128,7 +3167,7 @@ Most of the information to build <code>BlockStatus</code> is already in <code>Bl
 <p>Internally, it uses the input <a href="spark-BlockInfo.adoc">BlockInfo</a> to know about the block&#8217;s storage level. If the storage level is not set (i.e. <code>null</code>), the returned <code>BlockStatus</code> assumes the <a href="spark-rdd-StorageLevel.adoc">default <code>NONE</code> storage level</a> and the memory and disk sizes being <code>0</code>.</p>
 </div>
 <div class="paragraph">
-<p>If however the storage level is set, <code>getCurrentBlockStatus</code> uses <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="spark-DiskStore.adoc">DiskStore</a> to check whether the block is stored in the storages or not and request for their sizes in the storages respectively (using their <code>getSize</code> or assume <code>0</code>).</p>
+<p>If however the storage level is set, <code>getCurrentBlockStatus</code> uses <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a> to check whether the block is stored in the storages or not and request for their sizes in the storages respectively (using their <code>getSize</code> or assume <code>0</code>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3239,7 +3278,7 @@ It is acceptable that the <code>BlockInfo</code> says to use memory or disk yet 
 </div>
 </div>
 <div class="paragraph">
-<p><code>tryToReportBlockStatus</code> <a href="spark-BlockManagerMaster.adoc#updateBlockInfo">reports block status update</a> to <a href="#master">BlockManagerMaster</a> and returns its response.</p>
+<p><code>tryToReportBlockStatus</code> <a href="BlockManagerMaster.html#updateBlockInfo" class="page">reports block status update</a> to <a href="#master">BlockManagerMaster</a> and returns its response.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3741,7 +3780,7 @@ It is acceptable that the <code>BlockInfo</code> says to use memory or disk yet 
 </ul>
 </div>
 <div class="paragraph">
-<p><code>shuffleClient</code> is also used when <code>BlockStoreShuffleReader</code> is requested to <a href="spark-shuffle-BlockStoreShuffleReader.adoc#read">read combined key-value records for a reduce task</a> (and creates a <a href="spark-ShuffleBlockFetcherIterator.adoc#shuffleClient">ShuffleBlockFetcherIterator</a>).</p>
+<p><code>shuffleClient</code> is also used when <code>BlockStoreShuffleReader</code> is requested to <a href="spark-shuffle-BlockStoreShuffleReader.adoc#read">read combined key-value records for a reduce task</a> (and creates a <a href="ShuffleBlockFetcherIterator.html#shuffleClient" class="page">ShuffleBlockFetcherIterator</a>).</p>
 </div>
 <div class="paragraph">
 <p><code>shuffleClient</code> can be either a <a href="spark-ShuffleClient-ExternalShuffleClient.adoc">ExternalShuffleClient</a> or the <a href="#blockTransferService">BlockTransferService</a> (that is the <a href="spark-NettyBlockTransferService.adoc">NettyBlockTransferService</a> given by <a href="spark-SparkEnv.adoc#create-BlockManager">SparkEnv</a>).</p>
@@ -4023,7 +4062,7 @@ Remote nodes, peers, block managers are all synonyms.
 <p>It then asserts that the <code>blockId</code> block is <a href="spark-BlockInfoManager.adoc#assertBlockIsLockedForWriting">locked for writing</a>.</p>
 </div>
 <div class="paragraph">
-<p>If the block&#8217;s <a href="spark-rdd-StorageLevel.adoc">StorageLevel</a> uses disks and the internal <a href="spark-DiskStore.adoc">DiskStore</a> object (<code>diskStore</code>) does not contain the block, it is saved then. You should see the following INFO message in the logs:</p>
+<p>If the block&#8217;s <a href="spark-rdd-StorageLevel.adoc">StorageLevel</a> uses disks and the internal <a href="DiskStore.html" class="page">DiskStore</a> object (<code>diskStore</code>) does not contain the block, it is saved then. You should see the following INFO message in the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4166,14 +4205,6 @@ FIXME When would <code>info.tellMaster</code> be <code>true</code>?
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>blockInfoManager</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="blockInfoManager"></a> <a href="spark-BlockInfoManager.adoc">BlockInfoManager</a> for&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>diskStore</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="diskStore"></a> <a href="spark-DiskStore.adoc">DiskStore</a> for&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>diskBlockManager</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="diskBlockManager"></a> <a href="spark-DiskBlockManager.adoc">DiskBlockManager</a> for&#8230;&#8203;FIXME</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxMemory</code></p></td>

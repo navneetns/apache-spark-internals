@@ -75,6 +75,12 @@
     <a class="nav-link" href="storage/BlockManager.html">BlockManager</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="storage/DiskBlockManager.html">DiskBlockManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="storage/DiskStore.html">DiskStore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="storage/spark-BlockDataManager.html">BlockDataManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -95,9 +101,6 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="storage/spark-MemoryPool.html">MemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="storage/spark-DiskStore.html">DiskStore</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="storage/spark-RpcHandler.html">RpcHandler</a>
@@ -122,15 +125,12 @@
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="storage/spark-BlockManagerMaster.html">BlockManagerMaster</a>
+    <a class="nav-link" href="storage/BlockManagerMaster.html">BlockManagerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="storage/spark-blockmanager-BlockManagerMasterEndpoint.html">BlockManagerMasterEndpoint</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="storage/spark-DiskBlockManager.html">DiskBlockManager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -157,6 +157,9 @@
     <a class="nav-link" href="storage/spark-blockmanager-StorageStatus.html">StorageStatus</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="storage/ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
 </ul>
   </li>
@@ -757,9 +760,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-OneForOneStreamManager.html">OneForOneStreamManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-ExternalSorter.html">ExternalSorter</a>
@@ -2121,7 +2121,7 @@ FIXME
 <p><a id="mapOutputTracker"></a> <a href="spark-service-MapOutputTrackerMaster.adoc">MapOutputTrackerMaster</a></p>
 </li>
 <li>
-<p><a id="blockManagerMaster"></a> <a href="spark-BlockManagerMaster.adoc">BlockManagerMaster</a></p>
+<p><a id="blockManagerMaster"></a> <a href="storage/BlockManagerMaster.html" class="page">BlockManagerMaster</a></p>
 </li>
 <li>
 <p><a id="env"></a> <a href="spark-SparkEnv.adoc">SparkEnv</a></p>
@@ -2172,7 +2172,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>executorHeartbeatReceived</code> posts a <a href="spark-scheduler-SparkListener.adoc#SparkListenerExecutorMetricsUpdate">SparkListenerExecutorMetricsUpdate</a> (to <a href="#listenerBus">listenerBus</a>) and informs <a href="spark-BlockManagerMaster.adoc">BlockManagerMaster</a> that <code>blockManagerId</code> block manager is alive (by posting <a href="spark-BlockManagerMaster.adoc#BlockManagerHeartbeat">BlockManagerHeartbeat</a>).</p>
+<p><code>executorHeartbeatReceived</code> posts a <a href="spark-scheduler-SparkListener.adoc#SparkListenerExecutorMetricsUpdate">SparkListenerExecutorMetricsUpdate</a> (to <a href="#listenerBus">listenerBus</a>) and informs <a href="storage/BlockManagerMaster.html" class="page">BlockManagerMaster</a> that <code>blockManagerId</code> block manager is alive (by posting <a href="BlockManagerMaster.adoc#BlockManagerHeartbeat">BlockManagerHeartbeat</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3957,7 +3957,7 @@ The size of every <a href="spark-TaskLocation.adoc">TaskLocation</a> collection 
 <p>For <code>NONE</code> storage level (i.e. no caching), the result is an empty locations (i.e. no location preference).</p>
 </div>
 <div class="paragraph">
-<p>For other non-<code>NONE</code> storage levels, <code>getCacheLocs</code> <a href="spark-BlockManagerMaster.adoc#getLocations-block-array">requests <code>BlockManagerMaster</code> for block locations</a> that are then mapped to <a href="spark-TaskLocation.adoc">TaskLocations</a> with the hostname of the owning <code>BlockManager</code> for a block (of a partition) and the executor id.</p>
+<p>For other non-<code>NONE</code> storage levels, <code>getCacheLocs</code> <a href="storage/BlockManagerMaster.html#getLocations-block-array" class="page">requests <code>BlockManagerMaster</code> for block locations</a> that are then mapped to <a href="spark-TaskLocation.adoc">TaskLocations</a> with the hostname of the owning <code>BlockManager</code> for a block (of a partition) and the executor id.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3993,7 +3993,7 @@ The size of every <a href="spark-TaskLocation.adoc">TaskLocation</a> collection 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>DAGScheduler</code> uses <a href="spark-TaskLocation.adoc">TaskLocations</a> (with host and executor) while <a href="spark-BlockManagerMaster.adoc">BlockManagerMaster</a> uses <a href="#ROOT:BlockManager.adoc#BlockManagerId" class="page unresolved">BlockManagerId</a> (to track similar information, i.e. block locations).
+<code>DAGScheduler</code> uses <a href="spark-TaskLocation.adoc">TaskLocations</a> (with host and executor) while <a href="storage/BlockManagerMaster.html" class="page">BlockManagerMaster</a> uses <a href="#ROOT:BlockManager.adoc#BlockManagerId" class="page unresolved">BlockManagerId</a> (to track similar information, i.e. block locations).
 </td>
 </tr>
 </table>

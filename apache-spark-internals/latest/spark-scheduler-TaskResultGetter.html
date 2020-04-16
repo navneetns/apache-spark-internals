@@ -75,6 +75,12 @@
     <a class="nav-link" href="storage/BlockManager.html">BlockManager</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="storage/DiskBlockManager.html">DiskBlockManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="storage/DiskStore.html">DiskStore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="storage/spark-BlockDataManager.html">BlockDataManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -95,9 +101,6 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="storage/spark-MemoryPool.html">MemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="storage/spark-DiskStore.html">DiskStore</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="storage/spark-RpcHandler.html">RpcHandler</a>
@@ -122,15 +125,12 @@
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="storage/spark-BlockManagerMaster.html">BlockManagerMaster</a>
+    <a class="nav-link" href="storage/BlockManagerMaster.html">BlockManagerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="storage/spark-blockmanager-BlockManagerMasterEndpoint.html">BlockManagerMasterEndpoint</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="storage/spark-DiskBlockManager.html">DiskBlockManager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -157,6 +157,9 @@
     <a class="nav-link" href="storage/spark-blockmanager-StorageStatus.html">StorageStatus</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="storage/ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
 </ul>
   </li>
@@ -757,9 +760,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-OneForOneStreamManager.html">OneForOneStreamManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-ExternalSorter.html">ExternalSorter</a>
@@ -2025,7 +2025,7 @@ Read up on <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurre
 <p>Otherwise, when there <em>is</em> enough memory to hold the task result, it deserializes the <code>DirectTaskResult</code> (using the internal thread-local <a href="#taskResultSerializer">taskResultSerializer</a>).</p>
 </div>
 <div class="paragraph">
-<p>For a <a href="spark-scheduler-TaskResult.adoc#IndirectTaskResult">IndirectTaskResult</a>, the task checks the available memory for the task result and, when the size could overflow the maximum result size, it <a href="spark-BlockManagerMaster.adoc#removeBlock">removes the block</a> and simply returns.</p>
+<p>For a <a href="spark-scheduler-TaskResult.adoc#IndirectTaskResult">IndirectTaskResult</a>, the task checks the available memory for the task result and, when the size could overflow the maximum result size, it <a href="storage/BlockManagerMaster.html#removeBlock" class="page">removes the block</a> and simply returns.</p>
 </div>
 <div class="paragraph">
 <p>Otherwise, when there <em>is</em> enough memory to hold the task result, you should see the following DEBUG message in the logs:</p>
@@ -2054,7 +2054,7 @@ Read up on <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurre
 </table>
 </div>
 <div class="paragraph">
-<p>The task result (as a serialized byte buffer) is then deserialized to a <a href="spark-scheduler-TaskResult.adoc#DirectTaskResult">DirectTaskResult</a> (using the internal thread-local <a href="#serializer">serializer</a>) and deserialized again using the internal thread-local <a href="#taskResultSerializer">taskResultSerializer</a> (just like for the <code>DirectTaskResult</code> case). The  <a href="spark-BlockManagerMaster.adoc#removeBlock">block is removed from <code>BlockManagerMaster</code></a> and simply returns.</p>
+<p>The task result (as a serialized byte buffer) is then deserialized to a <a href="spark-scheduler-TaskResult.adoc#DirectTaskResult">DirectTaskResult</a> (using the internal thread-local <a href="#serializer">serializer</a>) and deserialized again using the internal thread-local <a href="#taskResultSerializer">taskResultSerializer</a> (just like for the <code>DirectTaskResult</code> case). The  <a href="storage/BlockManagerMaster.html#removeBlock" class="page">block is removed from <code>BlockManagerMaster</code></a> and simply returns.</p>
 </div>
 <div class="admonitionblock note">
 <table>

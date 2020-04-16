@@ -75,6 +75,12 @@
     <a class="nav-link" href="storage/BlockManager.html">BlockManager</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="storage/DiskBlockManager.html">DiskBlockManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="storage/DiskStore.html">DiskStore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="storage/spark-BlockDataManager.html">BlockDataManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -95,9 +101,6 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="storage/spark-MemoryPool.html">MemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="storage/spark-DiskStore.html">DiskStore</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="storage/spark-RpcHandler.html">RpcHandler</a>
@@ -122,15 +125,12 @@
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="storage/spark-BlockManagerMaster.html">BlockManagerMaster</a>
+    <a class="nav-link" href="storage/BlockManagerMaster.html">BlockManagerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="storage/spark-blockmanager-BlockManagerMasterEndpoint.html">BlockManagerMasterEndpoint</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="storage/spark-DiskBlockManager.html">DiskBlockManager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -157,6 +157,9 @@
     <a class="nav-link" href="storage/spark-blockmanager-StorageStatus.html">StorageStatus</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="storage/ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
 </ul>
   </li>
@@ -757,9 +760,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-OneForOneStreamManager.html">OneForOneStreamManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-ExternalSorter.html">ExternalSorter</a>
@@ -2073,7 +2073,7 @@ FIXME A picture with <code>SparkEnv</code>, <code>NettyBlockTransferService</cod
 </div>
 <div class="paragraph">
 <p><a id="BlockManagerMaster"></a><a id="create-BlockManagerMaster"></a>
-<code>create</code> creates a <a href="spark-BlockManagerMaster.adoc#creating-instance">BlockManagerMaster</a> object with the <code>BlockManagerMaster</code> RPC endpoint reference (by <a href="#registerOrLookupEndpoint">registering or looking it up by name</a> and <a href="spark-blockmanager-BlockManagerMasterEndpoint.adoc">BlockManagerMasterEndpoint</a>), the input <a href="spark-SparkConf.adoc">SparkConf</a>, and the input <code>isDriver</code> flag.</p>
+<code>create</code> creates a <a href="storage/BlockManagerMaster.html#creating-instance" class="page">BlockManagerMaster</a> object with the <code>BlockManagerMaster</code> RPC endpoint reference (by <a href="#registerOrLookupEndpoint">registering or looking it up by name</a> and <a href="spark-blockmanager-BlockManagerMasterEndpoint.adoc">BlockManagerMasterEndpoint</a>), the input <a href="spark-SparkConf.adoc">SparkConf</a>, and the input <code>isDriver</code> flag.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -2352,7 +2352,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 <p><a href="#ROOT:BlockManager.adoc#stop" class="page unresolved">BlockManager</a></p>
 </li>
 <li>
-<p><a href="spark-BlockManagerMaster.adoc#stop">BlockManagerMaster</a></p>
+<p><a href="storage/BlockManagerMaster.html#stop" class="page">BlockManagerMaster</a></p>
 </li>
 <li>
 <p><a href="spark-metrics-MetricsSystem.adoc#stop">MetricsSystem</a></p>

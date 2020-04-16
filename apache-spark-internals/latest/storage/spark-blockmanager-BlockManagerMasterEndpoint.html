@@ -75,6 +75,12 @@
     <a class="nav-link" href="BlockManager.html">BlockManager</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="DiskBlockManager.html">DiskBlockManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="DiskStore.html">DiskStore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-BlockDataManager.html">BlockDataManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -95,9 +101,6 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-MemoryPool.html">MemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-DiskStore.html">DiskStore</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-RpcHandler.html">RpcHandler</a>
@@ -122,15 +125,12 @@
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-BlockManagerMaster.html">BlockManagerMaster</a>
+    <a class="nav-link" href="BlockManagerMaster.html">BlockManagerMaster</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="4">
     <a class="nav-link" href="spark-blockmanager-BlockManagerMasterEndpoint.html">BlockManagerMasterEndpoint</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-DiskBlockManager.html">DiskBlockManager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -157,6 +157,9 @@
     <a class="nav-link" href="spark-blockmanager-StorageStatus.html">StorageStatus</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
 </ul>
   </li>
@@ -757,9 +760,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-OneForOneStreamManager.html">OneForOneStreamManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-ExternalSorter.html">ExternalSorter</a>
@@ -1809,7 +1809,7 @@
     <li><a href="../index.html">Apache Spark</a></li>
     <li>Block Storage System</li>
     <li><a href="spark-ManagedBuffer.html">ManagedBuffer</a></li>
-    <li><a href="spark-BlockManagerMaster.html">BlockManagerMaster</a></li>
+    <li><a href="BlockManagerMaster.html">BlockManagerMaster</a></li>
     <li><a href="spark-blockmanager-BlockManagerMasterEndpoint.html">BlockManagerMasterEndpoint</a></li>
   </ul>
 </nav>
@@ -1821,7 +1821,7 @@
 <h2 id="blockmanagermasterendpointblockmanagermaster-rpc-endpoint"><a class="anchor" href="#blockmanagermasterendpointblockmanagermaster-rpc-endpoint"></a><a class="link" href="#blockmanagermasterendpointblockmanagermaster-rpc-endpoint"><a id="BlockManagerMasterEndpoint"></a> BlockManagerMasterEndpoint&#8201;&#8212;&#8201;BlockManagerMaster RPC Endpoint</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>BlockManagerMasterEndpoint</code> is the <a href="spark-rpc.adoc#ThreadSafeRpcEndpoint">ThreadSafeRpcEndpoint</a> for <a href="spark-BlockManagerMaster.adoc">BlockManagerMaster</a> under <strong>BlockManagerMaster</strong> name.</p>
+<p><code>BlockManagerMasterEndpoint</code> is the <a href="spark-rpc.adoc#ThreadSafeRpcEndpoint">ThreadSafeRpcEndpoint</a> for <a href="BlockManagerMaster.html" class="page">BlockManagerMaster</a> under <strong>BlockManagerMaster</strong> name.</p>
 </div>
 <div class="paragraph">
 <p><code>BlockManagerMasterEndpoint</code> tracks status of the <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManagers</a> (on the executors) in a Spark application.</p>
@@ -1844,11 +1844,11 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#RegisterBlockManager">RegisterBlockManager</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Posted when <code>BlockManagerMaster</code> <a href="spark-BlockManagerMaster.adoc#registerBlockManager">registers a <code>BlockManager</code></a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Posted when <code>BlockManagerMaster</code> <a href="BlockManagerMaster.html#registerBlockManager" class="page">registers a <code>BlockManager</code></a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#UpdateBlockInfo">UpdateBlockInfo</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Posted when <code>BlockManagerMaster</code> <a href="spark-BlockManagerMaster.adoc#updateBlockInfo">receives a block status update (from BlockManager on an executor)</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Posted when <code>BlockManagerMaster</code> <a href="BlockManagerMaster.html#updateBlockInfo" class="page">receives a block status update (from BlockManager on an executor)</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1996,7 +1996,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>RemoveExecutor</code> is posted when <a href="spark-BlockManagerMaster.adoc#removeExecutor"><code>BlockManagerMaster</code> removes an executor</a>.
+<code>RemoveExecutor</code> is posted when <a href="BlockManagerMaster.html#removeExecutor" class="page"><code>BlockManagerMaster</code> removes an executor</a>.
 </td>
 </tr>
 </table>
@@ -2073,7 +2073,7 @@ extends ToBlockManagerMaster</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>GetPeers</code> is posted when <a href="spark-BlockManagerMaster.adoc#getPeers"><code>BlockManagerMaster</code> requests the peers of a <code>BlockManager</code></a>.
+<code>GetPeers</code> is posted when <a href="BlockManagerMaster.html#getPeers" class="page"><code>BlockManagerMaster</code> requests the peers of a <code>BlockManager</code></a>.
 </td>
 </tr>
 </table>
@@ -2112,7 +2112,7 @@ extends ToBlockManagerMaster</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>GetLocations</code> is posted when <a href="spark-BlockManagerMaster.adoc#getLocations-block"><code>BlockManagerMaster</code> requests the block locations of a single block</a>.
+<code>GetLocations</code> is posted when <a href="BlockManagerMaster.html#getLocations-block" class="page"><code>BlockManagerMaster</code> requests the block locations of a single block</a>.
 </td>
 </tr>
 </table>
@@ -2136,7 +2136,7 @@ extends ToBlockManagerMaster</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>GetLocationsMultipleBlockIds</code> is posted when <a href="spark-BlockManagerMaster.adoc#getLocations"><code>BlockManagerMaster</code> requests the block locations for multiple blocks</a>.
+<code>GetLocationsMultipleBlockIds</code> is posted when <a href="BlockManagerMaster.html#getLocations" class="page"><code>BlockManagerMaster</code> requests the block locations for multiple blocks</a>.
 </td>
 </tr>
 </table>
