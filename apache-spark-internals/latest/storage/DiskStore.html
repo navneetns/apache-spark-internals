@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title>DiskStore :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/storage/DiskStore.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -1815,50 +1815,154 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="diskstore"><a class="anchor" href="#diskstore"></a><a class="link" href="#diskstore">DiskStore</a></h2>
+<h1 class="page">DiskStore</h1>
+<div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p><strong>DiskStore</strong> is&#8230;&#8203;FIXME</p>
 </div>
-<div class="sect2">
-<h3 id="putbytes"><a class="anchor" href="#putbytes"></a><a class="link" href="#putbytes"><a id="putBytes"></a> putBytes</a></h3>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>DiskStore is <a href="#creating-instance">created</a> for <a href="BlockManager.html#diskStore" class="page">BlockManager</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="removing-block"><a class="anchor" href="#removing-block"></a><a class="link" href="#removing-block"><a id="remove"></a> Removing Block</a></h3>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
 </div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DiskStore</code> takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="conf"></a> <a href="../spark-SparkConf.html" class="page">SparkConf</a></p>
+</li>
+<li>
+<p><a id="diskManager"></a> <a href="DiskBlockManager.html" class="page">DiskBlockManager</a></p>
+</li>
+<li>
+<p><a id="securityManager"></a> SecurityManager</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="checking-if-block-file-exists"><a class="anchor" href="#checking-if-block-file-exists"></a><a class="link" href="#checking-if-block-file-exists"><a id="contains"></a> Checking if Block File Exists</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">contains(
+  blockId: BlockId): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>contains</code> requests the <a href="#diskManager">DiskBlockManager</a> for the <a href="DiskBlockManager.html#getFile" class="page">block file</a> by (the name of) the input <a href="spark-BlockId.html" class="page">BlockId</a> and check whether the file actually exists or not.</p>
+</div>
+<div class="paragraph">
+<p><code>contains</code> is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>BlockManager is requested to <a href="BlockManager.html#getStatus" class="page">getStatus</a>, <a href="BlockManager.html#getCurrentBlockStatus" class="page">getCurrentBlockStatus</a>, <a href="BlockManager.html#getLocalValues" class="page">getLocalValues</a>, <a href="BlockManager.html#doGetLocalBytes" class="page">doGetLocalBytes</a>, <a href="BlockManager.html#dropFromMemory" class="page">dropFromMemory</a></p>
+</li>
+<li>
+<p>DiskStore is requested to <a href="#put">put</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="writing-block"><a class="anchor" href="#writing-block"></a><a class="link" href="#writing-block"><a id="put"></a> Writing Block</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">put(
+  blockId: BlockId)(
+  writeFunc: WritableByteChannel =&gt; Unit): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>put</code>&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p><code>put</code> is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>BlockManager is requested to <a href="BlockManager.html#doPutIterator" class="page">doPutIterator</a> and <a href="BlockManager.html#dropFromMemory" class="page">dropFromMemory</a></p>
+</li>
+<li>
+<p>DiskStore is requested to <a href="#putBytes">putBytes</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="putbytes-method"><a class="anchor" href="#putbytes-method"></a><a class="link" href="#putbytes-method"><a id="putBytes"></a> putBytes Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">putBytes(
+  blockId: BlockId,
+  bytes: ChunkedByteBuffer): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>putBytes</code>&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p><code>putBytes</code> is used when BlockManager is requested to <a href="BlockManager.html#doPutBytes" class="page">doPutBytes</a> and <a href="BlockManager.html#dropFromMemory" class="page">dropFromMemory</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="removing-block"><a class="anchor" href="#removing-block"></a><a class="link" href="#removing-block"><a id="remove"></a> Removing Block</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">remove(
+  blockId: BlockId): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>remove</code>&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p><code>remove</code> is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>BlockManager is requested to <a href="BlockManager.html#removeBlockInternal" class="page">removeBlockInternal</a></p>
+</li>
+<li>
+<p>DiskStore is requested to <a href="#put">put</a> (when an exception was thrown)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.storage.DiskStore</code> logger to see what happens inside.</p>
+</div>
+<div class="paragraph">
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.storage.DiskStore=ALL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
 </div>
 </div>
 </div>
