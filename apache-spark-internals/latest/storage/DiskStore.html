@@ -1819,10 +1819,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>DiskStore</strong> is&#8230;&#8203;FIXME</p>
-</div>
-<div class="paragraph">
-<p>DiskStore is <a href="#creating-instance">created</a> for <a href="BlockManager.html#diskStore" class="page">BlockManager</a>.</p>
+<p><strong>DiskStore</strong> manages data blocks on disk for <a href="BlockManager.html#diskStore" class="page">BlockManager</a>.</p>
 </div>
 </div>
 </div>
@@ -1830,7 +1827,7 @@
 <h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>DiskStore</code> takes the following to be created:</p>
+<p>DiskStore takes the following to be created:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1844,6 +1841,19 @@
 <p><a id="securityManager"></a> SecurityManager</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="blocksizes-internal-registry"><a class="anchor" href="#blocksizes-internal-registry"></a><a class="link" href="#blocksizes-internal-registry"><a id="blockSizes"></a> blockSizes Internal Registry</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">blockSizes: ConcurrentHashMap[BlockId, Long]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>blockSizes is a Java <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html">java.util.concurrent.ConcurrentHashMap</a> that DiskStore uses to track <a href="spark-BlockId.html" class="page">BlockIds</a> by their size on disk.</p>
 </div>
 </div>
 </div>
@@ -1875,7 +1885,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="writing-block"><a class="anchor" href="#writing-block"></a><a class="link" href="#writing-block"><a id="put"></a> Writing Block</a></h2>
+<h2 id="writing-block-to-disk"><a class="anchor" href="#writing-block-to-disk"></a><a class="link" href="#writing-block-to-disk"><a id="put"></a> Writing Block to Disk</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -1885,7 +1895,40 @@
 </div>
 </div>
 <div class="paragraph">
-<p><code>put</code>&#8230;&#8203;FIXME</p>
+<p><code>put</code> prints out the following DEBUG message to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Attempting to put block [blockId]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>put</code> requests the <a href="#diskManager">DiskBlockManager</a> for the <a href="DiskBlockManager.html#getFile" class="page">block file</a> for the input <a href="spark-BlockId.html" class="page">BlockId</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>put</code> <a href="#openForWrite">opens the block file for writing</a> (wrapped into a CountingWritableChannel to count the bytes written).</p>
+</div>
+<div class="paragraph">
+<p><code>put</code> executes the given writeFunc function with the WritableByteChannel of the block file and registers the bytes written to the <a href="#blockSizes">blockSizes</a> internal registry.</p>
+</div>
+<div class="paragraph">
+<p>In the end, <code>put</code> prints out the following DEBUG message to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Block [fileName] stored as [size] file on disk in [time] ms</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In case of any exception, <code>put</code> <a href="#remove">deletes the block file</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>put</code> throws an <code>IllegalStateException</code> when the BlockId is already <a href="#contains">is already present in the disk store</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Block [blockId] is already present in the disk store</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><code>put</code> is used when:</p>
@@ -1944,6 +1987,23 @@
 <p>DiskStore is requested to <a href="#put">put</a> (when an exception was thrown)</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="opening-block-file-for-writing"><a class="anchor" href="#opening-block-file-for-writing"></a><a class="link" href="#opening-block-file-for-writing"><a id="openForWrite"></a> Opening Block File For Writing</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">openForWrite(
+  file: File): WritableByteChannel</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>openForWrite</code>&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p><code>openForWrite</code> is used when DiskStore is requested to <a href="#put">write a block to disk</a>.</p>
 </div>
 </div>
 </div>
