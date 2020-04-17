@@ -75,13 +75,7 @@
     <a class="nav-link" href="BlockManager.html">BlockManager</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="DiskBlockManager.html">DiskBlockManager</a>
-<ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="demo-diskblockmanager-and-block-data.html">Demo: DiskBlockManager and Block Data</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="DiskStore.html">DiskStore</a>
@@ -166,6 +160,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="demo-diskblockmanager-and-block-data.html">Demo: DiskBlockManager and Block Data</a>
   </li>
 </ul>
   </li>
@@ -1814,7 +1811,6 @@
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
     <li>Block Storage System</li>
-    <li><a href="DiskBlockManager.html">DiskBlockManager</a></li>
     <li><a href="demo-diskblockmanager-and-block-data.html">Demo: DiskBlockManager and Block Data</a></li>
   </ul>
 </nav>
@@ -1826,7 +1822,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The demo shows how to Spark uses local disk to manage data blocks.</p>
+<p>The demo shows how to Spark uses local disk to manage data blocks (using <a href="DiskBlockManager.html" class="page">DiskBlockManager</a> and <a href="DiskStore.html" class="page">DiskStore</a> among the services).</p>
 </div>
 </div>
 </div>
@@ -1845,7 +1841,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>When started, Spark will establish a proper directory layout. You are interested in <code>blockmgr-[uuid]</code> directories.</p>
+<p>When started, Spark will create a proper directory layout. You are interested in <code>blockmgr-[uuid]</code> directory.</p>
 </div>
 </div>
 </div>

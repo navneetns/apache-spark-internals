@@ -75,13 +75,7 @@
     <a class="nav-link" href="BlockManager.html">BlockManager</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="DiskBlockManager.html">DiskBlockManager</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="demo-diskblockmanager-and-block-data.html">Demo: DiskBlockManager and Block Data</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="DiskStore.html">DiskStore</a>
@@ -166,6 +160,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="demo-diskblockmanager-and-block-data.html">Demo: DiskBlockManager and Block Data</a>
   </li>
 </ul>
   </li>
@@ -1856,6 +1853,9 @@ Consult <a href="demo-diskblockmanager-and-block-data.html" class="page">Demo: D
 <div class="sect1">
 <h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>DiskBlockManager takes the following to be created:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1867,18 +1867,7 @@ Consult <a href="demo-diskblockmanager-and-block-data.html" class="page">Demo: D
 </ul>
 </div>
 <div class="paragraph">
-<p>When created, DiskBlockManager uses <a href="../spark-configuration-properties.html#spark.diskStore.subDirectories" class="page">spark.diskStore.subDirectories</a> configuration property to set <a href="#subDirsPerLocalDir">subDirsPerLocalDir</a>.</p>
-</div>
-<div class="paragraph">
-<p>DiskBlockManager <a href="#createLocalDirs">creates one or many local directories to store block data</a> (as <a href="#localDirs">localDirs</a>). When not successful, you should see the following ERROR message in the logs and DiskBlockManager exits with error code <code>53</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>Failed to create any local dir.</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>DiskBlockManager initializes the internal <a href="#subDirs">subDirs</a> collection of locks for every local directory to store block data with an array of <code>subDirsPerLocalDir</code> size for files.</p>
+<p>When created, DiskBlockManager <a href="#localDirs">creates one or many local directories to store block data</a> and initializes the internal <a href="#subDirs">subDirs</a> collection of locks for every local directory.</p>
 </div>
 <div class="paragraph">
 <p>In the end, DiskBlockManager <a href="#addShutdownHook">registers a shutdown hook</a> to clean up the local directories for blocks.</p>
@@ -1913,6 +1902,28 @@ Consult <a href="demo-diskblockmanager-and-block-data.html" class="page">Demo: D
 <p>BlockManager is requested to <a href="BlockManager.html#registerWithExternalShuffleServer" class="page">register with an external shuffle server</a></p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="file-locks-for-local-block-store-directories"><a class="anchor" href="#file-locks-for-local-block-store-directories"></a><a class="link" href="#file-locks-for-local-block-store-directories"><a id="subDirsPerLocalDir"></a><a id="subDirs"></a> File Locks for Local Block Store Directories</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">subDirs: Array[Array[File]]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>subDirs</code> is a lookup table for file locks of every <a href="#localDirs">local block directory</a> (with the first dimension for local directories and the second for locks).</p>
+</div>
+<div class="paragraph">
+<p>The number of block subdirectories is controlled by <a href="../spark-configuration-properties.html#spark.diskStore.subDirectories" class="page">spark.diskStore.subDirectories</a> configuration property (default: <code>64</code>).</p>
+</div>
+<div class="paragraph">
+<p><code>subDirs(dirId)(subDirId)</code> is used to access <code>subDirId</code> subdirectory in <code>dirId</code> local directory.</p>
+</div>
+<div class="paragraph">
+<p>subDirs is used when DiskBlockManager is requested for a <a href="#getFile">block file</a> or <a href="#getAllFiles">all block files</a>.</p>
 </div>
 </div>
 </div>
@@ -2021,7 +2032,7 @@ FIXME
 </div>
 </div>
 <div class="sect1">
-<h2 id="getallfiles-method"><a class="anchor" href="#getallfiles-method"></a><a class="link" href="#getallfiles-method"><a id="getAllFiles"></a> <code>getAllFiles</code> Method</a></h2>
+<h2 id="all-block-files"><a class="anchor" href="#all-block-files"></a><a class="link" href="#all-block-files"><a id="getAllFiles"></a> All Block Files</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2256,43 +2267,6 @@ FIXME
 </div>
 </div>
 <div class="sect1">
-<h2 id="file-locks-for-local-block-store-directoriessubdirs-internal-property"><a class="anchor" href="#file-locks-for-local-block-store-directoriessubdirs-internal-property"></a><a class="link" href="#file-locks-for-local-block-store-directoriessubdirs-internal-property"><a id="subDirs"></a> File Locks for Local Block Store Directories&#8201;&#8212;&#8201;<code>subDirs</code> Internal Property</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">subDirs: Array[Array[File]]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>subDirs</code> is a collection of <a href="#subDirsPerLocalDir">subDirsPerLocalDir</a> file locks for every <a href="#createLocalDirs">local block store directory</a> where DiskBlockManager stores block data (with the columns being the number of local directories and the rows as collection of <code>subDirsPerLocalDir</code> size).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>subDirs(n)</code> is to access <code>n</code>-th local directory.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>subDirs</code> is used when DiskBlockManager is requested to <a href="#getFile">getFile</a> or <a href="#getAllFiles">getAllFiles</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2309,45 +2283,6 @@ FIXME
 <div class="paragraph">
 <p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-registries"></a> Internal Properties</a></h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. DiskBlockManager&#8217;s Internal Properties (e.g. Registries, Counters and Flags)</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subDirsPerLocalDir</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="subDirsPerLocalDir"></a> <a href="#spark-configuration-properties.adoc#spark.diskStore.subDirectories" class="page unresolved">spark.diskStore.subDirectories</a> configuration property (default: <code>64</code>)</p>
-</div>
-<div class="paragraph">
-<p>Used when:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>DiskBlockManager is <a href="#subDirs">created</a> and is requested to <a href="#getFile">getFile</a></p>
-</li>
-<li>
-<p><code>BlockManager</code> is requested to <a href="#ROOT:BlockManager.adoc#registerWithExternalShuffleServer" class="page unresolved">register the executor&#8217;s BlockManager with an external shuffle server</a></p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </article>
