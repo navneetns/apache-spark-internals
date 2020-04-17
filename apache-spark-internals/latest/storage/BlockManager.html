@@ -105,7 +105,7 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
+    <a class="nav-link" href="MemoryStore.html">MemoryStore</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-BlockEvictionHandler.html">BlockEvictionHandler</a>
@@ -1954,12 +1954,6 @@ Use <a href="../tools/spark-submit.html" class="page">spark-submit</a>'s command
 <p>BlockManager creates <strong>block-manager-future</strong> daemon cached thread pool with 128 threads maximum (as <code>futureExecutionContext</code>).</p>
 </div>
 <div class="paragraph">
-<p>BlockManager creates a <a href="spark-MemoryStore.html" class="page">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a>.</p>
-</div>
-<div class="paragraph">
-<p><a href="../spark-MemoryManager.html" class="page">MemoryManager</a> gets the <a href="spark-MemoryStore.adoc">MemoryStore</a> object assigned.</p>
-</div>
-<div class="paragraph">
 <p>BlockManager calculates the maximum memory to use (as <code>maxMemory</code>) by requesting the maximum <a href="../spark-MemoryManager.html#maxOnHeapStorageMemory" class="page">on-heap</a> and <a href="../spark-MemoryManager.html#maxOffHeapStorageMemory" class="page">off-heap</a> storage memory from the assigned <code>MemoryManager</code>.</p>
 </div>
 <div class="paragraph">
@@ -1973,18 +1967,6 @@ Use <a href="../tools/spark-submit.html" class="page">spark-submit</a>'s command
 </td>
 <td class="content">
 It is computed specially in Spark on YARN.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME Describe the YARN-specific part.
 </td>
 </tr>
 </table>
@@ -2064,7 +2046,7 @@ SparkEnv.get.blockManager.diskBlockManager</code></pre>
 <h2 id="memorystore"><a class="anchor" href="#memorystore"></a><a class="link" href="#memorystore"><a id="memoryStore"></a> MemoryStore</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When <a href="#creating-instance">created</a>, BlockManager creates a <a href="spark-MemoryStore.html" class="page">MemoryStore</a> (with the <a href="#blockInfoManager">BlockInfoManager</a>, the <a href="#serializerManager">SerializerManager</a>, the <a href="#memoryManager">MemoryManager</a> and itself as a <a href="spark-BlockEvictionHandler.html" class="page">BlockEvictionHandler</a>).</p>
+<p>When <a href="#creating-instance">created</a>, BlockManager creates a <a href="MemoryStore.html" class="page">MemoryStore</a> (with the <a href="#blockInfoManager">BlockInfoManager</a>, the <a href="#serializerManager">SerializerManager</a>, the <a href="#memoryManager">MemoryManager</a> and itself as a <a href="spark-BlockEvictionHandler.html" class="page">BlockEvictionHandler</a>).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -2283,15 +2265,15 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p>If <code>blockId</code> block has memory level and <a href="spark-MemoryStore.adoc#contains">is registered in <code>MemoryStore</code></a>, <code>getLocalValues</code> returns a <a href="#BlockResult">BlockResult</a> as <code>Memory</code> read method and with a <code>CompletionIterator</code> for an interator:</p>
+<p>If <code>blockId</code> block has memory level and <a href="MemoryStore.html#contains" class="page">is registered in <code>MemoryStore</code></a>, <code>getLocalValues</code> returns a <a href="#BlockResult">BlockResult</a> as <code>Memory</code> read method and with a <code>CompletionIterator</code> for an interator:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="spark-MemoryStore.adoc#getValues">Values iterator from <code>MemoryStore</code> for <code>blockId</code></a> for "deserialized" persistence levels.</p>
+<p><a href="MemoryStore.html#getValues" class="page">Values iterator from <code>MemoryStore</code> for <code>blockId</code></a> for "deserialized" persistence levels.</p>
 </li>
 <li>
-<p>Iterator from <a href="spark-SerializerManager.adoc#dataDeserializeStream"><code>SerializerManager</code> after the data stream has been deserialized</a> for the <code>blockId</code> block and <a href="spark-MemoryStore.adoc#getBytes">the bytes for <code>blockId</code> block</a> for "serialized" persistence levels.</p>
+<p>Iterator from <a href="spark-SerializerManager.adoc#dataDeserializeStream"><code>SerializerManager</code> after the data stream has been deserialized</a> for the <code>blockId</code> block and <a href="MemoryStore.html#getBytes" class="page">the bytes for <code>blockId</code> block</a> for "serialized" persistence levels.</p>
 </li>
 </ol>
 </div>
@@ -2521,7 +2503,7 @@ FIXME How is <code>shuffleClient</code> used?
 <div class="ulist">
 <ul>
 <li>
-<p><a href="spark-MemoryStore.adoc">MemoryStore</a> for memory storage level.</p>
+<p><a href="MemoryStore.html" class="page">MemoryStore</a> for memory storage level.</p>
 </li>
 <li>
 <p><a href="DiskStore.html" class="page">DiskStore</a> for disk storage level.</p>
@@ -2627,7 +2609,7 @@ FIXME How is <code>shuffleClient</code> used?
 <p>Inside the function, if the <a href="StorageLevel.html" class="page">storage <code>level</code></a>'s replication is greater than 1, it immediately starts <a href="#replicate">replication</a> of the <code>blockId</code> block on a separate thread (from <code>futureExecutionContext</code> thread pool). The replication uses the input <code>bytes</code> and <code>level</code> storage level.</p>
 </div>
 <div class="paragraph">
-<p>For a memory storage level, the function checks whether the storage <code>level</code> is deserialized or not. For a deserialized storage <code>level</code>, <code>BlockManager</code>'s <a href="../spark-SerializerManager.html#dataDeserializeStream" class="page"><code>SerializerManager</code> deserializes <code>bytes</code> into an iterator of values</a> that <a href="spark-MemoryStore.adoc#putIteratorAsValues"><code>MemoryStore</code> stores</a>. If however the storage <code>level</code> is not deserialized, the function requests <a href="spark-MemoryStore.adoc#putBytes"><code>MemoryStore</code> to store the bytes</a></p>
+<p>For a memory storage level, the function checks whether the storage <code>level</code> is deserialized or not. For a deserialized storage <code>level</code>, <code>BlockManager</code>'s <a href="../spark-SerializerManager.html#dataDeserializeStream" class="page"><code>SerializerManager</code> deserializes <code>bytes</code> into an iterator of values</a> that <a href="MemoryStore.html#putIteratorAsValues" class="page"><code>MemoryStore</code> stores</a>. If however the storage <code>level</code> is not deserialized, the function requests <a href="MemoryStore.html#putBytes" class="page"><code>MemoryStore</code> to store the bytes</a></p>
 </div>
 <div class="paragraph">
 <p>If the put did not succeed and the storage level is to use disk, you should see the following WARN message in the logs:</p>
@@ -2647,7 +2629,7 @@ FIXME How is <code>shuffleClient</code> used?
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="DiskStore.html" class="page">DiskStore</a> is requested to store the bytes of a block with memory and disk storage level only when <a href="spark-MemoryStore.adoc">MemoryStore</a> has failed.
+<a href="DiskStore.html" class="page">DiskStore</a> is requested to store the bytes of a block with memory and disk storage level only when <a href="MemoryStore.html" class="page">MemoryStore</a> has failed.
 </td>
 </tr>
 </table>
@@ -2773,7 +2755,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>removeBlock</code> removes the <code>blockId</code> block from the <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a>.</p>
+<p><code>removeBlock</code> removes the <code>blockId</code> block from the <a href="MemoryStore.html" class="page">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a>.</p>
 </div>
 <div class="paragraph">
 <p>When executed, it prints out the following DEBUG message to the logs:</p>
@@ -2792,7 +2774,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p>Otherwise, with a write lock for the block, the block is removed from <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a> (see <a href="spark-MemoryStore.adoc#remove">Removing Block in <code>MemoryStore</code></a> and <a href="DiskStore.html#remove" class="page">Removing Block in <code>DiskStore</code></a>).</p>
+<p>Otherwise, with a write lock for the block, the block is removed from <a href="MemoryStore.html" class="page">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a> (see <a href="MemoryStore.html#remove" class="page">Removing Block in <code>MemoryStore</code></a> and <a href="DiskStore.html#remove" class="page">Removing Block in <code>DiskStore</code></a>).</p>
 </div>
 <div class="paragraph">
 <p>If both removals fail, it prints out the following WARN message:</p>
@@ -3184,7 +3166,7 @@ registerWithExternalShuffleServer is used when BlockManager is requested to <a h
 </div>
 </div>
 <div class="paragraph">
-<p><code>getCurrentBlockStatus</code> returns the current <code>BlockStatus</code> of the <code>BlockId</code> block (with the block&#8217;s current <a href="StorageLevel.html" class="page">StorageLevel</a>, memory and disk sizes). It uses <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a> for size and other information.</p>
+<p><code>getCurrentBlockStatus</code> returns the current <code>BlockStatus</code> of the <code>BlockId</code> block (with the block&#8217;s current <a href="StorageLevel.html" class="page">StorageLevel</a>, memory and disk sizes). It uses <a href="MemoryStore.html" class="page">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a> for size and other information.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3193,7 +3175,7 @@ registerWithExternalShuffleServer is used when BlockManager is requested to <a h
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Most of the information to build <code>BlockStatus</code> is already in <code>BlockInfo</code> except that it may not necessarily reflect the current state per <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a>.
+Most of the information to build <code>BlockStatus</code> is already in <code>BlockInfo</code> except that it may not necessarily reflect the current state per <a href="MemoryStore.html" class="page">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a>.
 </td>
 </tr>
 </table>
@@ -3202,7 +3184,7 @@ Most of the information to build <code>BlockStatus</code> is already in <code>Bl
 <p>Internally, it uses the input <a href="spark-BlockInfo.adoc">BlockInfo</a> to know about the block&#8217;s storage level. If the storage level is not set (i.e. <code>null</code>), the returned <code>BlockStatus</code> assumes the <a href="StorageLevel.html" class="page">default <code>NONE</code> storage level</a> and the memory and disk sizes being <code>0</code>.</p>
 </div>
 <div class="paragraph">
-<p>If however the storage level is set, <code>getCurrentBlockStatus</code> uses <a href="spark-MemoryStore.adoc">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a> to check whether the block is stored in the storages or not and request for their sizes in the storages respectively (using their <code>getSize</code> or assume <code>0</code>).</p>
+<p>If however the storage level is set, <code>getCurrentBlockStatus</code> uses <a href="MemoryStore.html" class="page">MemoryStore</a> and <a href="DiskStore.html" class="page">DiskStore</a> to check whether the block is stored in the storages or not and request for their sizes in the storages respectively (using their <code>getSize</code> or assume <code>0</code>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3992,7 +3974,7 @@ Remote nodes, peers, block managers are all synonyms.
 <div class="ulist">
 <ul>
 <li>
-<p>When the input <code>StorageLevel</code> indicates to <a href="StorageLevel.html#useMemory" class="page">use a memory</a> for storage in <a href="StorageLevel.html#deserialized" class="page">deserialized</a> format, <code>putBody</code> requests <a href="#memoryStore">MemoryStore</a> to <a href="spark-MemoryStore.adoc#putIteratorAsValues">putIteratorAsValues</a> (for the <code>BlockId</code> and with the <code>iterator</code> factory function).</p>
+<p>When the input <code>StorageLevel</code> indicates to <a href="StorageLevel.html#useMemory" class="page">use a memory</a> for storage in <a href="StorageLevel.html#deserialized" class="page">deserialized</a> format, <code>putBody</code> requests <a href="#memoryStore">MemoryStore</a> to <a href="MemoryStore.html#putIteratorAsValues" class="page">putIteratorAsValues</a> (for the <code>BlockId</code> and with the <code>iterator</code> factory function).</p>
 <div class="paragraph">
 <p>If the <a href="#memoryStore">MemoryStore</a> returned a correct value, the internal <code>size</code> is set to the value.</p>
 </div>
@@ -4120,7 +4102,7 @@ FIXME Describe the case with saving a block to disk.
 <p>The block&#8217;s memory size is fetched and recorded (using <code>MemoryStore.getSize</code>).</p>
 </div>
 <div class="paragraph">
-<p>The block is <a href="spark-MemoryStore.adoc#remove">removed from memory</a> if exists. If not, you should see the following WARN message in the logs:</p>
+<p>The block is <a href="MemoryStore.html#remove" class="page">removed from memory</a> if exists. If not, you should see the following WARN message in the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">

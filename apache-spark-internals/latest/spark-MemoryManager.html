@@ -105,7 +105,7 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="storage/spark-MemoryStore.html">MemoryStore</a>
+    <a class="nav-link" href="storage/MemoryStore.html">MemoryStore</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="storage/spark-BlockEvictionHandler.html">BlockEvictionHandler</a>
@@ -1877,14 +1877,14 @@ abstract class MemoryManager(...) {
 <p><code>UnifiedMemoryManager</code> is requested to <a href="spark-UnifiedMemoryManager.adoc#acquireUnrollMemory">acquireUnrollMemory</a></p>
 </li>
 <li>
-<p><code>MemoryStore</code> is requested to <a href="spark-MemoryStore.adoc#putBytes">putBytes</a>, <a href="spark-MemoryStore.adoc#putIteratorAsValues">putIteratorAsValues</a> and <a href="spark-MemoryStore.adoc#putIteratorAsBytes">putIteratorAsBytes</a></p>
+<p><code>MemoryStore</code> is requested to <a href="storage/MemoryStore.html#putBytes" class="page">putBytes</a>, <a href="storage/MemoryStore.html#putIteratorAsValues" class="page">putIteratorAsValues</a> and <a href="storage/MemoryStore.html#putIteratorAsBytes" class="page">putIteratorAsBytes</a></p>
 </li>
 </ul>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>acquireUnrollMemory</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="acquireUnrollMemory"></a> Used exclusively when <code>MemoryStore</code> is requested to <a href="spark-MemoryStore.adoc#reserveUnrollMemoryForThisTask">reserveUnrollMemoryForThisTask</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="acquireUnrollMemory"></a> Used exclusively when <code>MemoryStore</code> is requested to <a href="storage/MemoryStore.html#reserveUnrollMemoryForThisTask" class="page">reserveUnrollMemoryForThisTask</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxOffHeapStorageMemory</code></p></td>
@@ -1900,7 +1900,7 @@ abstract class MemoryManager(...) {
 <p><code>BlockManager</code> is <a href="#ROOT:BlockManager.adoc#maxOffHeapMemory" class="page unresolved">created</a></p>
 </li>
 <li>
-<p><code>MemoryStore</code> is requested for the <a href="spark-MemoryStore.adoc#maxMemory">total amount of memory available for storage (in bytes)</a></p>
+<p><code>MemoryStore</code> is requested for the <a href="storage/MemoryStore.html#maxMemory" class="page">total amount of memory available for storage (in bytes)</a></p>
 </li>
 </ul>
 </div></div></td>
@@ -1919,7 +1919,7 @@ abstract class MemoryManager(...) {
 <p><code>UnifiedMemoryManager</code> is requested to <a href="spark-UnifiedMemoryManager.adoc#acquireStorageMemory">acquireStorageMemory</a></p>
 </li>
 <li>
-<p><code>MemoryStore</code> is requested for the <a href="spark-MemoryStore.adoc#maxMemory">total amount of memory available for storage (in bytes)</a></p>
+<p><code>MemoryStore</code> is requested for the <a href="storage/MemoryStore.html#maxMemory" class="page">total amount of memory available for storage (in bytes)</a></p>
 </li>
 <li>
 <p>(legacy) <code>StaticMemoryManager</code> is <a href="spark-StaticMemoryManager.adoc#maxOnHeapStorageMemory">created</a>, is requested to <a href="spark-StaticMemoryManager.adoc#acquireStorageMemory">acquireStorageMemory</a></p>

@@ -105,7 +105,7 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="storage/spark-MemoryStore.html">MemoryStore</a>
+    <a class="nav-link" href="storage/MemoryStore.html">MemoryStore</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="storage/spark-BlockEvictionHandler.html">BlockEvictionHandler</a>
@@ -2001,6 +2001,21 @@ Introduced in <a href="https://issues.apache.org/jira/browse/SPARK-13522">SPARK-
 </div>
 <div class="paragraph">
 <p>Default: <code>0</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.storage.unrollMemoryThreshold</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="spark.storage.unrollMemoryThreshold"></a> Initial per-task memory size needed to store a block in memory.</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>1024 * 1024</code></p>
+</div>
+<div class="paragraph">
+<p>Should be at most the <a href="storage/MemoryStore.html#maxMemory" class="page">total amount of memory available for storage</a></p>
+</div>
+<div class="paragraph">
+<p>Used when MemoryStore is requested to <a href="storage/MemoryStore.html#putIteratorAsValues" class="page">putIteratorAsValues</a> and <a href="storage/MemoryStore.html#putIteratorAsBytes" class="page">putIteratorAsBytes</a></p>
 </div></div></td>
 </tr>
 <tr>

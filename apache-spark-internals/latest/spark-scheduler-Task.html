@@ -105,7 +105,7 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="storage/spark-MemoryStore.html">MemoryStore</a>
+    <a class="nav-link" href="storage/MemoryStore.html">MemoryStore</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="storage/spark-BlockEvictionHandler.html">BlockEvictionHandler</a>
@@ -2071,7 +2071,7 @@ This is the moment when the custom <code>Task</code>'s <a href="#runTask">runTas
 <p>In the end, <code>run</code> <a href="spark-TaskContextImpl.adoc#markTaskCompleted">notifies <code>TaskContextImpl</code> that the task has completed</a> (regardless of the final outcome&#8201;&#8212;&#8201;a success or a failure).</p>
 </div>
 <div class="paragraph">
-<p>In case of any exceptions, <code>run</code> <a href="spark-TaskContextImpl.adoc#markTaskFailed">notifies <code>TaskContextImpl</code> that the task has failed</a>. <code>run</code> <a href="spark-MemoryStore.adoc#releaseUnrollMemoryForThisTask">requests <code>MemoryStore</code> to release unroll memory for this task</a> (for both <code>ON_HEAP</code> and <code>OFF_HEAP</code> memory modes).</p>
+<p>In case of any exceptions, <code>run</code> <a href="spark-TaskContextImpl.adoc#markTaskFailed">notifies <code>TaskContextImpl</code> that the task has failed</a>. <code>run</code> <a href="storage/MemoryStore.html#releaseUnrollMemoryForThisTask" class="page">requests <code>MemoryStore</code> to release unroll memory for this task</a> (for both <code>ON_HEAP</code> and <code>OFF_HEAP</code> memory modes).</p>
 </div>
 <div class="admonitionblock note">
 <table>

@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title> BlockId&#8201;&#8212;&#8201;Named Block Data Identifier :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/storage/spark-BlockId.html">
+    <title> MemoryStore :: The Internals Of Apache Spark</title>
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/storage/MemoryStore.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -83,7 +83,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-BlockDataManager.html">BlockDataManager</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-BlockId.html">BlockId</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -104,7 +104,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="MemoryStore.html">MemoryStore</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -1805,204 +1805,83 @@
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
     <li>Block Storage System</li>
-    <li><a href="spark-BlockId.html">BlockId</a></li>
+    <li><a href="MemoryStore.html">MemoryStore</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/storage/pages/spark-BlockId.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/storage/pages/MemoryStore.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page"><a id="BlockId"></a> BlockId&#8201;&#8212;&#8201;Named Block Data Identifier</h1>
+<h1 class="page"><a id="MemoryStore"></a> MemoryStore</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>BlockId</code> is the <a href="#contract">abstraction</a> of <a href="#implementations">block data identifiers</a> that are uniquely identified by a <a href="#name">name</a>.</p>
+<p>MemoryStore is the <strong>memory store</strong> for blocks of data for <a href="BlockManager.html#memoryStore" class="page">BlockManager</a>.</p>
 </div>
-<table id="contract" class="tableblock frame-all grid-all fit-content spread">
-<caption class="title">Table 1. BlockId Contract (Abstract Methods Only)</caption>
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Method</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div id="name" class="listingblock">
+<div class="imageblock text-center">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">name: String</code></pre>
+<img src="_images/MemoryStore-BlockManager.png" alt="MemoryStore BlockManager">
 </div>
-</div>
-<div class="paragraph">
-<p>Used when&#8230;&#8203;FIXME</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>BlockId</code> is a Scala sealed abstract class and so all the possible <a href="#implementations">implementations</a> are in the single Scala file alongside <code>BlockId</code>.
-</td>
-</tr>
-</table>
-</div>
-<table id="implementations" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. BlockIds</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">BlockId</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>BroadcastBlockId</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="BroadcastBlockId"></a> <code>BlockId</code> for <a href="#spark-broadcast.adoc" class="page unresolved">broadcast variables</a> with <code>broadcastId</code> identifier and optional <code>field</code> name (default: <code>empty</code>)</p>
+<div class="title">Figure 1. MemoryStore and BlockManager</div>
 </div>
 <div class="paragraph">
-<p>Uses <code>broadcast_</code> prefix for the <a href="#name">name</a></p>
+<p>The "idiom" to access the current MemoryStore is to request <code>SparkEnv</code> for the <a href="../spark-SparkEnv.html#blockManager" class="page">BlockManager</a> that manages the <a href="BlockManager.html#memoryStore" class="page">MemoryStore</a>.</p>
 </div>
-<div class="paragraph">
-<p>Used when:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">SparkEnv.get.blockManager.memoryStore</code></pre>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>TorrentBroadcast</code> is <a href="#spark-TorrentBroadcast.adoc#broadcastId" class="page unresolved">created</a>, requested to <a href="#spark-TorrentBroadcast.adoc#writeBlocks" class="page unresolved">store a broadcast and the blocks in a local BlockManager</a>, and <a href="#readBlocks">read blocks</a></p>
-</li>
-<li>
-<p><code>BlockManager</code> is requested to <a href="BlockManager.html#removeBroadcast" class="page">remove all the blocks of a broadcast variable</a></p>
-</li>
-<li>
-<p><code>AppStatusListener</code> is requested to <a href="#spark-SparkListener-AppStatusListener.adoc#updateBroadcastBlock" class="page unresolved">updateBroadcastBlock</a> (when <a href="#spark-SparkListener-AppStatusListener.adoc#onBlockUpdated" class="page unresolved">onBlockUpdated</a> for a <code>BroadcastBlockId</code>)</p>
-</li>
-</ul>
 </div>
-<div class="paragraph">
-<p><a href="#spark-SerializerManager.adoc#shouldCompress" class="page unresolved">Compressed</a> when <a href="#spark-service-broadcastmanager.adoc#spark.broadcast.compress" class="page unresolved">spark.broadcast.compress</a> configuration property is enabled (default: <code>true</code>)</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RDDBlockId</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="RDDBlockId"></a> <code>BlockId</code> for RDD partitions with <code>rddId</code> and <code>splitIndex</code> identifiers</p>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/spark-MemoryStore.png" alt="spark MemoryStore">
 </div>
-<div class="paragraph">
-<p>Uses <code>rdd_</code> prefix for the <a href="#name">name</a></p>
+<div class="title">Figure 2. Creating MemoryStore</div>
 </div>
-<div class="paragraph">
-<p>Used when:</p>
+<div id="unrollMemoryThreshold" class="paragraph">
+<p>MemoryStore uses <a href="../spark-configuration-properties.html#spark.storage.unrollMemoryThreshold" class="page">spark.storage.unrollMemoryThreshold</a> configuration property when requested to <a href="#putIteratorAsValues">putIteratorAsValues</a> and <a href="#putIteratorAsBytes">putIteratorAsBytes</a>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>StorageStatus</code> is requested to <a href="spark-blockmanager-StorageStatus.html#addBlock" class="page">register the status of a data block</a>, <a href="spark-blockmanager-StorageStatus.html#getBlock" class="page">get the status of a data block</a>, <a href="spark-blockmanager-StorageStatus.html#updateStorageInfo" class="page">updateStorageInfo</a></p>
-</li>
-<li>
-<p><code>LocalCheckpointRDD</code> is requested to <code>compute</code> a partition</p>
-</li>
-<li>
-<p><code>LocalRDDCheckpointData</code> is requested to <code>doCheckpoint</code></p>
-</li>
-<li>
-<p><code>RDD</code> is requested to <a href="#spark-rdd-RDD.adoc#getOrCompute" class="page unresolved">getOrCompute</a></p>
-</li>
-<li>
-<p><code>DAGScheduler</code> is requested for the <a href="#spark-scheduler-DAGScheduler.adoc#getCacheLocs" class="page unresolved">BlockManagers (executors) for cached RDD partitions</a></p>
-</li>
-<li>
-<p><code>AppStatusListener</code> is requested to <a href="#spark-SparkListener-AppStatusListener.adoc#updateRDDBlock" class="page unresolved">updateRDDBlock</a> (when <a href="#spark-SparkListener-AppStatusListener.adoc#onBlockUpdated" class="page unresolved">onBlockUpdated</a> for a <code>RDDBlockId</code>)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><a href="#spark-SerializerManager.adoc#shouldCompress" class="page unresolved">Compressed</a> when <a href="#spark-SerializerManager.adoc#spark.rdd.compress" class="page unresolved">spark.rdd.compress</a> configuration property is enabled (default: <code>false</code>)</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ShuffleBlockId</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="ShuffleBlockId"></a> <code>BlockId</code> for <em>FIXME</em> with <code>shuffleId</code>, <code>mapId</code>, and <code>reduceId</code> identifiers</p>
-</div>
-<div class="paragraph">
-<p>Uses <code>shuffle_</code> prefix for the <a href="#name">name</a></p>
-</div>
-<div class="paragraph">
-<p>Used when:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>ShuffleBlockFetcherIterator</code> is requested to <a href="ShuffleBlockFetcherIterator.html#throwFetchFailedException" class="page">throwFetchFailedException</a></p>
-</li>
-<li>
-<p><code>MapOutputTracker</code> object is requested to <a href="#spark-service-mapoutputtracker.adoc#convertMapStatuses" class="page unresolved">convertMapStatuses</a></p>
-</li>
-<li>
-<p><code>SortShuffleWriter</code> is requested to <a href="../shuffle/spark-shuffle-SortShuffleWriter.html#write" class="page">write partition records</a></p>
-</li>
-<li>
-<p><code>ShuffleBlockResolver</code> is requested for a <a href="../shuffle/ShuffleBlockResolver.html#getBlockData" class="page">ManagedBuffer to read shuffle block data file</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><a href="#spark-SerializerManager.adoc#shouldCompress" class="page unresolved">Compressed</a> when <a href="#spark-SerializerManager.adoc#spark.shuffle.compress" class="page unresolved">spark.shuffle.compress</a> configuration property is enabled (default: <code>true</code>)</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ShuffleDataBlockId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ShuffleDataBlockId"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ShuffleIndexBlockId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ShuffleIndexBlockId"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>StreamBlockId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="StreamBlockId"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TaskResultBlockId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TaskResultBlockId"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TempLocalBlockId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TempLocalBlockId"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TempShuffleBlockId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TempShuffleBlockId"></a></p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-blockidapply-factory-method"><a class="anchor" href="#creating-blockidapply-factory-method"></a><a class="link" href="#creating-blockidapply-factory-method"><a id="apply"></a> Creating BlockId&#8201;&#8212;&#8201;<code>apply</code> Factory Method</a></h2>
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MemoryStore takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="conf"></a> <a href="../spark-SparkConf.html" class="page">SparkConf</a></p>
+</li>
+<li>
+<p><a id="blockInfoManager"></a> <a href="spark-BlockInfoManager.html" class="page">BlockInfoManager</a></p>
+</li>
+<li>
+<p><a id="serializerManager"></a> <a href="../spark-SerializerManager.html" class="page">SerializerManager</a></p>
+</li>
+<li>
+<p><a id="memoryManager"></a> <a href="../spark-MemoryManager.html" class="page">MemoryManager</a></p>
+</li>
+<li>
+<p><a id="blockEvictionHandler"></a> <a href="spark-BlockEvictionHandler.html" class="page">BlockEvictionHandler</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="releaseunrollmemoryforthistask-method"><a class="anchor" href="#releaseunrollmemoryforthistask-method"></a><a class="link" href="#releaseunrollmemoryforthistask-method"><a id="releaseUnrollMemoryForThisTask"></a> <code>releaseUnrollMemoryForThisTask</code> Method</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">apply(name: String): BlockId</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">releaseUnrollMemoryForThisTask(
+  memoryMode: MemoryMode,
+  memory: Long = Long.MaxValue): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>apply</code> simply creates a concrete <a href="#implementations">BlockId</a> by the given name.</p>
+<p><code>releaseUnrollMemoryForThisTask</code>&#8230;&#8203;FIXME</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2011,10 +1890,375 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>apply</code> is used when&#8230;&#8203;FIXME
+<div class="paragraph">
+<p><code>releaseUnrollMemoryForThisTask</code> is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Task</code> is requested to <a href="../spark-scheduler-Task.html#run" class="page">run</a> (and cleans up after itself)</p>
+</li>
+<li>
+<p>MemoryStore is requested to <a href="#putIteratorAsValues">putIteratorAsValues</a> and <a href="#putIteratorAsBytes">putIteratorAsBytes</a></p>
+</li>
+<li>
+<p><code>PartiallyUnrolledIterator</code> is requested to <code>releaseUnrollMemory</code></p>
+</li>
+<li>
+<p><code>PartiallySerializedBlock</code> is requested to <code>discard</code> and <code>finishWritingToStream</code></p>
+</li>
+</ul>
+</div>
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getvalues-method"><a class="anchor" href="#getvalues-method"></a><a class="link" href="#getvalues-method"><a id="getValues"></a> <code>getValues</code> Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getValues(blockId: BlockId): Option[Iterator[_]]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>getValues</code> does&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getbytes-method"><a class="anchor" href="#getbytes-method"></a><a class="link" href="#getbytes-method"><a id="getBytes"></a> <code>getBytes</code> Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getBytes(blockId: BlockId): Option[ChunkedByteBuffer]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>getBytes</code> does&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="putiteratorasbytes-method"><a class="anchor" href="#putiteratorasbytes-method"></a><a class="link" href="#putiteratorasbytes-method"><a id="putIteratorAsBytes"></a> <code>putIteratorAsBytes</code> Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">putIteratorAsBytes[T](
+  blockId: BlockId,
+  values: Iterator[T],
+  classTag: ClassTag[T],
+  memoryMode: MemoryMode): Either[PartiallySerializedBlock[T], Long]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>putIteratorAsBytes</code> tries to put the <code>blockId</code> block in memory store as bytes.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="removing-block"><a class="anchor" href="#removing-block"></a><a class="link" href="#removing-block"><a id="remove"></a> Removing Block</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="acquiring-storage-memory-for-blocks"><a class="anchor" href="#acquiring-storage-memory-for-blocks"></a><a class="link" href="#acquiring-storage-memory-for-blocks"><a id="putBytes"></a> Acquiring Storage Memory for Blocks</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">putBytes[T](
+  blockId: BlockId,
+  size: Long,
+  memoryMode: MemoryMode,
+  _bytes: () =&gt; ChunkedByteBuffer): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>putBytes</code> requests <a href="../spark-MemoryManager.html#acquireStorageMemory" class="page">storage memory  for <code>blockId</code> from <code>MemoryManager</code></a> and registers the block in <a href="#entries">entries</a> internal registry.</p>
+</div>
+<div class="paragraph">
+<p>Internally, <code>putBytes</code> first makes sure that <code>blockId</code> block has not been registered already in <a href="#entries">entries</a> internal registry.</p>
+</div>
+<div class="paragraph">
+<p><code>putBytes</code> then requests <a href="../spark-MemoryManager.html#acquireStorageMemory" class="page"><code>size</code> memory for the <code>blockId</code> block in a given <code>memoryMode</code> from the current <code>MemoryManager</code></a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>memoryMode</code> can be <code>ON_HEAP</code> or <code>OFF_HEAP</code> and is a property of a <a href="StorageLevel.html" class="page">StorageLevel</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>import org.apache.spark.storage.StorageLevel._
+scala&gt; MEMORY_AND_DISK.useOffHeap
+res0: Boolean = false
+
+scala&gt; OFF_HEAP.useOffHeap
+res1: Boolean = true</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If successful, <code>putBytes</code> "materializes" <code>_bytes</code> byte buffer and makes sure that the size is exactly <code>size</code>. It then registers a <code>SerializedMemoryEntry</code> (for the bytes and <code>memoryMode</code>) for <code>blockId</code> in the internal <a href="#entries">entries</a> registry.</p>
+</div>
+<div class="paragraph">
+<p>You should see the following INFO message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>INFO Block [blockId] stored as bytes in memory (estimated size [size], free [bytes])</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>putBytes</code> returns <code>true</code> only after <code>blockId</code> was successfully registered in the internal <a href="#entries">entries</a> registry.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="evicting-blocks-from-memory"><a class="anchor" href="#evicting-blocks-from-memory"></a><a class="link" href="#evicting-blocks-from-memory"><a id="evictBlocksToFreeSpace"></a> Evicting Blocks From Memory</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">evictBlocksToFreeSpace(
+  blockId: Option[BlockId],
+  space: Long,
+  memoryMode: MemoryMode): Long</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>evictBlocksToFreeSpace</code>&#8230;&#8203;FIXME</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>evictBlocksToFreeSpace</code> is used when <code>StorageMemoryPool</code> is requested to <a href="../spark-StorageMemoryPool.html#acquireMemory" class="page">acquireMemory</a> and <a href="../spark-StorageMemoryPool.html#freeSpaceToShrinkPool" class="page">freeSpaceToShrinkPool</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="checking-whether-block-exists-in-memorystore"><a class="anchor" href="#checking-whether-block-exists-in-memorystore"></a><a class="link" href="#checking-whether-block-exists-in-memorystore"><a id="contains"></a> Checking Whether Block Exists In MemoryStore</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">contains(blockId: BlockId): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>contains</code> is positive (<code>true</code>) when the <a href="#entries">entries</a> internal registry contains <code>blockId</code> key.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>contains</code> is used when&#8230;&#8203;FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="putiteratorasvalues-method"><a class="anchor" href="#putiteratorasvalues-method"></a><a class="link" href="#putiteratorasvalues-method"><a id="putIteratorAsValues"></a> <code>putIteratorAsValues</code> Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">putIteratorAsValues[T](
+  blockId: BlockId,
+  values: Iterator[T],
+  classTag: ClassTag[T]): Either[PartiallyUnrolledIterator[T], Long]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>putIteratorAsValues</code> makes sure that the <code>BlockId</code> does not exist or throws an <code>IllegalArgumentException</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>requirement failed: Block [blockId] is already present in the MemoryStore</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>putIteratorAsValues</code> <a href="#reserveUnrollMemoryForThisTask">reserveUnrollMemoryForThisTask</a> (with the <a href="#unrollMemoryThreshold">initial memory threshold</a> and <code>ON_HEAP</code> memory mode).</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>putIteratorAsValues</code> tries to put the <code>blockId</code> block in memory store as <code>values</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>putIteratorAsValues</code> is used when <code>BlockManager</code> stores  <a href="#ROOT:BlockManager.adoc#doPutBytes" class="page unresolved">bytes of a block</a> or <a href="#ROOT:BlockManager.adoc#doPutIterator" class="page unresolved">iterator of values of a block</a> or when <a href="#ROOT:BlockManager.adoc#maybeCacheDiskValuesInMemory" class="page unresolved">attempting to cache spilled values read from disk</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reserveunrollmemoryforthistask-method"><a class="anchor" href="#reserveunrollmemoryforthistask-method"></a><a class="link" href="#reserveunrollmemoryforthistask-method"><a id="reserveUnrollMemoryForThisTask"></a> <code>reserveUnrollMemoryForThisTask</code> Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">reserveUnrollMemoryForThisTask(
+  blockId: BlockId,
+  memory: Long,
+  memoryMode: MemoryMode): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>reserveUnrollMemoryForThisTask</code> acquires a lock on <a href="#memoryManager">MemoryManager</a> and requests it to <a href="../spark-MemoryManager.html#acquireUnrollMemory" class="page">acquireUnrollMemory</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>reserveUnrollMemoryForThisTask</code> is used when MemoryStore is requested to <a href="#putIteratorAsValues">putIteratorAsValues</a> and <a href="#putIteratorAsBytes">putIteratorAsBytes</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="total-amount-of-memory-available-for-storage"><a class="anchor" href="#total-amount-of-memory-available-for-storage"></a><a class="link" href="#total-amount-of-memory-available-for-storage"><a id="maxMemory"></a> Total Amount Of Memory Available For Storage</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">maxMemory: Long</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>maxMemory</code> requests the <a href="#memoryManager">MemoryManager</a> for the current <a href="../spark-MemoryManager.html#maxOnHeapStorageMemory" class="page">maxOnHeapStorageMemory</a> and <a href="../spark-MemoryManager.html#maxOffHeapStorageMemory" class="page">maxOffHeapStorageMemory</a>, and simply returns their sum.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Enable INFO <a href="#logging">logging</a> to find the <code>maxMemory</code> in the logs when MemoryStore is <a href="#creating-instance">created</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>MemoryStore started with capacity [maxMemory] MB</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>maxMemory</code> is used for <a href="#logging">logging</a> purposes only.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.storage.memory.MemoryStore</code> logger to see what happens inside.</p>
+</div>
+<div class="paragraph">
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.storage.memory.MemoryStore=ALL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internal-registries"><a class="anchor" href="#internal-registries"></a><a class="link" href="#internal-registries"><a id="internal-registries"></a> Internal Registries</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="memoryentries-by-blockid"><a class="anchor" href="#memoryentries-by-blockid"></a><a class="link" href="#memoryentries-by-blockid"><a id="entries"></a> MemoryEntries by BlockId</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">entries: LinkedHashMap[BlockId, MemoryEntry[_]]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When created, MemoryStore creates a Java <a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html">LinkedHashMap</a> of <code>MemoryEntries</code> per <a href="spark-BlockId.html" class="page">BlockId</a> (with the initial capacity of <code>32</code> and the load factor of <code>0.75</code>).</p>
+</div>
+<div class="paragraph">
+<p>entries uses <strong>access-order</strong> ordering mode where the order of iteration is the order in which the entries were last accessed (from least-recently accessed to most-recently). That gives <strong>LRU cache</strong> behaviour when <a href="#evictBlocksToFreeSpace">evicting blocks</a>.</p>
+</div>
 </div>
 </div>
 </div>
