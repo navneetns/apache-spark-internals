@@ -2030,6 +2030,12 @@ FIXME Describe the YARN-specific part.
 <div class="paragraph">
 <p>When <a href="#creating-instance">created</a>, BlockManager creates a <a href="DiskBlockManager.html" class="page">DiskBlockManager</a>.</p>
 </div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/DiskBlockManager-BlockManager.png" alt="DiskBlockManager BlockManager">
+</div>
+<div class="title">Figure 1. DiskBlockManager and BlockManager</div>
+</div>
 <div class="paragraph">
 <p>BlockManager uses the BlockManager for the following:</p>
 </div>
@@ -2059,6 +2065,12 @@ SparkEnv.get.blockManager.diskBlockManager</code></pre>
 <div class="sectionbody">
 <div class="paragraph">
 <p>When <a href="#creating-instance">created</a>, BlockManager creates a <a href="DiskStore.html" class="page">DiskStore</a> (with the <a href="#diskBlockManager">DiskBlockManager</a>).</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/DiskStore-BlockManager.png" alt="DiskStore BlockManager">
+</div>
+<div class="title">Figure 2. DiskStore and BlockManager</div>
 </div>
 <div class="paragraph">
 <p>BlockManager uses the DiskStore when requested to <a href="#getStatus">getStatus</a>, <a href="#getCurrentBlockStatus">getCurrentBlockStatus</a>, <a href="#getLocalValues">getLocalValues</a>, <a href="#doGetLocalBytes">doGetLocalBytes</a>, <a href="#doPutBytes">doPutBytes</a>, <a href="#doPutIterator">doPutIterator</a>, <a href="#dropFromMemory">dropFromMemory</a>, <a href="#removeBlockInternal">removeBlockInternal</a>.</p>

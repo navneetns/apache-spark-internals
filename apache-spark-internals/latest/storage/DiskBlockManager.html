@@ -1816,16 +1816,19 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>DiskBlockManager</strong> creates and maintains the logical mapping between logical blocks and physical on-disk locations.</p>
+<p><strong>DiskBlockManager</strong> creates and maintains the logical mapping between logical blocks and physical on-disk locations for a <a href="BlockManager.html#diskBlockManager" class="page">BlockManager</a>.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/DiskBlockManager-BlockManager.png" alt="DiskBlockManager BlockManager">
+</div>
+<div class="title">Figure 1. DiskBlockManager and BlockManager</div>
 </div>
 <div class="paragraph">
 <p>By default, one block is mapped to one file with a name given by its <code>BlockId</code>. It is however possible to have a block map to only a segment of a file.</p>
 </div>
 <div class="paragraph">
 <p>Block files are hashed among the <a href="#getConfiguredLocalDirs">local directories</a>.</p>
-</div>
-<div class="paragraph">
-<p>DiskBlockManager is <a href="#creating-instance">created</a> for a <a href="BlockManager.html#diskBlockManager" class="page">BlockManager</a></p>
 </div>
 <div class="paragraph">
 <p>DiskBlockManager is used to create a <a href="DiskStore.html" class="page">DiskStore</a>.</p>
