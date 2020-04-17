@@ -1816,16 +1816,19 @@
 <h2 id="memorystore"><a class="anchor" href="#memorystore"></a><a class="link" href="#memorystore"><a id="MemoryStore"></a> MemoryStore</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>MemoryStore</code> is the <strong>memory store</strong> for blocks of data.</p>
+<p><code>MemoryStore</code> is the <strong>memory store</strong> for blocks of data for <a href="BlockManager.html#memoryStore" class="page">BlockManager</a>.</p>
 </div>
-<div class="paragraph">
-<p><code>MemoryStore</code> is <a href="#creating-instance">created</a> exclusively when <code>BlockManager</code> is <a href="#ROOT:BlockManager.adoc#memoryStore" class="page unresolved">created</a>.</p>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/MemoryStore-BlockManager.png" alt="MemoryStore BlockManager">
+</div>
+<div class="title">Figure 1. MemoryStore and BlockManager</div>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="_images/spark-MemoryStore.png" alt="spark MemoryStore">
 </div>
-<div class="title">Figure 1. Creating MemoryStore</div>
+<div class="title">Figure 2. Creating MemoryStore</div>
 </div>
 <div class="paragraph">
 <p>The "idiom" to access the current <code>MemoryStore</code> is to request <code>SparkEnv</code> for the <a href="spark-SparkEnv.adoc#blockManager">BlockManager</a> that manages the <a href="#ROOT:BlockManager.adoc#memoryStore" class="page unresolved">MemoryStore</a>.</p>
