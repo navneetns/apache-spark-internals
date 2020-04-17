@@ -75,7 +75,13 @@
     <a class="nav-link" href="BlockManager.html">BlockManager</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="DiskBlockManager.html">DiskBlockManager</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="demo-diskblockmanager-and-block-data.html">Demo: DiskBlockManager and Block Data</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="DiskStore.html">DiskStore</a>
@@ -1833,6 +1839,18 @@
 <div class="paragraph">
 <p>DiskBlockManager is used to create a <a href="DiskStore.html" class="page">DiskStore</a>.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Consult <a href="demo-diskblockmanager-and-block-data.html" class="page">Demo: DiskBlockManager and Block Data</a>.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1868,7 +1886,74 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="finding-block-file"><a class="anchor" href="#finding-block-file"></a><a class="link" href="#finding-block-file"><a id="getFile"></a> Finding Block File</a></h2>
+<h2 id="local-directories-for-blocks"><a class="anchor" href="#local-directories-for-blocks"></a><a class="link" href="#local-directories-for-blocks"><a id="localDirs"></a> Local Directories for Blocks</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">localDirs: Array[File]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>While being created, DiskBlockManager <a href="#createLocalDirs">creates local directories</a> for block data. DiskBlockManager expects at least one local directory or prints out the following ERROR message to the logs and exits the JVM (with exit code 53).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Failed to create any local dir.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>localDirs is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DiskBlockManager is requested to <a href="#getFile">getFile</a>, initialize the <a href="#subDirs">subDirs</a> internal registry, and to <a href="#doStop">doStop</a></p>
+</li>
+<li>
+<p>BlockManager is requested to <a href="BlockManager.html#registerWithExternalShuffleServer" class="page">register with an external shuffle server</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-local-directories-for-block-data"><a class="anchor" href="#creating-local-directories-for-block-data"></a><a class="link" href="#creating-local-directories-for-block-data"><a id="createLocalDirs"></a> Creating Local Directories for Block Data</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">createLocalDirs(
+  conf: SparkConf): Array[File]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>createLocalDirs creates <code>blockmgr-[random UUID]</code> directory under local directories to store block data.</p>
+</div>
+<div class="paragraph">
+<p>Internally, createLocalDirs <a href="#getConfiguredLocalDirs">finds the configured local directories where Spark can write files</a> and creates a subdirectory <code>blockmgr-[UUID]</code> under every configured parent directory.</p>
+</div>
+<div class="paragraph">
+<p>For every local directory, createLocalDirs prints out the following INFO message to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Created local directory at [localDir]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In case of an exception, createLocalDirs prints out the following ERROR message to the logs and skips the directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Failed to create local dir in [rootDir]. Ignoring this directory.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>createLocalDirs is used when the <a href="#localDirs">localDirs</a> internal registry is initialized.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="finding-block-file-and-creating-parent-directories"><a class="anchor" href="#finding-block-file-and-creating-parent-directories"></a><a class="link" href="#finding-block-file-and-creating-parent-directories"><a id="getFile"></a> Finding Block File (and Creating Parent Directories)</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -1887,7 +1972,10 @@ getFile(
 </table>
 </div>
 <div class="paragraph">
-<p><code>getFile</code>&#8230;&#8203;FIXME</p>
+<p><code>getFile</code> computes a hash of the file name of the input <a href="spark-BlockId.html" class="page">BlockId</a> that is used for the name of the parent directory and subdirectory.</p>
+</div>
+<div class="paragraph">
+<p><code>getFile</code> creates the subdirectory unless it already exists.</p>
 </div>
 <div class="paragraph">
 <p><code>getFile</code> is used when:</p>
@@ -2143,50 +2231,6 @@ FIXME
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-local-directories-for-storing-block-datacreatelocaldirs-internal-method"><a class="anchor" href="#creating-local-directories-for-storing-block-datacreatelocaldirs-internal-method"></a><a class="link" href="#creating-local-directories-for-storing-block-datacreatelocaldirs-internal-method"><a id="createLocalDirs"></a> Creating Local Directories for Storing Block Data&#8201;&#8212;&#8201;<code>createLocalDirs</code> Internal Method</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">createLocalDirs(conf: SparkConf): Array[File]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>createLocalDirs</code> creates <code>blockmgr-[random UUID]</code> directory under local directories to store block data.</p>
-</div>
-<div class="paragraph">
-<p>Internally, <code>createLocalDirs</code> reads <a href="#getConfiguredLocalDirs">local writable directories</a> and creates a subdirectory <code>blockmgr-[random UUID]</code> under every configured parent directory.</p>
-</div>
-<div class="paragraph">
-<p>If successful, you should see the following INFO message in the logs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>INFO DiskBlockManager: Created local directory at [localDir]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When failed to create a local directory, you should see the following ERROR message in the logs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>ERROR DiskBlockManager: Failed to create local dir in [rootDir]. Ignoring this directory.</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>createLocalDirs</code> is used exclusively when <a href="#localDirs">localDirs</a> is initialized.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="stop-internal-method"><a class="anchor" href="#stop-internal-method"></a><a class="link" href="#stop-internal-method"><a id="stop"></a> <code>stop</code> Internal Method</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -2283,34 +2327,6 @@ FIXME
 </tr>
 </thead>
 <tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>localDirs</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="localDirs"></a> Local directories for block data</p>
-</div>
-<div class="paragraph">
-<p><code>localDirs</code> is initialized using <a href="#createLocalDirs">createLocalDirs</a>.</p>
-</div>
-<div class="paragraph">
-<p>There has to be at least one local directory or DiskBlockManager cannot be <a href="#creating-instance">created</a>.</p>
-</div>
-<div class="paragraph">
-<p>Used when:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>DiskBlockManager is requested to <a href="#getFile">getFile</a>, initialize <a href="#subDirs">subDirs</a> and <a href="#doStop">stop</a></p>
-</li>
-<li>
-<p><code>BlockManager</code> is requested to <a href="#ROOT:BlockManager.adoc#registerWithExternalShuffleServer" class="page unresolved">register the executor&#8217;s BlockManager with an external shuffle server</a></p>
-</li>
-<li>
-<p>PySpark&#8217;s <code>BasePythonRunner</code> is requested to <code>compute</code></p>
-</li>
-</ul>
-</div></div></td>
-</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>subDirsPerLocalDir</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">

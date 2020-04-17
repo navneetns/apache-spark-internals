@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/rdd/spark-rdd-SubtractedRDD.html">
+    <title>Demo: DiskBlockManager and Block Data :: The Internals Of Apache Spark</title>
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/storage/demo-diskblockmanager-and-block-data.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -72,100 +72,100 @@
     <span class="nav-text">Block Storage System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../storage/BlockManager.html">BlockManager</a>
+    <a class="nav-link" href="BlockManager.html">BlockManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../storage/DiskBlockManager.html">DiskBlockManager</a>
+    <a class="nav-link" href="DiskBlockManager.html">DiskBlockManager</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/demo-diskblockmanager-and-block-data.html">Demo: DiskBlockManager and Block Data</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="demo-diskblockmanager-and-block-data.html">Demo: DiskBlockManager and Block Data</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../storage/DiskStore.html">DiskStore</a>
+    <a class="nav-link" href="DiskStore.html">DiskStore</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../storage/spark-BlockDataManager.html">BlockDataManager</a>
+    <a class="nav-link" href="spark-BlockDataManager.html">BlockDataManager</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../storage/spark-BlockId.html">BlockId</a>
+    <a class="nav-link" href="spark-BlockId.html">BlockId</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../storage/spark-ManagedBuffer.html">ManagedBuffer</a>
+    <a class="nav-link" href="spark-ManagedBuffer.html">ManagedBuffer</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-MemoryStore.html">MemoryStore</a>
+    <a class="nav-link" href="spark-MemoryStore.html">MemoryStore</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-BlockEvictionHandler.html">BlockEvictionHandler</a>
+    <a class="nav-link" href="spark-BlockEvictionHandler.html">BlockEvictionHandler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-StorageMemoryPool.html">StorageMemoryPool</a>
+    <a class="nav-link" href="spark-StorageMemoryPool.html">StorageMemoryPool</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-MemoryPool.html">MemoryPool</a>
+    <a class="nav-link" href="spark-MemoryPool.html">MemoryPool</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-RpcHandler.html">RpcHandler</a>
+    <a class="nav-link" href="spark-RpcHandler.html">RpcHandler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-RpcResponseCallback.html">RpcResponseCallback</a>
+    <a class="nav-link" href="spark-RpcResponseCallback.html">RpcResponseCallback</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-TransportRequestHandler.html">TransportRequestHandler</a>
+    <a class="nav-link" href="spark-TransportRequestHandler.html">TransportRequestHandler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-TransportContext.html">TransportContext</a>
+    <a class="nav-link" href="spark-TransportContext.html">TransportContext</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-TransportServer.html">TransportServer</a>
+    <a class="nav-link" href="spark-TransportServer.html">TransportServer</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-TransportClientFactory.html">TransportClientFactory</a>
+    <a class="nav-link" href="spark-TransportClientFactory.html">TransportClientFactory</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-MessageHandler.html">MessageHandler</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../storage/BlockManagerMaster.html">BlockManagerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage/spark-blockmanager-BlockManagerMasterEndpoint.html">BlockManagerMasterEndpoint</a>
-  </li>
-</ul>
+    <a class="nav-link" href="spark-MessageHandler.html">MessageHandler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../storage/spark-BlockInfoManager.html">BlockInfoManager</a>
+    <a class="nav-link" href="BlockManagerMaster.html">BlockManagerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage/spark-BlockInfo.html">BlockInfo</a>
+    <a class="nav-link" href="spark-blockmanager-BlockManagerMasterEndpoint.html">BlockManagerMasterEndpoint</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-blockmanager-BlockManagerSlaveEndpoint.html">BlockManagerSlaveEndpoint</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-BlockInfoManager.html">BlockInfoManager</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="spark-BlockInfo.html">BlockInfo</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-blockmanager-DiskBlockObjectWriter.html">DiskBlockObjectWriter</a>
+    <a class="nav-link" href="spark-blockmanager-BlockManagerSlaveEndpoint.html">BlockManagerSlaveEndpoint</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-BlockManager-BlockManagerSource.html">BlockManagerSource</a>
+    <a class="nav-link" href="spark-blockmanager-DiskBlockObjectWriter.html">DiskBlockObjectWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-BlockManager-ShuffleMetricsSource.html">ShuffleMetricsSource</a>
+    <a class="nav-link" href="spark-BlockManager-BlockManagerSource.html">BlockManagerSource</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/spark-blockmanager-StorageStatus.html">StorageStatus</a>
+    <a class="nav-link" href="spark-BlockManager-ShuffleMetricsSource.html">ShuffleMetricsSource</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-blockmanager-StorageStatus.html">StorageStatus</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../storage/ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
+    <a class="nav-link" href="ShuffleBlockFetcherIterator.html">ShuffleBlockFetcherIterator</a>
   </li>
 </ul>
   </li>
@@ -248,115 +248,115 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">RDD</a>
+    <a class="nav-link" href="../rdd/index.html">RDD</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-rdd-RDD.html">RDD API</a>
+    <a class="nav-link" href="../rdd/spark-rdd-RDD.html">RDD API</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-rdd-operations.html">Operators</a>
+    <a class="nav-link" href="../rdd/spark-rdd-operations.html">Operators</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-rdd-transformations.html">Transformations</a>
+    <a class="nav-link" href="../rdd/spark-rdd-transformations.html">Transformations</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-rdd-PairRDDFunctions.html">PairRDDFunctions</a>
+    <a class="nav-link" href="../rdd/spark-rdd-PairRDDFunctions.html">PairRDDFunctions</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-actions.html">Actions</a>
+    <a class="nav-link" href="../rdd/spark-rdd-actions.html">Actions</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-rdd-lineage.html">RDD Lineage</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-rdd-caching.html">Caching and Persistence</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-StorageLevel.html">StorageLevel</a>
-  </li>
-</ul>
+    <a class="nav-link" href="../rdd/spark-rdd-lineage.html">RDD Lineage</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-rdd-checkpointing.html">Checkpointing</a>
+    <a class="nav-link" href="../rdd/spark-rdd-caching.html">Caching and Persistence</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-CheckpointRDD.html">CheckpointRDD</a>
+    <a class="nav-link" href="../rdd/spark-rdd-StorageLevel.html">StorageLevel</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-rdd-partitions.html">Partitions and Partitioning</a>
+    <a class="nav-link" href="../rdd/spark-rdd-checkpointing.html">Checkpointing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-Partition.html">Partition</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-Partitioner.html">Partitioner</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-HashPartitioner.html">HashPartitioner</a>
+    <a class="nav-link" href="../rdd/spark-rdd-CheckpointRDD.html">CheckpointRDD</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-rdd-shuffle.html">Shuffling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-rdd-Dependency.html">RDD Dependencies</a>
+    <a class="nav-link" href="../rdd/spark-rdd-partitions.html">Partitions and Partitioning</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-NarrowDependency.html">NarrowDependency</a>
+    <a class="nav-link" href="../rdd/spark-rdd-Partition.html">Partition</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="../rdd/spark-rdd-Partitioner.html">Partitioner</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../rdd/spark-rdd-HashPartitioner.html">HashPartitioner</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-Aggregator.html">Map/Reduce-side Aggregator</a>
+    <a class="nav-link" href="../rdd/spark-rdd-shuffle.html">Shuffling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rdd/spark-rdd-Dependency.html">RDD Dependencies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rdd/spark-Aggregator.html">Map/Reduce-side Aggregator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Specialized RDDs</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-ParallelCollectionRDD.html">ParallelCollectionRDD</a>
+    <a class="nav-link" href="../rdd/spark-rdd-ParallelCollectionRDD.html">ParallelCollectionRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-MapPartitionsRDD.html">MapPartitionsRDD</a>
+    <a class="nav-link" href="../rdd/spark-rdd-MapPartitionsRDD.html">MapPartitionsRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-OrderedRDDFunctions.html">OrderedRDDFunctions</a>
+    <a class="nav-link" href="../rdd/spark-rdd-OrderedRDDFunctions.html">OrderedRDDFunctions</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-CoGroupedRDD.html">CoGroupedRDD</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="spark-rdd-SubtractedRDD.html">SubtractedRDD</a>
+    <a class="nav-link" href="../rdd/spark-rdd-CoGroupedRDD.html">CoGroupedRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-HadoopRDD.html">HadoopRDD</a>
+    <a class="nav-link" href="../rdd/spark-rdd-SubtractedRDD.html">SubtractedRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-NewHadoopRDD.html">NewHadoopRDD</a>
+    <a class="nav-link" href="../rdd/spark-rdd-HadoopRDD.html">HadoopRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="ShuffledRDD.html">ShuffledRDD</a>
+    <a class="nav-link" href="../rdd/spark-rdd-NewHadoopRDD.html">NewHadoopRDD</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../rdd/ShuffledRDD.html">ShuffledRDD</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-TaskLocation.html">TaskLocation</a>
+    <a class="nav-link" href="../rdd/spark-TaskLocation.html">TaskLocation</a>
   </li>
 </ul>
   </li>
@@ -1813,66 +1813,114 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li><a href="index.html">RDD</a></li>
-    <li>Specialized RDDs</li>
-    <li><a href="spark-rdd-SubtractedRDD.html">SubtractedRDD</a></li>
+    <li>Block Storage System</li>
+    <li><a href="DiskBlockManager.html">DiskBlockManager</a></li>
+    <li><a href="demo-diskblockmanager-and-block-data.html">Demo: DiskBlockManager and Block Data</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/rdd/pages/spark-rdd-SubtractedRDD.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/storage/pages/demo-diskblockmanager-and-block-data.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="subtractedrdd"><a class="anchor" href="#subtractedrdd"></a><a class="link" href="#subtractedrdd"><a id="SubtractedRDD"></a> SubtractedRDD</a></h2>
+<h1 class="page">Demo: DiskBlockManager and Block Data</h1>
+<div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="computing-partition-in-taskcontextcompute-method"><a class="anchor" href="#computing-partition-in-taskcontextcompute-method"></a><a class="link" href="#computing-partition-in-taskcontextcompute-method"><a id="compute"></a> Computing Partition (in TaskContext)&#8201;&#8212;&#8201;<code>compute</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">compute(p: Partition, context: TaskContext): Iterator[(K, V)]</code></pre>
+<div class="paragraph">
+<p>The demo shows how to Spark uses local disk to manage data blocks.</p>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>compute</code> is part of <a href="spark-rdd-RDD.adoc#compute">RDD Contract</a> to compute a <a href="spark-rdd-Partition.adoc">partition</a> (in a <a href="spark-TaskContext.adoc">TaskContext</a>).
-</td>
-</tr>
-</table>
+</div>
+<div class="sect1">
+<h2 id="configure-local-directories"><a class="anchor" href="#configure-local-directories"></a><a class="link" href="#configure-local-directories">Configure Local Directories</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spark uses <code>spark.local.dir</code> configuration property for one or more local directories to store data blocks.</p>
 </div>
 <div class="paragraph">
-<p><code>compute</code>&#8230;&#8203;FIXME</p>
+<p>Start <code>spark-shell</code> with the property set to a directory of your choice (say <code>local-dirs</code>). Use one directory for easier monitoring.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$SPARK_HOME/bin/spark-shell --conf spark.local.dir=local-dirs</code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getdependencies-method"><a class="anchor" href="#getdependencies-method"></a><a class="link" href="#getdependencies-method"><a id="getDependencies"></a> <code>getDependencies</code> Method</a></h3>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>When started, Spark will establish a proper directory layout. You are interested in <code>blockmgr-[uuid]</code> directories.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create-data-blocks"><a class="anchor" href="#create-data-blocks"></a><a class="link" href="#create-data-blocks">"Create" Data Blocks</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Execute the following Spark application that forces persisting (<em>caching</em>) data to disk.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>import org.apache.spark.storage.StorageLevel
+spark.range(2).persist(StorageLevel.DISK_ONLY).count</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="observe-block-files"><a class="anchor" href="#observe-block-files"></a><a class="link" href="#observe-block-files">Observe Block Files</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Go to the <code>blockmgr-[uuid]</code> directory and observe the block files. There should be a few. Do you know how many and why?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ tree local-dirs/blockmgr-b7167b5a-ae8d-404b-8de2-1a0fb101fe00/
+local-dirs/blockmgr-b7167b5a-ae8d-404b-8de2-1a0fb101fe00/
+├── 00
+├── 04
+│   └── shuffle_0_8_0.data
+├── 06
+├── 08
+│   └── shuffle_0_8_0.index
+...
+├── 37
+│   └── shuffle_0_7_0.index
+├── 38
+│   └── shuffle_0_4_0.data
+├── 39
+│   └── shuffle_0_9_0.index
+└── 3a
+    └── shuffle_0_6_0.data
+
+47 directories, 48 files</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-web-ui"><a class="anchor" href="#use-web-ui"></a><a class="link" href="#use-web-ui">Use web UI</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Open <a href="http://localhost:4040" class="bare">http://localhost:4040</a> and switch to Storage tab (at <a href="http://localhost:4040/storage/" class="bare">http://localhost:4040/storage/</a>). You should see one RDD cached.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/demo-DiskBlockManager-and-Block-Data-webui-storage.png" alt="demo DiskBlockManager and Block Data webui storage">
+</div>
+<div class="title">Figure 1. Storage tab in web UI</div>
+</div>
+<div class="paragraph">
+<p>Click the link in RDD Name column and review the information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enable-logging-for-diskstore"><a class="anchor" href="#enable-logging-for-diskstore"></a><a class="link" href="#enable-logging-for-diskstore">Enable Logging for DiskStore</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable ALL logging for <a href="DiskStore.html#logging" class="page">org.apache.spark.storage.DiskStore</a> and <a href="DiskBlockManager.html#logging" class="page">org.apache.spark.storage.DiskBlockManager</a> loggers to have an even deeper insight on the block storage internals.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.storage.DiskBlockManager=ALL
+log4j.logger.org.apache.spark.storage.DiskStore=ALL</code></pre>
 </div>
 </div>
 </div>
