@@ -72,16 +72,7 @@
     <a class="nav-link" href="spark-memory-unified-memory-management.html">Unified Memory Management</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="UnifiedMemoryManager.html">UnifiedMemoryManager</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="MemoryManager.html">MemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="TaskMemoryManager.html">TaskMemoryManager</a>
@@ -96,7 +87,13 @@
     <a class="nav-link" href="StorageMemoryPool.html">StorageMemoryPool</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-MemoryManager-properties.html">MemoryManager Configuration Properties</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MemoryManager.html">MemoryManager</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -1973,11 +1970,13 @@ FIXME Image with the interactions to <code>MemoryManager</code>.
 </div>
 </div>
 <div class="sect1">
-<h2 id="acquiring-execution-memoryacquireexecutionmemory-method"><a class="anchor" href="#acquiring-execution-memoryacquireexecutionmemory-method"></a><a class="link" href="#acquiring-execution-memoryacquireexecutionmemory-method"><a id="acquireExecutionMemory"></a> Acquiring Execution Memory&#8201;&#8212;&#8201;<code>acquireExecutionMemory</code> Method</a></h2>
+<h2 id="acquiring-execution-memory"><a class="anchor" href="#acquiring-execution-memory"></a><a class="link" href="#acquiring-execution-memory"><a id="acquireExecutionMemory"></a> Acquiring Execution Memory</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long acquireExecutionMemory(long required, MemoryConsumer consumer)</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long acquireExecutionMemory(
+  long required,
+  MemoryConsumer consumer)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2002,7 +2001,7 @@ FIXME Image with the interactions to <code>MemoryManager</code>.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="MemoryConsumer.adoc">MemoryConsumer</a> knows its mode&#8201;&#8212;&#8201;on- or off-heap.
+<a href="MemoryConsumer.html" class="page">MemoryConsumer</a> knows its mode&#8201;&#8212;&#8201;on- or off-heap.
 </td>
 </tr>
 </table>

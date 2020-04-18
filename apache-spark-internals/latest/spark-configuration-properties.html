@@ -72,16 +72,7 @@
     <a class="nav-link" href="memory/spark-memory-unified-memory-management.html">Unified Memory Management</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="memory/UnifiedMemoryManager.html">UnifiedMemoryManager</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="memory/MemoryManager.html">MemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="memory/StaticMemoryManager.html">StaticMemoryManager</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="memory/TaskMemoryManager.html">TaskMemoryManager</a>
@@ -96,7 +87,13 @@
     <a class="nav-link" href="memory/StorageMemoryPool.html">StorageMemoryPool</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="memory/spark-MemoryManager-properties.html">MemoryManager Configuration Properties</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="memory/MemoryManager.html">MemoryManager</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="memory/StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -2348,10 +2345,13 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 <h2 id="spark-memory-offheap-size"><a class="anchor" href="#spark-memory-offheap-size"></a><a class="link" href="#spark-memory-offheap-size"><a id="spark.memory.offHeap.size"></a><a id="MEMORY_OFFHEAP_SIZE"></a> spark.memory.offHeap.size</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>spark.memory.offHeap.size</code> is the absolute amount of memory in bytes which can be used for off-heap allocation. This setting has no impact on heap memory usage, so if your executors' total memory consumption must fit within some hard limit then be sure to shrink your JVM heap size accordingly. This must be set to a positive value when spark.memory.offHeap.enabled=true.</p>
+<p><code>spark.memory.offHeap.size</code> is the absolute amount of memory in bytes which can be used for off-heap allocation. This setting has no impact on heap memory usage, so if your executors' total memory consumption must fit within some hard limit then be sure to shrink your JVM heap size accordingly.</p>
 </div>
 <div class="paragraph">
 <p>Default: <code>0</code></p>
+</div>
+<div class="paragraph">
+<p>Must be set to a positive value when <a href="#spark.memory.offHeap.enabled">spark.memory.offHeap.enabled</a> is enabled (<code>true</code>).</p>
 </div>
 <div class="paragraph">
 <p>Must not be negative</p>
@@ -2388,6 +2388,26 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 </div>
 <div class="paragraph">
 <p>Default: <code>false</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-memory-offheap-enabled"><a class="anchor" href="#spark-memory-offheap-enabled"></a><a class="link" href="#spark-memory-offheap-enabled"><a id="spark.memory.offHeap.enabled"></a> spark.memory.offHeap.enabled</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>spark.memory.offHeap.enabled</code> controls whether Spark will attempt to use off-heap memory for certain operations (<code>true</code>) or not (<code>false</code>).</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>false</code></p>
+</div>
+<div class="paragraph">
+<p>Tracks whether Tungsten memory will be allocated on the JVM heap or off-heap (using <code>sun.misc.Unsafe</code>).</p>
+</div>
+<div class="paragraph">
+<p>If enabled, <a href="#spark.memory.offHeap.size">spark.memory.offHeap.size</a> has to be <a href="memory/MemoryManager.html#tungstenMemoryMode" class="page">greater than 0</a>.</p>
+</div>
+<div class="paragraph">
+<p>Used when MemoryManager is requested for <a href="memory/MemoryManager.html#tungstenMemoryMode" class="page">tungstenMemoryMode</a>.</p>
 </div>
 </div>
 </div>
