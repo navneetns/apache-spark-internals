@@ -72,19 +72,22 @@
     <a class="nav-link" href="memory/spark-memory-unified-memory-management.html">Unified Memory Management</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="memory/UnifiedMemoryManager.html">UnifiedMemoryManager</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="memory/MemoryManager.html">MemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="memory/StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="memory/TaskMemoryManager.html">TaskMemoryManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="memory/MemoryConsumer.html">MemoryConsumer</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="memory/UnifiedMemoryManager.html">UnifiedMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="memory/StaticMemoryManager.html">StaticMemoryManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="memory/MemoryPool.html">MemoryPool</a>
@@ -1966,7 +1969,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 
 </div>
 <div class="sect2">
-<h3 id="creating-base-sparkenvcreate-method"><a class="anchor" href="#creating-base-sparkenvcreate-method"></a><a class="link" href="#creating-base-sparkenvcreate-method"><a id="create"></a> Creating "Base" <code>SparkEnv</code>&#8201;&#8212;&#8201;<code>create</code> Method</a></h3>
+<h3 id="creating-base-sparkenv"><a class="anchor" href="#creating-base-sparkenv"></a><a class="link" href="#creating-base-sparkenv"><a id="create"></a> Creating "Base" <code>SparkEnv</code></a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">create(
@@ -1982,7 +1985,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 </div>
 </div>
 <div class="paragraph">
-<p><code>create</code> is a internal helper method to create a "base" <code>SparkEnv</code> (for a driver or an executor).</p>
+<p><code>create</code> is a internal helper method to create a "base" <code>SparkEnv</code> (for a driver or executors).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. create&#8217;s Input Arguments and Their Usage</caption>

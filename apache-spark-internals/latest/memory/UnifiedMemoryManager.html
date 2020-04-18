@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> UnifiedMemoryManager :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/memory/UnifiedMemoryManager.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -71,20 +71,23 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="spark-memory-unified-memory-management.html">Unified Memory Management</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="UnifiedMemoryManager.html">UnifiedMemoryManager</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="MemoryManager.html">MemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="TaskMemoryManager.html">TaskMemoryManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="MemoryConsumer.html">MemoryConsumer</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="UnifiedMemoryManager.html">UnifiedMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="MemoryPool.html">MemoryPool</a>
@@ -1813,17 +1816,82 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="unifiedmemorymanagersparks-memory-manager"><a class="anchor" href="#unifiedmemorymanagersparks-memory-manager"></a><a class="link" href="#unifiedmemorymanagersparks-memory-manager"><a id="UnifiedMemoryManager"></a> UnifiedMemoryManager&#8201;&#8212;&#8201;Spark&#8217;s Memory Manager</a></h2>
+<h1 class="page"><a id="UnifiedMemoryManager"></a> UnifiedMemoryManager</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>UnifiedMemoryManager</code> is the default <a href="MemoryManager.adoc">MemoryManager</a> with <code>onHeapStorageMemory</code> being ??? and <code>onHeapExecutionMemory</code> being ???</p>
+<p><strong>UnifiedMemoryManager</strong> is the default <a href="MemoryManager.html" class="page">MemoryManager</a> (based on <a href="../spark-configuration-properties.html#spark.memory.useLegacyMode" class="page">spark.memory.useLegacyMode</a> configuration property).</p>
 </div>
-<div class="sect2">
-<h3 id="calculate-maximum-memory-to-usegetmaxmemory-method"><a class="anchor" href="#calculate-maximum-memory-to-usegetmaxmemory-method"></a><a class="link" href="#calculate-maximum-memory-to-usegetmaxmemory-method"><a id="getMaxMemory"></a> Calculate Maximum Memory to Use&#8201;&#8212;&#8201;<code>getMaxMemory</code> Method</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>UnifiedMemoryManager takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="conf"></a> <a href="../spark-SparkConf.html" class="page">SparkConf</a></p>
+</li>
+<li>
+<p><a id="maxHeapMemory"></a> Maximum heap memory</p>
+</li>
+<li>
+<p><a id="onHeapStorageRegionSize"></a> Size of the on-heap storage region</p>
+</li>
+<li>
+<p><a id="numCores"></a> Number of CPU cores</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>UnifiedMemoryManager requires that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Sum of the pool size of the <a href="MemoryManager.html#onHeapExecutionMemoryPool" class="page">on-heap ExecutionMemoryPool</a> and <a href="MemoryManager.html#onHeapStorageMemoryPool" class="page">on-heap StorageMemoryPool</a> is exactly the <a href="#maxHeapMemory">maximum heap memory</a></p>
+</li>
+<li>
+<p>Sum of the pool size of the <a href="MemoryManager.html#offHeapExecutionMemoryPool" class="page">off-heap ExecutionMemoryPool</a> and <a href="MemoryManager.html#offHeapStorageMemoryPool" class="page">off-heap StorageMemoryPool</a> is exactly the maximum off-heap memory (based on <a href="../spark-configuration-properties.html#spark.memory.offHeap.size" class="page">spark.memory.offHeap.size</a> configuration property)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-unifiedmemorymanager"><a class="anchor" href="#creating-unifiedmemorymanager"></a><a class="link" href="#creating-unifiedmemorymanager"><a id="apply"></a> Creating UnifiedMemoryManager</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getMaxMemory(conf: SparkConf): Long</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">apply(
+  conf: SparkConf,
+  numCores: Int): UnifiedMemoryManager</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>apply</code> computes the <a href="#getMaxMemory">maximum heap memory</a> (using the input <a href="../spark-SparkConf.html" class="page">SparkConf</a>).</p>
+</div>
+<div class="paragraph">
+<p><code>apply</code> computes the size of the on-heap storage region which is a fraction of the maximum heap memory based on <a href="../spark-configuration-properties.html#spark.memory.storageFraction" class="page">spark.memory.storageFraction</a> configuration property (default: <code>0.5</code>).</p>
+</div>
+<div class="paragraph">
+<p>In the end, <code>apply</code> creates a <a href="#creating-instance">UnifiedMemoryManager</a> (with the given and computed values).</p>
+</div>
+<div class="paragraph">
+<p><code>apply</code> is used when <code>SparkEnv</code> utility is used to <a href="../spark-SparkEnv.html#create" class="page">create a SparkEnv</a> (for the driver and executors).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="calculating-maximum-heap-memory"><a class="anchor" href="#calculating-maximum-heap-memory"></a><a class="link" href="#calculating-maximum-heap-memory"><a id="getMaxMemory"></a> Calculating Maximum Heap Memory</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getMaxMemory(
+  conf: SparkConf): Long</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1886,74 +1954,17 @@ FIXME omnigraffle it.
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-unifiedmemorymanager-instance"><a class="anchor" href="#creating-unifiedmemorymanager-instance"></a><a class="link" href="#creating-unifiedmemorymanager-instance"><a id="creating-instance"></a> Creating <code>UnifiedMemoryManager</code> Instance</a></h3>
+</div>
+<div class="sect1">
+<h2 id="acquireexecutionmemory-method"><a class="anchor" href="#acquireexecutionmemory-method"></a><a class="link" href="#acquireexecutionmemory-method"><a id="acquireExecutionMemory"></a> <code>acquireExecutionMemory</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">class UnifiedMemoryManager(
-  conf: SparkConf,
-  val maxHeapMemory: Long,
-  onHeapStorageRegionSize: Long,
-  numCores: Int)</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">acquireExecutionMemory(
+  numBytes: Long,
+  taskAttemptId: Long,
+  memoryMode: MemoryMode): Long</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p><code>UnifiedMemoryManager</code> requires a <a href="spark-SparkConf.adoc">SparkConf</a> and the following values:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>maxHeapMemory</code>&#8201;&#8212;&#8201;the maximum on-heap memory to manage. It is assumed that <code>onHeapExecutionMemoryPool</code> with <code>onHeapStorageMemoryPool</code> is exactly <code>maxHeapMemory</code>.</p>
-</li>
-<li>
-<p><code>onHeapStorageRegionSize</code></p>
-</li>
-<li>
-<p><code>numCores</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>UnifiedMemoryManager</code> makes sure that the sum of <code>offHeapExecutionMemoryPool</code> and <code>offHeapStorageMemoryPool</code> pool sizes is exactly <code>maxOffHeapMemory</code>.</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME Describe the pools
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="apply-factory-method"><a class="anchor" href="#apply-factory-method"></a><a class="link" href="#apply-factory-method"><a id="apply"></a> <code>apply</code> Factory Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">apply(conf: SparkConf, numCores: Int): UnifiedMemoryManager</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>apply</code> factory method <a href="#creating-instance">creates an instance of <code>UnifiedMemoryManager</code></a>.</p>
-</div>
-<div class="paragraph">
-<p>Internally, <code>apply</code> <a href="#getMaxMemory">calculates the maximum memory to use</a> (given <code>conf</code>). It then creates a <code>UnifiedMemoryManager</code> with the following values:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>maxHeapMemory</code> being the maximum memory just calculated.</p>
-</li>
-<li>
-<p><code>onHeapStorageRegionSize</code> being <a href="#spark_memory_storageFraction">spark.memory.storageFraction</a> of maximum memory.</p>
-</li>
-<li>
-<p><code>numCores</code> as configured.</p>
-</li>
-</ol>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1962,14 +1973,71 @@ FIXME Describe the pools
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>apply</code> is used when <a href="spark-SparkEnv.adoc#create"><code>SparkEnv</code> is created</a>.
+<code>acquireExecutionMemory</code> is part of the <a href="MemoryManager.html#acquireExecutionMemory" class="page">MemoryManager</a> contract
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>acquireExecutionMemory</code> does&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>Internally, <code>acquireExecutionMemory</code> varies per <code>MemoryMode</code>, i.e. <code>ON_HEAP</code> and <code>OFF_HEAP</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. <code>acquireExecutionMemory</code> and <code>MemoryMode</code></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">ON_HEAP</th>
+<th class="tableblock halign-left valign-top">OFF_HEAP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>executionPool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>onHeapExecutionMemoryPool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>offHeapExecutionMemoryPool</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>storagePool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>onHeapStorageMemoryPool</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>offHeapStorageMemoryPool</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>storageRegionSize</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>onHeapStorageRegionSize</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>offHeapStorageMemory</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxMemory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxHeapMemory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxOffHeapMemory</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="acquirestoragememory-method"><a class="anchor" href="#acquirestoragememory-method"></a><a class="link" href="#acquirestoragememory-method"><a id="acquireStorageMemory"></a> <code>acquireStorageMemory</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="acquirestoragememory-method"><a class="anchor" href="#acquirestoragememory-method"></a><a class="link" href="#acquirestoragememory-method"><a id="acquireStorageMemory"></a> <code>acquireStorageMemory</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">acquireStorageMemory(
@@ -1985,7 +2053,7 @@ FIXME Describe the pools
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>acquireStorageMemory</code> is part of the <a href="MemoryManager.adoc#acquireStorageMemory">MemoryManager Contract</a> to&#8230;&#8203;FIXME
+<code>acquireStorageMemory</code> is part of the <a href="MemoryManager.html#acquireStorageMemory" class="page">MemoryManager</a> contract.
 </td>
 </tr>
 </table>
@@ -2063,15 +2131,17 @@ The storage pool can use the free memory from the execution pool.
 <p><code>acquireStorageMemory</code> is used when <code>MemoryStore</code> <a href="../storage/MemoryStore.html#putBytes" class="page">acquires storage memory to putBytes</a> or <a href="../storage/MemoryStore.html#putIteratorAsValues" class="page">putIteratorAsValues</a> and <a href="../storage/MemoryStore.html#putIteratorAsBytes" class="page">putIteratorAsBytes</a>.</p>
 </div>
 <div class="paragraph">
-<p>It is also used internally when <code>UnifiedMemoryManager</code> <a href="#acquireUnrollMemory">acquires unroll memory</a>.</p>
+<p>It is also used internally when UnifiedMemoryManager <a href="#acquireUnrollMemory">acquires unroll memory</a>.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="acquireunrollmemory-method"><a class="anchor" href="#acquireunrollmemory-method"></a><a class="link" href="#acquireunrollmemory-method"><a id="acquireUnrollMemory"></a> <code>acquireUnrollMemory</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="acquireunrollmemory-method"><a class="anchor" href="#acquireunrollmemory-method"></a><a class="link" href="#acquireunrollmemory-method"><a id="acquireUnrollMemory"></a> <code>acquireUnrollMemory</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2079,7 +2149,7 @@ The storage pool can use the free memory from the execution pool.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>acquireUnrollMemory</code> is part of the <a href="MemoryManager.adoc#contract"><code>MemoryManager</code> Contract</a>.
+<code>acquireUnrollMemory</code> is part of the <a href="MemoryManager.html#acquireUnrollMemory" class="page">MemoryManager</a> contract.
 </td>
 </tr>
 </table>
@@ -2088,94 +2158,15 @@ The storage pool can use the free memory from the execution pool.
 <p><code>acquireUnrollMemory</code> simply forwards all the calls to <a href="#acquireStorageMemory">acquireStorageMemory</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="acquireexecutionmemory-method"><a class="anchor" href="#acquireexecutionmemory-method"></a><a class="link" href="#acquireexecutionmemory-method"><a id="acquireExecutionMemory"></a> <code>acquireExecutionMemory</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">acquireExecutionMemory(
-  numBytes: Long,
-  taskAttemptId: Long,
-  memoryMode: MemoryMode): Long</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p><code>acquireExecutionMemory</code> does&#8230;&#8203;FIXME</p>
-</div>
-<div class="paragraph">
-<p>Internally, <code>acquireExecutionMemory</code> varies per <code>MemoryMode</code>, i.e. <code>ON_HEAP</code> and <code>OFF_HEAP</code>.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. <code>acquireExecutionMemory</code> and <code>MemoryMode</code></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"></th>
-<th class="tableblock halign-left valign-top">ON_HEAP</th>
-<th class="tableblock halign-left valign-top">OFF_HEAP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>executionPool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>onHeapExecutionMemoryPool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>offHeapExecutionMemoryPool</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>storagePool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>onHeapStorageMemoryPool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>offHeapStorageMemoryPool</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>storageRegionSize</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>onHeapStorageRegionSize</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>offHeapStorageMemory</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxMemory</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxHeapMemory</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxOffHeapMemory</code></p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>acquireExecutionMemory</code> is part of the <a href="MemoryManager.adoc#contract"><code>MemoryManager</code> Contract</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="maxonheapstoragememory-method"><a class="anchor" href="#maxonheapstoragememory-method"></a><a class="link" href="#maxonheapstoragememory-method"><a id="maxOnHeapStorageMemory"></a> <code>maxOnHeapStorageMemory</code> Method</a></h3>
+<div class="sect1">
+<h2 id="maxonheapstoragememory-method"><a class="anchor" href="#maxonheapstoragememory-method"></a><a class="link" href="#maxonheapstoragememory-method"><a id="maxOnHeapStorageMemory"></a> <code>maxOnHeapStorageMemory</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">maxOnHeapStorageMemory: Long</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><code>maxOnHeapStorageMemory</code> is the difference between <code>maxHeapMemory</code> of the <code>UnifiedMemoryManager</code> and the memory currently in use in <code>onHeapExecutionMemoryPool</code> execution memory pool.</p>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2183,51 +2174,13 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>maxOnHeapStorageMemory</code> is part of the <a href="MemoryManager.adoc#contract"><code>MemoryManager</code> Contract</a>.
+<code>maxOnHeapStorageMemory</code> is part of the <a href="MemoryManager.html#acquireExecutionMemory" class="page">MemoryManager</a> contract
 </td>
 </tr>
 </table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Spark Properties</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Spark Property</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_memory_fraction"></a> <code>spark.memory.fraction</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0.6</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Fraction of JVM heap space used for execution and storage.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_memory_storageFraction"></a> <code>spark.memory.storageFraction</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0.5</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_testing_memory"></a> <code>spark.testing.memory</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Java&#8217;s <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runtime.html#maxMemory--">Runtime.getRuntime.maxMemory</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">System memory</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_testing_reservedMemory"></a> <code>spark.testing.reservedMemory</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>300M</code> or <code>0</code> (with <code>spark.testing</code> enabled)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p><code>maxOnHeapStorageMemory</code> is the difference between <code>maxHeapMemory</code> of the UnifiedMemoryManager and the memory currently in use in <code>onHeapExecutionMemoryPool</code> execution memory pool.</p>
 </div>
 </div>
 </div>

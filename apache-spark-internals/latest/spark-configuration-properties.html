@@ -72,19 +72,22 @@
     <a class="nav-link" href="memory/spark-memory-unified-memory-management.html">Unified Memory Management</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="memory/UnifiedMemoryManager.html">UnifiedMemoryManager</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="memory/MemoryManager.html">MemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="memory/StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="memory/TaskMemoryManager.html">TaskMemoryManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="memory/MemoryConsumer.html">MemoryConsumer</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="memory/UnifiedMemoryManager.html">UnifiedMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="memory/StaticMemoryManager.html">StaticMemoryManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="memory/MemoryPool.html">MemoryPool</a>
@@ -2339,6 +2342,42 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-memory-offheap-size"><a class="anchor" href="#spark-memory-offheap-size"></a><a class="link" href="#spark-memory-offheap-size"><a id="spark.memory.offHeap.size"></a><a id="MEMORY_OFFHEAP_SIZE"></a> spark.memory.offHeap.size</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>spark.memory.offHeap.size</code> is the absolute amount of memory in bytes which can be used for off-heap allocation. This setting has no impact on heap memory usage, so if your executors' total memory consumption must fit within some hard limit then be sure to shrink your JVM heap size accordingly. This must be set to a positive value when spark.memory.offHeap.enabled=true.</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>0</code></p>
+</div>
+<div class="paragraph">
+<p>Must not be negative</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-memory-storagefraction"><a class="anchor" href="#spark-memory-storagefraction"></a><a class="link" href="#spark-memory-storagefraction"><a id="spark.memory.storageFraction"></a> spark.memory.storageFraction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>spark.memory.storageFraction</code> controls the fraction of the memory to use for storage region.</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>0.5</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-memory-fraction"><a class="anchor" href="#spark-memory-fraction"></a><a class="link" href="#spark-memory-fraction"><a id="spark.memory.fraction"></a> spark.memory.fraction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>spark.memory.fraction</code> is the fraction of JVM heap space used for execution and storage.</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>0.6</code></p>
+</div>
 </div>
 </div>
 <div class="sect1">

@@ -71,20 +71,23 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="spark-memory-unified-memory-management.html">Unified Memory Management</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="UnifiedMemoryManager.html">UnifiedMemoryManager</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="MemoryManager.html">MemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="TaskMemoryManager.html">TaskMemoryManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="MemoryConsumer.html">MemoryConsumer</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="UnifiedMemoryManager.html">UnifiedMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="MemoryPool.html">MemoryPool</a>
@@ -1806,6 +1809,7 @@
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
     <li><a href="spark-memory-unified-memory-management.html">Unified Memory Management</a></li>
+    <li><a href="UnifiedMemoryManager.html">UnifiedMemoryManager</a></li>
     <li><a href="MemoryManager.html">MemoryManager</a></li>
   </ul>
 </nav>
@@ -1864,11 +1868,11 @@ val mm = SparkEnv.get.memoryManager</code></pre>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="StaticMemoryManager.adoc">StaticMemoryManager</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="StaticMemoryManager.html" class="page">StaticMemoryManager</a></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="StaticMemoryManager"></a> (legacy)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="UnifiedMemoryManager.adoc">UnifiedMemoryManager</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="UnifiedMemoryManager.html" class="page">UnifiedMemoryManager</a></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="UnifiedMemoryManager"></a> The default memory manager</p></td>
 </tr>
 </tbody>
@@ -1919,7 +1923,7 @@ val mm = SparkEnv.get.memoryManager</code></pre>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>acquireExecutionMemory</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="acquireExecutionMemory"></a> Used exclusively when <code>TaskMemoryManager</code> is requested to <a href="TaskMemoryManager.adoc#acquireExecutionMemory">acquireExecutionMemory</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="acquireExecutionMemory"></a> Used exclusively when <code>TaskMemoryManager</code> is requested to <a href="TaskMemoryManager.html#acquireExecutionMemory" class="page">acquireExecutionMemory</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>acquireStorageMemory</code></p></td>
@@ -1929,7 +1933,7 @@ val mm = SparkEnv.get.memoryManager</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><code>UnifiedMemoryManager</code> is requested to <a href="UnifiedMemoryManager.adoc#acquireUnrollMemory">acquireUnrollMemory</a></p>
+<p><code>UnifiedMemoryManager</code> is requested to <a href="UnifiedMemoryManager.html#acquireUnrollMemory" class="page">acquireUnrollMemory</a></p>
 </li>
 <li>
 <p><code>MemoryStore</code> is requested to <a href="../storage/MemoryStore.html#putBytes" class="page">putBytes</a>, <a href="../storage/MemoryStore.html#putIteratorAsValues" class="page">putIteratorAsValues</a> and <a href="../storage/MemoryStore.html#putIteratorAsBytes" class="page">putIteratorAsBytes</a></p>
@@ -1949,7 +1953,7 @@ val mm = SparkEnv.get.memoryManager</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><code>UnifiedMemoryManager</code> is requested to <a href="UnifiedMemoryManager.adoc#acquireStorageMemory">acquireStorageMemory</a></p>
+<p><code>UnifiedMemoryManager</code> is requested to <a href="UnifiedMemoryManager.html#acquireStorageMemory" class="page">acquireStorageMemory</a></p>
 </li>
 <li>
 <p><code>BlockManager</code> is <a href="#ROOT:BlockManager.adoc#maxOffHeapMemory" class="page unresolved">created</a></p>
@@ -1971,13 +1975,13 @@ val mm = SparkEnv.get.memoryManager</code></pre>
 <p><code>BlockManager</code> is <a href="#ROOT:BlockManager.adoc#maxOnHeapMemory" class="page unresolved">created</a></p>
 </li>
 <li>
-<p><code>UnifiedMemoryManager</code> is requested to <a href="UnifiedMemoryManager.adoc#acquireStorageMemory">acquireStorageMemory</a></p>
+<p><code>UnifiedMemoryManager</code> is requested to <a href="UnifiedMemoryManager.html#acquireStorageMemory" class="page">acquireStorageMemory</a></p>
 </li>
 <li>
 <p><code>MemoryStore</code> is requested for the <a href="../storage/MemoryStore.html#maxMemory" class="page">total amount of memory available for storage (in bytes)</a></p>
 </li>
 <li>
-<p>(legacy) <code>StaticMemoryManager</code> is <a href="StaticMemoryManager.adoc#maxOnHeapStorageMemory">created</a>, is requested to <a href="StaticMemoryManager.adoc#acquireStorageMemory">acquireStorageMemory</a></p>
+<p>(legacy) <code>StaticMemoryManager</code> is <a href="StaticMemoryManager.html#maxOnHeapStorageMemory" class="page">created</a>, is requested to <a href="StaticMemoryManager.html#acquireStorageMemory" class="page">acquireStorageMemory</a></p>
 </li>
 </ul>
 </div></div></td>
@@ -2007,7 +2011,7 @@ val mm = SparkEnv.get.memoryManager</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>releaseExecutionMemory</code> is used when <code>TaskMemoryManager</code> is requested to <a href="TaskMemoryManager.adoc#releaseExecutionMemory">releaseExecutionMemory</a> and <a href="TaskMemoryManager.adoc#cleanUpAllAllocatedMemory">cleanUpAllAllocatedMemory</a>
+<code>releaseExecutionMemory</code> is used when <code>TaskMemoryManager</code> is requested to <a href="TaskMemoryManager.html#releaseExecutionMemory" class="page">releaseExecutionMemory</a> and <a href="TaskMemoryManager.html#cleanUpAllAllocatedMemory" class="page">cleanUpAllAllocatedMemory</a>
 </td>
 </tr>
 </table>
@@ -2032,7 +2036,7 @@ val mm = SparkEnv.get.memoryManager</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>releaseAllExecutionMemoryForTask</code> is used exclusively when <code>TaskRunner</code> is requested to <a href="spark-Executor-TaskRunner.adoc#run">run</a> (and cleans up after itself).
+<code>releaseAllExecutionMemoryForTask</code> is used exclusively when <code>TaskRunner</code> is requested to <a href="#spark-Executor-TaskRunner.adoc#run" class="page unresolved">run</a> (and cleans up after itself).
 </td>
 </tr>
 </table>
@@ -2053,10 +2057,10 @@ val mm = SparkEnv.get.memoryManager</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="spark-MemoryManager-properties.adoc#spark.memory.offHeap.enabled">spark.memory.offHeap.enabled</a> configuration property is enabled (it is not by default)</p>
+<p><a href="spark-MemoryManager-properties.html#spark.memory.offHeap.enabled" class="page">spark.memory.offHeap.enabled</a> configuration property is enabled (it is not by default)</p>
 </li>
 <li>
-<p><a href="spark-MemoryManager-properties.adoc#spark.memory.offHeap.size">spark.memory.offHeap.size</a> configuration property is greater than <code>0</code> (it is <code>0</code> by default)</p>
+<p><a href="spark-MemoryManager-properties.html#spark.memory.offHeap.size" class="page">spark.memory.offHeap.size</a> configuration property is greater than <code>0</code> (it is <code>0</code> by default)</p>
 </li>
 <li>
 <p>JVM supports unaligned memory access (aka <strong>unaligned Unsafe</strong>, i.e. <code>sun.misc.Unsafe</code> package is available and the underlying system has unaligned-access capability)</p>
@@ -2073,7 +2077,7 @@ val mm = SparkEnv.get.memoryManager</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Given that <a href="spark-MemoryManager-properties.adoc#spark.memory.offHeap.enabled">spark.memory.offHeap.enabled</a> configuration property is disabled (<code>false</code>) by default and <a href="spark-MemoryManager-properties.adoc#spark.memory.offHeap.size">spark.memory.offHeap.size</a> configuration property is <code>0</code> by default, Spark seems to encourage using Tungsten memory allocated on the JVM heap (<code>ON_HEAP</code>).
+Given that <a href="spark-MemoryManager-properties.html#spark.memory.offHeap.enabled" class="page">spark.memory.offHeap.enabled</a> configuration property is disabled (<code>false</code>) by default and <a href="spark-MemoryManager-properties.html#spark.memory.offHeap.size" class="page">spark.memory.offHeap.size</a> configuration property is <code>0</code> by default, Spark seems to encourage using Tungsten memory allocated on the JVM heap (<code>ON_HEAP</code>).
 </td>
 </tr>
 </table>
@@ -2103,7 +2107,7 @@ Given that <a href="spark-MemoryManager-properties.adoc#spark.memory.offHeap.ena
 <div class="ulist">
 <ul>
 <li>
-<p><code>TaskMemoryManager</code> is <a href="TaskMemoryManager.adoc#tungstenMemoryMode">created</a></p>
+<p><code>TaskMemoryManager</code> is <a href="TaskMemoryManager.html#tungstenMemoryMode" class="page">created</a></p>
 </li>
 <li>
 <p>MemoryManager is created (and initializes the <a href="#pageSizeBytes">pageSizeBytes</a> and <a href="#tungstenMemoryAllocator">tungstenMemoryAllocator</a> internal properties)</p>
