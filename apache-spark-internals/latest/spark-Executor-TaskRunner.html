@@ -69,6 +69,40 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="memory/spark-memory-unified-memory-management.html">Unified Memory Management</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="memory/MemoryManager.html">MemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="memory/TaskMemoryManager.html">TaskMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="memory/MemoryConsumer.html">MemoryConsumer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="memory/UnifiedMemoryManager.html">UnifiedMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="memory/StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="memory/MemoryPool.html">MemoryPool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="memory/StorageMemoryPool.html">StorageMemoryPool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="memory/spark-MemoryManager-properties.html">MemoryManager Configuration Properties</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Block Storage System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -370,12 +404,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-ManagedBuffer.html">ManagedBuffer</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-StorageMemoryPool.html">StorageMemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-MemoryPool.html">MemoryPool</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-RpcHandler.html">RpcHandler</a>
@@ -693,33 +721,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-memory-unified-memory-management.html">Unified Memory Management</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-memory-TaskMemoryManager.html">TaskMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-memory-MemoryConsumer.html">MemoryConsumer</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-MemoryManager.html">MemoryManager</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-UnifiedMemoryManager.html">UnifiedMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-StaticMemoryManager.html">StaticMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-MemoryManager-properties.html">MemoryManager Configuration Properties</a>
   </li>
 </ul>
   </li>
@@ -1921,7 +1922,7 @@
 <p><code>run</code> then sets the name of the current thread as <a href="#threadName">threadName</a> (using Java&#8217;s <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#setName-java.lang.String-">Thread</a>).</p>
 </div>
 <div class="paragraph">
-<p><code>run</code> <a href="spark-memory-TaskMemoryManager.html#creating-instance" class="page">creates a <code>TaskMemoryManager</code></a> (using the current <a href="spark-MemoryManager.html" class="page">MemoryManager</a> and <a href="#taskId">taskId</a>).</p>
+<p><code>run</code> <a href="memory/TaskMemoryManager.html#creating-instance" class="page">creates a <code>TaskMemoryManager</code></a> (using the current <a href="memory/MemoryManager.html" class="page">MemoryManager</a> and <a href="#taskId">taskId</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2072,7 +2073,7 @@ The task runs inside a "monitored" block (i.e. <code>try-finally</code> block) t
 <p>After the task&#8217;s run has finished (inside the "finally" block of the "monitored" block), <code>run</code> <a href="#BlockManager.adoc#releaseAllLocksForTask" class="page unresolved">requests <code>BlockManager</code> to release all locks of the task</a> (for the task&#8217;s <a href="#taskId">taskId</a>). The locks are later used for lock leak detection.</p>
 </div>
 <div class="paragraph">
-<p><code>run</code> then <a href="spark-memory-TaskMemoryManager.html#cleanUpAllAllocatedMemory" class="page">requests <code>TaskMemoryManager</code> to clean up allocated memory</a> (that helps finding memory leaks).</p>
+<p><code>run</code> then <a href="memory/TaskMemoryManager.html#cleanUpAllAllocatedMemory" class="page">requests <code>TaskMemoryManager</code> to clean up allocated memory</a> (that helps finding memory leaks).</p>
 </div>
 <div class="paragraph">
 <p>If <code>run</code> detects memory leak of the managed memory (i.e. the memory freed is greater than <code>0</code>) and <a href="spark-configuration-properties.html#spark.unsafe.exceptionOnMemoryLeak" class="page">spark.unsafe.exceptionOnMemoryLeak</a> Spark property is enabled (it is not by default) and no exception was reported while the task ran, <code>run</code> reports a <code>SparkException</code>:</p>
@@ -2757,7 +2758,7 @@ The difference between this most <code>Throwable</code> case and other <code>FAI
 <div class="ulist">
 <ul>
 <li>
-<p><code>TaskRunner</code> is requested to <a href="#run">run</a> (to create a <a href="spark-memory-TaskMemoryManager.html" class="page">TaskMemoryManager</a> and serialize a <code>IndirectTaskResult</code> for a large task result) and <a href="#kill">kill</a> the task and for the <a href="#threadName">threadName</a></p>
+<p><code>TaskRunner</code> is requested to <a href="#run">run</a> (to create a <a href="memory/TaskMemoryManager.html" class="page">TaskMemoryManager</a> and serialize a <code>IndirectTaskResult</code> for a large task result) and <a href="#kill">kill</a> the task and for the <a href="#threadName">threadName</a></p>
 </li>
 <li>
 <p><code>Executor</code> is requested to <a href="spark-Executor.html#reportHeartBeat" class="page">reportHeartBeat</a></p>

@@ -69,6 +69,40 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../memory/spark-memory-unified-memory-management.html">Unified Memory Management</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/MemoryManager.html">MemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/TaskMemoryManager.html">TaskMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/MemoryConsumer.html">MemoryConsumer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/UnifiedMemoryManager.html">UnifiedMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/MemoryPool.html">MemoryPool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/StorageMemoryPool.html">StorageMemoryPool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/spark-MemoryManager-properties.html">MemoryManager Configuration Properties</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Block Storage System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -370,12 +404,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-ManagedBuffer.html">ManagedBuffer</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-StorageMemoryPool.html">StorageMemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-MemoryPool.html">MemoryPool</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-RpcHandler.html">RpcHandler</a>
@@ -693,33 +721,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-memory-unified-memory-management.html">Unified Memory Management</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-memory-TaskMemoryManager.html">TaskMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-memory-MemoryConsumer.html">MemoryConsumer</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-MemoryManager.html">MemoryManager</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-UnifiedMemoryManager.html">UnifiedMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-StaticMemoryManager.html">StaticMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-MemoryManager-properties.html">MemoryManager Configuration Properties</a>
   </li>
 </ul>
   </li>
@@ -1861,7 +1862,7 @@
 <p><a id="serializerManager"></a> <a href="../spark-SerializerManager.html" class="page">SerializerManager</a></p>
 </li>
 <li>
-<p><a id="memoryManager"></a> <a href="../spark-MemoryManager.html" class="page">MemoryManager</a></p>
+<p><a id="memoryManager"></a> <a href="../memory/MemoryManager.html" class="page">MemoryManager</a></p>
 </li>
 <li>
 <p><a id="blockEvictionHandler"></a> <a href="spark-BlockEvictionHandler.html" class="page">BlockEvictionHandler</a></p>
@@ -2000,13 +2001,13 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>putBytes</code> requests <a href="../spark-MemoryManager.html#acquireStorageMemory" class="page">storage memory  for <code>blockId</code> from <code>MemoryManager</code></a> and registers the block in <a href="#entries">entries</a> internal registry.</p>
+<p><code>putBytes</code> requests <a href="../memory/MemoryManager.html#acquireStorageMemory" class="page">storage memory  for <code>blockId</code> from <code>MemoryManager</code></a> and registers the block in <a href="#entries">entries</a> internal registry.</p>
 </div>
 <div class="paragraph">
 <p>Internally, <code>putBytes</code> first makes sure that <code>blockId</code> block has not been registered already in <a href="#entries">entries</a> internal registry.</p>
 </div>
 <div class="paragraph">
-<p><code>putBytes</code> then requests <a href="../spark-MemoryManager.html#acquireStorageMemory" class="page"><code>size</code> memory for the <code>blockId</code> block in a given <code>memoryMode</code> from the current <code>MemoryManager</code></a>.</p>
+<p><code>putBytes</code> then requests <a href="../memory/MemoryManager.html#acquireStorageMemory" class="page"><code>size</code> memory for the <code>blockId</code> block in a given <code>memoryMode</code> from the current <code>MemoryManager</code></a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2069,7 +2070,7 @@ res1: Boolean = true</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>evictBlocksToFreeSpace</code> is used when <code>StorageMemoryPool</code> is requested to <a href="../spark-StorageMemoryPool.html#acquireMemory" class="page">acquireMemory</a> and <a href="../spark-StorageMemoryPool.html#freeSpaceToShrinkPool" class="page">freeSpaceToShrinkPool</a>.
+<code>evictBlocksToFreeSpace</code> is used when <code>StorageMemoryPool</code> is requested to <a href="../memory/StorageMemoryPool.html#acquireMemory" class="page">acquireMemory</a> and <a href="../memory/StorageMemoryPool.html#freeSpaceToShrinkPool" class="page">freeSpaceToShrinkPool</a>.
 </td>
 </tr>
 </table>
@@ -2164,7 +2165,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>reserveUnrollMemoryForThisTask</code> acquires a lock on <a href="#memoryManager">MemoryManager</a> and requests it to <a href="../spark-MemoryManager.html#acquireUnrollMemory" class="page">acquireUnrollMemory</a>.</p>
+<p><code>reserveUnrollMemoryForThisTask</code> acquires a lock on <a href="#memoryManager">MemoryManager</a> and requests it to <a href="../memory/MemoryManager.html#acquireUnrollMemory" class="page">acquireUnrollMemory</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2189,7 +2190,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>maxMemory</code> requests the <a href="#memoryManager">MemoryManager</a> for the current <a href="../spark-MemoryManager.html#maxOnHeapStorageMemory" class="page">maxOnHeapStorageMemory</a> and <a href="../spark-MemoryManager.html#maxOffHeapStorageMemory" class="page">maxOffHeapStorageMemory</a>, and simply returns their sum.</p>
+<p><code>maxMemory</code> requests the <a href="#memoryManager">MemoryManager</a> for the current <a href="../memory/MemoryManager.html#maxOnHeapStorageMemory" class="page">maxOnHeapStorageMemory</a> and <a href="../memory/MemoryManager.html#maxOffHeapStorageMemory" class="page">maxOffHeapStorageMemory</a>, and simply returns their sum.</p>
 </div>
 <div class="admonitionblock tip">
 <table>

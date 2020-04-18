@@ -69,6 +69,40 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../memory/spark-memory-unified-memory-management.html">Unified Memory Management</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/MemoryManager.html">MemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/TaskMemoryManager.html">TaskMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/MemoryConsumer.html">MemoryConsumer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/UnifiedMemoryManager.html">UnifiedMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/MemoryPool.html">MemoryPool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/StorageMemoryPool.html">StorageMemoryPool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/spark-MemoryManager-properties.html">MemoryManager Configuration Properties</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Block Storage System</span>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
@@ -370,12 +404,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-ManagedBuffer.html">ManagedBuffer</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-StorageMemoryPool.html">StorageMemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-MemoryPool.html">MemoryPool</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-RpcHandler.html">RpcHandler</a>
@@ -693,33 +721,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-memory-unified-memory-management.html">Unified Memory Management</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-memory-TaskMemoryManager.html">TaskMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-memory-MemoryConsumer.html">MemoryConsumer</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-MemoryManager.html">MemoryManager</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-UnifiedMemoryManager.html">UnifiedMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-StaticMemoryManager.html">StaticMemoryManager</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-MemoryManager-properties.html">MemoryManager Configuration Properties</a>
   </li>
 </ul>
   </li>
@@ -1910,7 +1911,7 @@ Use <a href="../tools/spark-submit.html" class="page">spark-submit</a>'s command
 <p><a id="conf"></a> <a href="../spark-SparkConf.html" class="page">SparkConf</a></p>
 </li>
 <li>
-<p><a id="memoryManager"></a> <a href="../spark-MemoryManager.html" class="page">MemoryManager</a></p>
+<p><a id="memoryManager"></a> <a href="../memory/MemoryManager.html" class="page">MemoryManager</a></p>
 </li>
 <li>
 <p><a id="mapOutputTracker"></a> <a href="../spark-service-mapoutputtracker.html" class="page">MapOutputTracker</a></p>
@@ -1954,7 +1955,7 @@ Use <a href="../tools/spark-submit.html" class="page">spark-submit</a>'s command
 <p>BlockManager creates <strong>block-manager-future</strong> daemon cached thread pool with 128 threads maximum (as <code>futureExecutionContext</code>).</p>
 </div>
 <div class="paragraph">
-<p>BlockManager calculates the maximum memory to use (as <code>maxMemory</code>) by requesting the maximum <a href="../spark-MemoryManager.html#maxOnHeapStorageMemory" class="page">on-heap</a> and <a href="../spark-MemoryManager.html#maxOffHeapStorageMemory" class="page">off-heap</a> storage memory from the assigned <code>MemoryManager</code>.</p>
+<p>BlockManager calculates the maximum memory to use (as <code>maxMemory</code>) by requesting the maximum <a href="../memory/MemoryManager.html#maxOnHeapStorageMemory" class="page">on-heap</a> and <a href="../memory/MemoryManager.html#maxOffHeapStorageMemory" class="page">off-heap</a> storage memory from the assigned <code>MemoryManager</code>.</p>
 </div>
 <div class="paragraph">
 <p>BlockManager calculates the port used by the external shuffle service (as <code>externalShuffleServicePort</code>).</p>
@@ -4226,7 +4227,7 @@ FIXME When would <code>info.tellMaster</code> be <code>true</code>?
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxMemory</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="maxMemory"></a> Total maximum value that BlockManager can ever possibly use (that depends on <a href="#memoryManager">MemoryManager</a> and may vary over time).</p>
-<p class="tableblock">Total available <a href="spark-MemoryManager.adoc#maxOnHeapStorageMemory">on-heap</a> and <a href="spark-MemoryManager.adoc#maxOffHeapStorageMemory">off-heap</a> memory for storage (in bytes)</p></td>
+<p class="tableblock">Total available <a href="../memory/MemoryManager.html#maxOnHeapStorageMemory" class="page">on-heap</a> and <a href="../memory/MemoryManager.html#maxOffHeapStorageMemory" class="page">off-heap</a> memory for storage (in bytes)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxOffHeapMemory</code></p></td>
