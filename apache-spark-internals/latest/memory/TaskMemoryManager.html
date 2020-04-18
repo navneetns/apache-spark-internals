@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> TaskMemoryManager :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/memory/TaskMemoryManager.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -1813,33 +1813,23 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="taskmemorymanagermemory-manager-of-single-task"><a class="anchor" href="#taskmemorymanagermemory-manager-of-single-task"></a><a class="link" href="#taskmemorymanagermemory-manager-of-single-task"><a id="TaskMemoryManager"></a> TaskMemoryManager&#8201;&#8212;&#8201;Memory Manager of Single Task</a></h2>
+<h1 class="page"><a id="TaskMemoryManager"></a> TaskMemoryManager</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>TaskMemoryManager</code> manages the memory allocated to an <a href="spark-scheduler-Task.adoc">individual task</a>.</p>
+<p><strong>TaskMemoryManager</strong> manages the memory allocated to execute a single <a href="#taskAttemptId">task</a> (using <a href="#memoryManager">MemoryManager</a>).</p>
 </div>
 <div class="paragraph">
-<p><code>TaskMemoryManager</code> is <a href="#creating-instance">created</a> when:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>TaskRunner</code> is requested to <a href="spark-Executor-TaskRunner.adoc#run">run</a></p>
-</li>
-<li>
-<p>Spark SQL&#8217;s <code>HashedRelation</code> is created or requested to read</p>
-</li>
-</ul>
+<p>TaskMemoryManager is <a href="#creating-instance">created</a> when <code>TaskRunner</code> is requested to <a href="../spark-Executor-TaskRunner.html#run" class="page">run</a>.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="_images/spark-TaskMemoryManager.png" alt="spark TaskMemoryManager">
+<img src="_images/TaskMemoryManager.png" alt="TaskMemoryManager">
 </div>
 <div class="title">Figure 1. Creating TaskMemoryManager for Task</div>
 </div>
 <div class="paragraph">
-<p><code>TaskMemoryManager</code> assumes that:</p>
+<p>TaskMemoryManager assumes that:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1857,19 +1847,42 @@
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>When <a href="#creating-instance">created</a>, <code>TaskMemoryManager</code> is given a <a href="#memoryManager">MemoryManager</a> that is used for the following:</p>
+<p>TaskMemoryManager takes the following to be created:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#acquireExecutionMemory">Acquiring an execution memory</a></p>
+<p><a href="#memoryManager">MemoryManager</a></p>
 </li>
 <li>
-<p><a href="#cleanUpAllAllocatedMemory">cleanUpAllAllocatedMemory</a></p>
+<p><a id="taskAttemptId"></a> <a href="spark-Executor-TaskRunner.adoc#taskId">Task ID</a></p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>TaskMemoryManager initializes the <a href="#internal-properties">internal properties</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="memorymanager"><a class="anchor" href="#memorymanager"></a><a class="link" href="#memorymanager"><a id="memoryManager"></a> MemoryManager</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TaskMemoryManager is given a <a href="MemoryManager.html" class="page">MemoryManager</a> when <a href="#creating-instance">created</a>.</p>
+</div>
+<div class="paragraph">
+<p>TaskMemoryManager uses the MemoryManager for the following:</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p><a href="#releaseExecutionMemory">releaseExecutionMemory</a></p>
+<p><a href="#acquireExecutionMemory">Acquiring</a>, <a href="#releaseExecutionMemory">releasing</a> or <a href="#cleanUpAllAllocatedMemory">cleaning up</a> execution memory</p>
 </li>
 <li>
 <p><a href="#showMemoryUsage">showMemoryUsage</a></p>
@@ -1888,72 +1901,11 @@
 </li>
 </ul>
 </div>
-<table id="internal-registries" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. TaskMemoryManager&#8217;s Internal Properties (e.g. Registries, Counters and Flags)</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>acquiredButNotUsed</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="acquiredButNotUsed"></a> The size of memory allocated but not used.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>allocatedPages</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="allocatedPages"></a> Collection of flags (<code>true</code> or <code>false</code> values) of size <code>PAGE_TABLE_SIZE</code> with all bits initially disabled (i.e. <code>false</code>).</p>
-<p class="tableblock">TIP: <code>allocatedPages</code> is <a href="https://docs.oracle.com/javase/8/docs/api/java/util/BitSet.html">java.util.BitSet</a>.</p>
-<p class="tableblock">When <a href="#allocatePage">allocatePage</a> is called, it will record the page in the registry by setting the bit at the specified index (that corresponds to the allocated page) to <code>true</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>consumers</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="consumers"></a> <a href="MemoryConsumer.adoc">MemoryConsumers</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageTable</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="pageTable"></a> The array of size <code>PAGE_TABLE_SIZE</code> with indices being <code>MemoryBlock</code> objects.</p>
-<p class="tableblock">When <a href="#allocatePage">allocating a <code>MemoryBlock</code> page for Tungsten consumers</a>, the index corresponds to <code>pageNumber</code> that points to the <code>MemoryBlock</code> page allocated.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tungstenMemoryMode</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="tungstenMemoryMode"></a> <code>MemoryMode</code> (i.e. <code>OFF_HEAP</code> or <code>ON_HEAP</code>)</p>
-<p class="tableblock">Set to the <a href="MemoryManager.adoc#tungstenMemoryMode">tungstenMemoryMode</a> of the <a href="#memoryManager">MemoryManager</a> while <code>TaskMemoryManager</code> is <a href="#creating-instance">created</a></p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Enable <code>INFO</code>, <code>DEBUG</code> or even <code>TRACE</code> logging levels for <code>org.apache.spark.memory.TaskMemoryManager</code> logger to see what happens inside.</p>
-</div>
-<div class="paragraph">
-<p>Add the following line to <code>conf/log4j.properties</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.memory.TaskMemoryManager=TRACE</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Refer to <a href="spark-logging.adoc">Logging</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="cleanupallallocatedmemory-method"><a class="anchor" href="#cleanupallallocatedmemory-method"></a><a class="link" href="#cleanupallallocatedmemory-method"><a id="cleanUpAllAllocatedMemory"></a> <code>cleanUpAllAllocatedMemory</code> Method</a></h3>
+<div class="sect1">
+<h2 id="cleanupallallocatedmemory-method"><a class="anchor" href="#cleanupallallocatedmemory-method"></a><a class="link" href="#cleanupallallocatedmemory-method"><a id="cleanUpAllAllocatedMemory"></a> <code>cleanUpAllAllocatedMemory</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long cleanUpAllAllocatedMemory()</code></pre>
@@ -2016,8 +1968,10 @@ FIXME Image with the interactions to <code>MemoryManager</code>.
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="acquiring-execution-memoryacquireexecutionmemory-method"><a class="anchor" href="#acquiring-execution-memoryacquireexecutionmemory-method"></a><a class="link" href="#acquiring-execution-memoryacquireexecutionmemory-method"><a id="acquireExecutionMemory"></a> Acquiring Execution Memory&#8201;&#8212;&#8201;<code>acquireExecutionMemory</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="acquiring-execution-memoryacquireexecutionmemory-method"><a class="anchor" href="#acquiring-execution-memoryacquireexecutionmemory-method"></a><a class="link" href="#acquiring-execution-memoryacquireexecutionmemory-method"><a id="acquireExecutionMemory"></a> Acquiring Execution Memory&#8201;&#8212;&#8201;<code>acquireExecutionMemory</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long acquireExecutionMemory(long required, MemoryConsumer consumer)</code></pre>
@@ -2060,7 +2014,7 @@ FIXME Image with the interactions to <code>MemoryManager</code>.
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-<code>TaskMemoryManager</code> is a mere wrapper of <code>MemoryManager</code> to track <a href="#consumers">consumers</a>?
+TaskMemoryManager is a mere wrapper of <code>MemoryManager</code> to track <a href="#consumers">consumers</a>?
 </td>
 </tr>
 </table>
@@ -2164,8 +2118,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="allocating-memory-block-for-tungsten-consumersallocatepage-method"><a class="anchor" href="#allocating-memory-block-for-tungsten-consumersallocatepage-method"></a><a class="link" href="#allocating-memory-block-for-tungsten-consumersallocatepage-method"><a id="allocatePage"></a> Allocating Memory Block for Tungsten Consumers&#8201;&#8212;&#8201;<code>allocatePage</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="allocating-memory-block-for-tungsten-consumersallocatepage-method"><a class="anchor" href="#allocating-memory-block-for-tungsten-consumersallocatepage-method"></a><a class="link" href="#allocating-memory-block-for-tungsten-consumersallocatepage-method"><a id="allocatePage"></a> Allocating Memory Block for Tungsten Consumers&#8201;&#8212;&#8201;<code>allocatePage</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MemoryBlock allocatePage(long size, MemoryConsumer consumer)</code></pre>
@@ -2279,27 +2235,10 @@ FIXME Why is there a hope for being able to allocate a page?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-taskmemorymanager-instance"><a class="anchor" href="#creating-taskmemorymanager-instance"></a><a class="link" href="#creating-taskmemorymanager-instance"><a id="creating-instance"></a> Creating TaskMemoryManager Instance</a></h3>
-<div class="paragraph">
-<p><code>TaskMemoryManager</code> takes the following when created:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a id="memoryManager"></a> <a href="MemoryManager.adoc">MemoryManager</a></p>
-</li>
-<li>
-<p><a id="taskAttemptId"></a> <a href="spark-Executor-TaskRunner.adoc#taskId">Task ID</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>TaskMemoryManager</code> initializes the <a href="#internal-registries">internal registries and counters</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="releaseexecutionmemory-method"><a class="anchor" href="#releaseexecutionmemory-method"></a><a class="link" href="#releaseexecutionmemory-method"><a id="releaseExecutionMemory"></a> <code>releaseExecutionMemory</code> Method</a></h3>
+<div class="sect1">
+<h2 id="releaseexecutionmemory-method"><a class="anchor" href="#releaseexecutionmemory-method"></a><a class="link" href="#releaseexecutionmemory-method"><a id="releaseExecutionMemory"></a> <code>releaseExecutionMemory</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void releaseExecutionMemory(long size, MemoryConsumer consumer)</code></pre>
@@ -2324,7 +2263,7 @@ FIXME Why is there a hope for being able to allocate a page?
 <p><code>MemoryConsumer</code> is requested to <a href="MemoryConsumer.adoc#freeMemory">freeMemory</a></p>
 </li>
 <li>
-<p><code>TaskMemoryManager</code> is requested to <a href="#allocatePage">allocatePage</a> and <a href="#freePage">freePage</a></p>
+<p>TaskMemoryManager is requested to <a href="#allocatePage">allocatePage</a> and <a href="#freePage">freePage</a></p>
 </li>
 </ul>
 </div>
@@ -2333,8 +2272,10 @@ FIXME Why is there a hope for being able to allocate a page?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getmemoryconsumptionforthistask-method"><a class="anchor" href="#getmemoryconsumptionforthistask-method"></a><a class="link" href="#getmemoryconsumptionforthistask-method"><a id="getMemoryConsumptionForThisTask"></a> <code>getMemoryConsumptionForThisTask</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="getmemoryconsumptionforthistask-method"><a class="anchor" href="#getmemoryconsumptionforthistask-method"></a><a class="link" href="#getmemoryconsumptionforthistask-method"><a id="getMemoryConsumptionForThisTask"></a> <code>getMemoryConsumptionForThisTask</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long getMemoryConsumptionForThisTask()</code></pre>
@@ -2356,8 +2297,10 @@ FIXME Why is there a hope for being able to allocate a page?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="showmemoryusage-method"><a class="anchor" href="#showmemoryusage-method"></a><a class="link" href="#showmemoryusage-method"><a id="showMemoryUsage"></a> <code>showMemoryUsage</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="showmemoryusage-method"><a class="anchor" href="#showmemoryusage-method"></a><a class="link" href="#showmemoryusage-method"><a id="showMemoryUsage"></a> <code>showMemoryUsage</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void showMemoryUsage()</code></pre>
@@ -2379,8 +2322,10 @@ FIXME Why is there a hope for being able to allocate a page?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="pagesizebytes-method"><a class="anchor" href="#pagesizebytes-method"></a><a class="link" href="#pagesizebytes-method"><a id="pageSizeBytes"></a> <code>pageSizeBytes</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="pagesizebytes-method"><a class="anchor" href="#pagesizebytes-method"></a><a class="link" href="#pagesizebytes-method"><a id="pageSizeBytes"></a> <code>pageSizeBytes</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long pageSizeBytes()</code></pre>
@@ -2402,8 +2347,10 @@ FIXME Why is there a hope for being able to allocate a page?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="freeing-memory-pagefreepage-method"><a class="anchor" href="#freeing-memory-pagefreepage-method"></a><a class="link" href="#freeing-memory-pagefreepage-method"><a id="freePage"></a> Freeing Memory Page&#8201;&#8212;&#8201;<code>freePage</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="freeing-memory-pagefreepage-method"><a class="anchor" href="#freeing-memory-pagefreepage-method"></a><a class="link" href="#freeing-memory-pagefreepage-method"><a id="freePage"></a> Freeing Memory Page&#8201;&#8212;&#8201;<code>freePage</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void freePage(MemoryBlock page, MemoryConsumer consumer)</code></pre>
@@ -2425,8 +2372,10 @@ FIXME Why is there a hope for being able to allocate a page?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting-pagegetpage-method"><a class="anchor" href="#getting-pagegetpage-method"></a><a class="link" href="#getting-pagegetpage-method"><a id="getPage"></a> Getting Page&#8201;&#8212;&#8201;<code>getPage</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="getting-pagegetpage-method"><a class="anchor" href="#getting-pagegetpage-method"></a><a class="link" href="#getting-pagegetpage-method"><a id="getPage"></a> Getting Page&#8201;&#8212;&#8201;<code>getPage</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Object getPage(long pagePlusOffsetAddress)</code></pre>
@@ -2448,8 +2397,10 @@ FIXME Why is there a hope for being able to allocate a page?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting-page-offsetgetoffsetinpage-method"><a class="anchor" href="#getting-page-offsetgetoffsetinpage-method"></a><a class="link" href="#getting-page-offsetgetoffsetinpage-method"><a id="getOffsetInPage"></a> Getting Page Offset&#8201;&#8212;&#8201;<code>getOffsetInPage</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="getting-page-offsetgetoffsetinpage-method"><a class="anchor" href="#getting-page-offsetgetoffsetinpage-method"></a><a class="link" href="#getting-page-offsetgetoffsetinpage-method"><a id="getOffsetInPage"></a> Getting Page Offset&#8201;&#8212;&#8201;<code>getOffsetInPage</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long getOffsetInPage(long pagePlusOffsetAddress)</code></pre>
@@ -2471,6 +2422,67 @@ FIXME Why is there a hope for being able to allocate a page?
 </table>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.memory.TaskMemoryManager</code> logger to see what happens inside.</p>
+</div>
+<div class="paragraph">
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.memory.TaskMemoryManager=ALL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>acquiredButNotUsed</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="acquiredButNotUsed"></a> The size of memory allocated but not used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>allocatedPages</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="allocatedPages"></a> Collection of flags (<code>true</code> or <code>false</code> values) of size <code>PAGE_TABLE_SIZE</code> with all bits initially disabled (i.e. <code>false</code>).</p>
+<p class="tableblock">TIP: <code>allocatedPages</code> is <a href="https://docs.oracle.com/javase/8/docs/api/java/util/BitSet.html">java.util.BitSet</a>.</p>
+<p class="tableblock">When <a href="#allocatePage">allocatePage</a> is called, it will record the page in the registry by setting the bit at the specified index (that corresponds to the allocated page) to <code>true</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>consumers</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="consumers"></a> <a href="MemoryConsumer.adoc">MemoryConsumers</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageTable</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="pageTable"></a> The array of size <code>PAGE_TABLE_SIZE</code> with indices being <code>MemoryBlock</code> objects.</p>
+<p class="tableblock">When <a href="#allocatePage">allocating a <code>MemoryBlock</code> page for Tungsten consumers</a>, the index corresponds to <code>pageNumber</code> that points to the <code>MemoryBlock</code> page allocated.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tungstenMemoryMode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="tungstenMemoryMode"></a> <code>MemoryMode</code> (i.e. <code>OFF_HEAP</code> or <code>ON_HEAP</code>)</p>
+<p class="tableblock">Set to the <a href="MemoryManager.adoc#tungstenMemoryMode">tungstenMemoryMode</a> of the <a href="#memoryManager">MemoryManager</a> while TaskMemoryManager is <a href="#creating-instance">created</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </article>

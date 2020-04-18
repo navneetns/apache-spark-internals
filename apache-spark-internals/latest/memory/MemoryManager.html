@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> MemoryManager :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/memory/MemoryManager.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -1813,47 +1813,102 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="memorymanagermemory-management-system"><a class="anchor" href="#memorymanagermemory-management-system"></a><a class="link" href="#memorymanagermemory-management-system"><a id="MemoryManager"></a> MemoryManager&#8201;&#8212;&#8201;Memory Management System</a></h2>
+<h1 class="page"><a id="MemoryManager"></a> MemoryManager</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>MemoryManager</code> is the <a href="#contract">base</a> of <a href="#implementations">memory managers</a> that manage shared memory for task execution and block storage.</p>
+<p><strong>MemoryManager</strong> is an <a href="#contract">abstraction</a> of <a href="#implementations">memory managers</a> that manage shared memory for task execution (using <a href="TaskMemoryManager.html#memoryManager" class="page">TaskMemoryManager</a>) and block storage (using <a href="../storage/BlockManager.html#memoryManager" class="page">BlockManager</a>).</p>
 </div>
-<div id="contract" class="listingblock">
+<div class="paragraph">
+<p>MemoryManager is used to create <a href="../storage/BlockManager.html#memoryManager" class="page">BlockManager</a> (and then <a href="../storage/MemoryStore.html#memoryManager" class="page">MemoryStore</a>) and <a href="TaskMemoryManager.html#memoryManager" class="page">TaskMemoryManager</a>.</p>
+</div>
+<div class="imageblock text-center">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">package org.apache.spark.memory
-
-abstract class MemoryManager(...) {
-  // only required methods that have no implementation
-  // the others follow
-  def acquireExecutionMemory(
-    numBytes: Long,
-    taskAttemptId: Long,
-    memoryMode: MemoryMode): Long
-  def acquireStorageMemory(blockId: BlockId, numBytes: Long, memoryMode: MemoryMode): Boolean
-  def acquireUnrollMemory(blockId: BlockId, numBytes: Long, memoryMode: MemoryMode): Boolean
-  def maxOffHeapStorageMemory: Long
-  def maxOnHeapStorageMemory: Long
-}</code></pre>
+<img src="_images/MemoryManager.png" alt="MemoryManager">
+</div>
+<div class="title">Figure 1. MemoryManager and Core Services</div>
+</div>
+<div class="paragraph">
+<p>MemoryManager is available as <a href="../spark-SparkEnv.html#memoryManager" class="page">SparkEnv.memoryManager</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">import org.apache.spark.SparkEnv
+val mm = SparkEnv.get.memoryManager</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
+<div class="paragraph">
+<p>A <a href="#implementations">concrete MemoryManager</a> is chosen based on <a href="../spark-configuration-properties.html#spark.memory.useLegacyMode" class="page">spark.memory.useLegacyMode</a> configuration property for <a href="../spark-SparkEnv.html#memoryManager" class="page">SparkEnv</a> for the driver and executors.</p>
+</div>
+<div class="paragraph">
+<p><strong>Execution memory</strong> is used for computation in shuffles, joins, sorts and aggregations.</p>
+</div>
+<div class="paragraph">
+<p><strong>Storage memory</strong> is used for caching and propagating internal data across the nodes in a cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="memorymanagers"><a class="anchor" href="#memorymanagers"></a><a class="link" href="#memorymanagers"><a id="implementations"></a> MemoryManagers</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>MemoryManager</code> is a <code>private[spark]</code> contract.
-</td>
+<th class="tableblock halign-left valign-top">MemoryManager</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="StaticMemoryManager.adoc">StaticMemoryManager</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="StaticMemoryManager"></a> (legacy)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="UnifiedMemoryManager.adoc">UnifiedMemoryManager</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="UnifiedMemoryManager"></a> The default memory manager</p></td>
+</tr>
+</tbody>
 </table>
 </div>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MemoryManager takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="conf"></a> <a href="../spark-SparkConf.html" class="page">SparkConf</a></p>
+</li>
+<li>
+<p><a id="numCores"></a> Number of CPU cores</p>
+</li>
+<li>
+<p><a id="onHeapStorageMemory"></a> Size of the on-heap storage memory</p>
+</li>
+<li>
+<p><a id="onHeapExecutionMemory"></a> Size of the on-heap execution memory</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>MemoryManager initializes the <a href="#internal-properties">internal properties</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="memorymanager-contract"><a class="anchor" href="#memorymanager-contract"></a><a class="link" href="#memorymanager-contract"><a id="contract"></a> MemoryManager Contract</a></h2>
+<div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. (Subset of) MemoryManager Contract</caption>
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
+<col style="width: 30%;">
+<col style="width: 70%;">
 </colgroup>
 <thead>
 <tr>
@@ -1929,140 +1984,11 @@ abstract class MemoryManager(...) {
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p><code>MemoryManager</code> is <a href="#creating-instance">created</a> along with <a href="spark-SparkEnv.adoc#create">SparkEnv</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>MemoryManager</code> is a Scala abstract class and cannot be created directly, but only as one of the <a href="#implementations">implementations</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><strong>Execution memory</strong> is used for computation in shuffles, joins, sorts and aggregations.</p>
-</div>
-<div class="paragraph">
-<p><strong>Storage memory</strong> is used for caching and propagating internal data across the nodes in a cluster.</p>
-</div>
-<table id="implementations" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. MemoryManagers</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">MemoryManager</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="StaticMemoryManager.adoc">StaticMemoryManager</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="StaticMemoryManager"></a> (legacy)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="UnifiedMemoryManager.adoc">UnifiedMemoryManager</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="UnifiedMemoryManager"></a> The default memory manager</p></td>
-</tr>
-</tbody>
-</table>
-<table id="internal-registries" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. MemoryManager&#8217;s Internal Properties (e.g. Registries, Counters and Flags)</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>onHeapStorageMemoryPool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="onHeapStorageMemoryPool"></a> FIXME</p>
-<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>offHeapStorageMemoryPool</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="offHeapStorageMemoryPool"></a> FIXME</p>
-<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageSizeBytes</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="pageSizeBytes"></a> FIXME</p>
-<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tungstenMemoryAllocator</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="tungstenMemoryAllocator"></a> FIXME</p>
-</div>
-<div class="paragraph">
-<p>Used when&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>tungstenMemoryAllocator</code> is a Scala <code>final val</code> and cannot be changed by custom <a href="#implementations">MemoryManagers</a>.
-</td>
-</tr>
-</table>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="sect2">
-<h3 id="creating-memorymanager-instance"><a class="anchor" href="#creating-memorymanager-instance"></a><a class="link" href="#creating-memorymanager-instance"><a id="creating-instance"></a> Creating MemoryManager Instance</a></h3>
-<div class="paragraph">
-<p><code>MemoryManager</code> takes the following when created:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a id="conf"></a> <a href="spark-SparkConf.adoc">SparkConf</a></p>
-</li>
-<li>
-<p><a id="numCores"></a> Number of CPU cores</p>
-</li>
-<li>
-<p><a id="onHeapStorageMemory"></a> <code>onHeapStorageMemory</code></p>
-</li>
-<li>
-<p><a id="onHeapExecutionMemory"></a> <code>onHeapExecutionMemory</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>MemoryManager</code> initializes the <a href="#internal-registries">internal registries and counters</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>MemoryManager</code> is a Scala abstract class and cannot be created directly, but only as one of the <a href="#implementations">implementations</a>.
-</td>
-</tr>
-</table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="releaseexecutionmemory-method"><a class="anchor" href="#releaseexecutionmemory-method"></a><a class="link" href="#releaseexecutionmemory-method"><a id="releaseExecutionMemory"></a> <code>releaseExecutionMemory</code> Method</a></h3>
+<div class="sect1">
+<h2 id="releaseexecutionmemory-method"><a class="anchor" href="#releaseexecutionmemory-method"></a><a class="link" href="#releaseexecutionmemory-method"><a id="releaseExecutionMemory"></a> <code>releaseExecutionMemory</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">releaseExecutionMemory(
@@ -2087,8 +2013,10 @@ abstract class MemoryManager(...) {
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="releaseallexecutionmemoryfortask-method"><a class="anchor" href="#releaseallexecutionmemoryfortask-method"></a><a class="link" href="#releaseallexecutionmemoryfortask-method"><a id="releaseAllExecutionMemoryForTask"></a> <code>releaseAllExecutionMemoryForTask</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="releaseallexecutionmemoryfortask-method"><a class="anchor" href="#releaseallexecutionmemoryfortask-method"></a><a class="link" href="#releaseallexecutionmemoryfortask-method"><a id="releaseAllExecutionMemoryForTask"></a> <code>releaseAllExecutionMemoryForTask</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">releaseAllExecutionMemoryForTask(taskAttemptId: Long): Long</code></pre>
@@ -2110,8 +2038,10 @@ abstract class MemoryManager(...) {
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="tungstenmemorymode-flag"><a class="anchor" href="#tungstenmemorymode-flag"></a><a class="link" href="#tungstenmemorymode-flag"><a id="tungstenMemoryMode"></a> <code>tungstenMemoryMode</code> Flag</a></h3>
+</div>
+<div class="sect1">
+<h2 id="tungstenmemorymode-flag"><a class="anchor" href="#tungstenmemorymode-flag"></a><a class="link" href="#tungstenmemorymode-flag"><a id="tungstenMemoryMode"></a> <code>tungstenMemoryMode</code> Flag</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">tungstenMemoryMode: MemoryMode</code></pre>
@@ -2176,7 +2106,7 @@ Given that <a href="spark-MemoryManager-properties.adoc#spark.memory.offHeap.ena
 <p><code>TaskMemoryManager</code> is <a href="TaskMemoryManager.adoc#tungstenMemoryMode">created</a></p>
 </li>
 <li>
-<p><code>MemoryManager</code> is created (and initializes the <a href="#pageSizeBytes">pageSizeBytes</a> and <a href="#tungstenMemoryAllocator">tungstenMemoryAllocator</a> internal properties)</p>
+<p>MemoryManager is created (and initializes the <a href="#pageSizeBytes">pageSizeBytes</a> and <a href="#tungstenMemoryAllocator">tungstenMemoryAllocator</a> internal properties)</p>
 </li>
 </ul>
 </div>
@@ -2185,8 +2115,10 @@ Given that <a href="spark-MemoryManager-properties.adoc#spark.memory.offHeap.ena
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="freepage-method"><a class="anchor" href="#freepage-method"></a><a class="link" href="#freepage-method"><a id="freePage"></a> <code>freePage</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="freepage-method"><a class="anchor" href="#freepage-method"></a><a class="link" href="#freepage-method"><a id="freePage"></a> <code>freePage</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void freePage(MemoryBlock page)</code></pre>
@@ -2208,6 +2140,48 @@ Given that <a href="spark-MemoryManager-properties.adoc#spark.memory.offHeap.ena
 </table>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><code>onHeapStorageMemoryPool</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="onHeapStorageMemoryPool"></a> FIXME</p>
+<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><code>offHeapStorageMemoryPool</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="offHeapStorageMemoryPool"></a> FIXME</p>
+<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><code>pageSizeBytes</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="pageSizeBytes"></a> FIXME</p>
+<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><code>tungstenMemoryAllocator</code></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="tungstenMemoryAllocator"></a> FIXME</p>
+</div>
+<div class="paragraph">
+<p>Used when&#8230;&#8203;FIXME</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </article>

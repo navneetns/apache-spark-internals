@@ -2029,7 +2029,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 </div>
 <div class="paragraph">
 <p><a id="MemoryManager"></a><a id="create-MemoryManager"></a>
-<code>create</code> creates a <a href="memory/MemoryManager.html" class="page">MemoryManager</a> based on <a href="#spark_memory_useLegacyMode">spark.memory.useLegacyMode</a> setting (with <a href="memory/UnifiedMemoryManager.html" class="page">UnifiedMemoryManager</a> being the default and <code>numCores</code> the input <code>numUsableCores</code>).</p>
+<code>create</code> creates a <a href="memory/MemoryManager.html" class="page">MemoryManager</a> based on <a href="spark-configuration-properties.html#spark.memory.useLegacyMode" class="page">spark.memory.useLegacyMode</a> setting (with <a href="memory/UnifiedMemoryManager.html" class="page">UnifiedMemoryManager</a> being the default and <code>numCores</code> the input <code>numUsableCores</code>).</p>
 </div>
 <div class="paragraph">
 <p><a id="NettyBlockTransferService"></a><a id="create-NettyBlockTransferService"></a>
@@ -2437,11 +2437,6 @@ DEBUG SparkEnv: Using serializer: [serializer]
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_closure_serializer"></a> <code>spark.closure.serializer</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.apache.spark.serializer.JavaSerializer</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-Serializer.adoc">Serializer</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_memory_useLegacyMode"></a> <code>spark.memory.useLegacyMode</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Controls what type of the <a href="memory/MemoryManager.html" class="page">MemoryManager</a> to use. When enabled (i.e. <code>true</code>) it is the legacy <code>StaticMemoryManager</code> while <a href="memory/UnifiedMemoryManager.html" class="page">UnifiedMemoryManager</a> otherwise (i.e. <code>false</code>).</p></td>
 </tr>
 </tbody>
 </table>
