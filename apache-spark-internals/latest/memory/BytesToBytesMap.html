@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-on-yarn/spark-yarn-yarnrmclient.html">
+    <title>BytesToBytesMap :: The Internals Of Apache Spark</title>
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/memory/BytesToBytesMap.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -72,35 +72,35 @@
     <span class="nav-text">Memory System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../memory/spark-memory-unified-memory-management.html">Unified Memory Management</a>
+    <a class="nav-link" href="spark-memory-unified-memory-management.html">Unified Memory Management</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../memory/UnifiedMemoryManager.html">UnifiedMemoryManager</a>
+    <a class="nav-link" href="UnifiedMemoryManager.html">UnifiedMemoryManager</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../memory/TaskMemoryManager.html">TaskMemoryManager</a>
+    <a class="nav-link" href="TaskMemoryManager.html">TaskMemoryManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../memory/MemoryConsumer.html">MemoryConsumer</a>
+    <a class="nav-link" href="MemoryConsumer.html">MemoryConsumer</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../memory/BytesToBytesMap.html">BytesToBytesMap</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="BytesToBytesMap.html">BytesToBytesMap</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../memory/MemoryPool.html">MemoryPool</a>
+    <a class="nav-link" href="MemoryPool.html">MemoryPool</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../memory/StorageMemoryPool.html">StorageMemoryPool</a>
+    <a class="nav-link" href="StorageMemoryPool.html">StorageMemoryPool</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../memory/MemoryManager.html">MemoryManager</a>
+    <a class="nav-link" href="MemoryManager.html">MemoryManager</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../memory/StaticMemoryManager.html">StaticMemoryManager</a>
+    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
   </li>
 </ul>
   </li>
@@ -1535,88 +1535,88 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Spark on YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/index.html">Spark on YARN</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnShuffleService.html">YarnShuffleService&#8201;&#8212;&#8201;ExternalShuffleService on YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnShuffleService.html">YarnShuffleService&#8201;&#8212;&#8201;ExternalShuffleService on YARN</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-ExecutorRunnable.html">ExecutorRunnable</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-ExecutorRunnable.html">ExecutorRunnable</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-client.html">Client</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-client.html">Client</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="spark-yarn-yarnrmclient.html">YarnRMClient</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnrmclient.html">YarnRMClient</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-applicationmaster.html">ApplicationMaster</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-applicationmaster.html">ApplicationMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-AMEndpoint.html">AMEndpoint&#8201;&#8212;&#8201;ApplicationMaster RPC Endpoint</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-AMEndpoint.html">AMEndpoint&#8201;&#8212;&#8201;ApplicationMaster RPC Endpoint</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnClusterManager.html">YarnClusterManager&#8201;&#8212;&#8201;ExternalClusterManager for YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnClusterManager.html">YarnClusterManager&#8201;&#8212;&#8201;ExternalClusterManager for YARN</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-taskschedulers.html">TaskSchedulers for YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-taskschedulers.html">TaskSchedulers for YARN</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-yarnscheduler.html">YarnScheduler</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnscheduler.html">YarnScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-yarnclusterscheduler.html">YarnClusterScheduler</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnclusterscheduler.html">YarnClusterScheduler</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-schedulerbackends.html">SchedulerBackends for YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-schedulerbackends.html">SchedulerBackends for YARN</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-yarnschedulerbackend.html">YarnSchedulerBackend</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnschedulerbackend.html">YarnSchedulerBackend</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-client-yarnclientschedulerbackend.html">YarnClientSchedulerBackend</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-client-yarnclientschedulerbackend.html">YarnClientSchedulerBackend</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-cluster-yarnclusterschedulerbackend.html">YarnClusterSchedulerBackend</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-cluster-yarnclusterschedulerbackend.html">YarnClusterSchedulerBackend</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-cluster-YarnSchedulerEndpoint.html">YarnSchedulerEndpoint RPC Endpoint</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-cluster-YarnSchedulerEndpoint.html">YarnSchedulerEndpoint RPC Endpoint</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnAllocator.html">YarnAllocator</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnAllocator.html">YarnAllocator</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-introduction.html">Introduction to Hadoop YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-introduction.html">Introduction to Hadoop YARN</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-cluster-setup.html">Setting up YARN Cluster</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-cluster-setup.html">Setting up YARN Cluster</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-kerberos.html">Kerberos</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-kerberos.html">Kerberos</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-ConfigurableCredentialManager.html">ConfigurableCredentialManager</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-ConfigurableCredentialManager.html">ConfigurableCredentialManager</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-ClientDistributedCacheManager.html">ClientDistributedCacheManager</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-ClientDistributedCacheManager.html">ClientDistributedCacheManager</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnSparkHadoopUtil.html">YarnSparkHadoopUtil</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnSparkHadoopUtil.html">YarnSparkHadoopUtil</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-settings.html">Settings</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-settings.html">Settings</a>
   </li>
 </ul>
   </li>
@@ -1814,246 +1814,18 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li><a href="index.html">Spark on YARN</a></li>
-    <li><a href="spark-yarn-yarnrmclient.html">YarnRMClient</a></li>
+    <li>Memory System</li>
+    <li><a href="MemoryConsumer.html">MemoryConsumer</a></li>
+    <li><a href="BytesToBytesMap.html">BytesToBytesMap</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/spark-on-yarn/pages/spark-yarn-yarnrmclient.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/memory/pages/BytesToBytesMap.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="yarnrmclient"><a class="anchor" href="#yarnrmclient"></a><a class="link" href="#yarnrmclient"><a id="YarnRMClient"></a> YarnRMClient</a></h2>
-<div class="sectionbody">
+<h1 class="page">BytesToBytesMap</h1>
 <div class="paragraph">
-<p><code>YarnRMClient</code> is responsible for <a href="#register">registering</a> and <a href="#unregister">unregistering</a> a Spark application (in the form of <a href="spark-yarn-applicationmaster.adoc">ApplicationMaster</a>) with <a href="spark-yarn-introduction.adoc#ResourceManager">YARN ResourceManager</a> (and hence <em>RM</em> in the name).</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/spark-yarn-YarnRMClient-register.png" alt="spark yarn YarnRMClient register">
-</div>
-<div class="title">Figure 1. Registering ApplicationMaster with YARN ResourceManager</div>
-</div>
-<div class="paragraph">
-<p><code>YarnRMClient</code> is just a wrapper for <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/yarn/client/api/AMRMClient.html">AMRMClient[ContainerRequest]</a> that is started when <a href="#register">registering <code>ApplicationMaster</code></a> (and never stopped explicitly!).</p>
-</div>
-<div class="paragraph">
-<p><code>YarnRMClient</code> tracks the <a href="#getAttemptId">application attempt identifiers</a> and the <a href="#getMaxRegAttempts">maximum number of attempts to register <code>ApplicationMaster</code></a>.</p>
-</div>
-<table id="internal-registries" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. YarnRMClient&#8217;s Internal Registries and Counters</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="amClient"></a> <code>amClient</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/yarn/client/api/AMRMClient.html">AMRMClient</a> using <code>ContainerRequest</code> for YARN ResourceManager.</p>
-<p class="tableblock">Created (initialized and started) when <code>YarnRMClient</code> <a href="#register">registers <code>ApplicationMaster</code></a>.</p>
-<p class="tableblock">Used when <code>YarnRMClient</code> <a href="#register">creates a <code>YarnAllocator</code></a> (after registering <code>ApplicationMaster</code>) and to <a href="#unregister">unregister <code>ApplicationMaster</code></a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="uiHistoryAddress"></a> <code>uiHistoryAddress</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="registered"></a> <code>registered</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Flag to say whether <a href="#register"><code>YarnRMClient</code> is connected to YARN ResourceManager</a> (i.e. <code>true</code>) or not. Disabled by default. Used when <a href="#unregister">unregistering <code>ApplicationMaster</code></a>.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Enable <code>INFO</code> logging level for <code>org.apache.spark.deploy.yarn.YarnRMClient</code> logger to see what happens inside.</p>
-</div>
-<div class="paragraph">
-<p>Add the following line to <code>conf/log4j.properties</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.deploy.yarn.YarnRMClient=INFO</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Refer to <a href="../spark-logging.adoc">Logging</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="registering-applicationmaster-with-yarn-resourcemanager-and-creating-yarnallocatorregister-method"><a class="anchor" href="#registering-applicationmaster-with-yarn-resourcemanager-and-creating-yarnallocatorregister-method"></a><a class="link" href="#registering-applicationmaster-with-yarn-resourcemanager-and-creating-yarnallocatorregister-method"><a id="register"></a> Registering ApplicationMaster with YARN ResourceManager (and Creating YarnAllocator)&#8201;&#8212;&#8201;<code>register</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">register(
-  driverUrl: String,
-  driverRef: RpcEndpointRef,
-  conf: YarnConfiguration,
-  sparkConf: SparkConf,
-  uiAddress: String,
-  uiHistoryAddress: String,
-  securityMgr: SecurityManager,
-  localResources: Map[String, LocalResource]): YarnAllocator</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>register</code> creates a <a href="#amClient">AMRMClient</a>, initializes it (using the input <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/yarn/conf/YarnConfiguration.html">YarnConfiguration</a>) and starts immediately.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>AMRMClient</code> is used in YARN to register an application&#8217;s <code>ApplicationMaster</code> with the YARN ResourceManager.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p><code>register</code> connects to YARN ResourceManager using the following design pattern:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">val amClient: AMRMClient[ContainerRequest] = AMRMClient.createAMRMClient()
-amClient.init(conf)
-amClient.start()</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>register</code> saves the input <code>uiHistoryAddress</code> as <a href="#uiHistoryAddress">uiHistoryAddress</a>.</p>
-</div>
-<div class="paragraph">
-<p>You should see the following INFO message in the logs (in stderr in YARN):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>INFO YarnRMClient: Registering the ApplicationMaster</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>register</code> then uses <a href="#amClient">AMRMClient</a> to <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/yarn/client/api/AMRMClient.html#registerApplicationMaster(java.lang.String, int, java.lang.String)">register the Spark application&#8217;s <code>ApplicationMaster</code></a> (using the local hostname, the port <code>0</code> and the input <code>uiAddress</code>).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The input <code>uiAddress</code> is the web UI of the Spark application and is specified using the <a href="spark-yarn-applicationmaster.adoc#runDriver">SparkContext</a> (when the application runs in <code>cluster</code> deploy mode) or using <a href="../spark-driver.adoc#spark.driver.appUIAddress">spark.driver.appUIAddress</a> property.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><a href="#registered">registered</a> flag is enabled.</p>
-</div>
-<div class="paragraph">
-<p>In the end, <code>register</code> <a href="spark-yarn-YarnAllocator.adoc#creating-instance">creates a new <code>YarnAllocator</code></a> (using the input parameters of <code>register</code> and the internal <a href="#amClient">AMRMClient</a>).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>register</code> is used exclusively when <a href="spark-yarn-applicationmaster.adoc#registerAM"><code>ApplicationMaster</code> registers itself</a> with the YARN ResourceManager.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="unregistering-applicationmaster-from-yarn-resourcemanagerunregister-method"><a class="anchor" href="#unregistering-applicationmaster-from-yarn-resourcemanagerunregister-method"></a><a class="link" href="#unregistering-applicationmaster-from-yarn-resourcemanagerunregister-method"><a id="unregister"></a> Unregistering ApplicationMaster from YARN ResourceManager&#8201;&#8212;&#8201;<code>unregister</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">unregister(status: FinalApplicationStatus, diagnostics: String = ""): Unit</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>unregister</code> unregisters the ApplicationMaster of a Spark application.</p>
-</div>
-<div class="paragraph">
-<p>It basically checks that <a href="#register"><code>ApplicationMaster</code> is registered</a> and only when it is requests the internal <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/yarn/client/api/AMRMClient.html#unregisterApplicationMaster(org.apache.hadoop.yarn.api.records.FinalApplicationStatus, java.lang.String, java.lang.String)">AMRMClient to unregister</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>unregister</code> is called when <a href="spark-yarn-applicationmaster.adoc#unregister"><code>ApplicationMaster</code> wants to unregister</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="maximum-number-of-attempts-to-register-applicationmastergetmaxregattempts-method"><a class="anchor" href="#maximum-number-of-attempts-to-register-applicationmastergetmaxregattempts-method"></a><a class="link" href="#maximum-number-of-attempts-to-register-applicationmastergetmaxregattempts-method"><a id="getMaxRegAttempts"></a> Maximum Number of Attempts to Register ApplicationMaster&#8201;&#8212;&#8201;<code>getMaxRegAttempts</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getMaxRegAttempts(sparkConf: SparkConf, yarnConf: YarnConfiguration): Int</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>getMaxRegAttempts</code> uses <a href="../spark-SparkConf.adoc">SparkConf</a> and YARN&#8217;s <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/yarn/conf/YarnConfiguration.html">YarnConfiguration</a> to read configuration settings and return the maximum number of application attempts before <a href="spark-yarn-applicationmaster.adoc">ApplicationMaster</a> registration with YARN is considered unsuccessful (and so the Spark application).</p>
-</div>
-<div class="paragraph">
-<p>It reads YARN&#8217;s <code>yarn.resourcemanager.am.max-attempts</code> (available as <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/yarn/conf/YarnConfiguration.html#RM_AM_MAX_ATTEMPTS">YarnConfiguration.RM_AM_MAX_ATTEMPTS</a>) or falls back to <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/yarn/conf/YarnConfiguration.html#DEFAULT_RM_AM_MAX_ATTEMPTS">YarnConfiguration.DEFAULT_RM_AM_MAX_ATTEMPTS</a> (which is <code>2</code>).</p>
-</div>
-<div class="paragraph">
-<p>The return value is the minimum of the configuration settings of YARN and Spark.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="getting-applicationattemptid-of-spark-applicationgetattemptid-method"><a class="anchor" href="#getting-applicationattemptid-of-spark-applicationgetattemptid-method"></a><a class="link" href="#getting-applicationattemptid-of-spark-applicationgetattemptid-method"><a id="getAttemptId"></a> Getting ApplicationAttemptId of Spark Application&#8201;&#8212;&#8201;<code>getAttemptId</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getAttemptId(): ApplicationAttemptId</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>getAttemptId</code> returns YARN&#8217;s <code>ApplicationAttemptId</code> (of the Spark application to which the container was assigned).</p>
-</div>
-<div class="paragraph">
-<p>Internally, it uses YARN-specific methods like <a href="spark-yarn-YarnSparkHadoopUtil.adoc#getContainerId">ConverterUtils.toContainerId</a> and <a href="https://hadoop.apache.org/docs/current/api/index.html?org/apache/hadoop/yarn/client/api/YarnClient.html">ContainerId.getApplicationAttemptId</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="getamipfilterparams-method"><a class="anchor" href="#getamipfilterparams-method"></a><a class="link" href="#getamipfilterparams-method"><a id="getAmIpFilterParams"></a> <code>getAmIpFilterParams</code> Method</a></h3>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
+<p><strong>BytesToBytesMap</strong> is a <a href="MemoryConsumer.html" class="page">MemoryConsumer</a>.</p>
 </div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

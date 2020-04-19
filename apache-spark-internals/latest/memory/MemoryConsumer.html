@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> MemoryConsumer :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/memory/MemoryConsumer.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -81,7 +81,13 @@
     <a class="nav-link" href="TaskMemoryManager.html">TaskMemoryManager</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="MemoryConsumer.html">MemoryConsumer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="BytesToBytesMap.html">BytesToBytesMap</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="MemoryPool.html">MemoryPool</a>
@@ -1816,32 +1822,98 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="memoryconsumer"><a class="anchor" href="#memoryconsumer"></a><a class="link" href="#memoryconsumer"><a id="MemoryConsumer"></a> MemoryConsumer</a></h2>
+<h1 class="page"><a id="MemoryConsumer"></a> MemoryConsumer</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>MemoryConsumer</code> is the contract for memory consumers of <code>TaskMemoryManager</code> with support for <a href="#spill">spilling</a>.</p>
+<p><strong>MemoryConsumer</strong> is an abstraction of <a href="#extensions">spillable memory consumers</a> of <a href="TaskMemoryManager.html#consumers" class="page">TaskMemoryManager</a>.</p>
 </div>
 <div class="paragraph">
-<p>A <code>MemoryConsumer</code> basically tracks <a href="#used">how much memory is allocated</a>.</p>
+<p>MemoryConsumers correspond to individual operators and data structures within a task. The TaskMemoryManager receives memory allocation requests from MemoryConsumers and issues callbacks to consumers in order to trigger <a href="#spill">spilling</a> when running low on memory.</p>
 </div>
 <div class="paragraph">
-<p>Creating a <code>MemoryConsumer</code> requires a <a href="TaskMemoryManager.adoc">TaskMemoryManager</a> with optional <code>pageSize</code> and a <code>MemoryMode</code>.</p>
+<p>A MemoryConsumer basically tracks <a href="#used">how much memory is allocated</a>.</p>
 </div>
-<div class="admonitionblock note">
-<table>
+<div class="paragraph">
+<p>Creating a MemoryConsumer requires a <a href="TaskMemoryManager.adoc">TaskMemoryManager</a> with optional <code>pageSize</code> and a <code>MemoryMode</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MemoryConsumer takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="taskMemoryManager"></a> <a href="TaskMemoryManager.html" class="page">TaskMemoryManager</a></p>
+</li>
+<li>
+<p><a id="pageSize"></a> Page size (in bytes)</p>
+</li>
+<li>
+<p><a id="mode"></a> MemoryMode</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>MemoryConsumer initializes the <a href="#internal-properties">internal properties</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extensions"><a class="anchor" href="#extensions"></a><a class="link" href="#extensions"><a id="extensions"></a> Extensions</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. MemoryConsumers (Direct Implementations and Extensions Only)</caption>
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If not specified, <code>pageSize</code> defaults to <a href="TaskMemoryManager.adoc#pageSizeBytes">TaskMemoryManager.pageSizeBytes</a> and <code>ON_HEAP</code> memory mode.
-</td>
+<th class="tableblock halign-left valign-top">MemoryConsumer</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="BytesToBytesMap.html" class="page">BytesToBytesMap</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="BytesToBytesMap"></a> Used in Spark SQL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HybridRowQueue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="HybridRowQueue"></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LongToUnsafeRowMap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="LongToUnsafeRowMap"></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RowBasedKeyValueBatch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="RowBasedKeyValueBatch"></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ShuffleExternalSorter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ShuffleExternalSorter"></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spillable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="Spillable"></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UnsafeExternalSorter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="UnsafeExternalSorter"></a></p></td>
+</tr>
+</tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="spill-method"><a class="anchor" href="#spill-method"></a><a class="link" href="#spill-method"><a id="contract"></a><a id="spill"></a> <code>spill</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="spill-method"><a class="anchor" href="#spill-method"></a><a class="link" href="#spill-method"><a id="contract"></a><a id="spill"></a> <code>spill</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">abstract long spill(long size, MemoryConsumer trigger)
@@ -1873,17 +1945,22 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="memory-allocatedused-registry"><a class="anchor" href="#memory-allocatedused-registry"></a><a class="link" href="#memory-allocatedused-registry"><a id="used"></a> Memory Allocated&#8201;&#8212;&#8201;<code>used</code> Registry</a></h3>
+</div>
+<div class="sect1">
+<h2 id="memory-allocated-used"><a class="anchor" href="#memory-allocated-used"></a><a class="link" href="#memory-allocated-used"><a id="used"></a><a id="getUsed"></a> Memory Allocated (Used)</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><code>used</code> is the amount of memory in use (i.e. allocated) by the <code>MemoryConsumer</code>.</p>
+<p><code>used</code> is the amount of memory in use (i.e. allocated) by the MemoryConsumer.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deallocate-memoryblockfreepage-method"><a class="anchor" href="#deallocate-memoryblockfreepage-method"></a><a class="link" href="#deallocate-memoryblockfreepage-method"><a id="freePage"></a> Deallocate MemoryBlock&#8201;&#8212;&#8201;<code>freePage</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="deallocate-memoryblock"><a class="anchor" href="#deallocate-memoryblock"></a><a class="link" href="#deallocate-memoryblock"><a id="freePage"></a> Deallocate MemoryBlock</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">protected void freePage(MemoryBlock page)</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void freePage(
+  MemoryBlock page)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1893,11 +1970,14 @@ FIXME
 <p>Internally, it decrements <a href="#used">used</a> registry by the size of <code>page</code> and <a href="TaskMemoryManager.adoc#freePage">frees the page</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="allocate-longarrayallocatearray-method"><a class="anchor" href="#allocate-longarrayallocatearray-method"></a><a class="link" href="#allocate-longarrayallocatearray-method"><a id="allocateArray"></a> Allocate LongArray&#8201;&#8212;&#8201;<code>allocateArray</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="allocate-array"><a class="anchor" href="#allocate-array"></a><a class="link" href="#allocate-array"><a id="allocateArray"></a> Allocate Array</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">LongArray allocateArray(long size)</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">LongArray allocateArray(
+  long size)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1915,62 +1995,69 @@ FIXME
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="acquiring-memoryacquirememory-method"><a class="anchor" href="#acquiring-memoryacquirememory-method"></a><a class="link" href="#acquiring-memoryacquirememory-method"><a id="acquireMemory"></a> Acquiring Memory&#8201;&#8212;&#8201;<code>acquireMemory</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="acquiring-execution-memory-allocating-memory"><a class="anchor" href="#acquiring-execution-memory-allocating-memory"></a><a class="link" href="#acquiring-execution-memory-allocating-memory"><a id="acquireMemory"></a> Acquiring Execution Memory (Allocating Memory)</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long acquireMemory(long size)</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long acquireMemory(
+  long size)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>acquireMemory</code> <a href="TaskMemoryManager.adoc#acquireExecutionMemory">acquires execution memory of <code>size</code> size</a>. The memory is recorded in <a href="#used">used</a> registry.</p>
+<p>acquireMemory requests the <a href="#taskMemoryManager">TaskMemoryManager</a> to <a href="TaskMemoryManager.html#acquireExecutionMemory" class="page">acquire execution memory</a> (of the given size).</p>
+</div>
+<div class="paragraph">
+<p>The memory allocated is then added to the <a href="#used">used</a> internal registry.</p>
+</div>
+<div class="paragraph">
+<p>acquireMemory is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Spillable is requested to maybeSpill</p>
+</li>
+<li>
+<p>Spark SQL&#8217;s LongToUnsafeRowMap is requested to ensureAcquireMemory</p>
+</li>
+</ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="throwoom-internal-method"><a class="anchor" href="#throwoom-internal-method"></a><a class="link" href="#throwoom-internal-method"><a id="throwOom"></a> <code>throwOom</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="allocating-memory-block-page"><a class="anchor" href="#allocating-memory-block-page"></a><a class="link" href="#allocating-memory-block-page"><a id="allocatePage"></a> Allocating Memory Block (Page)</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void throwOom(final MemoryBlock page, final long required)</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MemoryBlock allocatePage(
+  long required)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>allocatePage&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>allocatePage is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="throwing-outofmemoryerror"><a class="anchor" href="#throwing-outofmemoryerror"></a><a class="link" href="#throwing-outofmemoryerror"><a id="throwOom"></a> Throwing OutOfMemoryError</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void throwOom(
+  MemoryBlock page,
+  long required)</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p><code>throwOom</code>&#8230;&#8203;FIXME</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>throwOom</code> is used when <code>MemoryConsumer</code> is requested to <a href="#allocateArray">allocateArray</a> and <a href="#allocatePage">allocatePage</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="allocatepage-method"><a class="anchor" href="#allocatepage-method"></a><a class="link" href="#allocatepage-method"><a id="allocatePage"></a> <code>allocatePage</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MemoryBlock allocatePage(long required)</code></pre>
-</div>
-</div>
 <div class="paragraph">
-<p><code>allocatePage</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>allocatePage</code> is used when&#8230;&#8203;FIXME
-</td>
-</tr>
-</table>
-</div>
+<p><code>throwOom</code> is used when MemoryConsumer is requested to <a href="#allocateArray">allocate an array</a> or a <a href="#allocatePage">memory block (page)</a> and failed to acquire enough.</p>
 </div>
 </div>
 </div>
