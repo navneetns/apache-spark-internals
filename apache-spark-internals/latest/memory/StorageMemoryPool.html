@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> StorageMemoryPool :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/memory/StorageMemoryPool.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -75,7 +75,28 @@
     <a class="nav-link" href="spark-memory-unified-memory-management.html">Unified Memory Management</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MemoryManager.html">MemoryManager</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="UnifiedMemoryManager.html">UnifiedMemoryManager</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MemoryPool.html">MemoryPool</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ExecutionMemoryPool.html">ExecutionMemoryPool</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="StorageMemoryPool.html">StorageMemoryPool</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="TaskMemoryManager.html">TaskMemoryManager</a>
@@ -86,21 +107,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="BytesToBytesMap.html">BytesToBytesMap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="MemoryPool.html">MemoryPool</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="StorageMemoryPool.html">StorageMemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="MemoryManager.html">MemoryManager</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
   </li>
 </ul>
   </li>
@@ -1815,6 +1821,7 @@
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
     <li>Memory System</li>
+    <li><a href="MemoryPool.html">MemoryPool</a></li>
     <li><a href="StorageMemoryPool.html">StorageMemoryPool</a></li>
   </ul>
 </nav>
@@ -1822,11 +1829,11 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="storagememorypool"><a class="anchor" href="#storagememorypool"></a><a class="link" href="#storagememorypool"><a id="StorageMemoryPool"></a> StorageMemoryPool</a></h2>
+<h1 class="page"><a id="StorageMemoryPool"></a> StorageMemoryPool</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>StorageMemoryPool</code> is a <a href="MemoryPool.adoc">MemoryPool</a> that&#8230;&#8203;FIXME</p>
+<p><code>StorageMemoryPool</code> is a <a href="MemoryPool.html" class="page">MemoryPool</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>StorageMemoryPool</code> is <a href="#creating-instance">created</a> along with <a href="MemoryManager.adoc#creating-instance">MemoryManager</a> (as <a href="MemoryManager.adoc#onHeapStorageMemoryPool">onHeapStorageMemoryPool</a> and <a href="MemoryManager.adoc#offHeapStorageMemoryPool">offHeapStorageMemoryPool</a> pools).</p>
@@ -1861,8 +1868,11 @@
 </tr>
 </tbody>
 </table>
-<div class="sect2">
-<h3 id="memoryfree-method"><a class="anchor" href="#memoryfree-method"></a><a class="link" href="#memoryfree-method"><a id="memoryFree"></a> <code>memoryFree</code> Method</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="memoryfree-method"><a class="anchor" href="#memoryfree-method"></a><a class="link" href="#memoryfree-method"><a id="memoryFree"></a> <code>memoryFree</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">memoryFree: Long</code></pre>
@@ -1884,8 +1894,10 @@
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="acquirememory-method"><a class="anchor" href="#acquirememory-method"></a><a class="link" href="#acquirememory-method"><a id="acquireMemory"></a> <code>acquireMemory</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="acquirememory-method"><a class="anchor" href="#acquirememory-method"></a><a class="link" href="#acquirememory-method"><a id="acquireMemory"></a> <code>acquireMemory</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">acquireMemory(blockId: BlockId, numBytes: Long): Boolean  <i class="conum" data-value="1"></i><b>(1)</b>
@@ -1931,8 +1943,10 @@ acquireMemory(
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="freespacetoshrinkpool-method"><a class="anchor" href="#freespacetoshrinkpool-method"></a><a class="link" href="#freespacetoshrinkpool-method"><a id="freeSpaceToShrinkPool"></a> <code>freeSpaceToShrinkPool</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="freespacetoshrinkpool-method"><a class="anchor" href="#freespacetoshrinkpool-method"></a><a class="link" href="#freespacetoshrinkpool-method"><a id="freeSpaceToShrinkPool"></a> <code>freeSpaceToShrinkPool</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">freeSpaceToShrinkPool(spaceToFree: Long): Long</code></pre>
@@ -1954,8 +1968,10 @@ acquireMemory(
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-storagememorypool-instance"><a class="anchor" href="#creating-storagememorypool-instance"></a><a class="link" href="#creating-storagememorypool-instance"><a id="creating-instance"></a> Creating StorageMemoryPool Instance</a></h3>
+</div>
+<div class="sect1">
+<h2 id="creating-storagememorypool-instance"><a class="anchor" href="#creating-storagememorypool-instance"></a><a class="link" href="#creating-storagememorypool-instance"><a id="creating-instance"></a> Creating StorageMemoryPool Instance</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><code>StorageMemoryPool</code> takes the following when created:</p>
 </div>
@@ -1971,7 +1987,6 @@ acquireMemory(
 </div>
 <div class="paragraph">
 <p><code>StorageMemoryPool</code> initializes the <a href="#internal-registries">internal registries and counters</a>.</p>
-</div>
 </div>
 </div>
 </div>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> MemoryPool :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/memory/MemoryPool.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -75,7 +75,28 @@
     <a class="nav-link" href="spark-memory-unified-memory-management.html">Unified Memory Management</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MemoryManager.html">MemoryManager</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="UnifiedMemoryManager.html">UnifiedMemoryManager</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MemoryPool.html">MemoryPool</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ExecutionMemoryPool.html">ExecutionMemoryPool</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="StorageMemoryPool.html">StorageMemoryPool</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="TaskMemoryManager.html">TaskMemoryManager</a>
@@ -86,21 +107,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="BytesToBytesMap.html">BytesToBytesMap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="MemoryPool.html">MemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="StorageMemoryPool.html">StorageMemoryPool</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="MemoryManager.html">MemoryManager</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="StaticMemoryManager.html">StaticMemoryManager</a>
   </li>
 </ul>
   </li>
@@ -1822,11 +1828,170 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="memorypool"><a class="anchor" href="#memorypool"></a><a class="link" href="#memorypool"><a id="MemoryPool"></a> MemoryPool</a></h2>
+<h1 class="page"><a id="MemoryPool"></a> MemoryPool</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>MemoryPool</code> is&#8230;&#8203;FIXME</p>
+<p><strong>MemoryPool</strong> is a bookkeeping abstraction of <a href="#extensions">memory pools</a>.</p>
+</div>
+<div class="paragraph">
+<p>MemoryPool is used by the <a href="MemoryManager.html" class="page">MemoryManager</a> to track the division of memory between storage and execution.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extensions"><a class="anchor" href="#extensions"></a><a class="link" href="#extensions"><a id="extensions"></a> Extensions</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. MemoryPools</caption>
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">MemoryPool</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ExecutionMemoryPool.html" class="page">ExecutionMemoryPool</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ExecutionMemoryPool"></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="StorageMemoryPool.html" class="page">StorageMemoryPool</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="StorageMemoryPool"></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a><a id="lock"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MemoryPool takes a single lock object to be created (used for synchronization).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pool-size"><a class="anchor" href="#pool-size"></a><a class="link" href="#pool-size"><a id="_poolSize"></a><a id="poolSize"></a> Pool Size</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">_poolSize: Long = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>_poolSize is the maximum size of the memory pool.</p>
+</div>
+<div class="paragraph">
+<p>_poolSize can be <a href="#incrementPoolSize">expanded</a> or <a href="#decrementPoolSize">shrinked</a>.</p>
+</div>
+<div class="paragraph">
+<p>_poolSize is used to report <a href="#memoryFree">memory free</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="amount-of-memory-used"><a class="anchor" href="#amount-of-memory-used"></a><a class="link" href="#amount-of-memory-used"><a id="memoryUsed"></a> Amount of Memory Used</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">memoryUsed: Long</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>memoryUsed gives the amount of memory used in this pool (in bytes).</p>
+</div>
+<div class="paragraph">
+<p>memoryUsed is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>MemoryManager is requested for the <a href="MemoryManager.html#storageMemoryUsed" class="page">total storage memory in use</a></p>
+</li>
+<li>
+<p>MemoryPool is requested for the current <a href="#memoryFree">memory free</a> and to <a href="#decrementPoolSize">shrink pool size</a></p>
+</li>
+<li>
+<p>StorageMemoryPool is requested to acquireMemory</p>
+</li>
+<li>
+<p>UnifiedMemoryManager is requested to <a href="UnifiedMemoryManager.html#maxOnHeapStorageMemory" class="page">maxOnHeapStorageMemory</a>, <a href="UnifiedMemoryManager.html#maxOffHeapStorageMemory" class="page">maxOffHeapStorageMemory</a> and <a href="UnifiedMemoryManager.html#acquireExecutionMemory" class="page">acquireExecutionMemory</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="amount-of-free-memory"><a class="anchor" href="#amount-of-free-memory"></a><a class="link" href="#amount-of-free-memory"><a id="memoryFree"></a> Amount of Free Memory</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">memoryFree: Long</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>memoryFree gives the amount of free memory in the pool (in bytes) by simply subtracting the <a href="#memoryUsed">memory used</a> from the <a href="#_poolSize">_poolSize</a>.</p>
+</div>
+<div class="paragraph">
+<p>memoryFree is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="shrinking-pool-size"><a class="anchor" href="#shrinking-pool-size"></a><a class="link" href="#shrinking-pool-size"><a id="decrementPoolSize"></a> Shrinking Pool Size</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">decrementPoolSize(
+  delta: Long): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>decrementPoolSize makes the <a href="#_poolSize">_poolSize</a> smaller by the given <code>delta</code> bytes.</p>
+</div>
+<div class="paragraph">
+<p>decrementPoolSize requires that the given delta bytes has to meet the requirements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>be positive</p>
+</li>
+<li>
+<p>up to the current <a href="#_poolSize">_poolSize</a></p>
+</li>
+<li>
+<p>Does not shrink the current <a href="#_poolSize">_poolSize</a> below the <a href="#memoryUsed">memory used</a> threshold</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>decrementPoolSize is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="expanding-pool-size"><a class="anchor" href="#expanding-pool-size"></a><a class="link" href="#expanding-pool-size"><a id="incrementPoolSize"></a> Expanding Pool Size</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">incrementPoolSize(
+  delta: Long): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>incrementPoolSize makes the <a href="#_poolSize">_poolSize</a> bigger by the given <code>delta</code> bytes.</p>
+</div>
+<div class="paragraph">
+<p>incrementPoolSize requires that the given delta bytes has to be positive.</p>
+</div>
+<div class="paragraph">
+<p>incrementPoolSize is used when&#8230;&#8203;FIXME</p>
 </div>
 </div>
 </div>
