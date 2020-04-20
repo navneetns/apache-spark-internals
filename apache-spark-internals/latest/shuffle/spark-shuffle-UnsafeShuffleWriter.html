@@ -105,7 +105,16 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../memory/BytesToBytesMap.html">BytesToBytesMap</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../memory/UnsafeExternalSorter.html">UnsafeExternalSorter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../memory/UnsafeInMemorySorter.html">UnsafeInMemorySorter</a>
+  </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../memory/UnsafeSorterSpillWriter.html">UnsafeSorterSpillWriter</a>
   </li>
 </ul>
   </li>
@@ -248,7 +257,7 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-shuffle-ShuffleExternalSorter.html">ShuffleExternalSorter</a>
+    <a class="nav-link" href="ShuffleExternalSorter.html">ShuffleExternalSorter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-shuffle-ShuffleInMemorySorter.html">ShuffleInMemorySorter</a>
@@ -1910,7 +1919,7 @@ Use <a href="#spark-configuration-properties.adoc#spark.shuffle.sort.initialBuff
 </div>
 </div>
 <div class="paragraph">
-<p><code>forceSorterToSpill</code> simply requests the <a href="#sorter">ShuffleExternalSorter</a> to <a href="spark-shuffle-ShuffleExternalSorter.html#spill" class="page">spill to disk (and free up execution memory)</a>.</p>
+<p><code>forceSorterToSpill</code> simply requests the <a href="#sorter">ShuffleExternalSorter</a> to <a href="ShuffleExternalSorter.html#spill" class="page">spill to disk (and free up execution memory)</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2002,7 +2011,7 @@ Use <a href="#spark-configuration-properties.adoc#spark.shuffle.sort.initialBuff
 <p>Internally, <code>write</code> traverses the input sequence of records (for a RDD partition) and <a href="#insertRecordIntoSorter">insertRecordIntoSorter</a> one by one. When all the records have been processed, <code>write</code> <a href="#closeAndWriteOutput">closes internal resources and writes spill files merged</a>.</p>
 </div>
 <div class="paragraph">
-<p>In the end, <code>write</code> <a href="spark-shuffle-ShuffleExternalSorter.adoc#cleanupResources">requests <code>ShuffleExternalSorter</code> to clean after itself</a>.</p>
+<p>In the end, <code>write</code> <a href="ShuffleExternalSorter.html#cleanupResources" class="page">requests <code>ShuffleExternalSorter</code> to clean after itself</a>.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -2108,7 +2117,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 </div>
 </div>
 <div class="paragraph">
-<p><code>open</code> makes sure that the internal reference to <a href="spark-shuffle-ShuffleExternalSorter.adoc">ShuffleExternalSorter</a> (as <code>sorter</code>) is not defined and <a href="spark-shuffle-ShuffleExternalSorter.adoc#creating-instance">creates one itself</a>.</p>
+<p><code>open</code> makes sure that the internal reference to <a href="ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a> (as <code>sorter</code>) is not defined and <a href="ShuffleExternalSorter.html#creating-instance" class="page">creates one itself</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>open</code> creates a new byte array output stream (as <code>serBuffer</code>) with the buffer capacity of <code>1M</code>.</p>
@@ -2181,7 +2190,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 </table>
 </div>
 <div class="paragraph">
-<p>In the end, <code>insertRecordIntoSorter</code> <a href="spark-shuffle-ShuffleExternalSorter.adoc#insertRecord">inserts the serialized buffer to <code>ShuffleExternalSorter</code></a> (as <code>Platform.BYTE_ARRAY_OFFSET</code> ).</p>
+<p>In the end, <code>insertRecordIntoSorter</code> <a href="ShuffleExternalSorter.html#insertRecord" class="page">inserts the serialized buffer to <code>ShuffleExternalSorter</code></a> (as <code>Platform.BYTE_ARRAY_OFFSET</code> ).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2224,7 +2233,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <p><code>closeAndWriteOutput</code> removes the internal <code>ByteArrayOutputStream</code> and <a href="spark-SerializationStream.adoc">SerializationStream</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>closeAndWriteOutput</code> requests <a href="spark-shuffle-ShuffleExternalSorter.adoc#closeAndGetSpills"><code>ShuffleExternalSorter</code> to close itself and return <code>SpillInfo</code> metadata</a>.</p>
+<p><code>closeAndWriteOutput</code> requests <a href="ShuffleExternalSorter.html#closeAndGetSpills" class="page"><code>ShuffleExternalSorter</code> to close itself and return <code>SpillInfo</code> metadata</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>closeAndWriteOutput</code> removes the internal <code>ShuffleExternalSorter</code>.</p>
@@ -2379,7 +2388,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#open">open</a> (and create a <a href="spark-shuffle-ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a> with the given <a href="#spark-rdd-Partitioner.adoc#numPartitions" class="page unresolved">number of partitions</a>)</p>
+<p><a href="#open">open</a> (and create a <a href="ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a> with the given <a href="#spark-rdd-Partitioner.adoc#numPartitions" class="page unresolved">number of partitions</a>)</p>
 </li>
 <li>
 <p><a href="#insertRecordIntoSorter">insertRecordIntoSorter</a> (and request the <a href="#spark-rdd-Partitioner.adoc#getPartition" class="page unresolved">partition for the key</a>)</p>
@@ -2393,7 +2402,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>peakMemoryUsedBytes</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="peakMemoryUsedBytes"></a> Peak memory used (in bytes) that is updated exclusively in <a href="#updatePeakMemoryUsed">updatePeakMemoryUsed</a> (after requesting the <a href="#sorter">ShuffleExternalSorter</a> for <a href="spark-shuffle-ShuffleExternalSorter.html#getPeakMemoryUsedBytes" class="page">getPeakMemoryUsedBytes</a>)</p>
+<p><a id="peakMemoryUsedBytes"></a> Peak memory used (in bytes) that is updated exclusively in <a href="#updatePeakMemoryUsed">updatePeakMemoryUsed</a> (after requesting the <a href="#sorter">ShuffleExternalSorter</a> for <a href="ShuffleExternalSorter.html#getPeakMemoryUsedBytes" class="page">getPeakMemoryUsedBytes</a>)</p>
 </div>
 <div class="paragraph">
 <p>Use <a href="#getPeakMemoryUsedBytes">getPeakMemoryUsedBytes</a> to access the current value</p>
@@ -2454,7 +2463,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sorter</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="sorter"></a> <a href="spark-shuffle-ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a></p>
+<p><a id="sorter"></a> <a href="ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a></p>
 </div>
 <div class="paragraph">
 <p>Initialized when <code>UnsafeShuffleWriter</code> is requested to <a href="#open">open</a> (while being <a href="#creating-instance">created</a>)</p>

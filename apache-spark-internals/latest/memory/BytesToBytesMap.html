@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>BytesToBytesMap :: The Internals Of Apache Spark</title>
+    <title> BytesToBytesMap :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/memory/BytesToBytesMap.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -105,7 +105,16 @@
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="BytesToBytesMap.html">BytesToBytesMap</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="UnsafeExternalSorter.html">UnsafeExternalSorter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="UnsafeInMemorySorter.html">UnsafeInMemorySorter</a>
+  </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="UnsafeSorterSpillWriter.html">UnsafeSorterSpillWriter</a>
   </li>
 </ul>
   </li>
@@ -248,7 +257,7 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleExternalSorter.html">ShuffleExternalSorter</a>
+    <a class="nav-link" href="../shuffle/ShuffleExternalSorter.html">ShuffleExternalSorter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleInMemorySorter.html">ShuffleInMemorySorter</a>
@@ -1826,9 +1835,226 @@
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">BytesToBytesMap</h1>
+<h1 class="page"><a id="BytesToBytesMap"></a> BytesToBytesMap</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong>BytesToBytesMap</strong> is a <a href="MemoryConsumer.html" class="page">MemoryConsumer</a>.</p>
+</div>
+<div class="paragraph">
+<p>BytesToBytesMap is created for Spark SQL&#8217;s UnsafeFixedWidthAggregationMap and UnsafeHashedRelation.</p>
+</div>
+<div class="paragraph">
+<p>BytesToBytesMap is used to create Spark SQL&#8217;s UnsafeKVExternalSorter and UnsafeHashedRelation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>BytesToBytesMap takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="taskMemoryManager"></a> <a href="TaskMemoryManager.html" class="page">TaskMemoryManager</a></p>
+</li>
+<li>
+<p><a id="blockManager"></a> <a href="../storage/BlockManager.html" class="page">BlockManager</a></p>
+</li>
+<li>
+<p><a id="serializerManager"></a> <a href="../spark-SerializerManager.html" class="page">SerializerManager</a></p>
+</li>
+<li>
+<p><a id="initialCapacity"></a> Initial capacity</p>
+</li>
+<li>
+<p><a id="loadFactor"></a> Load factor (default: 0.5)</p>
+</li>
+<li>
+<p><a id="pageSizeBytes"></a> Page size (in bytes)</p>
+</li>
+<li>
+<p><a id="enablePerfMetrics"></a> enablePerfMetrics flag</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>BytesToBytesMap</code> initializes the <a href="#internal-properties">internal properties</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="maximum-supported-capacity"><a class="anchor" href="#maximum-supported-capacity"></a><a class="link" href="#maximum-supported-capacity"><a id="MAX_CAPACITY"></a> Maximum Supported Capacity</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>BytesToBytesMap supports up to <code>1 &lt;&lt; 29</code> keys.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="unsafesorterspillwriters"><a class="anchor" href="#unsafesorterspillwriters"></a><a class="link" href="#unsafesorterspillwriters"><a id="spillWriters"></a> UnsafeSorterSpillWriters</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>BytesToBytesMap manages <a href="UnsafeSorterSpillWriter.html" class="page">UnsafeSorterSpillWriters</a>.</p>
+</div>
+<div class="paragraph">
+<p>BytesToBytesMap registers a new UnsafeSorterSpillWriter when requested to <a href="#spill">spill</a>.</p>
+</div>
+<div class="paragraph">
+<p>BytesToBytesMap uses the UnsafeSorterSpillWriters when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#free">Freeing Up Allocated Memory</a></p>
+</li>
+<li>
+<p>FIXME</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mapiterator"><a class="anchor" href="#mapiterator"></a><a class="link" href="#mapiterator"><a id="destructiveIterator"></a> MapIterator</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>BytesToBytesMap manages a "destructive" MapIterator.</p>
+</div>
+<div class="paragraph">
+<p>BytesToBytesMap creates it when requested for <a href="#destructiveIterator">one</a>.</p>
+</div>
+<div class="paragraph">
+<p>BytesToBytesMap requests it to spill when requested to <a href="#spill">spill</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-destructive-mapiterator"><a class="anchor" href="#creating-destructive-mapiterator"></a><a class="link" href="#creating-destructive-mapiterator"><a id="destructiveIterator"></a> Creating Destructive MapIterator</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MapIterator destructiveIterator()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>destructiveIterator <a href="#updatePeakMemoryUsed">updatePeakMemoryUsed</a> and creates a MapIterator (with the <a href="#numValues">numValues</a> and <a href="#loc">Location</a>).</p>
+</div>
+<div class="paragraph">
+<p>destructiveIterator is used when Spark SQL&#8217;s UnsafeFixedWidthAggregationMap is requested for a key-value iterator.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="allocating"><a class="anchor" href="#allocating"></a><a class="link" href="#allocating"><a id="allocate"></a> Allocating</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void allocate(
+  int capacity)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>allocate uses the input capacity to compute a number that is a power of 2 and greater or equal than capacity, but not greater than <a href="#MAX_CAPACITY">maximum supported capacity</a>. The computed number is at least 64.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">def _c(capacity: Int) = {
+  import org.apache.spark.unsafe.array.ByteArrayMethods
+  val MAX_CAPACITY = (1 &lt;&lt; 29)
+  Math.max(Math.min(MAX_CAPACITY, ByteArrayMethods.nextPowerOf2(capacity)), 64)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>allocate <a href="MemoryConsumer.html#allocateArray" class="page">allocates an array</a> twice as big as the power-of-two capacity and fills it all with 0s.</p>
+</div>
+<div class="paragraph">
+<p>allocate initializes the <a href="#growthThreshold">growthThreshold</a> and <a href="#mask">mask</a> internal properties.</p>
+</div>
+<div class="paragraph">
+<p>allocate requires that the input capacity is positive.</p>
+</div>
+<div class="paragraph">
+<p>allocate is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spilling"><a class="anchor" href="#spilling"></a><a class="link" href="#spilling"><a id="spill"></a> Spilling</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long spill(
+  long size,
+  MemoryConsumer trigger)</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+spill is part of the <a href="MemoryConsumer.html#spill" class="page">MemoryConsumer</a> abstraction.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>spill requests the <a href="#destructiveIterator">MapIterator</a> to spill when the given MemoryConsumer is not this BytesToBytesMap and the MapIterator is available.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="freeing-up-allocated-memory"><a class="anchor" href="#freeing-up-allocated-memory"></a><a class="link" href="#freeing-up-allocated-memory"><a id="free"></a> Freeing Up Allocated Memory</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void free()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>free&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>free is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>growthThreshold</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="growthThreshold"></a> Growth threshold</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mask</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="mask"></a> Mask for truncating hashcodes so that they do not exceed the long array&#8217;s size</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

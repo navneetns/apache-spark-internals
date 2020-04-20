@@ -105,7 +105,16 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="BytesToBytesMap.html">BytesToBytesMap</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="UnsafeExternalSorter.html">UnsafeExternalSorter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="UnsafeInMemorySorter.html">UnsafeInMemorySorter</a>
+  </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="UnsafeSorterSpillWriter.html">UnsafeSorterSpillWriter</a>
   </li>
 </ul>
   </li>
@@ -248,7 +257,7 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleExternalSorter.html">ShuffleExternalSorter</a>
+    <a class="nav-link" href="../shuffle/ShuffleExternalSorter.html">ShuffleExternalSorter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleInMemorySorter.html">ShuffleInMemorySorter</a>
@@ -1915,12 +1924,13 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="spill-method"><a class="anchor" href="#spill-method"></a><a class="link" href="#spill-method"><a id="contract"></a><a id="spill"></a> <code>spill</code> Method</a></h2>
+<h2 id="spilling"><a class="anchor" href="#spilling"></a><a class="link" href="#spilling"><a id="contract"></a><a id="spill"></a> Spilling</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">abstract long spill(long size, MemoryConsumer trigger)
-throws IOException</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">long spill(
+  long size,
+  MemoryConsumer trigger)</code></pre>
 </div>
 </div>
 <div class="admonitionblock caution">
@@ -1975,7 +1985,7 @@ FIXME
 </div>
 </div>
 <div class="sect1">
-<h2 id="allocate-array"><a class="anchor" href="#allocate-array"></a><a class="link" href="#allocate-array"><a id="allocateArray"></a> Allocate Array</a></h2>
+<h2 id="allocating-array"><a class="anchor" href="#allocating-array"></a><a class="link" href="#allocating-array"><a id="allocateArray"></a> Allocating Array</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -1996,6 +2006,31 @@ FIXME
 <div class="content">
 <pre class="highlightjs highlight"><code>Unable to acquire [required] bytes of memory, got [got]</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>allocateArray is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>BytesToBytesMap is requested to <a href="BytesToBytesMap.html#allocate" class="page">allocate</a></p>
+</li>
+<li>
+<p>ShuffleExternalSorter is requested to <a href="../shuffle/ShuffleExternalSorter.html#growPointerArrayIfNecessary" class="page">growPointerArrayIfNecessary</a></p>
+</li>
+<li>
+<p>ShuffleInMemorySorter is <a href="../shuffle/spark-shuffle-ShuffleInMemorySorter.html" class="page">created</a> and <a href="../shuffle/spark-shuffle-ShuffleInMemorySorter.html#reset" class="page">reset</a></p>
+</li>
+<li>
+<p>UnsafeExternalSorter is requested to <a href="UnsafeExternalSorter.html#growPointerArrayIfNecessary" class="page">growPointerArrayIfNecessary</a></p>
+</li>
+<li>
+<p>UnsafeInMemorySorter is <a href="UnsafeInMemorySorter.html" class="page">created</a> and <a href="UnsafeInMemorySorter.html#reset" class="page">reset</a></p>
+</li>
+<li>
+<p>Spark SQL&#8217;s UnsafeKVExternalSorter is created</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

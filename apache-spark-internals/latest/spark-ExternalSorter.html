@@ -105,7 +105,16 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="memory/BytesToBytesMap.html">BytesToBytesMap</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="memory/UnsafeExternalSorter.html">UnsafeExternalSorter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="memory/UnsafeInMemorySorter.html">UnsafeInMemorySorter</a>
+  </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="memory/UnsafeSorterSpillWriter.html">UnsafeSorterSpillWriter</a>
   </li>
 </ul>
   </li>
@@ -248,7 +257,7 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="shuffle/spark-shuffle-ShuffleExternalSorter.html">ShuffleExternalSorter</a>
+    <a class="nav-link" href="shuffle/ShuffleExternalSorter.html">ShuffleExternalSorter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="shuffle/spark-shuffle-ShuffleInMemorySorter.html">ShuffleInMemorySorter</a>
@@ -2076,7 +2085,7 @@ FIXME
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>32k</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Size of the in-memory buffer for each shuffle file output stream. In bytes unless the unit is specified.</p>
 <p class="tableblock">These buffers reduce the number of disk seeks and system calls made in creating intermediate shuffle files.</p>
-<p class="tableblock">Used in <code>ExternalSorter</code>, <a href="shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html" class="page">BypassMergeSortShuffleWriter</a> and <code>ExternalAppendOnlyMap</code> (for <code>fileBufferSize</code>) and in <a href="spark-shuffle-ShuffleExternalSorter.adoc">ShuffleExternalSorter</a> (for <a href="spark-shuffle-ShuffleExternalSorter.adoc#fileBufferSizeBytes">fileBufferSizeBytes</a>).</p>
+<p class="tableblock">Used in <code>ExternalSorter</code>, <a href="shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html" class="page">BypassMergeSortShuffleWriter</a> and <code>ExternalAppendOnlyMap</code> (for <code>fileBufferSize</code>) and in <a href="shuffle/ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a> (for <a href="shuffle/ShuffleExternalSorter.html#fileBufferSizeBytes" class="page">fileBufferSizeBytes</a>).</p>
 <p class="tableblock">NOTE: <code>spark.shuffle.file.buffer</code> was previously known as <code>spark.shuffle.file.buffer.kb</code>.</p></td>
 </tr>
 <tr>
