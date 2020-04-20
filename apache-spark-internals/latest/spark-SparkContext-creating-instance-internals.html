@@ -88,7 +88,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskScheduler.html">TaskScheduler</a>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
@@ -2247,13 +2247,13 @@ The internal <code>_schedulerBackend</code> and <code>_taskScheduler</code> are 
 <div class="sect2">
 <h3 id="starting-taskscheduler"><a class="anchor" href="#starting-taskscheduler"></a><a class="link" href="#starting-taskscheduler"><a id="taskScheduler-start"></a> Starting TaskScheduler</a></h3>
 <div class="paragraph">
-<p><code>SparkContext</code> <a href="spark-scheduler-TaskScheduler.adoc#start">starts <code>TaskScheduler</code></a>.</p>
+<p><code>SparkContext</code> <a href="scheduler/TaskScheduler.html#start" class="page">starts <code>TaskScheduler</code></a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="setting-spark-applications-and-execution-attempts-ids_applicationid-and-_applicationattemptid"><a class="anchor" href="#setting-spark-applications-and-execution-attempts-ids_applicationid-and-_applicationattemptid"></a><a class="link" href="#setting-spark-applications-and-execution-attempts-ids_applicationid-and-_applicationattemptid"><a id="_applicationId"></a><a id="_applicationAttemptId"></a> Setting Spark Application&#8217;s and Execution Attempt&#8217;s IDs&#8201;&#8212;&#8201;<code>_applicationId</code> and <code>_applicationAttemptId</code></a></h3>
 <div class="paragraph">
-<p><code>SparkContext</code> sets the internal fields&#8201;&#8212;&#8201;<code>_applicationId</code> and <code>_applicationAttemptId</code>&#8201;&#8212;&#8201;(using <code>applicationId</code> and <code>applicationAttemptId</code> methods from the <a href="spark-scheduler-TaskScheduler.adoc#contract">TaskScheduler Contract</a>).</p>
+<p><code>SparkContext</code> sets the internal fields&#8201;&#8212;&#8201;<code>_applicationId</code> and <code>_applicationAttemptId</code>&#8201;&#8212;&#8201;(using <code>applicationId</code> and <code>applicationAttemptId</code> methods from the <a href="scheduler/TaskScheduler.html#contract" class="page">TaskScheduler Contract</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2262,7 +2262,7 @@ The internal <code>_schedulerBackend</code> and <code>_taskScheduler</code> are 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>SparkContext</code> requests <code>TaskScheduler</code> for the <a href="spark-scheduler-TaskScheduler.adoc#applicationId">unique identifier of a Spark application</a> (that is currently only implemented by <a href="spark-scheduler-TaskSchedulerImpl.adoc#applicationId">TaskSchedulerImpl</a> that uses <code>SchedulerBackend</code> to <a href="spark-SchedulerBackend.adoc#applicationId">request the identifier</a>).
+<code>SparkContext</code> requests <code>TaskScheduler</code> for the <a href="scheduler/TaskScheduler.html#applicationId" class="page">unique identifier of a Spark application</a> (that is currently only implemented by <a href="spark-scheduler-TaskSchedulerImpl.adoc#applicationId">TaskSchedulerImpl</a> that uses <code>SchedulerBackend</code> to <a href="spark-SchedulerBackend.adoc#applicationId">request the identifier</a>).
 </td>
 </tr>
 </table>
@@ -2395,7 +2395,7 @@ FIXME It&#8217;d be quite useful to have all the properties with their default v
 <p><a href="spark-scheduler-SparkListener.adoc#SparkListenerApplicationStart">SparkListenerApplicationStart</a> message is posted to <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> (using the internal <code>postApplicationStart</code> method).</p>
 </div>
 <div id="postStartHook" class="paragraph">
-<p><code>TaskScheduler</code> <a href="spark-scheduler-TaskScheduler.adoc#postStartHook">is notified that <code>SparkContext</code> is almost fully initialized</a>.</p>
+<p><code>TaskScheduler</code> <a href="scheduler/TaskScheduler.html#postStartHook" class="page">is notified that <code>SparkContext</code> is almost fully initialized</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2404,7 +2404,7 @@ FIXME It&#8217;d be quite useful to have all the properties with their default v
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="spark-scheduler-TaskScheduler.adoc#postStartHook">TaskScheduler.postStartHook</a> does nothing by default, but custom implementations offer more advanced features, i.e. <code>TaskSchedulerImpl</code> <a href="spark-scheduler-TaskSchedulerImpl.adoc#postStartHook">blocks the current thread until <code>SchedulerBackend</code> is ready</a>. There is also <code>YarnClusterScheduler</code> for Spark on YARN in <code>cluster</code> deploy mode.
+<a href="scheduler/TaskScheduler.html#postStartHook" class="page">TaskScheduler.postStartHook</a> does nothing by default, but custom implementations offer more advanced features, i.e. <code>TaskSchedulerImpl</code> <a href="spark-scheduler-TaskSchedulerImpl.adoc#postStartHook">blocks the current thread until <code>SchedulerBackend</code> is ready</a>. There is also <code>YarnClusterScheduler</code> for Spark on YARN in <code>cluster</code> deploy mode.
 </td>
 </tr>
 </table>

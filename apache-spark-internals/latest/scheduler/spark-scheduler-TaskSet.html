@@ -88,7 +88,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-TaskScheduler.html">TaskScheduler</a>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
@@ -1869,7 +1869,7 @@ Since the <a href="#tasks">tasks</a> of a <code>TaskSet</code> are only the miss
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Once <a href="#spark-scheduler-DAGScheduler.adoc#submitMissingTasks" class="page unresolved">submitted</a> for execution (to a <a href="spark-scheduler-TaskScheduler.html" class="page">TaskScheduler</a>), the execution of the <code>TaskSet</code> is managed by a <a href="spark-scheduler-TaskSetManager.html" class="page">TaskSetManager</a> that allows for <a href="#spark-configuration-properties.adoc#spark.task.maxFailures" class="page unresolved">spark.task.maxFailures</a> (default: <code>1</code> for <a href="#local/spark-local.adoc" class="page unresolved">Spark on local</a> and <code>4</code> for <a href="#spark-cluster.adoc" class="page unresolved">Spark clustered</a>).
+Once <a href="#spark-scheduler-DAGScheduler.adoc#submitMissingTasks" class="page unresolved">submitted</a> for execution (to a <a href="TaskScheduler.html" class="page">TaskScheduler</a>), the execution of the <code>TaskSet</code> is managed by a <a href="spark-scheduler-TaskSetManager.html" class="page">TaskSetManager</a> that allows for <a href="#spark-configuration-properties.adoc#spark.task.maxFailures" class="page unresolved">spark.task.maxFailures</a> (default: <code>1</code> for <a href="#local/spark-local.adoc" class="page unresolved">Spark on local</a> and <code>4</code> for <a href="#spark-cluster.adoc" class="page unresolved">Spark clustered</a>).
 </td>
 </tr>
 </table>
@@ -1918,7 +1918,7 @@ Once <a href="#spark-scheduler-DAGScheduler.adoc#submitMissingTasks" class="page
 <p>The <a href="#priority">priority</a> of a <code>TaskSet</code> is exactly the ID of the earliest-created active job that needs the stage (that is given when <code>DAGScheduler</code> is requested to <a href="#spark-scheduler-DAGScheduler.adoc#submitMissingTasks" class="page unresolved">submit the missing tasks of a stage</a>).</p>
 </div>
 <div class="paragraph">
-<p>Once <a href="#spark-scheduler-DAGScheduler.adoc#submitMissingTasks" class="page unresolved">submitted</a> for execution (to a <a href="spark-scheduler-TaskScheduler.html" class="page">TaskScheduler</a>), the <a href="#priority">priority</a> of a <code>TaskSet</code> is the <a href="spark-scheduler-TaskSetManager.html#priority" class="page">priority</a> of the <code>TaskSetManager</code> (which is a <a href="spark-scheduler-Schedulable.html" class="page">Schedulable</a>) that is used for <strong>task prioritization</strong> (<em>prioritizing scheduling of tasks</em>) in the <a href="spark-scheduler-Pool.html#FIFOSchedulingAlgorithm" class="page">FIFO</a> scheduling mode.</p>
+<p>Once <a href="#spark-scheduler-DAGScheduler.adoc#submitMissingTasks" class="page unresolved">submitted</a> for execution (to a <a href="TaskScheduler.html" class="page">TaskScheduler</a>), the <a href="#priority">priority</a> of a <code>TaskSet</code> is the <a href="spark-scheduler-TaskSetManager.html#priority" class="page">priority</a> of the <code>TaskSetManager</code> (which is a <a href="spark-scheduler-Schedulable.html" class="page">Schedulable</a>) that is used for <strong>task prioritization</strong> (<em>prioritizing scheduling of tasks</em>) in the <a href="spark-scheduler-Pool.html#FIFOSchedulingAlgorithm" class="page">FIFO</a> scheduling mode.</p>
 </div>
 </div>
 </div>

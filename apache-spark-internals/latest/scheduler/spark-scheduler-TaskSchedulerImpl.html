@@ -88,7 +88,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-TaskScheduler.html">TaskScheduler</a>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
@@ -1831,7 +1831,7 @@
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
     <li>Low-Level Task Scheduler</li>
-    <li><a href="spark-scheduler-TaskScheduler.html">TaskScheduler</a></li>
+    <li><a href="TaskScheduler.html">TaskScheduler</a></li>
     <li><a href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a></li>
   </ul>
 </nav>
@@ -1843,7 +1843,7 @@
 <h2 id="taskschedulerimpldefault-spark-scheduler"><a class="anchor" href="#taskschedulerimpldefault-spark-scheduler"></a><a class="link" href="#taskschedulerimpldefault-spark-scheduler"><a id="TaskSchedulerImpl"></a> TaskSchedulerImpl&#8201;&#8212;&#8201;Default Spark Scheduler</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>TaskSchedulerImpl</code> is the default <a href="spark-scheduler-TaskScheduler.adoc">TaskScheduler</a> that uses a <a href="#backend">SchedulerBackend</a> to schedule tasks (for execution on a cluster manager).</p>
+<p><code>TaskSchedulerImpl</code> is the default <a href="TaskScheduler.html" class="page">TaskScheduler</a> that uses a <a href="#backend">SchedulerBackend</a> to schedule tasks (for execution on a cluster manager).</p>
 </div>
 <div class="paragraph">
 <p>When a Spark application starts (and so an instance of <a href="spark-SparkContext.adoc#creating-instance">SparkContext is created</a>) <code>TaskSchedulerImpl</code> with a <a href="spark-SchedulerBackend.adoc">SchedulerBackend</a> and <a href="spark-scheduler-DAGScheduler.adoc">DAGScheduler</a> are created and soon started.</p>
@@ -2100,7 +2100,7 @@ Use <a href="#spark-configuration-properties.adoc#spark.scheduler.mode" class="p
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>applicationId</code> is part of <a href="spark-scheduler-TaskScheduler.adoc#contract">TaskScheduler contract</a> to find the Spark application&#8217;s id.
+<code>applicationId</code> is part of <a href="TaskScheduler.html#contract" class="page">TaskScheduler contract</a> to find the Spark application&#8217;s id.
 </td>
 </tr>
 </table>
@@ -2291,7 +2291,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>executorHeartbeatReceived</code> is part of the <a href="spark-scheduler-TaskScheduler.adoc#contract">TaskScheduler Contract</a>.
+<code>executorHeartbeatReceived</code> is part of the <a href="TaskScheduler.html#contract" class="page">TaskScheduler Contract</a>.
 </td>
 </tr>
 </table>
@@ -2311,7 +2311,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>cancelTasks</code> is part of <a href="spark-scheduler-TaskScheduler.adoc#contract">TaskScheduler contract</a>.
+<code>cancelTasks</code> is part of <a href="TaskScheduler.html#contract" class="page">TaskScheduler contract</a>.
 </td>
 </tr>
 </table>
@@ -2477,7 +2477,7 @@ There is another <code>TaskSchedulerImpl</code> constructor that requires a <a h
 </table>
 </div>
 <div class="paragraph">
-<p><code>TaskSchedulerImpl</code> sets <a href="spark-scheduler-TaskScheduler.adoc#contract">schedulingMode</a> to the value of <a href="#spark-configuration-properties.adoc#spark.scheduler.mode" class="page unresolved">spark.scheduler.mode</a> setting (defaults to <code>FIFO</code>).</p>
+<p><code>TaskSchedulerImpl</code> sets <a href="TaskScheduler.html#contract" class="page">schedulingMode</a> to the value of <a href="#spark-configuration-properties.adoc#spark.scheduler.mode" class="page unresolved">spark.scheduler.mode</a> setting (defaults to <code>FIFO</code>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2486,7 +2486,7 @@ There is another <code>TaskSchedulerImpl</code> constructor that requires a <a h
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>schedulingMode</code> is part of <a href="spark-scheduler-TaskScheduler.adoc#contract">TaskScheduler Contract</a>.
+<code>schedulingMode</code> is part of <a href="TaskScheduler.html#contract" class="page">TaskScheduler Contract</a>.
 </td>
 </tr>
 </table>
@@ -2544,7 +2544,7 @@ There is another <code>TaskSchedulerImpl</code> constructor that requires a <a h
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="#schedulingMode">schedulingMode</a> and <a href="#rootPool">rootPool</a> are a part of <a href="spark-scheduler-TaskScheduler.adoc#contract">TaskScheduler Contract</a>.
+<a href="#schedulingMode">schedulingMode</a> and <a href="#rootPool">rootPool</a> are a part of <a href="TaskScheduler.html#contract" class="page">TaskScheduler Contract</a>.
 </td>
 </tr>
 </table>
@@ -2593,7 +2593,7 @@ FIXME Why are <code>rootPool</code> and <code>schedulableBuilder</code> created 
 <div class="sect2">
 <h3 id="starting-taskschedulerimplstart-method"><a class="anchor" href="#starting-taskschedulerimplstart-method"></a><a class="link" href="#starting-taskschedulerimplstart-method"><a id="start"></a> Starting TaskSchedulerImpl&#8201;&#8212;&#8201;<code>start</code> Method</a></h3>
 <div class="paragraph">
-<p>As part of <a href="spark-SparkContext-creating-instance-internals.adoc">initialization of a <code>SparkContext</code></a>, <code>TaskSchedulerImpl</code> is started (using <code>start</code> from the <a href="spark-scheduler-TaskScheduler.adoc#contract">TaskScheduler Contract</a>).</p>
+<p>As part of <a href="spark-SparkContext-creating-instance-internals.adoc">initialization of a <code>SparkContext</code></a>, <code>TaskSchedulerImpl</code> is started (using <code>start</code> from the <a href="TaskScheduler.html#contract" class="page">TaskScheduler Contract</a>).</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2779,7 +2779,7 @@ It is exclusively used when <a href="#submitTasks">submitting tasks</a> through 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The internal <code>removeExecutor</code> is called as part of <a href="#statusUpdate">statusUpdate</a> and <a href="spark-scheduler-TaskScheduler.adoc#executorLost">executorLost</a>.
+The internal <code>removeExecutor</code> is called as part of <a href="#statusUpdate">statusUpdate</a> and <a href="TaskScheduler.html#executorLost" class="page">executorLost</a>.
 </td>
 </tr>
 </table>
@@ -2799,7 +2799,7 @@ The internal <code>removeExecutor</code> is called as part of <a href="#statusUp
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>postStartHook</code> is part of the <a href="spark-scheduler-TaskScheduler.html#postStartHook" class="page">TaskScheduler Contract</a> to notify a <a href="spark-scheduler-TaskScheduler.html" class="page">task scheduler</a> that the <code>SparkContext</code> (and hence the Spark application itself) is about to finish initialization.
+<code>postStartHook</code> is part of the <a href="TaskScheduler.html#postStartHook" class="page">TaskScheduler Contract</a> to notify a <a href="TaskScheduler.html" class="page">task scheduler</a> that the <code>SparkContext</code> (and hence the Spark application itself) is about to finish initialization.
 </td>
 </tr>
 </table>
@@ -2833,7 +2833,7 @@ The internal <code>removeExecutor</code> is called as part of <a href="#statusUp
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>defaultParallelism</code> is part of <a href="spark-scheduler-TaskScheduler.adoc#defaultParallelism">TaskScheduler contract</a> as a hint for sizing jobs.
+<code>defaultParallelism</code> is part of <a href="TaskScheduler.html#defaultParallelism" class="page">TaskScheduler contract</a> as a hint for sizing jobs.
 </td>
 </tr>
 </table>
@@ -2868,7 +2868,7 @@ The internal <code>removeExecutor</code> is called as part of <a href="#statusUp
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>submitTasks</code> is part of the <a href="spark-scheduler-TaskScheduler.html#submitTasks" class="page">TaskScheduler Contract</a> to submit the tasks (of the given <a href="spark-scheduler-TaskSet.html" class="page">TaskSet</a>) for execution.
+<code>submitTasks</code> is part of the <a href="TaskScheduler.html#submitTasks" class="page">TaskScheduler Contract</a> to submit the tasks (of the given <a href="spark-scheduler-TaskSet.html" class="page">TaskSet</a>) for execution.
 </td>
 </tr>
 </table>
@@ -2950,7 +2950,7 @@ Not only could a task be retried (cf. <a href="#maxTaskFailures">acceptable numb
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <a href="spark-scheduler-TaskScheduler.adoc#rootPool">schedulable pool</a> can be a single flat linked queue (in <a href="spark-scheduler-FIFOSchedulableBuilder.adoc">FIFO scheduling mode</a>) or a hierarchy of pools of <code>Schedulables</code> (in <a href="spark-scheduler-FairSchedulableBuilder.adoc">FAIR scheduling mode</a>).
+The <a href="TaskScheduler.html#rootPool" class="page">schedulable pool</a> can be a single flat linked queue (in <a href="spark-scheduler-FIFOSchedulableBuilder.adoc">FIFO scheduling mode</a>) or a hierarchy of pools of <code>Schedulables</code> (in <a href="spark-scheduler-FairSchedulableBuilder.adoc">FAIR scheduling mode</a>).
 </td>
 </tr>
 </table>
@@ -3299,7 +3299,7 @@ FIXME Expand on blacklisting
 <div class="title">Figure 7. Internal Structures of resourceOffers with 5 WorkerOffers (with 4, 2, 0, 3, 2 free cores)</div>
 </div>
 <div class="paragraph">
-<p><code>resourceOffers</code> <a href="spark-scheduler-Pool.adoc#getSortedTaskSetQueue">takes <code>TaskSets</code> in scheduling order</a> from <a href="spark-scheduler-TaskScheduler.adoc#rootPool">top-level Schedulable Pool</a>.</p>
+<p><code>resourceOffers</code> <a href="spark-scheduler-Pool.adoc#getSortedTaskSetQueue">takes <code>TaskSets</code> in scheduling order</a> from <a href="TaskScheduler.html#rootPool" class="page">top-level Schedulable Pool</a>.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -3318,7 +3318,7 @@ FIXME Expand on blacklisting
 <p><code>rootPool</code> is configured when <a href="#initialize"><code>TaskSchedulerImpl</code> is initialized</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>rootPool</code> is part of the <a href="spark-scheduler-TaskScheduler.adoc#rootPool">TaskScheduler Contract</a> and exclusively managed by <a href="spark-scheduler-SchedulableBuilder.adoc">SchedulableBuilders</a>, i.e. <a href="spark-scheduler-FIFOSchedulableBuilder.adoc">FIFOSchedulableBuilder</a> and <a href="spark-scheduler-FairSchedulableBuilder.adoc">FairSchedulableBuilder</a> (that  <a href="spark-scheduler-SchedulableBuilder.adoc#addTaskSetManager">manage registering TaskSetManagers with the root pool</a>).</p>
+<p><code>rootPool</code> is part of the <a href="TaskScheduler.html#rootPool" class="page">TaskScheduler Contract</a> and exclusively managed by <a href="spark-scheduler-SchedulableBuilder.adoc">SchedulableBuilders</a>, i.e. <a href="spark-scheduler-FIFOSchedulableBuilder.adoc">FIFOSchedulableBuilder</a> and <a href="spark-scheduler-FairSchedulableBuilder.adoc">FairSchedulableBuilder</a> (that  <a href="spark-scheduler-SchedulableBuilder.adoc#addTaskSetManager">manage registering TaskSetManagers with the root pool</a>).</p>
 </div>
 <div class="paragraph">
 <p><a href="spark-scheduler-TaskSetManager.adoc">TaskSetManager</a> manages execution of the tasks in a single <a href="spark-scheduler-TaskSet.adoc">TaskSet</a> that represents a single <a href="spark-scheduler-Stage.adoc">Stage</a>.</p>
@@ -3513,7 +3513,7 @@ A <code>TaskSetManager</code> <a href="spark-scheduler-TaskSetManager.adoc##comp
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>workerRemoved</code> is part of the <a href="spark-scheduler-TaskScheduler.html#workerRemoved" class="page">TaskScheduler Contract</a> to&#8230;&#8203;FIXME.
+<code>workerRemoved</code> is part of the <a href="TaskScheduler.html#workerRemoved" class="page">TaskScheduler Contract</a>.
 </td>
 </tr>
 </table>

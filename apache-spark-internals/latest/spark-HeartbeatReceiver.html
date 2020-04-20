@@ -88,7 +88,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskScheduler.html">TaskScheduler</a>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
@@ -1846,7 +1846,7 @@
 <p><code>HeartbeatReceiver</code> is a <a href="spark-rpc.adoc#ThreadSafeRpcEndpoint">ThreadSafeRpcEndpoint</a> registered on the driver under the name <strong>HeartbeatReceiver</strong>.</p>
 </div>
 <div class="paragraph">
-<p><code>HeartbeatReceiver</code> receives <a href="#Heartbeat">Heartbeat</a> messages from executors that Spark uses as the mechanism to receive accumulator updates (with task metrics and a Spark application&#8217;s accumulators) and <a href="spark-scheduler-TaskScheduler.adoc#executorHeartbeatReceived">pass them along to <code>TaskScheduler</code></a>.</p>
+<p><code>HeartbeatReceiver</code> receives <a href="#Heartbeat">Heartbeat</a> messages from executors that Spark uses as the mechanism to receive accumulator updates (with task metrics and a Spark application&#8217;s accumulators) and <a href="scheduler/TaskScheduler.html#executorHeartbeatReceived" class="page">pass them along to <code>TaskScheduler</code></a>.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1923,7 +1923,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="scheduler"></a> <code>scheduler</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-scheduler-TaskScheduler.adoc">TaskScheduler</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -2053,7 +2053,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p><a href="spark-scheduler-TaskScheduler.adoc#executorLost">TaskScheduler.executorLost</a> is called (with <code>SlaveLost("Executor heartbeat timed out after [timeout] ms"</code>).</p>
+<p><a href="scheduler/TaskScheduler.html#executorLost" class="page">TaskScheduler.executorLost</a> is called (with <code>SlaveLost("Executor heartbeat timed out after [timeout] ms"</code>).</p>
 </div>
 <div class="paragraph">
 <p><code>SparkContext.killAndReplaceExecutor</code> is asynchronously called for the executor (i.e. on <a href="#killExecutorThread">killExecutorThread</a>).</p>
@@ -2090,7 +2090,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p><code>HeartbeatReceiver</code> then submits an asynchronous task to notify <code>TaskScheduler</code> that the <a href="spark-scheduler-TaskScheduler.adoc#executorHeartbeatReceived">heartbeat was received from the executor</a> (using <a href="#scheduler">TaskScheduler</a> internal reference). <code>HeartbeatReceiver</code> posts a <code>HeartbeatResponse</code> back to the executor (with the response from <code>TaskScheduler</code> whether the executor has been registered already or not so it may eventually need to re-register).</p>
+<p><code>HeartbeatReceiver</code> then submits an asynchronous task to notify <code>TaskScheduler</code> that the <a href="scheduler/TaskScheduler.html#executorHeartbeatReceived" class="page">heartbeat was received from the executor</a> (using <a href="#scheduler">TaskScheduler</a> internal reference). <code>HeartbeatReceiver</code> posts a <code>HeartbeatResponse</code> back to the executor (with the response from <code>TaskScheduler</code> whether the executor has been registered already or not so it may eventually need to re-register).</p>
 </div>
 <div class="paragraph">
 <p>If however the executor was not found (in <a href="#executorLastSeen">executorLastSeen</a> registry), i.e. the executor was not registered before, you should see the following DEBUG message in the logs and the response is to notify the executor to re-register.</p>

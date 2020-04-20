@@ -88,7 +88,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-TaskScheduler.html">TaskScheduler</a>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
@@ -1845,10 +1845,10 @@
 <p><strong>Scheduling Mode</strong> (aka <em>order task policy</em> or <em>scheduling policy</em> or <em>scheduling order</em>) defines a policy to sort tasks in order for execution.</p>
 </div>
 <div class="paragraph">
-<p>The scheduling mode <code>schedulingMode</code> attribute is part of the <a href="spark-scheduler-TaskScheduler.adoc#schedulingMode">TaskScheduler Contract</a>.</p>
+<p>The scheduling mode <code>schedulingMode</code> attribute is part of the <a href="TaskScheduler.html#schedulingMode" class="page">TaskScheduler Contract</a>.</p>
 </div>
 <div class="paragraph">
-<p>The only implementation of the <code>TaskScheduler</code> contract in Spark&#8201;&#8212;&#8201;<a href="spark-scheduler-TaskSchedulerImpl.adoc">TaskSchedulerImpl</a>&#8201;&#8212;&#8201;uses <a href="spark-configuration-properties.adoc#spark.scheduler.mode">spark.scheduler.mode</a> setting to configure <code>schedulingMode</code> that is <em>merely</em> used to set up the <a href="spark-scheduler-TaskScheduler.adoc#rootPool">rootPool</a> attribute (with <code>FIFO</code> being the default). It happens when <a href="spark-scheduler-TaskSchedulerImpl.adoc#initialize"><code>TaskSchedulerImpl</code> is initialized</a>.</p>
+<p>The only implementation of the <code>TaskScheduler</code> contract in Spark&#8201;&#8212;&#8201;<a href="spark-scheduler-TaskSchedulerImpl.adoc">TaskSchedulerImpl</a>&#8201;&#8212;&#8201;uses <a href="spark-configuration-properties.adoc#spark.scheduler.mode">spark.scheduler.mode</a> setting to configure <code>schedulingMode</code> that is <em>merely</em> used to set up the <a href="TaskScheduler.html#rootPool" class="page">rootPool</a> attribute (with <code>FIFO</code> being the default). It happens when <a href="spark-scheduler-TaskSchedulerImpl.adoc#initialize"><code>TaskSchedulerImpl</code> is initialized</a>.</p>
 </div>
 <div class="paragraph">
 <p>There are three acceptable scheduling modes:</p>
@@ -1859,7 +1859,7 @@
 <p><a id="FIFO"></a> <code>FIFO</code> with no pools but a single top-level unnamed pool with elements being <a href="spark-scheduler-TaskSetManager.adoc">TaskSetManager</a> objects; lower priority gets <a href="spark-scheduler-Schedulable.adoc">Schedulable</a> sooner or earlier stage wins.</p>
 </li>
 <li>
-<p><a id="FAIR"></a> <code>FAIR</code> with a <a href="spark-scheduler-FairSchedulableBuilder.adoc#buildPools">hierarchy of <code>Schedulable</code> (sub)pools</a> with the <a href="spark-scheduler-TaskScheduler.adoc#rootPool">rootPool</a> at the top.</p>
+<p><a id="FAIR"></a> <code>FAIR</code> with a <a href="spark-scheduler-FairSchedulableBuilder.adoc#buildPools">hierarchy of <code>Schedulable</code> (sub)pools</a> with the <a href="TaskScheduler.html#rootPool" class="page">rootPool</a> at the top.</p>
 </li>
 <li>
 <p><a id="NONE"></a> <strong>NONE</strong> (not used)</p>
@@ -1902,7 +1902,7 @@ Out of three possible <code>SchedulingMode</code> policies only <code>FIFO</code
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <a href="spark-scheduler-TaskScheduler.adoc#rootPool">root pool</a> is a <code>Schedulable</code>. Refer to <a href="spark-scheduler-Schedulable.adoc">Schedulable</a>.
+The <a href="TaskScheduler.html#rootPool" class="page">root pool</a> is a <code>Schedulable</code>. Refer to <a href="spark-scheduler-Schedulable.adoc">Schedulable</a>.
 </td>
 </tr>
 </table>
