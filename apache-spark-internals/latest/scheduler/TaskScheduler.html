@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> TaskScheduler :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/scheduler/TaskScheduler.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -67,10 +67,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1830,7 +1824,6 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Low-Level Task Scheduler</li>
     <li><a href="TaskScheduler.html">TaskScheduler</a></li>
   </ul>
 </nav>
@@ -1838,11 +1831,11 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="taskscheduler-contractspark-schedulers"><a class="anchor" href="#taskscheduler-contractspark-schedulers"></a><a class="link" href="#taskscheduler-contractspark-schedulers"><a id="TaskScheduler"></a> TaskScheduler Contract&#8201;&#8212;&#8201;Spark Schedulers</a></h2>
+<h1 class="page"><a id="TaskScheduler"></a> TaskScheduler</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>TaskScheduler</code> is the <a href="#contract">abstraction</a> of <a href="#implementations">Spark schedulers</a> that can <a href="#submitTasks">submit tasks for execution</a> in a Spark application (per <a href="#schedulingMode">scheduling policy</a>).</p>
+<p><strong>TaskScheduler</strong> is an abstraction of <a href="#implementations">Spark schedulers</a> that can <a href="#submitTasks">submit tasks for execution</a> in a Spark application (per <a href="#schedulingMode">scheduling policy</a>).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1857,19 +1850,23 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>TaskScheduler</code> works closely with <a href="spark-scheduler-DAGScheduler.adoc">DAGScheduler</a> that <a href="#submitTasks">submits sets of tasks for execution</a> (for every stage in a Spark job).
+TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" class="page">DAGScheduler</a> that <a href="#submitTasks">submits sets of tasks for execution</a> (for every stage in a Spark job).
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>TaskScheduler</code> can track the executors available in a Spark application using <a href="#executorHeartbeatReceived">executorHeartbeatReceived</a> and <a href="#executorLost">executorLost</a> interceptors (that inform about active and lost executors, respectively).</p>
+<p>TaskScheduler can track the executors available in a Spark application using <a href="#executorHeartbeatReceived">executorHeartbeatReceived</a> and <a href="#executorLost">executorLost</a> interceptors (that inform about active and lost executors, respectively).</p>
 </div>
-<table id="contract" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. TaskScheduler Contract (Abstract Methods Only)</caption>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contract"><a class="anchor" href="#contract"></a><a class="link" href="#contract"><a id="contract"></a> Contract</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
+<col style="width: 30%;">
+<col style="width: 70%;">
 </colgroup>
 <thead>
 <tr>
@@ -1889,7 +1886,7 @@
 <p><strong>Unique identifier of an (execution) attempt</strong> of the Spark application</p>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>SparkContext</code> is <a href="#spark-SparkContext-creating-instance-internals.adoc#_applicationAttemptId" class="page unresolved">created</a></p>
+<p>Used when <code>SparkContext</code> is <a href="../spark-SparkContext-creating-instance-internals.html#_applicationAttemptId" class="page">created</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -1902,10 +1899,10 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Cancels all the tasks of a given <a href="#spark-scheduler-Stage.adoc" class="page unresolved">stage</a></p>
+<p>Cancels all the tasks of a given <a href="../spark-scheduler-Stage.html" class="page">stage</a></p>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>DAGScheduler</code> is requested to <a href="#spark-scheduler-DAGScheduler.adoc#failJobAndIndependentStages" class="page unresolved">failJobAndIndependentStages</a></p>
+<p>Used when <code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#failJobAndIndependentStages" class="page">failJobAndIndependentStages</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -1919,7 +1916,7 @@
 <p><strong>Default level of parallelism</strong></p>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>SparkContext</code> is requested for the <a href="#spark-SparkContext.adoc#defaultParallelism" class="page unresolved">default level of parallelism</a></p>
+<p>Used when <code>SparkContext</code> is requested for the <a href="../spark-SparkContext.html#defaultParallelism" class="page">default level of parallelism</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -1936,10 +1933,10 @@
 <p>Handles heartbeats (with task metrics) from executors</p>
 </div>
 <div class="paragraph">
-<p>Expected to return <code>true</code> when the executor <code>execId</code> is managed by the <code>TaskScheduler</code>. <code>false</code> indicates that the <a href="spark-Executor.adoc#reportHeartBeat">block manager (on the executor) should re-register</a>.</p>
+<p>Expected to return <code>true</code> when the executor <code>execId</code> is managed by the TaskScheduler. <code>false</code> indicates that the <a href="../spark-Executor.html#reportHeartBeat" class="page">block manager (on the executor) should re-register</a>.</p>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>HeartbeatReceiver</code> RPC endpoint is requested to <a href="spark-HeartbeatReceiver.adoc#Heartbeat">handle a Heartbeat and task metrics from an executor</a></p>
+<p>Used when <code>HeartbeatReceiver</code> RPC endpoint is requested to <a href="../spark-HeartbeatReceiver.html#Heartbeat" class="page">handle a Heartbeat and task metrics from an executor</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -1960,10 +1957,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>HeartbeatReceiver</code> RPC endpoint is requested to <a href="spark-HeartbeatReceiver.adoc#expireDeadHosts">expireDeadHosts</a></p>
+<p><code>HeartbeatReceiver</code> RPC endpoint is requested to <a href="../spark-HeartbeatReceiver.html#expireDeadHosts" class="page">expireDeadHosts</a></p>
 </li>
 <li>
-<p><code>DriverEndpoint</code> RPC endpoint is requested to <a href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.adoc#removeExecutor">removes</a> (<em>forgets</em>) and <a href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.adoc#disableExecutor">disables</a> a malfunctioning executor (i.e. either lost or blacklisted for some reason)</p>
+<p><code>DriverEndpoint</code> RPC endpoint is requested to <a href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html#removeExecutor" class="page">removes</a> (<em>forgets</em>) and <a href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html#disableExecutor" class="page">disables</a> a malfunctioning executor (i.e. either lost or blacklisted for some reason)</p>
 </li>
 <li>
 <p>Spark on Mesos' <code>MesosFineGrainedSchedulerBackend</code> is requested to <code>recordSlaveLost</code></p>
@@ -1987,10 +1984,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>DAGScheduler</code> is requested to <a href="#spark-scheduler-DAGScheduler.adoc#handleTaskCompletion" class="page unresolved">handleTaskCompletion</a></p>
+<p><code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a></p>
 </li>
 <li>
-<p><code>TaskSchedulerImpl</code> is requested to <a href="spark-scheduler-TaskSchedulerImpl.html#cancelTasks" class="page">cancel all the tasks of a stage</a></p>
+<p><code>TaskSchedulerImpl</code> is requested to <a href="TaskSchedulerImpl.html#cancelTasks" class="page">cancel all the tasks of a stage</a></p>
 </li>
 </ul>
 </div></div></td>
@@ -2006,7 +2003,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>DAGScheduler</code> is requested to <a href="#spark-scheduler-DAGScheduler.adoc#killTaskAttempt" class="page unresolved">killTaskAttempt</a></p>
+<p>Used when <code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#killTaskAttempt" class="page">killTaskAttempt</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2017,7 +2014,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Top-level (root) <a href="spark-scheduler-Pool.adoc">schedulable pool</a></p>
+<p>Top-level (root) <a href="spark-scheduler-Pool.html" class="page">schedulable pool</a></p>
 </div>
 <div class="paragraph">
 <p>Used when:</p>
@@ -2025,13 +2022,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>TaskSchedulerImpl</code> is requested to <a href="spark-scheduler-TaskSchedulerImpl.html#initialize" class="page">initialize</a></p>
+<p><code>TaskSchedulerImpl</code> is requested to <a href="TaskSchedulerImpl.html#initialize" class="page">initialize</a></p>
 </li>
 <li>
-<p><code>SparkContext</code> is requested to <a href="#spark-SparkContext.adoc#getAllPools" class="page unresolved">getAllPools</a> and <a href="#spark-SparkContext.adoc#getPoolForName" class="page unresolved">getPoolForName</a></p>
+<p><code>SparkContext</code> is requested to <a href="../spark-SparkContext.html#getAllPools" class="page">getAllPools</a> and <a href="../spark-SparkContext.html#getPoolForName" class="page">getPoolForName</a></p>
 </li>
 <li>
-<p><code>TaskSchedulerImpl</code> is requested to <a href="spark-scheduler-TaskSchedulerImpl.html#resourceOffers" class="page">resourceOffers</a>, <a href="spark-scheduler-TaskSchedulerImpl.html#checkSpeculatableTasks" class="page">checkSpeculatableTasks</a>, and <a href="spark-scheduler-TaskSchedulerImpl.html#removeExecutor" class="page">removeExecutor</a></p>
+<p><code>TaskSchedulerImpl</code> is requested to <a href="TaskSchedulerImpl.html#resourceOffers" class="page">resourceOffers</a>, <a href="TaskSchedulerImpl.html#checkSpeculatableTasks" class="page">checkSpeculatableTasks</a>, and <a href="TaskSchedulerImpl.html#removeExecutor" class="page">removeExecutor</a></p>
 </li>
 </ul>
 </div></div></td>
@@ -2052,10 +2049,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>TaskSchedulerImpl</code> is <a href="spark-scheduler-TaskSchedulerImpl.html#rootPool" class="page">created</a> and <a href="spark-scheduler-TaskSchedulerImpl.html#initialize" class="page">initialized</a></p>
+<p><code>TaskSchedulerImpl</code> is <a href="TaskSchedulerImpl.html#rootPool" class="page">created</a> and <a href="TaskSchedulerImpl.html#initialize" class="page">initialized</a></p>
 </li>
 <li>
-<p><code>SparkContext</code> is requested to <a href="#spark-SparkContext.adoc#getSchedulingMode" class="page unresolved">getSchedulingMode</a></p>
+<p><code>SparkContext</code> is requested to <a href="../spark-SparkContext.html#getSchedulingMode" class="page">getSchedulingMode</a></p>
 </li>
 </ul>
 </div></div></td>
@@ -2068,10 +2065,10 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Associates a <a href="spark-scheduler-DAGScheduler.adoc">DAGScheduler</a></p>
+<p>Associates a <a href="../spark-scheduler-DAGScheduler.html" class="page">DAGScheduler</a></p>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>DAGScheduler</code> is <a href="spark-scheduler-DAGScheduler.adoc#creating-instance">created</a></p>
+<p>Used when <code>DAGScheduler</code> is <a href="../spark-scheduler-DAGScheduler.html#creating-instance" class="page">created</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2082,10 +2079,10 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Starts the <code>TaskScheduler</code></p>
+<p>Starts the TaskScheduler</p>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>SparkContext</code> is <a href="spark-SparkContext-creating-instance-internals.adoc#taskScheduler-start">created</a></p>
+<p>Used when <code>SparkContext</code> is <a href="../spark-SparkContext-creating-instance-internals.html#taskScheduler-start" class="page">created</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2096,10 +2093,10 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Stops the <code>TaskScheduler</code></p>
+<p>Stops the TaskScheduler</p>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>DAGScheduler</code> is requested to <a href="spark-scheduler-DAGScheduler.adoc#stop">stop</a></p>
+<p>Used when <code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#stop" class="page">stop</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2110,10 +2107,10 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Submits the tasks (of the given <a href="spark-scheduler-TaskSet.html" class="page">TaskSet</a>) for execution</p>
+<p>Submits the tasks (of the given <a href="TaskSet.html" class="page">TaskSet</a>) for execution</p>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>DAGScheduler</code> is requested to <a href="spark-scheduler-DAGScheduler.adoc#submitMissingTasks">submit missing tasks (of a stage)</a></p>
+<p>Used when <code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#submitMissingTasks" class="page">submit missing tasks (of a stage)</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2127,16 +2124,20 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>DriverEndpoint</code> is requested to <a href="#spark-CoarseGrainedSchedulerBackend-DriverEndpoint.adoc#removeWorker" class="page unresolved">handle a RemoveWorker event</a></p>
+<p>Used exclusively when <code>DriverEndpoint</code> is requested to <a href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html#removeWorker" class="page">handle a RemoveWorker event</a></p>
 </div></div></td>
 </tr>
 </tbody>
 </table>
-<table id="implementations" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. TaskSchedulers (All Available Implementations)</caption>
+</div>
+</div>
+<div class="sect1">
+<h2 id="taskschedulers"><a class="anchor" href="#taskschedulers"></a><a class="link" href="#taskschedulers"><a id="implementations"></a> TaskSchedulers</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
+<col style="width: 30%;">
+<col style="width: 70%;">
 </colgroup>
 <thead>
 <tr>
@@ -2146,21 +2147,80 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-scheduler-TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TaskSchedulerImpl"></a> Default Spark scheduler</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#yarn/spark-yarn-yarnscheduler.adoc" class="page unresolved">YarnScheduler</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="YarnScheduler"></a> TaskScheduler for <a href="#spark-submit.adoc#deploy-mode" class="page unresolved">client</a> deploy mode in <a href="#yarn/README.adoc" class="page unresolved">Spark on YARN</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../spark-on-yarn/spark-yarn-yarnscheduler.html" class="page">YarnScheduler</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="YarnScheduler"></a> TaskScheduler for <a href="../tools/spark-submit.html#deploy-mode" class="page">client</a> deploy mode in <a href="../spark-on-yarn/index.html" class="page">Spark on YARN</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#yarn/spark-yarn-yarnclusterscheduler.adoc" class="page unresolved">YarnClusterScheduler</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="YarnClusterScheduler"></a> TaskScheduler for <a href="#spark-submit.adoc#deploy-mode" class="page unresolved">cluster</a> deploy mode in <a href="#yarn/README.adoc" class="page unresolved">Spark on YARN</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../spark-on-yarn/spark-yarn-yarnclusterscheduler.html" class="page">YarnClusterScheduler</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="YarnClusterScheduler"></a> TaskScheduler for <a href="../tools/spark-submit.html#deploy-mode" class="page">cluster</a> deploy mode in <a href="../spark-on-yarn/index.html" class="page">Spark on YARN</a></p></td>
 </tr>
 </tbody>
 </table>
-<div class="sect2">
-<h3 id="post-start-initializationpoststarthook-method"><a class="anchor" href="#post-start-initializationpoststarthook-method"></a><a class="link" href="#post-start-initializationpoststarthook-method"><a id="postStartHook"></a> Post-Start Initialization&#8201;&#8212;&#8201;<code>postStartHook</code> Method</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="lifecycle"><a class="anchor" href="#lifecycle"></a><a class="link" href="#lifecycle"><a id="lifecycle"></a> Lifecycle</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A TaskScheduler is created while <a href="../spark-SparkContext.html#creating-instance" class="page">SparkContext is being created</a> (by calling <a href="../spark-SparkContext.html#createTaskScheduler" class="page">SparkContext.createTaskScheduler</a> for a given <a href="../spark-deployment-environments.html" class="page">master URL</a> and <a href="../tools/spark-submit.html#deploy-mode" class="page">deploy mode</a>).</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/taskscheduler-uses-schedulerbackend.png" alt="taskscheduler uses schedulerbackend">
+</div>
+<div class="title">Figure 2. TaskScheduler uses SchedulerBackend to support different clusters</div>
+</div>
+<div class="paragraph">
+<p>At this point in SparkContext&#8217;s lifecycle, the internal <code>_taskScheduler</code> points at the TaskScheduler (and it is "announced" by sending a blocking <a href="../spark-HeartbeatReceiver.html#TaskSchedulerIsSet" class="page"><code>TaskSchedulerIsSet</code> message to HeartbeatReceiver RPC endpoint</a>).</p>
+</div>
+<div class="paragraph">
+<p>The <a href="#start">TaskScheduler is started</a> right after the blocking <code>TaskSchedulerIsSet</code> message receives a response.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="#applicationId">application ID</a> and the <a href="#applicationAttemptId">application&#8217;s attempt ID</a> are set at this point (and <code>SparkContext</code> uses the application id to set <a href="../spark-SparkConf.html#spark.app.id" class="page">spark.app.id</a> Spark property, and configure <a href="../webui/spark-webui-SparkUI.html" class="page">SparkUI</a>, and <a href="../storage/BlockManager.html" class="page">BlockManager</a>).</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME The application id is described as "associated with the job." in TaskScheduler, but I think it is "associated with the application" and you can have many jobs per application.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Right before SparkContext is fully initialized, <a href="#postStartHook">TaskScheduler.postStartHook</a> is called.</p>
+</div>
+<div class="paragraph">
+<p>The internal <code>_taskScheduler</code> is cleared (i.e. set to <code>null</code>) while <a href="../spark-SparkContext.html#stop" class="page">SparkContext is being stopped</a>.</p>
+</div>
+<div class="paragraph">
+<p><a href="#stop">TaskScheduler is stopped</a> while <a href="../spark-scheduler-DAGScheduler.html#stop" class="page">DAGScheduler is being stopped</a>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+FIXME If it is SparkContext to start a TaskScheduler, shouldn&#8217;t SparkContext stop it too? Why is this the way it is now?
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="post-start-initialization"><a class="anchor" href="#post-start-initialization"></a><a class="link" href="#post-start-initialization"><a id="postStartHook"></a> Post-Start Initialization</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">postStartHook(): Unit</code></pre>
@@ -2182,10 +2242,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>SparkContext</code> is <a href="spark-SparkContext-creating-instance-internals.adoc#postStartHook">created</a> (right before considered fully initialized)</p>
+<p><code>SparkContext</code> is <a href="../spark-SparkContext-creating-instance-internals.html#postStartHook" class="page">created</a> (right before considered fully initialized)</p>
 </li>
 <li>
-<p>Spark on YARN&#8217;s <code>YarnClusterScheduler</code> is requested to <a href="#yarn/spark-yarn-yarnclusterscheduler.adoc#postStartHook" class="page unresolved">postStartHook</a></p>
+<p>Spark on YARN&#8217;s <code>YarnClusterScheduler</code> is requested to <a href="../spark-on-yarn/spark-yarn-yarnclusterscheduler.html#postStartHook" class="page">postStartHook</a></p>
 </li>
 </ul>
 </div>
@@ -2194,8 +2254,10 @@
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="unique-identifier-of-spark-applicationapplicationid-method"><a class="anchor" href="#unique-identifier-of-spark-applicationapplicationid-method"></a><a class="link" href="#unique-identifier-of-spark-applicationapplicationid-method"><a id="applicationId"></a><a id="appId"></a> Unique Identifier of Spark Application&#8201;&#8212;&#8201;<code>applicationId</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="unique-identifier-of-spark-application"><a class="anchor" href="#unique-identifier-of-spark-application"></a><a class="link" href="#unique-identifier-of-spark-application"><a id="applicationId"></a><a id="appId"></a> Unique Identifier of Spark Application</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">applicationId(): String</code></pre>
@@ -2211,65 +2273,10 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>applicationId</code> is used exclusively when <code>SparkContext</code> is <a href="spark-SparkContext-creating-instance-internals.adoc#_applicationId">created</a>.
+<code>applicationId</code> is used when <code>SparkContext</code> is <a href="../spark-SparkContext-creating-instance-internals.html#_applicationId" class="page">created</a>.
 </td>
 </tr>
 </table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="taskschedulers-lifecycle"><a class="anchor" href="#taskschedulers-lifecycle"></a><a class="link" href="#taskschedulers-lifecycle"><a id="lifecycle"></a> TaskScheduler&#8217;s Lifecycle</a></h3>
-<div class="paragraph">
-<p>A <code>TaskScheduler</code> is created while <a href="spark-SparkContext.adoc#creating-instance">SparkContext is being created</a> (by calling <a href="spark-SparkContext.adoc#createTaskScheduler">SparkContext.createTaskScheduler</a> for a given <a href="spark-deployment-environments.adoc">master URL</a> and <a href="spark-submit.adoc#deploy-mode">deploy mode</a>).</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/diagrams/taskscheduler-uses-schedulerbackend.png" alt="taskscheduler uses schedulerbackend">
-</div>
-<div class="title">Figure 2. TaskScheduler uses SchedulerBackend to support different clusters</div>
-</div>
-<div class="paragraph">
-<p>At this point in SparkContext&#8217;s lifecycle, the internal <code>_taskScheduler</code> points at the <code>TaskScheduler</code> (and it is "announced" by sending a blocking <a href="spark-HeartbeatReceiver.adoc#TaskSchedulerIsSet"><code>TaskSchedulerIsSet</code> message to HeartbeatReceiver RPC endpoint</a>).</p>
-</div>
-<div class="paragraph">
-<p>The <a href="#start">TaskScheduler is started</a> right after the blocking <code>TaskSchedulerIsSet</code> message receives a response.</p>
-</div>
-<div class="paragraph">
-<p>The <a href="#applicationId">application ID</a> and the <a href="#applicationAttemptId">application&#8217;s attempt ID</a> are set at this point (and <code>SparkContext</code> uses the application id to set <a href="spark-SparkConf.adoc#spark.app.id">spark.app.id</a> Spark property, and configure <a href="spark-webui-SparkUI.adoc">SparkUI</a>, and <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>).</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME The application id is described as "associated with the job." in TaskScheduler, but I think it is "associated with the application" and you can have many jobs per application.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Right before SparkContext is fully initialized, <a href="#postStartHook">TaskScheduler.postStartHook</a> is called.</p>
-</div>
-<div class="paragraph">
-<p>The internal <code>_taskScheduler</code> is cleared (i.e. set to <code>null</code>) while <a href="spark-SparkContext.adoc#stop">SparkContext is being stopped</a>.</p>
-</div>
-<div class="paragraph">
-<p><a href="#stop">TaskScheduler is stopped</a> while <a href="spark-scheduler-DAGScheduler.adoc#stop">DAGScheduler is being stopped</a>.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-FIXME If it is SparkContext to start a TaskScheduler, shouldn&#8217;t SparkContext stop it too? Why is this the way it is now?
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 </div>

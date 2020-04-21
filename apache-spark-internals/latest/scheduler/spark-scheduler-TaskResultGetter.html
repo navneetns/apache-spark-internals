@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1830,7 +1824,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Low-Level Task Scheduler</li>
+    <li><a href="TaskScheduler.html">TaskScheduler</a></li>
     <li><a href="spark-scheduler-TaskResultGetter.html">TaskResultGetter</a></li>
   </ul>
 </nav>
@@ -1842,7 +1836,7 @@
 <h2 id="taskresultgetter"><a class="anchor" href="#taskresultgetter"></a><a class="link" href="#taskresultgetter"><a id="TaskResultGetter"></a> TaskResultGetter</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>TaskResultGetter</code> is a helper class of <a href="spark-scheduler-TaskSchedulerImpl.adoc#statusUpdate">TaskSchedulerImpl</a> for <em>asynchronous</em> deserialization of <a href="#enqueueSuccessfulTask">task results of tasks that have finished successfully</a> (possibly fetching remote blocks) or <a href="#enqueueFailedTask">the failures for failed tasks</a>.</p>
+<p><code>TaskResultGetter</code> is a helper class of <a href="TaskSchedulerImpl.html#statusUpdate" class="page">TaskSchedulerImpl</a> for <em>asynchronous</em> deserialization of <a href="#enqueueSuccessfulTask">task results of tasks that have finished successfully</a> (possibly fetching remote blocks) or <a href="#enqueueFailedTask">the failures for failed tasks</a>.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -1875,13 +1869,13 @@ Consult <a href="Task.html#states" class="page">Task States</a> in Tasks to lear
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The only instance of <code>TaskResultGetter</code> is created while <a href="spark-scheduler-TaskSchedulerImpl.adoc#creating-instance"><code>TaskSchedulerImpl</code> is created</a>.
+The only instance of <code>TaskResultGetter</code> is created while <a href="TaskSchedulerImpl.html#creating-instance" class="page"><code>TaskSchedulerImpl</code> is created</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>TaskResultGetter</code> requires a <a href="spark-SparkEnv.adoc">SparkEnv</a> and <a href="spark-scheduler-TaskSchedulerImpl.adoc">TaskSchedulerImpl</a> to be created and is stopped when <a href="spark-scheduler-TaskSchedulerImpl.adoc#stop"><code>TaskSchedulerImpl</code> stops</a>.</p>
+<p><code>TaskResultGetter</code> requires a <a href="spark-SparkEnv.adoc">SparkEnv</a> and <a href="TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a> to be created and is stopped when <a href="TaskSchedulerImpl.html#stop" class="page"><code>TaskSchedulerImpl</code> stops</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>TaskResultGetter</code> uses <a href="#task-result-getter"><code>task-result-getter</code> asynchronous task executor</a> for operation.</p>
@@ -2008,7 +2002,7 @@ Read up on <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurre
 </div>
 </div>
 <div class="paragraph">
-<p><code>enqueueSuccessfulTask</code> submits an asynchronous task (to <a href="#getTaskResultExecutor">task-result-getter</a> asynchronous task executor) that first deserializes <code>serializedData</code> to a <code>DirectTaskResult</code>, then updates the internal accumulator (with the size of the <code>DirectTaskResult</code>) and ultimately notifies the <code>TaskSchedulerImpl</code> that the <code>tid</code> task was completed and <a href="spark-scheduler-TaskSchedulerImpl.adoc#handleSuccessfulTask">the task result was received successfully</a> or <a href="spark-scheduler-TaskSchedulerImpl.adoc#handleFailedTask">not</a>.</p>
+<p><code>enqueueSuccessfulTask</code> submits an asynchronous task (to <a href="#getTaskResultExecutor">task-result-getter</a> asynchronous task executor) that first deserializes <code>serializedData</code> to a <code>DirectTaskResult</code>, then updates the internal accumulator (with the size of the <code>DirectTaskResult</code>) and ultimately notifies the <code>TaskSchedulerImpl</code> that the <code>tid</code> task was completed and <a href="TaskSchedulerImpl.html#handleSuccessfulTask" class="page">the task result was received successfully</a> or <a href="TaskSchedulerImpl.html#handleFailedTask" class="page">not</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2029,7 +2023,7 @@ Read up on <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurre
 <p>The <a href="spark-scheduler-TaskResult.adoc">TaskResult</a> could be a <a href="spark-scheduler-TaskResult.adoc#DirectTaskResult">DirectTaskResult</a> or a <a href="spark-scheduler-TaskResult.adoc#IndirectTaskResult">IndirectTaskResult</a>.</p>
 </div>
 <div class="paragraph">
-<p>For a <a href="spark-scheduler-TaskResult.adoc#DirectTaskResult">DirectTaskResult</a>, the task <a href="spark-scheduler-TaskSetManager.adoc#canFetchMoreResults">checks the available memory for the task result</a> and, when the size overflows <a href="spark-configuration-properties.adoc#spark.driver.maxResultSize">spark.driver.maxResultSize</a>, it simply returns.</p>
+<p>For a <a href="spark-scheduler-TaskResult.adoc#DirectTaskResult">DirectTaskResult</a>, the task <a href="TaskSetManager.html#canFetchMoreResults" class="page">checks the available memory for the task result</a> and, when the size overflows <a href="spark-configuration-properties.adoc#spark.driver.maxResultSize">spark.driver.maxResultSize</a>, it simply returns.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2038,7 +2032,7 @@ Read up on <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurre
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>enqueueSuccessfulTask</code> is a mere thread so returning from a thread is to do nothing else. That is why the <a href="spark-scheduler-TaskSetManager.adoc#canFetchMoreResults">check for quota does abort</a> when there is not enough memory.
+<code>enqueueSuccessfulTask</code> is a mere thread so returning from a thread is to do nothing else. That is why the <a href="TaskSetManager.html#canFetchMoreResults" class="page">check for quota does abort</a> when there is not enough memory.
 </td>
 </tr>
 </table>
@@ -2058,10 +2052,10 @@ Read up on <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurre
 </div>
 </div>
 <div class="paragraph">
-<p>The task <a href="spark-scheduler-TaskSchedulerImpl.adoc#handleTaskGettingResult">notifies <code>TaskSchedulerImpl</code> that it is about to fetch a remote block for a task result</a>. It then <a href="#ROOT:BlockManager.adoc#getRemoteBytes" class="page unresolved">gets the block from remote block managers (as serialized bytes)</a>.</p>
+<p>The task <a href="TaskSchedulerImpl.html#handleTaskGettingResult" class="page">notifies <code>TaskSchedulerImpl</code> that it is about to fetch a remote block for a task result</a>. It then <a href="#ROOT:BlockManager.adoc#getRemoteBytes" class="page unresolved">gets the block from remote block managers (as serialized bytes)</a>.</p>
 </div>
 <div class="paragraph">
-<p>When the block could not be fetched, <a href="spark-scheduler-TaskSchedulerImpl.adoc#handleFailedTask"><code>TaskSchedulerImpl</code> is informed</a> (with <code>TaskResultLost</code> task failure reason) and the task simply returns.</p>
+<p>When the block could not be fetched, <a href="TaskSchedulerImpl.html#handleFailedTask" class="page"><code>TaskSchedulerImpl</code> is informed</a> (with <code>TaskResultLost</code> task failure reason) and the task simply returns.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2070,7 +2064,7 @@ Read up on <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurre
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>enqueueSuccessfulTask</code> is a mere thread so returning from a thread is to do nothing else and so the real handling is when <a href="spark-scheduler-TaskSchedulerImpl.adoc#handleFailedTask"><code>TaskSchedulerImpl</code> is informed</a>.
+<code>enqueueSuccessfulTask</code> is a mere thread so returning from a thread is to do nothing else and so the real handling is when <a href="TaskSchedulerImpl.html#handleFailedTask" class="page"><code>TaskSchedulerImpl</code> is informed</a>.
 </td>
 </tr>
 </table>
@@ -2091,10 +2085,10 @@ A <a href="spark-scheduler-TaskResult.adoc#IndirectTaskResult">IndirectTaskResul
 </table>
 </div>
 <div class="paragraph">
-<p>With no exceptions thrown, <code>enqueueSuccessfulTask</code> <a href="spark-scheduler-TaskSchedulerImpl.adoc#handleSuccessfulTask">informs the <code>TaskSchedulerImpl</code> that the <code>tid</code> task was completed and the task result was received</a>.</p>
+<p>With no exceptions thrown, <code>enqueueSuccessfulTask</code> <a href="TaskSchedulerImpl.html#handleSuccessfulTask" class="page">informs the <code>TaskSchedulerImpl</code> that the <code>tid</code> task was completed and the task result was received</a>.</p>
 </div>
 <div class="paragraph">
-<p>A <code>ClassNotFoundException</code> leads to <a href="spark-scheduler-TaskSetManager.adoc#abort">aborting the <code>TaskSet</code></a> (with <code>ClassNotFound with classloader: [loader]</code> error message) while any non-fatal exception shows the following ERROR message in the logs followed by <a href="spark-scheduler-TaskSetManager.adoc#abort">aborting the <code>TaskSet</code></a>.</p>
+<p>A <code>ClassNotFoundException</code> leads to <a href="TaskSetManager.html#abort" class="page">aborting the <code>TaskSet</code></a> (with <code>ClassNotFound with classloader: [loader]</code> error message) while any non-fatal exception shows the following ERROR message in the logs followed by <a href="TaskSetManager.html#abort" class="page">aborting the <code>TaskSet</code></a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2108,7 +2102,7 @@ A <a href="spark-scheduler-TaskResult.adoc#IndirectTaskResult">IndirectTaskResul
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>enqueueSuccessfulTask</code> is used exclusively when <code>TaskSchedulerImpl</code> is requested to  <a href="spark-scheduler-TaskSchedulerImpl.adoc#statusUpdate">handle a task status update</a> (and the task has finished successfully).
+<code>enqueueSuccessfulTask</code> is used exclusively when <code>TaskSchedulerImpl</code> is requested to  <a href="TaskSchedulerImpl.html#statusUpdate" class="page">handle a task status update</a> (and the task has finished successfully).
 </td>
 </tr>
 </table>
@@ -2126,7 +2120,7 @@ A <a href="spark-scheduler-TaskResult.adoc#IndirectTaskResult">IndirectTaskResul
 </div>
 </div>
 <div class="paragraph">
-<p><code>enqueueFailedTask</code> submits an asynchronous task (to <a href="#getTaskResultExecutor"><code>task-result-getter</code> asynchronous task executor</a>) that first attempts to deserialize a <code>TaskFailedReason</code> from <code>serializedData</code> (using the internal thread-local <a href="#serializer">serializer</a>) and then <a href="spark-scheduler-TaskSchedulerImpl.adoc#handleFailedTask">notifies <code>TaskSchedulerImpl</code> that the task has failed</a>.</p>
+<p><code>enqueueFailedTask</code> submits an asynchronous task (to <a href="#getTaskResultExecutor"><code>task-result-getter</code> asynchronous task executor</a>) that first attempts to deserialize a <code>TaskFailedReason</code> from <code>serializedData</code> (using the internal thread-local <a href="#serializer">serializer</a>) and then <a href="TaskSchedulerImpl.html#handleFailedTask" class="page">notifies <code>TaskSchedulerImpl</code> that the task has failed</a>.</p>
 </div>
 <div class="paragraph">
 <p>Any <code>ClassNotFoundException</code> leads to the following ERROR message in the logs (without breaking the flow of <code>enqueueFailedTask</code>):</p>
@@ -2143,7 +2137,7 @@ A <a href="spark-scheduler-TaskResult.adoc#IndirectTaskResult">IndirectTaskResul
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>enqueueFailedTask</code> is called when <a href="spark-scheduler-TaskSchedulerImpl.adoc#statusUpdate"><code>TaskSchedulerImpl</code> is notified about a task that has failed (and is in <code>FAILED</code>, <code>KILLED</code> or <code>LOST</code> state)</a>.
+<code>enqueueFailedTask</code> is called when <a href="TaskSchedulerImpl.html#statusUpdate" class="page"><code>TaskSchedulerImpl</code> is notified about a task that has failed (and is in <code>FAILED</code>, <code>KILLED</code> or <code>LOST</code> state)</a>.
 </td>
 </tr>
 </table>

@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../scheduler/spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="../scheduler/spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1946,7 +1940,7 @@ INFO Executor: Using REPL class URI: http://192.168.1.4:56131</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-A single task to execute costs <a href="#../spark-scheduler-TaskSchedulerImpl.adoc#CPUS_PER_TASK" class="page unresolved">spark.task.cpus</a> configuration (default: <code>1</code>).
+A single task to execute costs <a href="../scheduler/TaskSchedulerImpl.html#CPUS_PER_TASK" class="page">spark.task.cpus</a> configuration (default: <code>1</code>).
 </td>
 </tr>
 </table>
@@ -1996,7 +1990,7 @@ A single task to execute costs <a href="#../spark-scheduler-TaskSchedulerImpl.ad
 <p><a id="userClassPath"></a> User-defined class path (<code>Seq[URL]</code>) that is the <a href="spark-LocalSchedulerBackend.html#userClassPath" class="page">spark.executor.extraClassPath</a> configuration property and is used exclusively to create the <a href="#executor">Executor</a></p>
 </li>
 <li>
-<p><a id="scheduler"></a> <a href="#../spark-scheduler-TaskSchedulerImpl.adoc" class="page unresolved">TaskSchedulerImpl</a></p>
+<p><a id="scheduler"></a> <a href="../scheduler/TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a></p>
 </li>
 <li>
 <p><a id="executorBackend"></a> <a href="spark-LocalSchedulerBackend.html" class="page">LocalSchedulerBackend</a></p>
@@ -2066,10 +2060,10 @@ A single task to execute costs <a href="#../spark-scheduler-TaskSchedulerImpl.ad
 </div>
 </div>
 <div class="paragraph">
-<p>When <a href="#receive">received</a>, <code>LocalEndpoint</code> requests the <a href="#scheduler">TaskSchedulerImpl</a> to <a href="#../spark-scheduler-TaskSchedulerImpl.adoc#statusUpdate" class="page unresolved">handle a task status update</a> (given the <code>taskId</code>, the task state and the data).</p>
+<p>When <a href="#receive">received</a>, <code>LocalEndpoint</code> requests the <a href="#scheduler">TaskSchedulerImpl</a> to <a href="../scheduler/TaskSchedulerImpl.html#statusUpdate" class="page">handle a task status update</a> (given the <code>taskId</code>, the task state and the data).</p>
 </div>
 <div class="paragraph">
-<p>If the given <a href="../scheduler/Task.html#TaskState" class="page">TaskState</a> is a <strong>finished state</strong> (one of <code>FINISHED</code>, <code>FAILED</code>, <code>KILLED</code>, <code>LOST</code> states), <code>LocalEndpoint</code> adds <a href="../scheduler/spark-scheduler-TaskSchedulerImpl.html#CPUS_PER_TASK" class="page">spark.task.cpus</a> configuration (default: <code>1</code>) to the <a href="#freeCores">freeCores</a> registry followed by <a href="#reviveOffers">reviveOffers</a>.</p>
+<p>If the given <a href="../scheduler/Task.html#TaskState" class="page">TaskState</a> is a <strong>finished state</strong> (one of <code>FINISHED</code>, <code>FAILED</code>, <code>KILLED</code>, <code>LOST</code> states), <code>LocalEndpoint</code> adds <a href="../scheduler/TaskSchedulerImpl.html#CPUS_PER_TASK" class="page">spark.task.cpus</a> configuration (default: <code>1</code>) to the <a href="#freeCores">freeCores</a> registry followed by <a href="#reviveOffers">reviveOffers</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>

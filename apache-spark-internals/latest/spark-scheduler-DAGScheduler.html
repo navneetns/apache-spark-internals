@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="scheduler/spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1871,7 +1865,7 @@
 <div class="title">Figure 1. <code>DAGScheduler</code> Transforming RDD Lineage Into Stage DAG</div>
 </div>
 <div class="paragraph">
-<p>After an <a href="spark-rdd-actions.adoc">action</a> has been called, <a href="spark-SparkContext.adoc">SparkContext</a> hands over a logical plan to <code>DAGScheduler</code> that it in turn translates to a set of stages that are submitted as <a href="spark-scheduler-TaskSet.adoc">TaskSets</a> for execution (see <a href="spark-execution-model.adoc">Execution Model</a>).</p>
+<p>After an <a href="spark-rdd-actions.adoc">action</a> has been called, <a href="spark-SparkContext.adoc">SparkContext</a> hands over a logical plan to <code>DAGScheduler</code> that it in turn translates to a set of stages that are submitted as <a href="scheduler/TaskSet.html" class="page">TaskSets</a> for execution (see <a href="spark-execution-model.adoc">Execution Model</a>).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -2204,7 +2198,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>executorHeartbeatReceived</code> is called when <code>TaskSchedulerImpl</code> <a href="spark-scheduler-TaskSchedulerImpl.adoc#executorHeartbeatReceived">handles <code>executorHeartbeatReceived</code></a>.
+<code>executorHeartbeatReceived</code> is called when <code>TaskSchedulerImpl</code> <a href="scheduler/TaskSchedulerImpl.html#executorHeartbeatReceived" class="page">handles <code>executorHeartbeatReceived</code></a>.
 </td>
 </tr>
 </table>
@@ -2558,7 +2552,7 @@ A <code>MapStageSubmitted</code> holds the newly-created job id and <code>JobWai
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>taskStarted</code> is used exclusively when a <code>TaskSetManager</code> <a href="spark-scheduler-TaskSetManager.adoc#resourceOffer">starts a task</a>.
+<code>taskStarted</code> is used exclusively when a <code>TaskSetManager</code> <a href="scheduler/TaskSetManager.html#resourceOffer" class="page">starts a task</a>.
 </td>
 </tr>
 </table>
@@ -2581,7 +2575,7 @@ A <code>MapStageSubmitted</code> holds the newly-created job id and <code>JobWai
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>taskGettingResult</code> is used exclusively when a <code>TaskSetManager</code> <a href="spark-scheduler-TaskSetManager.adoc#handleTaskGettingResult">gets notified about a task fetching result</a>.
+<code>taskGettingResult</code> is used exclusively when a <code>TaskSetManager</code> <a href="scheduler/TaskSetManager.html#handleTaskGettingResult" class="page">gets notified about a task fetching result</a>.
 </td>
 </tr>
 </table>
@@ -2622,7 +2616,7 @@ Read <a href="spark-executor-TaskMetrics.adoc">TaskMetrics</a>.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>taskEnded</code> is used exclusively when <code>TaskSetManager</code> is requested to <a href="#spark-scheduler-TaskSetManager.adoc#handleSuccessfulTask" class="page unresolved">handleSuccessfulTask</a>, <a href="#spark-scheduler-TaskSetManager.adoc#handleFailedTask" class="page unresolved">handleFailedTask</a>, and <a href="#spark-scheduler-TaskSetManager.adoc#executorLost" class="page unresolved">executorLost</a>.
+<code>taskEnded</code> is used exclusively when <code>TaskSetManager</code> is requested to <a href="scheduler/TaskSetManager.html#handleSuccessfulTask" class="page">handleSuccessfulTask</a>, <a href="scheduler/TaskSetManager.html#handleFailedTask" class="page">handleFailedTask</a>, and <a href="scheduler/TaskSetManager.html#executorLost" class="page">executorLost</a>.
 </td>
 </tr>
 </table>
@@ -2660,7 +2654,7 @@ The input arguments of <code>taskSetFailed</code> are exactly the arguments of <
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>taskSetFailed</code> is used exclusively when a <code>TaskSetManager</code> <a href="spark-scheduler-TaskSetManager.adoc#abort">is aborted</a>.
+<code>taskSetFailed</code> is used exclusively when a <code>TaskSetManager</code> <a href="scheduler/TaskSetManager.html#abort" class="page">is aborted</a>.
 </td>
 </tr>
 </table>
@@ -2683,7 +2677,7 @@ The input arguments of <code>taskSetFailed</code> are exactly the arguments of <
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>executorLost</code> is used when <code>TaskSchedulerImpl</code> <a href="spark-scheduler-TaskSchedulerImpl.adoc#statusUpdate">gets task status update</a> (and a task gets lost which is used to indicate that the executor got broken and hence should be considered lost) or <a href="spark-scheduler-TaskSchedulerImpl.adoc#executorLost">executorLost</a>.
+<code>executorLost</code> is used when <code>TaskSchedulerImpl</code> <a href="scheduler/TaskSchedulerImpl.html#statusUpdate" class="page">gets task status update</a> (and a task gets lost which is used to indicate that the executor got broken and hence should be considered lost) or <a href="scheduler/TaskSchedulerImpl.html#executorLost" class="page">executorLost</a>.
 </td>
 </tr>
 </table>
@@ -2706,7 +2700,7 @@ The input arguments of <code>taskSetFailed</code> are exactly the arguments of <
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>executorAdded</code> is used exclusively when <code>TaskSchedulerImpl</code> <a href="spark-scheduler-TaskSchedulerImpl.adoc#resourceOffers">is offered resources on executors</a> (and a new executor is found in the resource offers).
+<code>executorAdded</code> is used exclusively when <code>TaskSchedulerImpl</code> <a href="scheduler/TaskSchedulerImpl.html#resourceOffers" class="page">is offered resources on executors</a> (and a new executor is found in the resource offers).
 </td>
 </tr>
 </table>
@@ -3213,7 +3207,7 @@ A stage <code>A</code> depends on stage <code>B</code> if <code>B</code> is amon
 <div class="sect2">
 <h3 id="dag-scheduler-event-loopdagscheduler-event-bus"><a class="anchor" href="#dag-scheduler-event-loopdagscheduler-event-bus"></a><a class="link" href="#dag-scheduler-event-loopdagscheduler-event-bus"><a id="event-loop"></a><a id="eventProcessLoop"></a> dag-scheduler-event-loop&#8201;&#8212;&#8201;DAGScheduler Event Bus</a></h3>
 <div class="paragraph">
-<p><code>eventProcessLoop</code> is <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc">DAGScheduler&#8217;s event bus</a> to which Spark (by <a href="#submitJob">submitJob</a>) posts jobs to schedule their execution. Later on, <a href="spark-scheduler-TaskSetManager.adoc">TaskSetManager</a> talks back to <code>DAGScheduler</code> to inform about the status of the tasks using the same "communication channel".</p>
+<p><code>eventProcessLoop</code> is <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc">DAGScheduler&#8217;s event bus</a> to which Spark (by <a href="#submitJob">submitJob</a>) posts jobs to schedule their execution. Later on, <a href="scheduler/TaskSetManager.html" class="page">TaskSetManager</a> talks back to <code>DAGScheduler</code> to inform about the status of the tasks using the same "communication channel".</p>
 </div>
 <div class="paragraph">
 <p>It allows Spark to release the current thread when posting happens and let the event loop handle events on a separate thread - asynchronously.</p>
@@ -3797,7 +3791,7 @@ That exact moment should make clear how important <a href="spark-broadcast.adoc"
 <p>With no exceptions along the way, <code>submitMissingTasks</code> computes a collection of <a href="scheduler/Task.html" class="page">tasks</a> to execute for the missing partitions (of the <code>stage</code>).</p>
 </div>
 <div class="paragraph">
-<p><code>submitMissingTasks</code> creates a <a href="scheduler/spark-scheduler-ShuffleMapTask.html" class="page">ShuffleMapTask</a> or <a href="scheduler/spark-scheduler-ResultTask.html" class="page">ResultTask</a> for every missing partition of the <code>stage</code> being <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> or <a href="spark-scheduler-ResultStage.adoc">ResultStage</a>, respectively. <code>submitMissingTasks</code> uses the preferred locations (computed earlier) per partition.</p>
+<p><code>submitMissingTasks</code> creates a <a href="scheduler/ShuffleMapTask.html" class="page">ShuffleMapTask</a> or <a href="scheduler/ResultTask.html" class="page">ResultTask</a> for every missing partition of the <code>stage</code> being <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> or <a href="spark-scheduler-ResultStage.adoc">ResultStage</a>, respectively. <code>submitMissingTasks</code> uses the preferred locations (computed earlier) per partition.</p>
 </div>
 <div class="admonitionblock caution">
 <table>

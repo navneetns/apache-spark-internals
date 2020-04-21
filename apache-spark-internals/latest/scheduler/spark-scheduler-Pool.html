@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1830,7 +1824,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Low-Level Task Scheduler</li>
+    <li><a href="TaskScheduler.html">TaskScheduler</a></li>
     <li><a href="spark-scheduler-Schedulable.html">Schedulable Entities</a></li>
     <li><a href="spark-scheduler-Pool.html">Schedulable Pool</a></li>
   </ul>
@@ -1843,7 +1837,7 @@
 <h2 id="schedulable-pool"><a class="anchor" href="#schedulable-pool"></a><a class="link" href="#schedulable-pool"><a id="Pool"></a> Schedulable Pool</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>Pool</code> is a <a href="spark-scheduler-Schedulable.adoc">Schedulable</a> entity that represents a tree of <a href="spark-scheduler-TaskSetManager.adoc">TaskSetManagers</a>, i.e. it contains a collection of <code>TaskSetManagers</code> or the <code>Pools</code> thereof.</p>
+<p><code>Pool</code> is a <a href="spark-scheduler-Schedulable.html" class="page">Schedulable</a> entity that represents a tree of <a href="TaskSetManager.html" class="page">TaskSetManagers</a>, i.e. it contains a collection of <code>TaskSetManagers</code> or the <code>Pools</code> thereof.</p>
 </div>
 <div class="paragraph">
 <p>A <code>Pool</code> has a mandatory name, a <a href="spark-scheduler-SchedulingMode.adoc">scheduling mode</a>, initial <code>minShare</code> and <code>weight</code> that are defined when it is created.</p>
@@ -1855,7 +1849,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-An instance of <code>Pool</code> is created when <a href="spark-scheduler-TaskSchedulerImpl.adoc#initialize">TaskSchedulerImpl is initialized</a>.
+An instance of <code>Pool</code> is created when <a href="TaskSchedulerImpl.html#initialize" class="page">TaskSchedulerImpl is initialized</a>.
 </td>
 </tr>
 </table>
@@ -1974,7 +1968,7 @@ Read about the scheduling modes in <a href="spark-scheduler-SchedulingMode.adoc"
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-It is called when <a href="spark-scheduler-TaskSchedulerImpl.adoc#resourceOffers"><code>TaskSchedulerImpl</code> processes executor resource offers</a>.
+It is called when <a href="TaskSchedulerImpl.html#resourceOffers" class="page"><code>TaskSchedulerImpl</code> processes executor resource offers</a>.
 </td>
 </tr>
 </table>

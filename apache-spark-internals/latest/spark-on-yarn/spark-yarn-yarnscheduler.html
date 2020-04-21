@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../scheduler/spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="../scheduler/spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1846,7 +1840,7 @@
 <p><code>YarnScheduler</code> is the <a href="../scheduler/TaskScheduler.html" class="page">TaskScheduler</a> for <a href="README.adoc">Spark on YARN</a> in <a href="spark-submit.adoc#deploy-mode">client deploy mode</a>.</p>
 </div>
 <div class="paragraph">
-<p>It is a custom <a href="spark-scheduler-TaskSchedulerImpl.adoc">TaskSchedulerImpl</a> with ability to compute racks per hosts, i.e. it comes with a specialized <a href="#getRackForHost">getRackForHost</a>.</p>
+<p>It is a custom <a href="../scheduler/TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a> with ability to compute racks per hosts, i.e. it comes with a specialized <a href="#getRackForHost">getRackForHost</a>.</p>
 </div>
 <div class="paragraph">
 <p>It also sets <code>org.apache.hadoop.yarn.util.RackResolver</code> logger to <code>WARN</code> if not set already.</p>
@@ -1888,7 +1882,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getRackForHost</code> overrides the <a href="spark-scheduler-TaskSchedulerImpl.adoc#getRackForHost">parent TaskSchedulerImpl&#8217;s getRackForHost</a>
+<code>getRackForHost</code> overrides the <a href="../scheduler/TaskSchedulerImpl.html#getRackForHost" class="page">parent TaskSchedulerImpl&#8217;s getRackForHost</a>
 </td>
 </tr>
 </table>

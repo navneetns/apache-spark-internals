@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1830,7 +1824,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Low-Level Task Scheduler</li>
+    <li><a href="TaskScheduler.html">TaskScheduler</a></li>
     <li><a href="spark-scheduler-SchedulableBuilder.html">SchedulableBuilder</a></li>
     <li><a href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a></li>
   </ul>
@@ -1843,7 +1837,7 @@
 <h2 id="fairschedulablebuilderschedulablebuilder-for-fair-scheduling-mode"><a class="anchor" href="#fairschedulablebuilderschedulablebuilder-for-fair-scheduling-mode"></a><a class="link" href="#fairschedulablebuilderschedulablebuilder-for-fair-scheduling-mode"><a id="FairSchedulableBuilder"></a> FairSchedulableBuilder&#8201;&#8212;&#8201;SchedulableBuilder for FAIR Scheduling Mode</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>FairSchedulableBuilder</code> is a <a href="spark-scheduler-SchedulableBuilder.html" class="page">SchedulableBuilder</a> that is <a href="#creating-instance">created</a> exclusively for <a href="spark-scheduler-TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a> for <strong>FAIR scheduling mode</strong> (when <a href="#spark-configuration-properties.adoc#spark.scheduler.mode" class="page unresolved">spark.scheduler.mode</a> configuration property is <code>FAIR</code>).</p>
+<p><code>FairSchedulableBuilder</code> is a <a href="spark-scheduler-SchedulableBuilder.html" class="page">SchedulableBuilder</a> that is <a href="#creating-instance">created</a> exclusively for <a href="TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a> for <strong>FAIR scheduling mode</strong> (when <a href="#spark-configuration-properties.adoc#spark.scheduler.mode" class="page unresolved">spark.scheduler.mode</a> configuration property is <code>FAIR</code>).</p>
 </div>
 <div id="creating-instance" class="paragraph">
 <p><code>FairSchedulableBuilder</code> takes the following to be created:</p>

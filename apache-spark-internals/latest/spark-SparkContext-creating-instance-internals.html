@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="scheduler/spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -2262,7 +2256,7 @@ The internal <code>_schedulerBackend</code> and <code>_taskScheduler</code> are 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>SparkContext</code> requests <code>TaskScheduler</code> for the <a href="scheduler/TaskScheduler.html#applicationId" class="page">unique identifier of a Spark application</a> (that is currently only implemented by <a href="spark-scheduler-TaskSchedulerImpl.adoc#applicationId">TaskSchedulerImpl</a> that uses <code>SchedulerBackend</code> to <a href="spark-SchedulerBackend.adoc#applicationId">request the identifier</a>).
+<code>SparkContext</code> requests <code>TaskScheduler</code> for the <a href="scheduler/TaskScheduler.html#applicationId" class="page">unique identifier of a Spark application</a> (that is currently only implemented by <a href="scheduler/TaskSchedulerImpl.html#applicationId" class="page">TaskSchedulerImpl</a> that uses <code>SchedulerBackend</code> to <a href="spark-SchedulerBackend.adoc#applicationId">request the identifier</a>).
 </td>
 </tr>
 </table>
@@ -2404,7 +2398,7 @@ FIXME It&#8217;d be quite useful to have all the properties with their default v
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="scheduler/TaskScheduler.html#postStartHook" class="page">TaskScheduler.postStartHook</a> does nothing by default, but custom implementations offer more advanced features, i.e. <code>TaskSchedulerImpl</code> <a href="spark-scheduler-TaskSchedulerImpl.adoc#postStartHook">blocks the current thread until <code>SchedulerBackend</code> is ready</a>. There is also <code>YarnClusterScheduler</code> for Spark on YARN in <code>cluster</code> deploy mode.
+<a href="scheduler/TaskScheduler.html#postStartHook" class="page">TaskScheduler.postStartHook</a> does nothing by default, but custom implementations offer more advanced features, i.e. <code>TaskSchedulerImpl</code> <a href="scheduler/TaskSchedulerImpl.html#postStartHook" class="page">blocks the current thread until <code>SchedulerBackend</code> is ready</a>. There is also <code>YarnClusterScheduler</code> for Spark on YARN in <code>cluster</code> deploy mode.
 </td>
 </tr>
 </table>

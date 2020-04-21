@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1830,7 +1824,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Low-Level Task Scheduler</li>
+    <li><a href="TaskScheduler.html">TaskScheduler</a></li>
     <li><a href="spark-scheduler-TaskInfo.html">TaskInfo</a></li>
   </ul>
 </nav>
@@ -1842,7 +1836,7 @@
 <h2 id="taskinfo"><a class="anchor" href="#taskinfo"></a><a class="link" href="#taskinfo"><a id="TaskInfo"></a> TaskInfo</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>TaskInfo</code> is information about a running task attempt inside a <a href="spark-scheduler-TaskSet.adoc">TaskSet</a>.</p>
+<p><code>TaskInfo</code> is information about a running task attempt inside a <a href="TaskSet.html" class="page">TaskSet</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>TaskInfo</code> is created when:</p>
@@ -1850,7 +1844,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a href="spark-scheduler-TaskSetManager.adoc#resourceOffer"><code>TaskSetManager</code> dequeues a task for execution (given resource offer)</a> (and records the task as running)</p>
+<p><a href="TaskSetManager.html#resourceOffer" class="page"><code>TaskSetManager</code> dequeues a task for execution (given resource offer)</a> (and records the task as running)</p>
 </li>
 <li>
 <p>TaskUIData does <code>dropInternalAndSQLAccumulables</code></p>
@@ -1903,7 +1897,7 @@ Back then, at the commit 63051dd2bcc4bf09d413ff7cf89a37967edc33ba, when <code>Ta
 <p><a id="taskId"></a> Task ID</p>
 </li>
 <li>
-<p><a id="index"></a> Index of the task within its <a href="spark-scheduler-TaskSet.adoc">TaskSet</a> that may not necessarily be the same as the ID of the RDD partition that the task is computing.</p>
+<p><a id="index"></a> Index of the task within its <a href="TaskSet.html" class="page">TaskSet</a> that may not necessarily be the same as the ID of the RDD partition that the task is computing.</p>
 </li>
 <li>
 <p><a id="attemptNumber"></a> Task attempt ID</p>
@@ -1918,7 +1912,7 @@ Back then, at the commit 63051dd2bcc4bf09d413ff7cf89a37967edc33ba, when <code>Ta
 <p><a id="host"></a> Host of the <a href="#executorId">executor</a></p>
 </li>
 <li>
-<p><a id="taskLocality"></a> <a href="spark-scheduler-TaskSchedulerImpl.adoc#TaskLocality">TaskLocality</a>, i.e. locality preference of the task</p>
+<p><a id="taskLocality"></a> <a href="TaskSchedulerImpl.html#TaskLocality" class="page">TaskLocality</a>, i.e. locality preference of the task</p>
 </li>
 <li>
 <p><a id="speculative"></a> Flag whether a task is speculative or not</p>
@@ -1949,7 +1943,7 @@ Back then, at the commit 63051dd2bcc4bf09d413ff7cf89a37967edc33ba, when <code>Ta
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>markFinished</code> is used when <code>TaskSetManager</code> is notified that a task has finished <a href="spark-scheduler-TaskSetManager.adoc#handleSuccessfulTask">successfully</a> or <a href="spark-scheduler-TaskSetManager.adoc#handleFailedTask">failed</a>.
+<code>markFinished</code> is used when <code>TaskSetManager</code> is notified that a task has finished <a href="TaskSetManager.html#handleSuccessfulTask" class="page">successfully</a> or <a href="TaskSetManager.html#handleFailedTask" class="page">failed</a>.
 </td>
 </tr>
 </table>

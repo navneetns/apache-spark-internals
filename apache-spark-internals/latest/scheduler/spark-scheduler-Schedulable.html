@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1830,7 +1824,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Low-Level Task Scheduler</li>
+    <li><a href="TaskScheduler.html">TaskScheduler</a></li>
     <li><a href="spark-scheduler-Schedulable.html">Schedulable Entities</a></li>
   </ul>
 </nav>
@@ -1914,7 +1908,7 @@
 <p><code>Pool</code> is requested to <a href="spark-scheduler-Pool.html#executorLost" class="page">handle an executor lost event</a></p>
 </li>
 <li>
-<p><code>TaskSchedulerImpl</code> is requested to <a href="spark-scheduler-TaskSchedulerImpl.html#removeExecutor" class="page">removeExecutor</a></p>
+<p><code>TaskSchedulerImpl</code> is requested to <a href="TaskSchedulerImpl.html#removeExecutor" class="page">removeExecutor</a></p>
 </li>
 </ul>
 </div></div></td>
@@ -1941,7 +1935,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Builds a collection of <a href="spark-scheduler-TaskSetManager.html" class="page">TaskSetManagers</a> sorted by <a href="#priority">priority</a></p>
+<p>Builds a collection of <a href="TaskSetManager.html" class="page">TaskSetManagers</a> sorted by <a href="#priority">priority</a></p>
 </div>
 <div class="paragraph">
 <p>Used when:</p>
@@ -1952,7 +1946,7 @@
 <p><code>Pool</code> is requested to <a href="spark-scheduler-Pool.html#getSortedTaskSetQueue" class="page">getSortedTaskSetQueue</a> (recursively)</p>
 </li>
 <li>
-<p><code>TaskSchedulerImpl</code> is requested to <a href="spark-scheduler-TaskSchedulerImpl.html#resourceOffers" class="page">resourceOffers</a></p>
+<p><code>TaskSchedulerImpl</code> is requested to <a href="TaskSchedulerImpl.html#resourceOffers" class="page">resourceOffers</a></p>
 </li>
 </ul>
 </div></div></td>
@@ -2113,8 +2107,8 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="Pool"></a> Pool of <a href="#">schedulables</a> (i.e. a recursive data structure for prioritizing task sets)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-scheduler-TaskSetManager.html" class="page">TaskSetManager</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TaskSetManager"></a> Manages scheduling of tasks of a <a href="spark-scheduler-TaskSet.html" class="page">TaskSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="TaskSetManager.html" class="page">TaskSetManager</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TaskSetManager"></a> Manages scheduling of tasks of a <a href="TaskSet.html" class="page">TaskSet</a></p></td>
 </tr>
 </tbody>
 </table>

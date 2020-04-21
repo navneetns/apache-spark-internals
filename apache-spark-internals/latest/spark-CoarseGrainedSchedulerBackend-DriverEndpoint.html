@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="scheduler/spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -2123,7 +2117,7 @@ FIXME
 </table>
 </div>
 <div class="paragraph">
-<p><code>makeOffers</code> then <a href="spark-scheduler-TaskSchedulerImpl.adoc#resourceOffers">requests <code>TaskSchedulerImpl</code> to generate tasks for the available <code>WorkerOffers</code></a> followed by <a href="#launchTasks">launching the tasks on respective executors</a>.</p>
+<p><code>makeOffers</code> then <a href="scheduler/TaskSchedulerImpl.html#resourceOffers" class="page">requests <code>TaskSchedulerImpl</code> to generate tasks for the available <code>WorkerOffers</code></a> followed by <a href="#launchTasks">launching the tasks on respective executors</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2185,7 +2179,7 @@ Tasks are described using <a href="spark-scheduler-TaskDescription.adoc">TaskDes
 </table>
 </div>
 <div class="paragraph">
-<p><code>makeOffers</code> finds the executor data (in <a href="spark-CoarseGrainedSchedulerBackend.adoc#executorDataMap">executorDataMap</a> registry) and creates a <a href="spark-scheduler-TaskSchedulerImpl.adoc#WorkerOffer">WorkerOffer</a>.</p>
+<p><code>makeOffers</code> finds the executor data (in <a href="spark-CoarseGrainedSchedulerBackend.adoc#executorDataMap">executorDataMap</a> registry) and creates a <a href="scheduler/TaskSchedulerImpl.html#WorkerOffer" class="page">WorkerOffer</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2200,7 +2194,7 @@ Tasks are described using <a href="spark-scheduler-TaskDescription.adoc">TaskDes
 </table>
 </div>
 <div class="paragraph">
-<p><code>makeOffers</code> then <a href="spark-scheduler-TaskSchedulerImpl.adoc#resourceOffers">requests <code>TaskSchedulerImpl</code> to generate tasks for the <code>WorkerOffer</code></a> followed by <a href="#launchTasks">launching the tasks</a> (on the executor).</p>
+<p><code>makeOffers</code> then <a href="scheduler/TaskSchedulerImpl.html#resourceOffers" class="page">requests <code>TaskSchedulerImpl</code> to generate tasks for the <code>WorkerOffer</code></a> followed by <a href="#launchTasks">launching the tasks</a> (on the executor).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2274,7 +2268,7 @@ The <a href="spark-CoarseGrainedSchedulerBackend.adoc#maxRpcMessageSize">maximum
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The default task scheduler in Spark&#8201;&#8212;&#8201;<a href="spark-scheduler-TaskSchedulerImpl.adoc">TaskSchedulerImpl</a>&#8201;&#8212;&#8201;uses <a href="spark-configuration-properties.adoc#spark.task.cpus">spark.task.cpus</a> Spark property to control the number of tasks that can be scheduled per executor.
+The default task scheduler in Spark&#8201;&#8212;&#8201;<a href="scheduler/TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a>&#8201;&#8212;&#8201;uses <a href="spark-configuration-properties.adoc#spark.task.cpus">spark.task.cpus</a> Spark property to control the number of tasks that can be scheduled per executor.
 </td>
 </tr>
 </table>
@@ -2315,7 +2309,7 @@ This is the moment in a task&#8217;s lifecycle when the driver sends the seriali
 </table>
 </div>
 <div class="paragraph">
-<p>In case the size of a serialized <code>TaskDescription</code> equals or exceeds the <a href="spark-CoarseGrainedSchedulerBackend.adoc#maxRpcMessageSize">maximum RPC message size</a>, <code>launchTasks</code> finds the <a href="spark-scheduler-TaskSetManager.adoc">TaskSetManager</a> (associated with the <code>TaskDescription</code>) and <a href="spark-scheduler-TaskSetManager.adoc#abort">aborts it</a> with the following message:</p>
+<p>In case the size of a serialized <code>TaskDescription</code> equals or exceeds the <a href="spark-CoarseGrainedSchedulerBackend.adoc#maxRpcMessageSize">maximum RPC message size</a>, <code>launchTasks</code> finds the <a href="scheduler/TaskSetManager.html" class="page">TaskSetManager</a> (associated with the <code>TaskDescription</code>) and <a href="scheduler/TaskSetManager.html#abort" class="page">aborts it</a> with the following message:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2329,7 +2323,7 @@ This is the moment in a task&#8217;s lifecycle when the driver sends the seriali
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>launchTasks</code> uses the <a href="spark-scheduler-TaskSchedulerImpl.adoc#taskIdToTaskSetManager">registry of active <code>TaskSetManagers</code> per task id</a> from <a href="#scheduler">TaskSchedulerImpl</a> that was given when <a href="#creating-instance"><code>CoarseGrainedSchedulerBackend</code> was created</a>.
+<code>launchTasks</code> uses the <a href="scheduler/TaskSchedulerImpl.html#taskIdToTaskSetManager" class="page">registry of active <code>TaskSetManagers</code> per task id</a> from <a href="#scheduler">TaskSchedulerImpl</a> that was given when <a href="#creating-instance"><code>CoarseGrainedSchedulerBackend</code> was created</a>.
 </td>
 </tr>
 </table>
@@ -2410,7 +2404,7 @@ extends CoarseGrainedClusterMessage</code></pre>
 <div class="title">Figure 3. Executor registration (RegisterExecutor RPC message flow)</div>
 </div>
 <div class="paragraph">
-<p>When received, <code>DriverEndpoint</code> makes sure that no other <a href="spark-CoarseGrainedSchedulerBackend.adoc#executorDataMap">executors were registered</a> under the input <code>executorId</code> and that the input <code>hostname</code> is not <a href="spark-scheduler-TaskSchedulerImpl.adoc#nodeBlacklist">blacklisted</a>.</p>
+<p>When received, <code>DriverEndpoint</code> makes sure that no other <a href="spark-CoarseGrainedSchedulerBackend.adoc#executorDataMap">executors were registered</a> under the input <code>executorId</code> and that the input <code>hostname</code> is not <a href="scheduler/TaskSchedulerImpl.html#nodeBlacklist" class="page">blacklisted</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2495,7 +2489,7 @@ extends CoarseGrainedClusterMessage</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If however the input <code>hostname</code> is <a href="spark-scheduler-TaskSchedulerImpl.adoc#nodeBlacklist">blacklisted</a>, you should see the following INFO message in the logs:</p>
+<p>If however the input <code>hostname</code> is <a href="scheduler/TaskSchedulerImpl.html#nodeBlacklist" class="page">blacklisted</a>, you should see the following INFO message in the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2536,7 +2530,7 @@ extends CoarseGrainedClusterMessage</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>When <code>StatusUpdate</code> is received, <code>DriverEndpoint</code> requests the <a href="spark-CoarseGrainedSchedulerBackend.adoc#scheduler">TaskSchedulerImpl</a> to <a href="spark-scheduler-TaskSchedulerImpl.adoc#statusUpdate">handle the task status update</a>.</p>
+<p>When <code>StatusUpdate</code> is received, <code>DriverEndpoint</code> requests the <a href="spark-CoarseGrainedSchedulerBackend.adoc#scheduler">TaskSchedulerImpl</a> to <a href="scheduler/TaskSchedulerImpl.html#statusUpdate" class="page">handle the task status update</a>.</p>
 </div>
 <div class="paragraph">
 <p>If the <a href="scheduler/Task.html#TaskState" class="page">task has finished</a>, <code>DriverEndpoint</code> updates the number of cores available for work on the corresponding executor (registered in <a href="spark-CoarseGrainedSchedulerBackend.adoc#executorDataMap">executorDataMap</a>).</p>
@@ -2654,7 +2648,7 @@ extends CoarseGrainedClusterMessage</code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>In the end, <code>removeExecutor</code> notifies <code>TaskSchedulerImpl</code> that an <a href="spark-scheduler-TaskSchedulerImpl.adoc#executorLost">executor was lost</a>.</p>
+<p>In the end, <code>removeExecutor</code> notifies <code>TaskSchedulerImpl</code> that an <a href="scheduler/TaskSchedulerImpl.html#executorLost" class="page">executor was lost</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2726,7 +2720,7 @@ extends CoarseGrainedClusterMessage</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In the end, <code>removeWorker</code> simply requests the <a href="spark-CoarseGrainedSchedulerBackend.html#scheduler" class="page">TaskSchedulerImpl</a> to <a href="#spark-scheduler-TaskSchedulerImpl.adoc#workerRemoved" class="page unresolved">workerRemoved</a>.</p>
+<p>In the end, <code>removeWorker</code> simply requests the <a href="spark-CoarseGrainedSchedulerBackend.html#scheduler" class="page">TaskSchedulerImpl</a> to <a href="scheduler/TaskSchedulerImpl.html#workerRemoved" class="page">workerRemoved</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>

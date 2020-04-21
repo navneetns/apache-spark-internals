@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1830,7 +1824,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Low-Level Task Scheduler</li>
+    <li><a href="TaskScheduler.html">TaskScheduler</a></li>
     <li><a href="spark-scheduler-SchedulableBuilder.html">SchedulableBuilder</a></li>
   </ul>
 </nav>
@@ -1845,7 +1839,7 @@
 <p><code>SchedulableBuilder</code> is the <a href="#contract">abstraction</a> of <a href="#implementations">schedulable builders</a> that manage a <a href="#rootPool">root pool (of Schedulables)</a>, which is to <a href="#buildPools">build a pool</a> and <a href="#addTaskSetManager">register a new Schedulable (with the pool)</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>SchedulableBuilder</code> is a <code>private[spark]</code> Scala trait that is used exclusively by <a href="spark-scheduler-TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a> (the default Spark scheduler). When requested to <a href="spark-scheduler-TaskSchedulerImpl.html#initialize" class="page">initialize</a>, <code>TaskSchedulerImpl</code> uses the <a href="#spark-configuration-properties.adoc#spark.scheduler.mode" class="page unresolved">spark.scheduler.mode</a> configuration property (default: <code>FIFO</code>) to select one of the <a href="#implementations">available schedulable builders</a>.</p>
+<p><code>SchedulableBuilder</code> is a <code>private[spark]</code> Scala trait that is used exclusively by <a href="TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a> (the default Spark scheduler). When requested to <a href="TaskSchedulerImpl.html#initialize" class="page">initialize</a>, <code>TaskSchedulerImpl</code> uses the <a href="#spark-configuration-properties.adoc#spark.scheduler.mode" class="page unresolved">spark.scheduler.mode</a> configuration property (default: <code>FIFO</code>) to select one of the <a href="#implementations">available schedulable builders</a>.</p>
 </div>
 <table id="contract" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. SchedulableBuilder Contract</caption>
@@ -1871,7 +1865,7 @@
 <p>Registers a new <a href="spark-scheduler-Schedulable.html" class="page">Schedulable</a> with the <a href="#rootPool">rootPool</a></p>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>TaskSchedulerImpl</code> is requested to <a href="spark-scheduler-TaskSchedulerImpl.html#submitTasks" class="page">submit tasks (of TaskSet) for execution</a> (and registers a new <a href="spark-scheduler-TaskSetManager.html" class="page">TaskSetManager</a> for the <code>TaskSet</code>)</p>
+<p>Used exclusively when <code>TaskSchedulerImpl</code> is requested to <a href="TaskSchedulerImpl.html#submitTasks" class="page">submit tasks (of TaskSet) for execution</a> (and registers a new <a href="TaskSetManager.html" class="page">TaskSetManager</a> for the <code>TaskSet</code>)</p>
 </div></div></td>
 </tr>
 <tr>
@@ -1885,7 +1879,7 @@
 <p>Builds a tree of <a href="spark-scheduler-Pool.html" class="page">pools (of Schedulables)</a></p>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>TaskSchedulerImpl</code> is requested to <a href="spark-scheduler-TaskSchedulerImpl.html#initialize" class="page">initialize</a> (and creates a <a href="spark-scheduler-TaskSchedulerImpl.html#schedulableBuilder" class="page">SchedulableBuilder</a> per <a href="#spark-configuration-properties.adoc#spark.scheduler.mode" class="page unresolved">spark.scheduler.mode</a> configuration property)</p>
+<p>Used exclusively when <code>TaskSchedulerImpl</code> is requested to <a href="TaskSchedulerImpl.html#initialize" class="page">initialize</a> (and creates a <a href="TaskSchedulerImpl.html#schedulableBuilder" class="page">SchedulableBuilder</a> per <a href="#spark-configuration-properties.adoc#spark.scheduler.mode" class="page unresolved">spark.scheduler.mode</a> configuration property)</p>
 </div></div></td>
 </tr>
 <tr>

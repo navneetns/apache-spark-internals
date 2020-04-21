@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../scheduler/spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="../scheduler/spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1845,7 +1839,7 @@
 <p><strong>ShuffleWriter</strong> of K keys and V values (<code>ShuffleWriter[K, V]</code>) is an abstraction of <a href="#implementations">shuffle writers</a> that can <a href="#write">write key-value records</a> (of a RDD partition) to a shuffle system.</p>
 </div>
 <div class="paragraph">
-<p>ShuffleWriter is used when <a href="../scheduler/spark-scheduler-ShuffleMapTask.html" class="page">ShuffleMapTask</a> is requested to <a href="../scheduler/spark-scheduler-ShuffleMapTask.html#runTask" class="page">run</a>.</p>
+<p>ShuffleWriter is used when <a href="../scheduler/ShuffleMapTask.html" class="page">ShuffleMapTask</a> is requested to <a href="../scheduler/ShuffleMapTask.html#runTask" class="page">run</a>.</p>
 </div>
 </div>
 </div>
@@ -1894,7 +1888,7 @@
 <p>Stops (<em>closes</em>) the ShuffleWriter and returns a <a href="#ROOT:spark-scheduler-MapStatus.adoc" class="page unresolved">MapStatus</a> if the writing completed successfully. The <code>success</code> flag is the status of the task execution.</p>
 </div>
 <div class="paragraph">
-<p>stop is used when ShuffleMapTask is requested to <a href="../scheduler/spark-scheduler-ShuffleMapTask.html#runTask" class="page">run</a>.</p>
+<p>stop is used when ShuffleMapTask is requested to <a href="../scheduler/ShuffleMapTask.html#runTask" class="page">run</a>.</p>
 </div>
 </div>
 </div>
@@ -1911,7 +1905,7 @@
 <p>Writes key-value records out to a shuffle system.</p>
 </div>
 <div class="paragraph">
-<p>write is used when <code>ShuffleMapTask</code> is requested to <a href="../scheduler/spark-scheduler-ShuffleMapTask.html#runTask" class="page">run</a>.</p>
+<p>write is used when <code>ShuffleMapTask</code> is requested to <a href="../scheduler/ShuffleMapTask.html#runTask" class="page">run</a>.</p>
 </div>
 </div>
 </div>

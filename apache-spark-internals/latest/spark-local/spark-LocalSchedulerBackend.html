@@ -69,8 +69,29 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Low-Level Task Scheduler</span>
+    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/Task.html">Task</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/ShuffleMapTask.html">ShuffleMapTask</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/ResultTask.html">ResultTask</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSet.html">TaskSet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/TaskSetManager.html">TaskSetManager</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../scheduler/spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
@@ -85,33 +106,6 @@
     <a class="nav-link" href="../scheduler/spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSchedulerImpl.html">TaskSchedulerImpl</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/Task.html">Task</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ShuffleMapTask.html">ShuffleMapTask</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultTask.html">ResultTask</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSet.html">TaskSet</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1882,7 +1876,7 @@
 <p>When requested for the <a href="#../spark-SchedulerBackend.adoc#applicationId" class="page unresolved">applicationId</a>, <code>LocalSchedulerBackend</code> uses <strong>local-[currentTimeMillis]</strong>.</p>
 </div>
 <div id="maxNumConcurrentTasks" class="paragraph">
-<p>When requested for the <a href="#../spark-SchedulerBackend.adoc#maxNumConcurrentTasks" class="page unresolved">maxNumConcurrentTasks</a>, <code>LocalSchedulerBackend</code> simply divides the <a href="#totalCores">total number of CPU cores</a> by <a href="#../spark-scheduler-TaskSchedulerImpl.adoc#CPUS_PER_TASK" class="page unresolved">spark.task.cpus</a> configuration (default: <code>1</code>).</p>
+<p>When requested for the <a href="#../spark-SchedulerBackend.adoc#maxNumConcurrentTasks" class="page unresolved">maxNumConcurrentTasks</a>, <code>LocalSchedulerBackend</code> simply divides the <a href="#totalCores">total number of CPU cores</a> by <a href="../scheduler/TaskSchedulerImpl.html#CPUS_PER_TASK" class="page">spark.task.cpus</a> configuration (default: <code>1</code>).</p>
 </div>
 <div id="defaultParallelism" class="paragraph">
 <p>When requested for the <a href="#../spark-SchedulerBackend.adoc#defaultParallelism" class="page unresolved">defaultParallelism</a>, <code>LocalSchedulerBackend</code> uses <a href="#../spark-configuration-properties.adoc#spark.default.parallelism" class="page unresolved">spark.default.parallelism</a> configuration (if defined) or the <a href="#totalCores">total number of CPU cores</a>.</p>
@@ -1899,7 +1893,7 @@
 <p><a id="conf"></a> <a href="#../spark-SparkConf.adoc" class="page unresolved">SparkConf</a></p>
 </li>
 <li>
-<p><a id="scheduler"></a> <a href="#../spark-scheduler-TaskSchedulerImpl.adoc" class="page unresolved">TaskSchedulerImpl</a></p>
+<p><a id="scheduler"></a> <a href="../scheduler/TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a></p>
 </li>
 <li>
 <p><a id="totalCores"></a> Total number of CPU cores (aka <em>totalCores</em>)</p>
