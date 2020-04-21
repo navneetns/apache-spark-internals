@@ -1861,6 +1861,23 @@ TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" 
 </div>
 </div>
 <div class="sect1">
+<h2 id="submitting-tasks-for-execution"><a class="anchor" href="#submitting-tasks-for-execution"></a><a class="link" href="#submitting-tasks-for-execution"><a id="submitTasks"></a> Submitting Tasks for Execution</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitTasks(
+  taskSet: TaskSet): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Submits the tasks (of the given <a href="TaskSet.html" class="page">TaskSet</a>) for execution.</p>
+</div>
+<div class="paragraph">
+<p>Used when DAGScheduler is requested to <a href="../spark-scheduler-DAGScheduler.html#submitMissingTasks" class="page">submit missing tasks (of a stage)</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="contract"><a class="anchor" href="#contract"></a><a class="link" href="#contract"><a id="contract"></a> Contract</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
@@ -2097,20 +2114,6 @@ TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" 
 </div>
 <div class="paragraph">
 <p>Used when <code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#stop" class="page">stop</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>submitTasks</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div id="submitTasks" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitTasks(taskSet: TaskSet): Unit</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Submits the tasks (of the given <a href="TaskSet.html" class="page">TaskSet</a>) for execution</p>
-</div>
-<div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#submitMissingTasks" class="page">submit missing tasks (of a stage)</a></p>
 </div></div></td>
 </tr>
 <tr>

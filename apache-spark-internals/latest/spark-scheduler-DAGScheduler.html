@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> DAGScheduler :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-scheduler-DAGScheduler.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -1833,8 +1833,8 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="dagschedulerstage-oriented-scheduler"><a class="anchor" href="#dagschedulerstage-oriented-scheduler"></a><a class="link" href="#dagschedulerstage-oriented-scheduler"><a id="DAGScheduler"></a> DAGScheduler&#8201;&#8212;&#8201;Stage-Oriented Scheduler</a></h2>
+<h1 class="page"><a id="DAGScheduler"></a> DAGScheduler</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="admonitionblock note">
 <table>
@@ -1846,15 +1846,15 @@
 <div class="paragraph">
 <p>The introduction that follows was highly influenced by the scaladoc of <a href="https://github.com/apache/spark/blob/master/core/src/main/scala/org/apache/spark/scheduler/DAGScheduler.scala">org.apache.spark.scheduler.DAGScheduler</a>. As DAGScheduler is a private class it does not appear in the official API documentation. You are strongly encouraged to read <a href="https://github.com/apache/spark/blob/master/core/src/main/scala/org/apache/spark/scheduler/DAGScheduler.scala">the sources</a> and only then read this and the related pages afterwards.</p>
 </div>
-<div class="paragraph">
-<p><em>"Reading the sources"</em>, I say?! Yes, I <em>am</em> kidding!</p>
-</div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="introduction"><a class="anchor" href="#introduction"></a><a class="link" href="#introduction">Introduction</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="anchor" href="#introduction"></a><a class="link" href="#introduction"><a id="introduction"></a> Introduction</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong>DAGScheduler</strong> is the scheduling layer of Apache Spark that implements <strong>stage-oriented scheduling</strong>. It transforms a <strong>logical execution plan</strong> (i.e. <a href="spark-rdd-lineage.adoc">RDD lineage</a> of dependencies built using <a href="spark-rdd-transformations.adoc">RDD transformations</a>) to a <strong>physical execution plan</strong> (using <a href="spark-scheduler-Stage.adoc">stages</a>).</p>
 </div>
@@ -1862,10 +1862,10 @@
 <div class="content">
 <img src="_images/dagscheduler-rdd-lineage-stage-dag.png" alt="dagscheduler rdd lineage stage dag">
 </div>
-<div class="title">Figure 1. <code>DAGScheduler</code> Transforming RDD Lineage Into Stage DAG</div>
+<div class="title">Figure 1. DAGScheduler Transforming RDD Lineage Into Stage DAG</div>
 </div>
 <div class="paragraph">
-<p>After an <a href="spark-rdd-actions.adoc">action</a> has been called, <a href="spark-SparkContext.adoc">SparkContext</a> hands over a logical plan to <code>DAGScheduler</code> that it in turn translates to a set of stages that are submitted as <a href="scheduler/TaskSet.html" class="page">TaskSets</a> for execution (see <a href="spark-execution-model.adoc">Execution Model</a>).</p>
+<p>After an <a href="rdd/spark-rdd-actions.html" class="page">action</a> has been called, spark-SparkContext.adoc[SparkContext] hands over a logical plan to DAGScheduler that it in turn translates to a set of stages that are submitted as <a href="scheduler/TaskSet.html" class="page">TaskSets</a> for execution (see <a href="spark-execution-model.adoc">Execution Model</a>).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1874,7 +1874,7 @@
 <div class="title">Figure 2. Executing action leads to new ResultStage and ActiveJob in DAGScheduler</div>
 </div>
 <div class="paragraph">
-<p>The fundamental concepts of <code>DAGScheduler</code> are <strong>jobs</strong> and <strong>stages</strong> (refer to <a href="spark-scheduler-ActiveJob.adoc">Jobs</a> and <a href="spark-scheduler-Stage.adoc">Stages</a> respectively) that it tracks through <a href="#internal-registries">internal registries and counters</a>.</p>
+<p>The fundamental concepts of DAGScheduler are <strong>jobs</strong> and <strong>stages</strong> (refer to <a href="spark-scheduler-ActiveJob.adoc">Jobs</a> and <a href="spark-scheduler-Stage.adoc">Stages</a> respectively) that it tracks through <a href="#internal-registries">internal registries and counters</a>.</p>
 </div>
 <div class="paragraph">
 <p>DAGScheduler works solely on the driver and is created as part of <a href="spark-SparkContext.adoc#creating-instance">SparkContext&#8217;s initialization</a> (right after <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a> and <a href="spark-SchedulerBackend.adoc">SchedulerBackend</a> are ready).</p>
@@ -1902,13 +1902,13 @@
 </ul>
 </div>
 <div class="paragraph">
-<p><code>DAGScheduler</code> computes <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">a directed acyclic graph (DAG)</a> of stages for each job, keeps track of which RDDs and stage outputs are materialized, and finds a minimal schedule to run jobs. It then submits stages to <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a>.</p>
+<p>DAGScheduler computes <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">a directed acyclic graph (DAG)</a> of stages for each job, keeps track of which RDDs and stage outputs are materialized, and finds a minimal schedule to run jobs. It then submits stages to <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a>.</p>
 </div>
 <div class="paragraph">
 <p>In addition to coming up with the execution DAG, DAGScheduler also determines the preferred locations to run each task on, based on the current cache status, and passes the information to <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>DAGScheduler</code> tracks which <a href="spark-rdd-caching.adoc">RDDs are cached (or persisted)</a> to avoid "recomputing" them, i.e. redoing the map side of a shuffle. <code>DAGScheduler</code> remembers what <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a>s have already produced output files (that are stored in <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>s).</p>
+<p>DAGScheduler tracks which <a href="spark-rdd-caching.adoc">RDDs are cached (or persisted)</a> to avoid "recomputing" them, i.e. redoing the map side of a shuffle. DAGScheduler remembers what <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a>s have already produced output files (that are stored in <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>s).</p>
 </div>
 <div class="paragraph">
 <p>DAGScheduler is only interested in cache location coordinates, i.e. host and executor id, per partition of a RDD.</p>
@@ -1934,127 +1934,8 @@ FIXME: A diagram, please
 <div class="paragraph">
 <p>DAGScheduler runs stages in topological order.</p>
 </div>
-<table id="internal-properties" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. DAGScheduler&#8217;s Internal Properties</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Initial Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="metricsSource"></a> metricsSource</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-scheduler-DAGSchedulerSource.adoc">DAGSchedulerSource</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FIXME</p></td>
-</tr>
-</tbody>
-</table>
-<table id="internal-registries" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. DAGScheduler&#8217;s Internal Registries and Counters</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="activeJobs"></a> <code>activeJobs</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ActiveJob</code> instances</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="cacheLocs"></a> <code>cacheLocs</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Block locations per RDD and partition.</p>
-<p class="tableblock">Uses <a href="spark-TaskLocation.adoc">TaskLocation</a> that includes a host name and an executor id on that host (as <code>ExecutorCacheTaskLocation</code>).</p>
-<p class="tableblock">The keys are RDDs (their ids) and the values are arrays indexed by partition numbers.</p>
-<p class="tableblock">Each entry is a set of block locations where a RDD partition is cached, i.e. the <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>s of the blocks.</p>
-<p class="tableblock">Initialized empty when <a href="#creating-instance"><code>DAGScheduler</code> is created</a>.</p>
-<p class="tableblock">Used when <code>DAGScheduler</code> is requested for the <a href="#getCacheLocs">locations of the cache blocks of a RDD</a> or <a href="#clearCacheLocs">clear them</a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="failedEpoch"></a> <code>failedEpoch</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table of lost executors and the epoch of the event.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="failedStages"></a> <code>failedStages</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Stages that failed due to fetch failures (when a <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion-FetchFailed">task fails with <code>FetchFailed</code> exception</a>).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="jobIdToActiveJob"></a> <code>jobIdToActiveJob</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table of <code>ActiveJob</code>s per job id.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="jobIdToStageIds"></a> <code>jobIdToStageIds</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table of all stages per <code>ActiveJob</code> id</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="nextJobId"></a> <code>nextJobId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The next job id counting from <code>0</code>.</p>
-<p class="tableblock">Used when <code>DAGScheduler</code> <a href="#submitJob">submits a job</a> and <a href="#submitMapStage">a map stage</a>, and <a href="#runApproximateJob">runs an approximate job</a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="nextStageId"></a> <code>nextStageId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The next stage id counting from <code>0</code>.</p>
-<p class="tableblock">Used when <code>DAGScheduler</code> creates a <a href="#createShuffleMapStage">shuffle map stage</a> and a <a href="#createResultStage">result stage</a>. It is the key in <a href="#stageIdToStage">stageIdToStage</a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="runningStages"></a> <code>runningStages</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The set of stages that are currently "running".</p>
-<p class="tableblock">A stage is added when <a href="#submitMissingTasks">submitMissingTasks</a> gets executed (without first checking if the stage has not already been added).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="shuffleIdToMapStage"></a> <code>shuffleIdToMapStage</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table of <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a>s per <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="stageIdToStage"></a> <code>stageIdToStage</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table for stages per their ids.</p>
-<p class="tableblock">Used when <code>DAGScheduler</code> <a href="#createShuffleMapStage">creates a shuffle map stage</a>, <a href="#createResultStage">creates a result stage</a>, <a href="#cleanupStateForJobAndIndependentStages">cleans up job state and independent stages</a>, is informed that <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleBeginEvent">a task is started</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskSetFailed">a taskset has failed</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleJobSubmitted">a job is submitted (to compute a <code>ResultStage</code>)</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleMapStageSubmitted">a map stage was submitted</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion">a task has completed</a> or <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleStageCancellation">a stage was cancelled</a>, <a href="#updateAccumulators">updates accumulators</a>, <a href="#abortStage">aborts a stage</a> and <a href="#failJobAndIndependentStages">fails a job and independent stages</a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="waitingStages"></a> <code>waitingStages</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The stages with parents to be computed</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>Enable <code>INFO</code>, <code>DEBUG</code> or <code>TRACE</code> logging levels for <code>org.apache.spark.scheduler.DAGSchedule</code> logger to see what happens inside <code>DAGScheduler</code>.</p>
-</div>
-<div class="paragraph">
-<p>Add the following line to <code>conf/log4j.properties</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.scheduler.DAGScheduler=TRACE</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Refer to <a href="spark-logging.adoc">Logging</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>DAGScheduler uses <a href="spark-SparkContext.adoc">SparkContext</a>, <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a>, <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a>, <a href="spark-service-mapoutputtracker.adoc">MapOutputTracker</a> and <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> for its services. However, at the very minimum, <code>DAGScheduler</code> takes a <code>SparkContext</code> only (and requests <code>SparkContext</code> for the other services).</p>
+<p>DAGScheduler uses <a href="spark-SparkContext.adoc">SparkContext</a>, <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a>, <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a>, <a href="spark-service-mapoutputtracker.adoc">MapOutputTracker</a> and <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> for its services. However, at the very minimum, DAGScheduler takes a <code>SparkContext</code> only (and requests <code>SparkContext</code> for the other services).</p>
 </div>
 <div class="paragraph">
 <p>DAGScheduler reports metrics about its execution (refer to the section <a href="#metrics">Metrics</a>).</p>
@@ -2063,23 +1944,76 @@ FIXME: A diagram, please
 <p>When DAGScheduler schedules a job as a result of <a href="rdd/index.html#actions" class="page">executing an action on a RDD</a> or <a href="spark-SparkContext.adoc#runJob">calling SparkContext.runJob() method directly</a>, it spawns parallel tasks to compute (partial) results per partition.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="running-approximate-jobrunapproximatejob-method"><a class="anchor" href="#running-approximate-jobrunapproximatejob-method"></a><a class="link" href="#running-approximate-jobrunapproximatejob-method"><a id="runApproximateJob"></a> Running Approximate Job&#8201;&#8212;&#8201;<code>runApproximateJob</code> Method</a></h3>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a><a id="initialization"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DAGScheduler takes the following to be created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="sc"></a> <a href="spark-SparkContext.html" class="page">SparkContext</a></p>
+</li>
+<li>
+<p><a href="#taskScheduler">TaskScheduler</a></p>
+</li>
+<li>
+<p><a id="listenerBus"></a> <a href="spark-scheduler-LiveListenerBus.html" class="page">LiveListenerBus</a></p>
+</li>
+<li>
+<p><a id="mapOutputTracker"></a> <a href="spark-service-MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a></p>
+</li>
+<li>
+<p><a id="blockManagerMaster"></a> <a href="storage/BlockManagerMaster.html" class="page">BlockManagerMaster</a></p>
+</li>
+<li>
+<p><a id="env"></a> <a href="spark-SparkEnv.html" class="page">SparkEnv</a></p>
+</li>
+<li>
+<p><a id="clock"></a> Clock (default: SystemClock)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>While being created, DAGScheduler <a href="scheduler/TaskScheduler.html#setDAGScheduler" class="page">associates itself</a> with the <a href="#taskScheduler">TaskScheduler</a> and starts <a href="#eventProcessLoop">DAGScheduler Event Bus</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="createresultstage-internal-method"><a class="anchor" href="#createresultstage-internal-method"></a><a class="link" href="#createresultstage-internal-method"><a id="createResultStage"></a> <code>createResultStage</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="taskscheduler"><a class="anchor" href="#taskscheduler"></a><a class="link" href="#taskscheduler"><a id="taskScheduler"></a> TaskScheduler</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DAGScheduler is given a <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a> to be <a href="#creating-instance">created</a>.</p>
+</div>
+<div class="paragraph">
+<p>DAGScheduler uses the TaskScheduler for the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#submitMissingTasks">submitMissingTasks</a></p>
+</li>
+<li>
+<p><a href="#handleTaskCompletion">handleTaskCompletion</a></p>
+</li>
+<li>
+<p><a href="#killTaskAttempt">killTaskAttempt</a></p>
+</li>
+<li>
+<p><a href="#failJobAndIndependentStages">failJobAndIndependentStages</a></p>
+</li>
+<li>
+<p><a href="#stop">Stopping itself</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-resultstage-for-rdd"><a class="anchor" href="#creating-resultstage-for-rdd"></a><a class="link" href="#creating-resultstage-for-rdd"><a id="createResultStage"></a> Creating ResultStage for RDD</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">createResultStage(
@@ -2103,8 +2037,117 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="updatejobidstageidmaps-method"><a class="anchor" href="#updatejobidstageidmaps-method"></a><a class="link" href="#updatejobidstageidmaps-method"><a id="updateJobIdStageIdMaps"></a> <code>updateJobIdStageIdMaps</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="creating-shufflemapstage-for-shuffledependency"><a class="anchor" href="#creating-shufflemapstage-for-shuffledependency"></a><a class="link" href="#creating-shufflemapstage-for-shuffledependency"><a id="createShuffleMapStage"></a> Creating ShuffleMapStage for ShuffleDependency</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">createShuffleMapStage(
+  shuffleDep: ShuffleDependency[_, _, _],
+  jobId: Int): ShuffleMapStage</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>createShuffleMapStage</code> creates a <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> for the input <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <code>jobId</code> (of a <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a>) possibly copying shuffle map output locations from previous jobs to avoid recomputing records.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When a <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> is created, the <code>id</code> is generated (using <a href="#nextStageId"><code>nextStageId</code> internal counter</a>), <code>rdd</code> is from <code>ShuffleDependency</code>, <code>numTasks</code> is the number of partitions in the RDD, all <code>parents</code> are looked up (and possibly created), the <code>jobId</code> is given, <code>callSite</code> is the <code>creationSite</code> of the RDD, and <code>shuffleDep</code> is the input <code>ShuffleDependency</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Internally, <code>createShuffleMapStage</code> first <a href="#getOrCreateParentStages">finds or creates missing parent <code>ShuffleMapStage</code> stages of the associated RDD</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> is associated with exactly one <code>RDD[Product2[K, V]]</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>createShuffleMapStage</code> <a href="spark-scheduler-ShuffleMapStage.adoc#creating-instance">creates a <code>ShuffleMapStage</code></a> (with the stage id from <a href="#nextStageId"><code>nextStageId</code> internal counter</a>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>createShuffleMapStage</code> registers the <code>ShuffleMapStage</code> in <a href="#stageIdToStage">stageIdToStage</a> and <a href="#shuffleIdToMapStage">shuffleIdToMapStage</a> internal registries.</p>
+</div>
+<div class="paragraph">
+<p><code>createShuffleMapStage</code> calls <a href="#updateJobIdStageIdMaps">updateJobIdStageIdMaps</a>.</p>
+</div>
+<div class="paragraph">
+<p>If <a href="spark-service-MapOutputTrackerMaster.adoc#containsShuffle"><code>MapOutputTrackerMaster</code> tracks the input <code>ShuffleDependency</code></a> (because other jobs have already computed it), <code>createShuffleMapStage</code> <a href="spark-service-MapOutputTrackerMaster.adoc#getSerializedMapOutputStatuses">requests the serialized <code>ShuffleMapStage</code> outputs</a>, <a href="spark-service-MapOutputTracker.adoc#deserializeMapStatuses">deserializes them</a> and <a href="spark-scheduler-ShuffleMapStage.adoc#addOutputLoc">registers with the new <code>ShuffleMapStage</code></a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="spark-service-MapOutputTrackerMaster.adoc">MapOutputTrackerMaster</a> was defined when <a href="#creating-instance">DAGScheduler was created</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/DAGScheduler-MapOutputTrackerMaster-containsShuffle.png" alt="DAGScheduler MapOutputTrackerMaster containsShuffle">
+</div>
+<div class="title">Figure 4. DAGScheduler Asks <code>MapOutputTrackerMaster</code> Whether Shuffle Map Output Is Already Tracked</div>
+</div>
+<div class="paragraph">
+<p>If however <code>MapOutputTrackerMaster</code> does not track the input <code>ShuffleDependency</code>, you should see the following INFO message in the logs and <code>createShuffleMapStage</code> <a href="spark-service-MapOutputTrackerMaster.adoc#registerShuffle">registers the <code>ShuffleDependency</code> with <code>MapOutputTrackerMaster</code></a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>INFO Registering RDD [id] ([creationSite])</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>createShuffleMapStage</code> returns the new <code>ShuffleMapStage</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>createShuffleMapStage</code> is executed only when DAGScheduler <a href="#getOrCreateShuffleMapStage">finds or creates parent <code>ShuffleMapStage</code> stages for a <code>ShuffleDependency</code></a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="updatejobidstageidmaps-method"><a class="anchor" href="#updatejobidstageidmaps-method"></a><a class="link" href="#updatejobidstageidmaps-method"><a id="updateJobIdStageIdMaps"></a> <code>updateJobIdStageIdMaps</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -2118,68 +2161,23 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-dagscheduler-instance"><a class="anchor" href="#creating-dagscheduler-instance"></a><a class="link" href="#creating-dagscheduler-instance"><a id="creating-instance"></a><a id="initialization"></a> Creating DAGScheduler Instance</a></h3>
-<div class="paragraph">
-<p><code>DAGScheduler</code> takes the following when created:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a id="sc"></a> <a href="spark-SparkContext.adoc">SparkContext</a></p>
-</li>
-<li>
-<p><a id="taskScheduler"></a> <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a></p>
-</li>
-<li>
-<p><a id="listenerBus"></a> <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a></p>
-</li>
-<li>
-<p><a id="mapOutputTracker"></a> <a href="spark-service-MapOutputTrackerMaster.adoc">MapOutputTrackerMaster</a></p>
-</li>
-<li>
-<p><a id="blockManagerMaster"></a> <a href="storage/BlockManagerMaster.html" class="page">BlockManagerMaster</a></p>
-</li>
-<li>
-<p><a id="env"></a> <a href="spark-SparkEnv.adoc">SparkEnv</a></p>
-</li>
-<li>
-<p><a id="clock"></a> <code>Clock</code> (defaults to <code>SystemClock</code>)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>DAGScheduler</code> initializes the <a href="#internal-registries">internal registries and counters</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>DAGScheduler</code> <a href="scheduler/TaskScheduler.html#setDAGScheduler" class="page">sets itself in the given <code>TaskScheduler</code></a> and in the end starts <a href="#eventProcessLoop">DAGScheduler Event Bus</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>DAGScheduler</code> can reference all the services through a single <a href="spark-SparkContext.adoc">SparkContext</a> with or without specifying explicit <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="livelistenerbus-event-bus-for-sparklistenereventslistenerbus-property"><a class="anchor" href="#livelistenerbus-event-bus-for-sparklistenereventslistenerbus-property"></a><a class="link" href="#livelistenerbus-event-bus-for-sparklistenereventslistenerbus-property"><a id="listenerBus"></a> LiveListenerBus Event Bus for SparkListenerEvents&#8201;&#8212;&#8201;<code>listenerBus</code> Property</a></h3>
+<div class="sect1">
+<h2 id="livelistenerbus-event-bus-for-sparklistenereventslistenerbus-property"><a class="anchor" href="#livelistenerbus-event-bus-for-sparklistenereventslistenerbus-property"></a><a class="link" href="#livelistenerbus-event-bus-for-sparklistenereventslistenerbus-property"><a id="listenerBus"></a> LiveListenerBus Event Bus for SparkListenerEvents&#8201;&#8212;&#8201;<code>listenerBus</code> Property</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">listenerBus: LiveListenerBus</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>listenerBus</code> is a <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> to post scheduling events and is passed in when <a href="#creating-instance"><code>DAGScheduler</code> is created</a>.</p>
+<p><code>listenerBus</code> is a <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> to post scheduling events and is passed in when <a href="#creating-instance">DAGScheduler is created</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="executorheartbeatreceived-method"><a class="anchor" href="#executorheartbeatreceived-method"></a><a class="link" href="#executorheartbeatreceived-method"><a id="executorHeartbeatReceived"></a> <code>executorHeartbeatReceived</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="executorheartbeatreceived-method"><a class="anchor" href="#executorheartbeatreceived-method"></a><a class="link" href="#executorheartbeatreceived-method"><a id="executorHeartbeatReceived"></a> <code>executorHeartbeatReceived</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">executorHeartbeatReceived(
@@ -2204,8 +2202,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cleaning-up-after-activejob-and-independent-stagescleanupstateforjobandindependentstages-method"><a class="anchor" href="#cleaning-up-after-activejob-and-independent-stagescleanupstateforjobandindependentstages-method"></a><a class="link" href="#cleaning-up-after-activejob-and-independent-stagescleanupstateforjobandindependentstages-method"><a id="cleanupStateForJobAndIndependentStages"></a> Cleaning Up After ActiveJob and Independent Stages&#8201;&#8212;&#8201;<code>cleanupStateForJobAndIndependentStages</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="cleaning-up-after-activejob-and-independent-stagescleanupstateforjobandindependentstages-method"><a class="anchor" href="#cleaning-up-after-activejob-and-independent-stagescleanupstateforjobandindependentstages-method"></a><a class="link" href="#cleaning-up-after-activejob-and-independent-stagescleanupstateforjobandindependentstages-method"><a id="cleanupStateForJobAndIndependentStages"></a> Cleaning Up After ActiveJob and Independent Stages&#8201;&#8212;&#8201;<code>cleanupStateForJobAndIndependentStages</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">cleanupStateForJobAndIndependentStages(job: ActiveJob): Unit</code></pre>
@@ -2293,8 +2293,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="marking-shufflemapstage-job-finishedmarkmapstagejobasfinished-method"><a class="anchor" href="#marking-shufflemapstage-job-finishedmarkmapstagejobasfinished-method"></a><a class="link" href="#marking-shufflemapstage-job-finishedmarkmapstagejobasfinished-method"><a id="markMapStageJobAsFinished"></a> Marking ShuffleMapStage Job Finished&#8201;&#8212;&#8201;<code>markMapStageJobAsFinished</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="marking-shufflemapstage-job-finishedmarkmapstagejobasfinished-method"><a class="anchor" href="#marking-shufflemapstage-job-finishedmarkmapstagejobasfinished-method"></a><a class="link" href="#marking-shufflemapstage-job-finishedmarkmapstagejobasfinished-method"><a id="markMapStageJobAsFinished"></a> Marking ShuffleMapStage Job Finished&#8201;&#8212;&#8201;<code>markMapStageJobAsFinished</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">markMapStageJobAsFinished(job: ActiveJob, stats: MapOutputStatistics): Unit</code></pre>
@@ -2328,8 +2330,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="submitting-jobsubmitjob-method"><a class="anchor" href="#submitting-jobsubmitjob-method"></a><a class="link" href="#submitting-jobsubmitjob-method"><a id="submitJob"></a> Submitting Job&#8201;&#8212;&#8201;<code>submitJob</code> method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="submitting-jobsubmitjob-method"><a class="anchor" href="#submitting-jobsubmitjob-method"></a><a class="link" href="#submitting-jobsubmitjob-method"><a id="submitJob"></a> Submitting Job&#8201;&#8212;&#8201;<code>submitJob</code> method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitJob[T, U](
@@ -2348,7 +2352,7 @@ FIXME
 <div class="content">
 <img src="_images/dagscheduler-submitjob.png" alt="dagscheduler submitjob">
 </div>
-<div class="title">Figure 4. DAGScheduler.submitJob</div>
+<div class="title">Figure 5. DAGScheduler.submitJob</div>
 </div>
 <div class="paragraph">
 <p>Internally, <code>submitJob</code> does the following:</p>
@@ -2384,7 +2388,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>submitJob</code> is called when <a href="spark-SparkContext.adoc#submitJob"><code>SparkContext</code> submits a job</a> and <a href="#runJob"><code>DAGScheduler</code> runs a job</a>.
+<code>submitJob</code> is called when <a href="spark-SparkContext.adoc#submitJob"><code>SparkContext</code> submits a job</a> and <a href="#runJob">DAGScheduler runs a job</a>.
 </td>
 </tr>
 </table>
@@ -2402,8 +2406,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="submitting-shuffledependency-for-executionsubmitmapstage-method"><a class="anchor" href="#submitting-shuffledependency-for-executionsubmitmapstage-method"></a><a class="link" href="#submitting-shuffledependency-for-executionsubmitmapstage-method"><a id="submitMapStage"></a> Submitting ShuffleDependency for Execution&#8201;&#8212;&#8201;<code>submitMapStage</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="submitting-shuffledependency-for-executionsubmitmapstage-method"><a class="anchor" href="#submitting-shuffledependency-for-executionsubmitmapstage-method"></a><a class="link" href="#submitting-shuffledependency-for-executionsubmitmapstage-method"><a id="submitMapStage"></a> Submitting ShuffleDependency for Execution&#8201;&#8212;&#8201;<code>submitMapStage</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitMapStage[K, V, C](
@@ -2461,8 +2467,10 @@ A <code>MapStageSubmitted</code> holds the newly-created job id and <code>JobWai
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="relaying-stage-cancellation-from-sparkcontext-by-posting-stagecancelled-to-dagscheduler-event-buscancelstage-method"><a class="anchor" href="#relaying-stage-cancellation-from-sparkcontext-by-posting-stagecancelled-to-dagscheduler-event-buscancelstage-method"></a><a class="link" href="#relaying-stage-cancellation-from-sparkcontext-by-posting-stagecancelled-to-dagscheduler-event-buscancelstage-method"><a id="cancelStage"></a> Relaying Stage Cancellation From SparkContext (by Posting StageCancelled to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>cancelStage</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="relaying-stage-cancellation-from-sparkcontext-by-posting-stagecancelled-to-dagscheduler-event-buscancelstage-method"><a class="anchor" href="#relaying-stage-cancellation-from-sparkcontext-by-posting-stagecancelled-to-dagscheduler-event-buscancelstage-method"></a><a class="link" href="#relaying-stage-cancellation-from-sparkcontext-by-posting-stagecancelled-to-dagscheduler-event-buscancelstage-method"><a id="cancelStage"></a> Relaying Stage Cancellation From SparkContext (by Posting StageCancelled to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>cancelStage</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">cancelStage(stageId: Int)</code></pre>
@@ -2484,8 +2492,10 @@ A <code>MapStageSubmitted</code> holds the newly-created job id and <code>JobWai
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="relaying-job-group-cancellation-from-sparkcontext-by-posting-jobgroupcancelled-to-dagscheduler-event-buscanceljobgroup-method"><a class="anchor" href="#relaying-job-group-cancellation-from-sparkcontext-by-posting-jobgroupcancelled-to-dagscheduler-event-buscanceljobgroup-method"></a><a class="link" href="#relaying-job-group-cancellation-from-sparkcontext-by-posting-jobgroupcancelled-to-dagscheduler-event-buscanceljobgroup-method"><a id="cancelJobGroup"></a> Relaying Job Group Cancellation From SparkContext (by Posting JobGroupCancelled to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>cancelJobGroup</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="relaying-job-group-cancellation-from-sparkcontext-by-posting-jobgroupcancelled-to-dagscheduler-event-buscanceljobgroup-method"><a class="anchor" href="#relaying-job-group-cancellation-from-sparkcontext-by-posting-jobgroupcancelled-to-dagscheduler-event-buscanceljobgroup-method"></a><a class="link" href="#relaying-job-group-cancellation-from-sparkcontext-by-posting-jobgroupcancelled-to-dagscheduler-event-buscanceljobgroup-method"><a id="cancelJobGroup"></a> Relaying Job Group Cancellation From SparkContext (by Posting JobGroupCancelled to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>cancelJobGroup</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">cancelJobGroup(groupId: String): Unit</code></pre>
@@ -2512,8 +2522,10 @@ A <code>MapStageSubmitted</code> holds the newly-created job id and <code>JobWai
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="relaying-all-jobs-cancellation-from-sparkcontext-by-posting-alljobscancelled-to-dagscheduler-event-buscancelalljobs-method"><a class="anchor" href="#relaying-all-jobs-cancellation-from-sparkcontext-by-posting-alljobscancelled-to-dagscheduler-event-buscancelalljobs-method"></a><a class="link" href="#relaying-all-jobs-cancellation-from-sparkcontext-by-posting-alljobscancelled-to-dagscheduler-event-buscancelalljobs-method"><a id="cancelAllJobs"></a> Relaying All Jobs Cancellation From SparkContext (by Posting AllJobsCancelled to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>cancelAllJobs</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="relaying-all-jobs-cancellation-from-sparkcontext-by-posting-alljobscancelled-to-dagscheduler-event-buscancelalljobs-method"><a class="anchor" href="#relaying-all-jobs-cancellation-from-sparkcontext-by-posting-alljobscancelled-to-dagscheduler-event-buscancelalljobs-method"></a><a class="link" href="#relaying-all-jobs-cancellation-from-sparkcontext-by-posting-alljobscancelled-to-dagscheduler-event-buscancelalljobs-method"><a id="cancelAllJobs"></a> Relaying All Jobs Cancellation From SparkContext (by Posting AllJobsCancelled to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>cancelAllJobs</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">cancelAllJobs(): Unit</code></pre>
@@ -2535,8 +2547,10 @@ A <code>MapStageSubmitted</code> holds the newly-created job id and <code>JobWai
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="relaying-task-started-from-tasksetmanager-by-posting-beginevent-to-dagscheduler-event-bustaskstarted-method"><a class="anchor" href="#relaying-task-started-from-tasksetmanager-by-posting-beginevent-to-dagscheduler-event-bustaskstarted-method"></a><a class="link" href="#relaying-task-started-from-tasksetmanager-by-posting-beginevent-to-dagscheduler-event-bustaskstarted-method"><a id="taskStarted"></a> Relaying Task Started From TaskSetManager (by Posting BeginEvent to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>taskStarted</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="relaying-task-started-from-tasksetmanager-by-posting-beginevent-to-dagscheduler-event-bustaskstarted-method"><a class="anchor" href="#relaying-task-started-from-tasksetmanager-by-posting-beginevent-to-dagscheduler-event-bustaskstarted-method"></a><a class="link" href="#relaying-task-started-from-tasksetmanager-by-posting-beginevent-to-dagscheduler-event-bustaskstarted-method"><a id="taskStarted"></a> Relaying Task Started From TaskSetManager (by Posting BeginEvent to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>taskStarted</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">taskStarted(task: Task[_], taskInfo: TaskInfo)</code></pre>
@@ -2558,8 +2572,10 @@ A <code>MapStageSubmitted</code> holds the newly-created job id and <code>JobWai
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="relaying-task-fetchinggetting-result-from-tasksetmanager-by-posting-gettingresultevent-to-dagscheduler-event-bustaskgettingresult-method"><a class="anchor" href="#relaying-task-fetchinggetting-result-from-tasksetmanager-by-posting-gettingresultevent-to-dagscheduler-event-bustaskgettingresult-method"></a><a class="link" href="#relaying-task-fetchinggetting-result-from-tasksetmanager-by-posting-gettingresultevent-to-dagscheduler-event-bustaskgettingresult-method"><a id="taskGettingResult"></a> Relaying Task Fetching/Getting Result From TaskSetManager (by Posting GettingResultEvent to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>taskGettingResult</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="relaying-task-fetchinggetting-result-from-tasksetmanager-by-posting-gettingresultevent-to-dagscheduler-event-bustaskgettingresult-method"><a class="anchor" href="#relaying-task-fetchinggetting-result-from-tasksetmanager-by-posting-gettingresultevent-to-dagscheduler-event-bustaskgettingresult-method"></a><a class="link" href="#relaying-task-fetchinggetting-result-from-tasksetmanager-by-posting-gettingresultevent-to-dagscheduler-event-bustaskgettingresult-method"><a id="taskGettingResult"></a> Relaying Task Fetching/Getting Result From TaskSetManager (by Posting GettingResultEvent to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>taskGettingResult</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">taskGettingResult(taskInfo: TaskInfo)</code></pre>
@@ -2581,8 +2597,10 @@ A <code>MapStageSubmitted</code> holds the newly-created job id and <code>JobWai
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="relaying-task-end-from-tasksetmanager-by-posting-completionevent-to-dagscheduler-event-bustaskended-method"><a class="anchor" href="#relaying-task-end-from-tasksetmanager-by-posting-completionevent-to-dagscheduler-event-bustaskended-method"></a><a class="link" href="#relaying-task-end-from-tasksetmanager-by-posting-completionevent-to-dagscheduler-event-bustaskended-method"><a id="taskEnded"></a> Relaying Task End From TaskSetManager (by Posting CompletionEvent to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>taskEnded</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="relaying-task-end-from-tasksetmanager-by-posting-completionevent-to-dagscheduler-event-bustaskended-method"><a class="anchor" href="#relaying-task-end-from-tasksetmanager-by-posting-completionevent-to-dagscheduler-event-bustaskended-method"></a><a class="link" href="#relaying-task-end-from-tasksetmanager-by-posting-completionevent-to-dagscheduler-event-bustaskended-method"><a id="taskEnded"></a> Relaying Task End From TaskSetManager (by Posting CompletionEvent to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>taskEnded</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">taskEnded(
@@ -2622,8 +2640,10 @@ Read <a href="spark-executor-TaskMetrics.adoc">TaskMetrics</a>.
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="relaying-taskset-failed-from-tasksetmanager-by-posting-tasksetfailed-to-dagscheduler-event-bustasksetfailed-method"><a class="anchor" href="#relaying-taskset-failed-from-tasksetmanager-by-posting-tasksetfailed-to-dagscheduler-event-bustasksetfailed-method"></a><a class="link" href="#relaying-taskset-failed-from-tasksetmanager-by-posting-tasksetfailed-to-dagscheduler-event-bustasksetfailed-method"><a id="taskSetFailed"></a> Relaying TaskSet Failed From TaskSetManager (by Posting TaskSetFailed to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>taskSetFailed</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="relaying-taskset-failed-from-tasksetmanager-by-posting-tasksetfailed-to-dagscheduler-event-bustasksetfailed-method"><a class="anchor" href="#relaying-taskset-failed-from-tasksetmanager-by-posting-tasksetfailed-to-dagscheduler-event-bustasksetfailed-method"></a><a class="link" href="#relaying-taskset-failed-from-tasksetmanager-by-posting-tasksetfailed-to-dagscheduler-event-bustasksetfailed-method"><a id="taskSetFailed"></a> Relaying TaskSet Failed From TaskSetManager (by Posting TaskSetFailed to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>taskSetFailed</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">taskSetFailed(
@@ -2660,8 +2680,10 @@ The input arguments of <code>taskSetFailed</code> are exactly the arguments of <
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="relaying-executor-lost-from-taskschedulerimpl-by-posting-executorlost-to-dagscheduler-event-busexecutorlost-method"><a class="anchor" href="#relaying-executor-lost-from-taskschedulerimpl-by-posting-executorlost-to-dagscheduler-event-busexecutorlost-method"></a><a class="link" href="#relaying-executor-lost-from-taskschedulerimpl-by-posting-executorlost-to-dagscheduler-event-busexecutorlost-method"><a id="executorLost"></a> Relaying Executor Lost From TaskSchedulerImpl (by Posting ExecutorLost to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>executorLost</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="relaying-executor-lost-from-taskschedulerimpl-by-posting-executorlost-to-dagscheduler-event-busexecutorlost-method"><a class="anchor" href="#relaying-executor-lost-from-taskschedulerimpl-by-posting-executorlost-to-dagscheduler-event-busexecutorlost-method"></a><a class="link" href="#relaying-executor-lost-from-taskschedulerimpl-by-posting-executorlost-to-dagscheduler-event-busexecutorlost-method"><a id="executorLost"></a> Relaying Executor Lost From TaskSchedulerImpl (by Posting ExecutorLost to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>executorLost</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">executorLost(execId: String, reason: ExecutorLossReason): Unit</code></pre>
@@ -2683,8 +2705,10 @@ The input arguments of <code>taskSetFailed</code> are exactly the arguments of <
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="relaying-executor-added-from-taskschedulerimpl-by-posting-executoradded-to-dagscheduler-event-busexecutoradded-method"><a class="anchor" href="#relaying-executor-added-from-taskschedulerimpl-by-posting-executoradded-to-dagscheduler-event-busexecutoradded-method"></a><a class="link" href="#relaying-executor-added-from-taskschedulerimpl-by-posting-executoradded-to-dagscheduler-event-busexecutoradded-method"><a id="executorAdded"></a> Relaying Executor Added From TaskSchedulerImpl (by Posting ExecutorAdded to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>executorAdded</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="relaying-executor-added-from-taskschedulerimpl-by-posting-executoradded-to-dagscheduler-event-busexecutoradded-method"><a class="anchor" href="#relaying-executor-added-from-taskschedulerimpl-by-posting-executoradded-to-dagscheduler-event-busexecutoradded-method"></a><a class="link" href="#relaying-executor-added-from-taskschedulerimpl-by-posting-executoradded-to-dagscheduler-event-busexecutoradded-method"><a id="executorAdded"></a> Relaying Executor Added From TaskSchedulerImpl (by Posting ExecutorAdded to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>executorAdded</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">executorAdded(execId: String, host: String): Unit</code></pre>
@@ -2706,8 +2730,10 @@ The input arguments of <code>taskSetFailed</code> are exactly the arguments of <
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="relaying-job-cancellation-from-sparkcontext-or-jobwaiter-by-posting-jobcancelled-to-dagscheduler-event-buscanceljob-method"><a class="anchor" href="#relaying-job-cancellation-from-sparkcontext-or-jobwaiter-by-posting-jobcancelled-to-dagscheduler-event-buscanceljob-method"></a><a class="link" href="#relaying-job-cancellation-from-sparkcontext-or-jobwaiter-by-posting-jobcancelled-to-dagscheduler-event-buscanceljob-method"><a id="cancelJob"></a> Relaying Job Cancellation From SparkContext or JobWaiter (by Posting JobCancelled to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>cancelJob</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="relaying-job-cancellation-from-sparkcontext-or-jobwaiter-by-posting-jobcancelled-to-dagscheduler-event-buscanceljob-method"><a class="anchor" href="#relaying-job-cancellation-from-sparkcontext-or-jobwaiter-by-posting-jobcancelled-to-dagscheduler-event-buscanceljob-method"></a><a class="link" href="#relaying-job-cancellation-from-sparkcontext-or-jobwaiter-by-posting-jobcancelled-to-dagscheduler-event-buscanceljob-method"><a id="cancelJob"></a> Relaying Job Cancellation From SparkContext or JobWaiter (by Posting JobCancelled to DAGScheduler Event Bus)&#8201;&#8212;&#8201;<code>cancelJob</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">cancelJob(jobId: Int): Unit</code></pre>
@@ -2718,7 +2744,7 @@ The input arguments of <code>taskSetFailed</code> are exactly the arguments of <
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>INFO DAGScheduler: Asked to cancel job [id]</code></pre>
+<pre class="highlightjs highlight"><code>Asked to cancel job [id]</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -2734,8 +2760,10 @@ The input arguments of <code>taskSetFailed</code> are exactly the arguments of <
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="finding-or-creating-missing-direct-parent-shufflemapstages-for-shuffledependencies-of-input-rddgetorcreateparentstages-internal-method"><a class="anchor" href="#finding-or-creating-missing-direct-parent-shufflemapstages-for-shuffledependencies-of-input-rddgetorcreateparentstages-internal-method"></a><a class="link" href="#finding-or-creating-missing-direct-parent-shufflemapstages-for-shuffledependencies-of-input-rddgetorcreateparentstages-internal-method"><a id="getOrCreateParentStages"></a> Finding Or Creating Missing Direct Parent ShuffleMapStages (For ShuffleDependencies of Input RDD)&#8201;&#8212;&#8201;<code>getOrCreateParentStages</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="finding-or-creating-missing-direct-parent-shufflemapstages-for-shuffledependencies-of-input-rddgetorcreateparentstages-internal-method"><a class="anchor" href="#finding-or-creating-missing-direct-parent-shufflemapstages-for-shuffledependencies-of-input-rddgetorcreateparentstages-internal-method"></a><a class="link" href="#finding-or-creating-missing-direct-parent-shufflemapstages-for-shuffledependencies-of-input-rddgetorcreateparentstages-internal-method"><a id="getOrCreateParentStages"></a> Finding Or Creating Missing Direct Parent ShuffleMapStages (For ShuffleDependencies of Input RDD)&#8201;&#8212;&#8201;<code>getOrCreateParentStages</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getOrCreateParentStages(rdd: RDD[_], firstJobId: Int): List[Stage]</code></pre>
@@ -2751,14 +2779,16 @@ The input arguments of <code>taskSetFailed</code> are exactly the arguments of <
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getOrCreateParentStages</code> is used when <code>DAGScheduler</code> <a href="#createShuffleMapStage">createShuffleMapStage</a> and <a href="#createResultStage">createResultStage</a>.
+<code>getOrCreateParentStages</code> is used when DAGScheduler <a href="#createShuffleMapStage">createShuffleMapStage</a> and <a href="#createResultStage">createResultStage</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="marking-stage-finishedmarkstageasfinished-internal-method"><a class="anchor" href="#marking-stage-finishedmarkstageasfinished-internal-method"></a><a class="link" href="#marking-stage-finishedmarkstageasfinished-internal-method"><a id="markStageAsFinished"></a> Marking Stage Finished&#8201;&#8212;&#8201;<code>markStageAsFinished</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="marking-stage-finishedmarkstageasfinished-internal-method"><a class="anchor" href="#marking-stage-finishedmarkstageasfinished-internal-method"></a><a class="link" href="#marking-stage-finishedmarkstageasfinished-internal-method"><a id="markStageAsFinished"></a> Marking Stage Finished&#8201;&#8212;&#8201;<code>markStageAsFinished</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">markStageAsFinished(stage: Stage, errorMessage: Option[String] = None): Unit</code></pre>
@@ -2777,8 +2807,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="running-jobrunjob-method"><a class="anchor" href="#running-jobrunjob-method"></a><a class="link" href="#running-jobrunjob-method"><a id="runJob"></a> Running Job&#8201;&#8212;&#8201;<code>runJob</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="running-jobrunjob-method"><a class="anchor" href="#running-jobrunjob-method"></a><a class="link" href="#running-jobrunjob-method"><a id="runJob"></a> Running Job&#8201;&#8212;&#8201;<code>runJob</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">runJob[T, U](
@@ -2791,7 +2823,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>runJob</code> submits an action job to the <code>DAGScheduler</code> and waits for a result.</p>
+<p><code>runJob</code> submits an action job to the DAGScheduler and waits for a result.</p>
 </div>
 <div class="paragraph">
 <p>Internally, <code>runJob</code> executes <a href="#submitJob">submitJob</a> and then waits until a result comes using <a href="spark-scheduler-JobWaiter.adoc">JobWaiter</a>.</p>
@@ -2825,8 +2857,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="finding-or-creating-new-shufflemapstages-for-shuffledependencygetorcreateshufflemapstage-internal-method"><a class="anchor" href="#finding-or-creating-new-shufflemapstages-for-shuffledependencygetorcreateshufflemapstage-internal-method"></a><a class="link" href="#finding-or-creating-new-shufflemapstages-for-shuffledependencygetorcreateshufflemapstage-internal-method"><a id="getOrCreateShuffleMapStage"></a> Finding or Creating New ShuffleMapStages for ShuffleDependency&#8201;&#8212;&#8201;<code>getOrCreateShuffleMapStage</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="finding-or-creating-new-shufflemapstages-for-shuffledependencygetorcreateshufflemapstage-internal-method"><a class="anchor" href="#finding-or-creating-new-shufflemapstages-for-shuffledependencygetorcreateshufflemapstage-internal-method"></a><a class="link" href="#finding-or-creating-new-shufflemapstages-for-shuffledependencygetorcreateshufflemapstage-internal-method"><a id="getOrCreateShuffleMapStage"></a> Finding or Creating New ShuffleMapStages for ShuffleDependency&#8201;&#8212;&#8201;<code>getOrCreateShuffleMapStage</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getOrCreateShuffleMapStage(
@@ -2862,119 +2896,16 @@ All the new <code>ShuffleMapStage</code> stages are associated with the input <c
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getOrCreateShuffleMapStage</code> is used when <code>DAGScheduler</code> <a href="#getOrCreateParentStages">finds or creates missing direct parent ShuffleMapStages</a> (for ShuffleDependencies of given RDD), <a href="#getMissingParentStages">getMissingParentStages</a> (for <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependencies</a>), <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleMapStageSubmitted">is notified that <code>ShuffleDependency</code> was submitted</a>, and <a href="#stageDependsOn">checks if a stage depends on another</a>.
+<code>getOrCreateShuffleMapStage</code> is used when DAGScheduler <a href="#getOrCreateParentStages">finds or creates missing direct parent ShuffleMapStages</a> (for ShuffleDependencies of given RDD), <a href="#getMissingParentStages">getMissingParentStages</a> (for <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependencies</a>), <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleMapStageSubmitted">is notified that <code>ShuffleDependency</code> was submitted</a>, and <a href="#stageDependsOn">checks if a stage depends on another</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-shufflemapstage-for-shuffledependency-copying-shuffle-map-output-locations-from-previous-jobscreateshufflemapstage-method"><a class="anchor" href="#creating-shufflemapstage-for-shuffledependency-copying-shuffle-map-output-locations-from-previous-jobscreateshufflemapstage-method"></a><a class="link" href="#creating-shufflemapstage-for-shuffledependency-copying-shuffle-map-output-locations-from-previous-jobscreateshufflemapstage-method"><a id="createShuffleMapStage"></a> Creating ShuffleMapStage for ShuffleDependency (Copying Shuffle Map Output Locations From Previous Jobs)&#8201;&#8212;&#8201;<code>createShuffleMapStage</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">createShuffleMapStage(
-  shuffleDep: ShuffleDependency[_, _, _],
-  jobId: Int): ShuffleMapStage</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p><code>createShuffleMapStage</code> creates a <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> for the input <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <code>jobId</code> (of a <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a>) possibly copying shuffle map output locations from previous jobs to avoid recomputing records.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-When a <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> is created, the <code>id</code> is generated (using <a href="#nextStageId"><code>nextStageId</code> internal counter</a>), <code>rdd</code> is from <code>ShuffleDependency</code>, <code>numTasks</code> is the number of partitions in the RDD, all <code>parents</code> are looked up (and possibly created), the <code>jobId</code> is given, <code>callSite</code> is the <code>creationSite</code> of the RDD, and <code>shuffleDep</code> is the input <code>ShuffleDependency</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Internally, <code>createShuffleMapStage</code> first <a href="#getOrCreateParentStages">finds or creates missing parent <code>ShuffleMapStage</code> stages of the associated RDD</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> is associated with exactly one <code>RDD[Product2[K, V]]</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>createShuffleMapStage</code> <a href="spark-scheduler-ShuffleMapStage.adoc#creating-instance">creates a <code>ShuffleMapStage</code></a> (with the stage id from <a href="#nextStageId"><code>nextStageId</code> internal counter</a>).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>createShuffleMapStage</code> registers the <code>ShuffleMapStage</code> in <a href="#stageIdToStage">stageIdToStage</a> and <a href="#shuffleIdToMapStage">shuffleIdToMapStage</a> internal registries.</p>
-</div>
-<div class="paragraph">
-<p><code>createShuffleMapStage</code> calls <a href="#updateJobIdStageIdMaps">updateJobIdStageIdMaps</a>.</p>
-</div>
-<div class="paragraph">
-<p>If <a href="spark-service-MapOutputTrackerMaster.adoc#containsShuffle"><code>MapOutputTrackerMaster</code> tracks the input <code>ShuffleDependency</code></a> (because other jobs have already computed it), <code>createShuffleMapStage</code> <a href="spark-service-MapOutputTrackerMaster.adoc#getSerializedMapOutputStatuses">requests the serialized <code>ShuffleMapStage</code> outputs</a>, <a href="spark-service-MapOutputTracker.adoc#deserializeMapStatuses">deserializes them</a> and <a href="spark-scheduler-ShuffleMapStage.adoc#addOutputLoc">registers with the new <code>ShuffleMapStage</code></a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<a href="spark-service-MapOutputTrackerMaster.adoc">MapOutputTrackerMaster</a> was defined when <a href="#creating-instance"><code>DAGScheduler</code> was created</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/DAGScheduler-MapOutputTrackerMaster-containsShuffle.png" alt="DAGScheduler MapOutputTrackerMaster containsShuffle">
-</div>
-<div class="title">Figure 5. <code>DAGScheduler</code> Asks <code>MapOutputTrackerMaster</code> Whether Shuffle Map Output Is Already Tracked</div>
-</div>
-<div class="paragraph">
-<p>If however <code>MapOutputTrackerMaster</code> does not track the input <code>ShuffleDependency</code>, you should see the following INFO message in the logs and <code>createShuffleMapStage</code> <a href="spark-service-MapOutputTrackerMaster.adoc#registerShuffle">registers the <code>ShuffleDependency</code> with <code>MapOutputTrackerMaster</code></a>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>INFO Registering RDD [id] ([creationSite])</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>createShuffleMapStage</code> returns the new <code>ShuffleMapStage</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>createShuffleMapStage</code> is executed only when <code>DAGScheduler</code> <a href="#getOrCreateShuffleMapStage">finds or creates parent <code>ShuffleMapStage</code> stages for a <code>ShuffleDependency</code></a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="clearing-cache-of-rdd-block-locationsclearcachelocs-internal-method"><a class="anchor" href="#clearing-cache-of-rdd-block-locationsclearcachelocs-internal-method"></a><a class="link" href="#clearing-cache-of-rdd-block-locationsclearcachelocs-internal-method"><a id="clearCacheLocs"></a> Clearing Cache of RDD Block Locations&#8201;&#8212;&#8201;<code>clearCacheLocs</code> Internal Method</a></h3>
+<div class="sect1">
+<h2 id="clearing-cache-of-rdd-block-locationsclearcachelocs-internal-method"><a class="anchor" href="#clearing-cache-of-rdd-block-locationsclearcachelocs-internal-method"></a><a class="link" href="#clearing-cache-of-rdd-block-locationsclearcachelocs-internal-method"><a id="clearCacheLocs"></a> Clearing Cache of RDD Block Locations&#8201;&#8212;&#8201;<code>clearCacheLocs</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">clearCacheLocs(): Unit</code></pre>
@@ -2990,14 +2921,16 @@ The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="spark
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>DAGScheduler</code> clears the cache while <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#resubmitFailedStages">resubmitting failed stages</a>, and as a result of <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#JobSubmitted">JobSubmitted</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#MapStageSubmitted">MapStageSubmitted</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#CompletionEvent">CompletionEvent</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#ExecutorLost">ExecutorLost</a> events.
+DAGScheduler clears the cache while <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#resubmitFailedStages">resubmitting failed stages</a>, and as a result of <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#JobSubmitted">JobSubmitted</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#MapStageSubmitted">MapStageSubmitted</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#CompletionEvent">CompletionEvent</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#ExecutorLost">ExecutorLost</a> events.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="finding-missing-shuffledependencies-for-rddgetmissingancestorshuffledependencies-internal-method"><a class="anchor" href="#finding-missing-shuffledependencies-for-rddgetmissingancestorshuffledependencies-internal-method"></a><a class="link" href="#finding-missing-shuffledependencies-for-rddgetmissingancestorshuffledependencies-internal-method"><a id="getMissingAncestorShuffleDependencies"></a> Finding Missing ShuffleDependencies For RDD&#8201;&#8212;&#8201;<code>getMissingAncestorShuffleDependencies</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="finding-missing-shuffledependencies-for-rddgetmissingancestorshuffledependencies-internal-method"><a class="anchor" href="#finding-missing-shuffledependencies-for-rddgetmissingancestorshuffledependencies-internal-method"></a><a class="link" href="#finding-missing-shuffledependencies-for-rddgetmissingancestorshuffledependencies-internal-method"><a id="getMissingAncestorShuffleDependencies"></a> Finding Missing ShuffleDependencies For RDD&#8201;&#8212;&#8201;<code>getMissingAncestorShuffleDependencies</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getMissingAncestorShuffleDependencies(rdd: RDD[_]): Stack[ShuffleDependency[_, _, _]]</code></pre>
@@ -3028,14 +2961,16 @@ A <strong>missing shuffle dependency</strong> of a RDD is a dependency not regis
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getMissingAncestorShuffleDependencies</code> is used when <code>DAGScheduler</code> <a href="#getOrCreateShuffleMapStage">finds all <code>ShuffleMapStage</code> stages for a <code>ShuffleDependency</code></a>.
+<code>getMissingAncestorShuffleDependencies</code> is used when DAGScheduler <a href="#getOrCreateShuffleMapStage">finds all <code>ShuffleMapStage</code> stages for a <code>ShuffleDependency</code></a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="finding-direct-parent-shuffle-dependencies-of-rddgetshuffledependencies-internal-method"><a class="anchor" href="#finding-direct-parent-shuffle-dependencies-of-rddgetshuffledependencies-internal-method"></a><a class="link" href="#finding-direct-parent-shuffle-dependencies-of-rddgetshuffledependencies-internal-method"><a id="getShuffleDependencies"></a> Finding Direct Parent Shuffle Dependencies of RDD&#8201;&#8212;&#8201;<code>getShuffleDependencies</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="finding-direct-parent-shuffle-dependencies-of-rddgetshuffledependencies-internal-method"><a class="anchor" href="#finding-direct-parent-shuffle-dependencies-of-rddgetshuffledependencies-internal-method"></a><a class="link" href="#finding-direct-parent-shuffle-dependencies-of-rddgetshuffledependencies-internal-method"><a id="getShuffleDependencies"></a> Finding Direct Parent Shuffle Dependencies of RDD&#8201;&#8212;&#8201;<code>getShuffleDependencies</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getShuffleDependencies(rdd: RDD[_]): HashSet[ShuffleDependency[_, _, _]]</code></pre>
@@ -3060,14 +2995,16 @@ A <strong>missing shuffle dependency</strong> of a RDD is a dependency not regis
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getShuffleDependencies</code> is used when <code>DAGScheduler</code> <a href="#getOrCreateParentStages">finds or creates missing direct parent ShuffleMapStages</a> (for ShuffleDependencies of given RDD) and <a href="#getMissingAncestorShuffleDependencies">finds all missing shuffle dependencies for a given RDD</a>.
+<code>getShuffleDependencies</code> is used when DAGScheduler <a href="#getOrCreateParentStages">finds or creates missing direct parent ShuffleMapStages</a> (for ShuffleDependencies of given RDD) and <a href="#getMissingAncestorShuffleDependencies">finds all missing shuffle dependencies for a given RDD</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="failing-job-and-independent-single-job-stagesfailjobandindependentstages-internal-method"><a class="anchor" href="#failing-job-and-independent-single-job-stagesfailjobandindependentstages-internal-method"></a><a class="link" href="#failing-job-and-independent-single-job-stagesfailjobandindependentstages-internal-method"><a id="failJobAndIndependentStages"></a> Failing Job and Independent Single-Job Stages&#8201;&#8212;&#8201;<code>failJobAndIndependentStages</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="failing-job-and-independent-single-job-stagesfailjobandindependentstages-internal-method"><a class="anchor" href="#failing-job-and-independent-single-job-stagesfailjobandindependentstages-internal-method"></a><a class="link" href="#failing-job-and-independent-single-job-stagesfailjobandindependentstages-internal-method"><a id="failJobAndIndependentStages"></a> Failing Job and Independent Single-Job Stages&#8201;&#8212;&#8201;<code>failJobAndIndependentStages</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">failJobAndIndependentStages(
@@ -3129,8 +3066,10 @@ A <strong>missing shuffle dependency</strong> of a RDD is a dependency not regis
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="aborting-stageabortstage-internal-method"><a class="anchor" href="#aborting-stageabortstage-internal-method"></a><a class="link" href="#aborting-stageabortstage-internal-method"><a id="abortStage"></a> Aborting Stage&#8201;&#8212;&#8201;<code>abortStage</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="aborting-stageabortstage-internal-method"><a class="anchor" href="#aborting-stageabortstage-internal-method"></a><a class="link" href="#aborting-stageabortstage-internal-method"><a id="abortStage"></a> Aborting Stage&#8201;&#8212;&#8201;<code>abortStage</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">abortStage(
@@ -3175,8 +3114,10 @@ A <strong>missing shuffle dependency</strong> of a RDD is a dependency not regis
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="checking-out-stage-dependency-on-given-stagestagedependson-method"><a class="anchor" href="#checking-out-stage-dependency-on-given-stagestagedependson-method"></a><a class="link" href="#checking-out-stage-dependency-on-given-stagestagedependson-method"><a id="stageDependsOn"></a> Checking Out Stage Dependency on Given Stage&#8201;&#8212;&#8201;<code>stageDependsOn</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="checking-out-stage-dependency-on-given-stagestagedependson-method"><a class="anchor" href="#checking-out-stage-dependency-on-given-stagestagedependson-method"></a><a class="link" href="#checking-out-stage-dependency-on-given-stagestagedependson-method"><a id="stageDependsOn"></a> Checking Out Stage Dependency on Given Stage&#8201;&#8212;&#8201;<code>stageDependsOn</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stageDependsOn(stage: Stage, target: Stage): Boolean</code></pre>
@@ -3204,10 +3145,12 @@ A stage <code>A</code> depends on stage <code>B</code> if <code>B</code> is amon
 <p>After all the RDDs of the input <code>stage</code> are visited, <code>stageDependsOn</code> checks if the <code>target</code>'s RDD is among the RDDs of the <code>stage</code>, i.e. whether the <code>stage</code> depends on <code>target</code> stage.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="dag-scheduler-event-loopdagscheduler-event-bus"><a class="anchor" href="#dag-scheduler-event-loopdagscheduler-event-bus"></a><a class="link" href="#dag-scheduler-event-loopdagscheduler-event-bus"><a id="event-loop"></a><a id="eventProcessLoop"></a> dag-scheduler-event-loop&#8201;&#8212;&#8201;DAGScheduler Event Bus</a></h3>
+</div>
+<div class="sect1">
+<h2 id="dag-scheduler-event-loopdagscheduler-event-bus"><a class="anchor" href="#dag-scheduler-event-loopdagscheduler-event-bus"></a><a class="link" href="#dag-scheduler-event-loopdagscheduler-event-bus"><a id="event-loop"></a><a id="eventProcessLoop"></a> dag-scheduler-event-loop&#8201;&#8212;&#8201;DAGScheduler Event Bus</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><code>eventProcessLoop</code> is <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc">DAGScheduler&#8217;s event bus</a> to which Spark (by <a href="#submitJob">submitJob</a>) posts jobs to schedule their execution. Later on, <a href="scheduler/TaskSetManager.html" class="page">TaskSetManager</a> talks back to <code>DAGScheduler</code> to inform about the status of the tasks using the same "communication channel".</p>
+<p><code>eventProcessLoop</code> is <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc">DAGScheduler&#8217;s event bus</a> to which Spark (by <a href="#submitJob">submitJob</a>) posts jobs to schedule their execution. Later on, <a href="scheduler/TaskSetManager.html" class="page">TaskSetManager</a> talks back to DAGScheduler to inform about the status of the tasks using the same "communication channel".</p>
 </div>
 <div class="paragraph">
 <p>It allows Spark to release the current thread when posting happens and let the event loop handle events on a separate thread - asynchronously.</p>
@@ -3228,8 +3171,10 @@ FIXME statistics? <code>MapOutputStatistics</code>?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="submitting-waiting-child-stages-for-executionsubmitwaitingchildstages-internal-method"><a class="anchor" href="#submitting-waiting-child-stages-for-executionsubmitwaitingchildstages-internal-method"></a><a class="link" href="#submitting-waiting-child-stages-for-executionsubmitwaitingchildstages-internal-method"><a id="submitWaitingChildStages"></a> Submitting Waiting Child Stages for Execution&#8201;&#8212;&#8201;<code>submitWaitingChildStages</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="submitting-waiting-child-stages-for-executionsubmitwaitingchildstages-internal-method"><a class="anchor" href="#submitting-waiting-child-stages-for-executionsubmitwaitingchildstages-internal-method"></a><a class="link" href="#submitting-waiting-child-stages-for-executionsubmitwaitingchildstages-internal-method"><a id="submitWaitingChildStages"></a> Submitting Waiting Child Stages for Execution&#8201;&#8212;&#8201;<code>submitWaitingChildStages</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitWaitingChildStages(parent: Stage): Unit</code></pre>
@@ -3271,21 +3216,24 @@ TRACE DAGScheduler: failed: [failedStages]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>submitWaitingChildStages</code> is executed when <code>DAGScheduler</code> <a href="#submitMissingTasks">submits missing tasks for stage</a> and <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion-Success-ShuffleMapTask">handles successful <code>ShuffleMapTask</code> completion</a>.
+<code>submitWaitingChildStages</code> is executed when DAGScheduler <a href="#submitMissingTasks">submits missing tasks for stage</a> and <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion-Success-ShuffleMapTask">handles successful <code>ShuffleMapTask</code> completion</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="submitting-stage-or-its-missing-parents-for-executionsubmitstage-internal-method"><a class="anchor" href="#submitting-stage-or-its-missing-parents-for-executionsubmitstage-internal-method"></a><a class="link" href="#submitting-stage-or-its-missing-parents-for-executionsubmitstage-internal-method"><a id="submitStage"></a> Submitting Stage or Its Missing Parents for Execution&#8201;&#8212;&#8201;<code>submitStage</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="submitting-stage-or-missing-parents-for-execution"><a class="anchor" href="#submitting-stage-or-missing-parents-for-execution"></a><a class="link" href="#submitting-stage-or-missing-parents-for-execution"><a id="submitStage"></a> Submitting Stage (or Missing Parents) for Execution</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitStage(stage: Stage): Unit</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitStage(
+  stage: Stage): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>submitStage</code> is an internal method that <code>DAGScheduler</code> uses to submit the input <code>stage</code> or its missing parents (if there any stages not computed yet before the input <code>stage</code> could).</p>
+<p>submitStage is an internal method that DAGScheduler uses to submit the input <code>stage</code> or its missing parents (if there any stages not computed yet before the input <code>stage</code> could).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3294,16 +3242,16 @@ TRACE DAGScheduler: failed: [failedStages]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>submitStage</code> is also used to <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#resubmitFailedStages">resubmit failed stages</a>.
+submitStage is also used to <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#resubmitFailedStages">resubmit failed stages</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>submitStage</code> recursively submits any missing parents of the <code>stage</code>.</p>
+<p>submitStage recursively submits any missing parents of the <code>stage</code>.</p>
 </div>
 <div class="paragraph">
-<p>Internally, <code>submitStage</code> first finds the earliest-created job id that needs the <code>stage</code>.</p>
+<p>Internally, submitStage first finds the earliest-created job id that needs the <code>stage</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3321,7 +3269,7 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 <p>The following steps depend on whether there is a job or not.</p>
 </div>
 <div class="paragraph">
-<p>If there are no jobs that require the <code>stage</code>, <code>submitStage</code> <a href="#abortStage">aborts it</a> with the reason:</p>
+<p>If there are no jobs that require the <code>stage</code>, submitStage <a href="#abortStage">aborts it</a> with the reason:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3333,18 +3281,18 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>DEBUG DAGScheduler: submitStage([stage])</code></pre>
+<pre class="highlightjs highlight"><code>submitStage([stage])</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>submitStage</code> checks the status of the <code>stage</code> and continues when it was not recorded in <a href="#waitingStages">waiting</a>, <a href="#runningStages">running</a> or <a href="#failedStages">failed</a> internal registries. It simply exits otherwise.</p>
+<p>submitStage checks the status of the <code>stage</code> and continues when it was not recorded in <a href="#waitingStages">waiting</a>, <a href="#runningStages">running</a> or <a href="#failedStages">failed</a> internal registries. It simply exits otherwise.</p>
 </div>
 <div class="paragraph">
-<p>With the <code>stage</code> ready for submission, <code>submitStage</code> calculates the <a href="#getMissingParentStages">list of missing parent stages of the <code>stage</code></a> (sorted by their job ids). You should see the following DEBUG message in the logs:</p>
+<p>With the <code>stage</code> ready for submission, submitStage calculates the <a href="#getMissingParentStages">list of missing parent stages of the <code>stage</code></a> (sorted by their job ids). You should see the following DEBUG message in the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>DEBUG DAGScheduler: missing: [missing]</code></pre>
+<pre class="highlightjs highlight"><code>missing: [missing]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3352,24 +3300,17 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>INFO DAGScheduler: Submitting [stage] ([stage.rdd]), which has no missing parents</code></pre>
+<pre class="highlightjs highlight"><code>Submitting [stage] ([stage.rdd]), which has no missing parents</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>submitStage</code> <a href="#submitMissingTasks">submits the <code>stage</code></a> (with the earliest-created job id) and finishes.</p>
+<p>submitStage <a href="#submitMissingTasks">submits the <code>stage</code></a> (with the earliest-created job id) and finishes.</p>
 </div>
 <div class="paragraph">
-<p>If however there are missing parent stages for the <code>stage</code>, <code>submitStage</code> <a href="#submitStage">submits all the parent stages</a>, and the <code>stage</code> is recorded in the internal <a href="#waitingStages">waitingStages</a> registry.</p>
+<p>If however there are missing parent stages for the <code>stage</code>, submitStage <a href="#submitStage">submits all the parent stages</a>, and the <code>stage</code> is recorded in the internal <a href="#waitingStages">waitingStages</a> registry.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p><code>submitStage</code> is used when <code>DAGScheduler</code> is requested for the following:</p>
+<p>submitStage is used recursively for missing parents of the stage and when DAGScheduler is requested for the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3384,13 +3325,11 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 </li>
 </ul>
 </div>
-</td>
-</tr>
-</table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="handlejobsubmitted-method"><a class="anchor" href="#handlejobsubmitted-method"></a><a class="link" href="#handlejobsubmitted-method"><a id="handleJobSubmitted"></a> <code>handleJobSubmitted</code> Method</a></h3>
+<div class="sect1">
+<h2 id="handling-job-submitted-event"><a class="anchor" href="#handling-job-submitted-event"></a><a class="link" href="#handling-job-submitted-event"><a id="handleJobSubmitted"></a> Handling Job Submitted Event</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleJobSubmitted(
@@ -3413,14 +3352,16 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>handleJobSubmitted</code> is used when&#8230;&#8203;FIXME
+<code>handleJobSubmitted</code> is used when DAGSchedulerEventProcessLoop is requested to <a href="spark-scheduler-DAGSchedulerEventProcessLoop.html#doOnReceive" class="page">handle a JobSubmitted event</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="handlemapstagesubmitted-method"><a class="anchor" href="#handlemapstagesubmitted-method"></a><a class="link" href="#handlemapstagesubmitted-method"><a id="handleMapStageSubmitted"></a> <code>handleMapStageSubmitted</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="handlemapstagesubmitted-method"><a class="anchor" href="#handlemapstagesubmitted-method"></a><a class="link" href="#handlemapstagesubmitted-method"><a id="handleMapStageSubmitted"></a> <code>handleMapStageSubmitted</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleMapStageSubmitted(
@@ -3447,8 +3388,10 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="handling-task-completion-completioneventhandletaskcompletion-method"><a class="anchor" href="#handling-task-completion-completioneventhandletaskcompletion-method"></a><a class="link" href="#handling-task-completion-completioneventhandletaskcompletion-method"><a id="handleTaskCompletion"></a> Handling Task Completion (CompletionEvent)&#8201;&#8212;&#8201;<code>handleTaskCompletion</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="handling-task-completion-completioneventhandletaskcompletion-method"><a class="anchor" href="#handling-task-completion-completioneventhandletaskcompletion-method"></a><a class="link" href="#handling-task-completion-completioneventhandletaskcompletion-method"><a id="handleTaskCompletion"></a> Handling Task Completion (CompletionEvent)&#8201;&#8212;&#8201;<code>handleTaskCompletion</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleTaskCompletion(event: CompletionEvent): Unit</code></pre>
@@ -3470,13 +3413,15 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="fault-recovery-stage-attempts"><a class="anchor" href="#fault-recovery-stage-attempts"></a><a class="link" href="#fault-recovery-stage-attempts"><a id="stage-attempts"></a> Fault recovery - stage attempts</a></h3>
+</div>
+<div class="sect1">
+<h2 id="fault-recovery-stage-attempts"><a class="anchor" href="#fault-recovery-stage-attempts"></a><a class="link" href="#fault-recovery-stage-attempts"><a id="stage-attempts"></a> Fault recovery - stage attempts</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>A single stage can be re-executed in multiple <strong>attempts</strong> due to fault recovery. The number of attempts is configured (FIXME).</p>
 </div>
 <div class="paragraph">
-<p>If <code>TaskScheduler</code> reports that a task failed because a map output file from a previous stage was lost, the <code>DAGScheduler</code> resubmits the lost stage. This is detected through a <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion-FetchFailed"><code>CompletionEvent</code> with <code>FetchFailed</code></a>, or an <a href="#ExecutorLost">ExecutorLost</a> event. <code>DAGScheduler</code> will wait a small amount of time to see whether other nodes or tasks fail, then resubmit <code>TaskSets</code> for any lost stage(s) that compute the missing tasks.</p>
+<p>If <code>TaskScheduler</code> reports that a task failed because a map output file from a previous stage was lost, the DAGScheduler resubmits the lost stage. This is detected through a <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion-FetchFailed"><code>CompletionEvent</code> with <code>FetchFailed</code></a>, or an <a href="#ExecutorLost">ExecutorLost</a> event. DAGScheduler will wait a small amount of time to see whether other nodes or tasks fail, then resubmit <code>TaskSets</code> for any lost stage(s) that compute the missing tasks.</p>
 </div>
 <div class="paragraph">
 <p>Please note that tasks from the old attempts of a stage could still be running.</p>
@@ -3488,20 +3433,23 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 <p>The latest <code>StageInfo</code> for the most recent attempt for a stage is accessible through <code>latestInfo</code>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="preferred-locations"><a class="anchor" href="#preferred-locations"></a><a class="link" href="#preferred-locations"><a id="preferred-locations"></a> Preferred Locations</a></h3>
+</div>
+<div class="sect1">
+<h2 id="preferred-locations"><a class="anchor" href="#preferred-locations"></a><a class="link" href="#preferred-locations"><a id="preferred-locations"></a> Preferred Locations</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><code>DAGScheduler</code> computes where to run each task in a stage based on the <a href="rdd/index.html#getPreferredLocations" class="page">preferred locations of its underlying RDDs</a>, or <a href="#getCacheLocs">the location of cached or shuffle data</a>.</p>
+<p>DAGScheduler computes where to run each task in a stage based on the <a href="rdd/index.html#getPreferredLocations" class="page">preferred locations of its underlying RDDs</a>, or <a href="#getCacheLocs">the location of cached or shuffle data</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="adaptive-query-planning-adaptive-scheduling"><a class="anchor" href="#adaptive-query-planning-adaptive-scheduling"></a><a class="link" href="#adaptive-query-planning-adaptive-scheduling"><a id="adaptive-query-planning"></a> Adaptive Query Planning / Adaptive Scheduling</a></h3>
+</div>
+<div class="sect1">
+<h2 id="adaptive-query-planning-adaptive-scheduling"><a class="anchor" href="#adaptive-query-planning-adaptive-scheduling"></a><a class="link" href="#adaptive-query-planning-adaptive-scheduling"><a id="adaptive-query-planning"></a> Adaptive Query Planning / Adaptive Scheduling</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>See <a href="https://issues.apache.org/jira/browse/SPARK-9850">SPARK-9850 Adaptive execution in Spark</a> for the design document. The work is currently in progress.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/apache/spark/blob/master/core/src/main/scala/org/apache/spark/scheduler/DAGScheduler.scala#L661">DAGScheduler.submitMapStage</a> method is used for adaptive query planning, to run map stages and look at statistics about their outputs before submitting downstream stages.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="scheduledexecutorservice-daemon-services"><a class="anchor" href="#scheduledexecutorservice-daemon-services"></a><a class="link" href="#scheduledexecutorservice-daemon-services">ScheduledExecutorService daemon services</a></h3>
@@ -3519,8 +3467,11 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 <p>They are created using <code>ThreadUtils.newDaemonSingleThreadScheduledExecutor</code> method that uses Guava DSL to instantiate a ThreadFactory.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="finding-missing-parent-shufflemapstages-for-stagegetmissingparentstages-internal-method"><a class="anchor" href="#finding-missing-parent-shufflemapstages-for-stagegetmissingparentstages-internal-method"></a><a class="link" href="#finding-missing-parent-shufflemapstages-for-stagegetmissingparentstages-internal-method"><a id="getMissingParentStages"></a> Finding Missing Parent ShuffleMapStages For Stage&#8201;&#8212;&#8201;<code>getMissingParentStages</code> Internal Method</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="finding-missing-parent-shufflemapstages-for-stagegetmissingparentstages-internal-method"><a class="anchor" href="#finding-missing-parent-shufflemapstages-for-stagegetmissingparentstages-internal-method"></a><a class="link" href="#finding-missing-parent-shufflemapstages-for-stagegetmissingparentstages-internal-method"><a id="getMissingParentStages"></a> Finding Missing Parent ShuffleMapStages For Stage&#8201;&#8212;&#8201;<code>getMissingParentStages</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getMissingParentStages(stage: Stage): List[Stage]</code></pre>
@@ -3635,21 +3586,25 @@ FIXME&#8230;&#8203;IMAGE with ShuffleDependencies queried
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getMissingParentStages</code> is used when <code>DAGScheduler</code> <a href="#submitStage">submits missing parent <code>ShuffleMapStage</code>s (of a stage)</a> and handles <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleJobSubmitted">JobSubmitted</a> and <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleMapStageSubmitted">MapStageSubmitted</a> events.
+<code>getMissingParentStages</code> is used when DAGScheduler <a href="#submitStage">submits missing parent <code>ShuffleMapStage</code>s (of a stage)</a> and handles <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleJobSubmitted">JobSubmitted</a> and <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleMapStageSubmitted">MapStageSubmitted</a> events.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="submitting-missing-tasks-of-stage-in-a-spark-jobsubmitmissingtasks-internal-method"><a class="anchor" href="#submitting-missing-tasks-of-stage-in-a-spark-jobsubmitmissingtasks-internal-method"></a><a class="link" href="#submitting-missing-tasks-of-stage-in-a-spark-jobsubmitmissingtasks-internal-method"><a id="submitMissingTasks"></a> Submitting Missing Tasks of Stage (in a Spark Job)&#8201;&#8212;&#8201;<code>submitMissingTasks</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="submitting-missing-tasks-of-stage"><a class="anchor" href="#submitting-missing-tasks-of-stage"></a><a class="link" href="#submitting-missing-tasks-of-stage"><a id="submitMissingTasks"></a> Submitting Missing Tasks of Stage</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitMissingTasks(stage: Stage, jobId: Int): Unit</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitMissingTasks(
+  stage: Stage,
+  jobId: Int): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>submitMissingTasks</code>&#8230;&#8203;FIXME</p>
+<p>submitMissingTasks&#8230;&#8203;FIXME</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -3668,20 +3623,20 @@ FIXME
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>DEBUG DAGScheduler: submitMissingTasks([stage])</code></pre>
+<pre class="highlightjs highlight"><code>submitMissingTasks([stage])</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The input <code>stage</code>'s <a href="spark-scheduler-Stage.adoc#pendingPartitions"><code>pendingPartitions</code> internal field</a> is cleared (it is later filled out with the partitions to run tasks for).</p>
 </div>
 <div class="paragraph">
-<p><code>submitMissingTasks</code> requests the <code>stage</code> for <a href="spark-scheduler-Stage.adoc#findMissingPartitions">missing partitions</a>, i.e. the indices of the partitions to compute.</p>
+<p>submitMissingTasks requests the <code>stage</code> for <a href="spark-scheduler-Stage.adoc#findMissingPartitions">missing partitions</a>, i.e. the indices of the partitions to compute.</p>
 </div>
 <div class="paragraph">
-<p><code>submitMissingTasks</code> marks the <code>stage</code> as running (i.e. adds it to <a href="#runningStages">runningStages</a> internal registry).</p>
+<p>submitMissingTasks marks the <code>stage</code> as running (i.e. adds it to <a href="#runningStages">runningStages</a> internal registry).</p>
 </div>
 <div class="paragraph">
-<p><code>submitMissingTasks</code> <a href="spark-service-outputcommitcoordinator.adoc#stageStart">notifies <code>OutputCommitCoordinator</code> that the stage is started</a>.</p>
+<p>submitMissingTasks <a href="spark-service-outputcommitcoordinator.adoc#stageStart">notifies <code>OutputCommitCoordinator</code> that the stage is started</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3696,12 +3651,12 @@ The input <code>maxPartitionId</code> argument handed over to <a href="spark-ser
 </table>
 </div>
 <div id="submitMissingTasks-taskIdToLocations" class="paragraph">
-<p>For the missing partitions, <code>submitMissingTasks</code> computes their <strong>task locality preferences</strong>, i.e. pairs of missing partition ids and <a href="#getPreferredLocs">their task locality information</a>.
+<p>For the missing partitions, submitMissingTasks computes their <strong>task locality preferences</strong>, i.e. pairs of missing partition ids and <a href="#getPreferredLocs">their task locality information</a>.
 HERE
 NOTE: The locality information of a RDD is called <strong>preferred locations</strong>.</p>
 </div>
 <div class="paragraph">
-<p>In case of <em>non-fatal</em> exceptions at this time (while getting the locality information), <code>submitMissingTasks</code> <a href="spark-scheduler-Stage.adoc#makeNewStageAttempt">creates a new stage attempt</a>.</p>
+<p>In case of <em>non-fatal</em> exceptions at this time (while getting the locality information), submitMissingTasks <a href="spark-scheduler-Stage.adoc#makeNewStageAttempt">creates a new stage attempt</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3716,7 +3671,7 @@ A stage attempt is an internal property of a stage.
 </table>
 </div>
 <div class="paragraph">
-<p>Despite the failure to submit any tasks, <code>submitMissingTasks</code> does announce that at least there was an attempt on <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> by posting a <a href="spark-scheduler-SparkListener.adoc#SparkListenerStageSubmitted">SparkListenerStageSubmitted</a> message.</p>
+<p>Despite the failure to submit any tasks, submitMissingTasks does announce that at least there was an attempt on <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> by posting a <a href="spark-scheduler-SparkListener.adoc#SparkListenerStageSubmitted">SparkListenerStageSubmitted</a> message.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3725,19 +3680,19 @@ A stage attempt is an internal property of a stage.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The Spark application&#8217;s <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> is given when <a href="#creating-instance"><code>DAGScheduler</code> is created</a>.
+The Spark application&#8217;s <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> is given when <a href="#creating-instance">DAGScheduler is created</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>submitMissingTasks</code> then <a href="#abortStage">aborts the stage</a> (with the reason being "Task creation failed" followed by the exception).</p>
+<p>submitMissingTasks then <a href="#abortStage">aborts the stage</a> (with the reason being "Task creation failed" followed by the exception).</p>
 </div>
 <div class="paragraph">
-<p>The <code>stage</code> is removed from the internal <a href="#runningStages"><code>runningStages</code> collection of stages</a> and <code>submitMissingTasks</code> exits.</p>
+<p>The <code>stage</code> is removed from the internal <a href="#runningStages"><code>runningStages</code> collection of stages</a> and submitMissingTasks exits.</p>
 </div>
 <div class="paragraph">
-<p>When no exception was thrown (while computing the locality information for tasks), <code>submitMissingTasks</code> <a href="spark-scheduler-Stage.adoc#makeNewStageAttempt">creates a new stage attempt</a> and announces it on <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> by posting a <a href="spark-scheduler-SparkListener.adoc#SparkListenerStageSubmitted">SparkListenerStageSubmitted</a> message.</p>
+<p>When no exception was thrown (while computing the locality information for tasks), submitMissingTasks <a href="spark-scheduler-Stage.adoc#makeNewStageAttempt">creates a new stage attempt</a> and announces it on <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> by posting a <a href="spark-scheduler-SparkListener.adoc#SparkListenerStageSubmitted">SparkListenerStageSubmitted</a> message.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3746,13 +3701,13 @@ The Spark application&#8217;s <a href="spark-scheduler-LiveListenerBus.adoc">Liv
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Yes, that <em>is</em> correct. Whether there was a task submission failure or not, <code>submitMissingTasks</code> creates a new stage attempt and posts a <code>SparkListenerStageSubmitted</code>. That makes sense, <em>doesn&#8217;t it?</em>
+Yes, that <em>is</em> correct. Whether there was a task submission failure or not, submitMissingTasks creates a new stage attempt and posts a <code>SparkListenerStageSubmitted</code>. That makes sense, <em>doesn&#8217;t it?</em>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>At that time, <code>submitMissingTasks</code> serializes the RDD (of the stage for which tasks are submitted for) and, depending on the type of the stage, the <a href="spark-scheduler-ShuffleMapStage.adoc#shuffleDep"><code>ShuffleDependency</code> (for <code>ShuffleMapStage</code>)</a> or the <a href="spark-scheduler-ResultStage.adoc#func">function (for <code>ResultStage</code>)</a>.</p>
+<p>At that time, submitMissingTasks serializes the RDD (of the stage for which tasks are submitted for) and, depending on the type of the stage, the <a href="spark-scheduler-ShuffleMapStage.adoc#shuffleDep"><code>ShuffleDependency</code> (for <code>ShuffleMapStage</code>)</a> or the <a href="spark-scheduler-ResultStage.adoc#func">function (for <code>ResultStage</code>)</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3761,7 +3716,7 @@ Yes, that <em>is</em> correct. Whether there was a task submission failure or no
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>submitMissingTasks</code> uses a closure <code>Serializer</code> that <a href="#creating-instance"><code>DAGScheduler</code> creates for the entire lifetime when it is created</a>. The closure serializer is available through <a href="spark-SparkEnv.adoc#closureSerializer">SparkEnv</a>.
+submitMissingTasks uses a closure <code>Serializer</code> that <a href="#creating-instance">DAGScheduler creates for the entire lifetime when it is created</a>. The closure serializer is available through <a href="spark-SparkEnv.adoc#closureSerializer">SparkEnv</a>.
 </td>
 </tr>
 </table>
@@ -3782,16 +3737,16 @@ That exact moment should make clear how important <a href="spark-broadcast.adoc"
 </table>
 </div>
 <div class="paragraph">
-<p>Any <code>NotSerializableException</code> exceptions lead to <a href="#abortStage">aborting the stage</a> (with the reason being "Task not serializable: [exception]") and removing the stage from the <a href="#runningStages">internal <code>runningStages</code> collection of stages</a>. <code>submitMissingTasks</code> exits.</p>
+<p>Any <code>NotSerializableException</code> exceptions lead to <a href="#abortStage">aborting the stage</a> (with the reason being "Task not serializable: [exception]") and removing the stage from the <a href="#runningStages">internal <code>runningStages</code> collection of stages</a>. submitMissingTasks exits.</p>
 </div>
 <div class="paragraph">
-<p>Any <em>non-fatal</em> exceptions lead to <a href="#abortStage">aborting the stage</a> (with the reason being "Task serialization failed" followed by the exception) and removing the stage from the <a href="#runningStages">internal <code>runningStages</code> collection of stages</a>. <code>submitMissingTasks</code> exits.</p>
+<p>Any <em>non-fatal</em> exceptions lead to <a href="#abortStage">aborting the stage</a> (with the reason being "Task serialization failed" followed by the exception) and removing the stage from the <a href="#runningStages">internal <code>runningStages</code> collection of stages</a>. submitMissingTasks exits.</p>
 </div>
 <div class="paragraph">
-<p>With no exceptions along the way, <code>submitMissingTasks</code> computes a collection of <a href="scheduler/Task.html" class="page">tasks</a> to execute for the missing partitions (of the <code>stage</code>).</p>
+<p>With no exceptions along the way, submitMissingTasks computes a collection of <a href="scheduler/Task.html" class="page">tasks</a> to execute for the missing partitions (of the <code>stage</code>).</p>
 </div>
 <div class="paragraph">
-<p><code>submitMissingTasks</code> creates a <a href="scheduler/ShuffleMapTask.html" class="page">ShuffleMapTask</a> or <a href="scheduler/ResultTask.html" class="page">ResultTask</a> for every missing partition of the <code>stage</code> being <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> or <a href="spark-scheduler-ResultStage.adoc">ResultStage</a>, respectively. <code>submitMissingTasks</code> uses the preferred locations (computed earlier) per partition.</p>
+<p>submitMissingTasks creates a <a href="scheduler/ShuffleMapTask.html" class="page">ShuffleMapTask</a> or <a href="scheduler/ResultTask.html" class="page">ResultTask</a> for every missing partition of the <code>stage</code> being <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> or <a href="spark-scheduler-ResultStage.adoc">ResultStage</a>, respectively. submitMissingTasks uses the preferred locations (computed earlier) per partition.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -3806,18 +3761,18 @@ FIXME Image with creating tasks for partitions in the stage.
 </table>
 </div>
 <div class="paragraph">
-<p>Any <em>non-fatal</em> exceptions lead to <a href="#abortStage">aborting the stage</a> (with the reason being "Task creation failed" followed by the exception) and removing the stage from the <a href="#runningStages">internal <code>runningStages</code> collection of stages</a>. <code>submitMissingTasks</code> exits.</p>
+<p>Any <em>non-fatal</em> exceptions lead to <a href="#abortStage">aborting the stage</a> (with the reason being "Task creation failed" followed by the exception) and removing the stage from the <a href="#runningStages">internal <code>runningStages</code> collection of stages</a>. submitMissingTasks exits.</p>
 </div>
 <div class="paragraph">
 <p>If there are tasks to submit for execution (i.e. there are missing partitions in the stage), you should see the following INFO message in the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>INFO DAGScheduler: Submitting [size] missing tasks from [stage] ([rdd])</code></pre>
+<pre class="highlightjs highlight"><code>Submitting [size] missing tasks from [stage] ([rdd])</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>submitMissingTasks</code> records the partitions (of the tasks) in the <code>stage</code>'s <a href="spark-scheduler-Stage.adoc#pendingPartitions"><code>pendingPartitions</code> property</a>.</p>
+<p>submitMissingTasks records the partitions (of the tasks) in the <code>stage</code>'s <a href="spark-scheduler-Stage.adoc#pendingPartitions"><code>pendingPartitions</code> property</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3826,7 +3781,7 @@ FIXME Image with creating tasks for partitions in the stage.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>pendingPartitions</code> property of the <code>stage</code> was cleared when <code>submitMissingTasks</code> started.
+<code>pendingPartitions</code> property of the <code>stage</code> was cleared when submitMissingTasks started.
 </td>
 </tr>
 </table>
@@ -3836,11 +3791,11 @@ FIXME Image with creating tasks for partitions in the stage.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>DEBUG DAGScheduler: New pending partitions: [pendingPartitions]</code></pre>
+<pre class="highlightjs highlight"><code>New pending partitions: [pendingPartitions]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>submitMissingTasks</code> <a href="scheduler/TaskScheduler.html#submitTasks" class="page">submits the tasks to <code>TaskScheduler</code> for execution</a> (with the id of the <code>stage</code>, attempt id, the input <code>jobId</code>, and the properties of the <code>ActiveJob</code> with <code>jobId</code>).</p>
+<p>submitMissingTasks <a href="scheduler/TaskScheduler.html#submitTasks" class="page">submits the tasks to <code>TaskScheduler</code> for execution</a> (with the id of the <code>stage</code>, attempt id, the input <code>jobId</code>, and the properties of the <code>ActiveJob</code> with <code>jobId</code>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3849,7 +3804,7 @@ FIXME Image with creating tasks for partitions in the stage.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-A <code>TaskScheduler</code> was given when <a href="#creating-instance"><code>DAGScheduler</code> was created</a>.
+A <code>TaskScheduler</code> was given when <a href="#creating-instance">DAGScheduler was created</a>.
 </td>
 </tr>
 </table>
@@ -3867,17 +3822,17 @@ FIXME What are the <code>ActiveJob</code> properties for? Where are they used?
 </table>
 </div>
 <div class="paragraph">
-<p><code>submitMissingTasks</code> records the <a href="spark-scheduler-Stage.adoc#latestInfo">submission time in the stage&#8217;s <code>StageInfo</code></a> and exits.</p>
+<p>submitMissingTasks records the <a href="spark-scheduler-Stage.adoc#latestInfo">submission time in the stage&#8217;s <code>StageInfo</code></a> and exits.</p>
 </div>
 <div class="paragraph">
-<p>If however there are no tasks to submit for execution, <code>submitMissingTasks</code> <a href="#markStageAsFinished">marks the stage as finished</a> (with no <code>errorMessage</code>).</p>
+<p>If however there are no tasks to submit for execution, submitMissingTasks <a href="#markStageAsFinished">marks the stage as finished</a> (with no <code>errorMessage</code>).</p>
 </div>
 <div class="paragraph">
 <p>You should see a DEBUG message that varies per the type of the input <code>stage</code> which are:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>DEBUG DAGScheduler: Stage [stage] is actually done; (available: [isAvailable],available outputs: [numAvailableOutputs],partitions: [numPartitions])</code></pre>
+<pre class="highlightjs highlight"><code>Stage [stage] is actually done; (available: [isAvailable],available outputs: [numAvailableOutputs],partitions: [numPartitions])</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3885,30 +3840,23 @@ FIXME What are the <code>ActiveJob</code> properties for? Where are they used?
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>DEBUG DAGScheduler: Stage [stage] is actually done; (partitions: [numPartitions])</code></pre>
+<pre class="highlightjs highlight"><code>Stage [stage] is actually done; (partitions: [numPartitions])</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>for <code>ShuffleMapStage</code> and <code>ResultStage</code>, respectively.</p>
 </div>
 <div class="paragraph">
-<p>In the end, with no tasks to submit for execution, <code>submitMissingTasks</code> <a href="#submitWaitingChildStages">submits waiting child stages for execution</a> and exits.</p>
+<p>In the end, with no tasks to submit for execution, submitMissingTasks <a href="#submitWaitingChildStages">submits waiting child stages for execution</a> and exits.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>submitMissingTasks</code> is used exclusively when <code>DAGScheduler</code> is requested to <a href="#submitStage">submit a stage or its missing parents for execution</a>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>submitMissingTasks is used when DAGScheduler is requested to <a href="#submitStage">submit a stage for execution</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="computing-preferred-locations-for-missing-partitionsgetpreferredlocs-method"><a class="anchor" href="#computing-preferred-locations-for-missing-partitionsgetpreferredlocs-method"></a><a class="link" href="#computing-preferred-locations-for-missing-partitionsgetpreferredlocs-method"><a id="getPreferredLocs"></a> Computing Preferred Locations for Missing Partitions&#8201;&#8212;&#8201;<code>getPreferredLocs</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="computing-preferred-locations-for-missing-partitionsgetpreferredlocs-method"><a class="anchor" href="#computing-preferred-locations-for-missing-partitionsgetpreferredlocs-method"></a><a class="link" href="#computing-preferred-locations-for-missing-partitionsgetpreferredlocs-method"><a id="getPreferredLocs"></a> Computing Preferred Locations for Missing Partitions&#8201;&#8212;&#8201;<code>getPreferredLocs</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getPreferredLocs(rdd: RDD[_], partition: Int): Seq[TaskLocation]</code></pre>
@@ -3924,14 +3872,16 @@ FIXME What are the <code>ActiveJob</code> properties for? Where are they used?
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getPreferredLocs</code> is used when <a href="spark-SparkContext.adoc#getPreferredLocs"><code>SparkContext</code> gets the locality information for a RDD partition</a> and <code>DAGScheduler</code> <a href="#submitMissingTasks">submits missing tasks for a stage</a>.
+<code>getPreferredLocs</code> is used when <a href="spark-SparkContext.adoc#getPreferredLocs"><code>SparkContext</code> gets the locality information for a RDD partition</a> and DAGScheduler <a href="#submitMissingTasks">submits missing tasks for a stage</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="finding-blockmanagers-executors-for-cached-rdd-partitions-aka-block-location-discoverygetcachelocs-internal-method"><a class="anchor" href="#finding-blockmanagers-executors-for-cached-rdd-partitions-aka-block-location-discoverygetcachelocs-internal-method"></a><a class="link" href="#finding-blockmanagers-executors-for-cached-rdd-partitions-aka-block-location-discoverygetcachelocs-internal-method"><a id="getCacheLocs"></a> Finding BlockManagers (Executors) for Cached RDD Partitions (aka Block Location Discovery)&#8201;&#8212;&#8201;<code>getCacheLocs</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="finding-blockmanagers-executors-for-cached-rdd-partitions-aka-block-location-discoverygetcachelocs-internal-method"><a class="anchor" href="#finding-blockmanagers-executors-for-cached-rdd-partitions-aka-block-location-discoverygetcachelocs-internal-method"></a><a class="link" href="#finding-blockmanagers-executors-for-cached-rdd-partitions-aka-block-location-discoverygetcachelocs-internal-method"><a id="getCacheLocs"></a> Finding BlockManagers (Executors) for Cached RDD Partitions (aka Block Location Discovery)&#8201;&#8212;&#8201;<code>getCacheLocs</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getCacheLocs(rdd: RDD[_]): IndexedSeq[Seq[TaskLocation]]</code></pre>
@@ -3983,7 +3933,7 @@ The size of every <a href="spark-TaskLocation.adoc">TaskLocation</a> collection 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getCacheLocs</code> uses <a href="#blockManagerMaster">BlockManagerMaster</a> that was defined when <a href="#creating-instance"><code>DAGScheduler</code> was created</a>.
+<code>getCacheLocs</code> uses <a href="#blockManagerMaster">BlockManagerMaster</a> that was defined when <a href="#creating-instance">DAGScheduler was created</a>.
 </td>
 </tr>
 </table>
@@ -4010,7 +3960,7 @@ The size of every <a href="spark-TaskLocation.adoc">TaskLocation</a> collection 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>DAGScheduler</code> uses <a href="spark-TaskLocation.adoc">TaskLocations</a> (with host and executor) while <a href="storage/BlockManagerMaster.html" class="page">BlockManagerMaster</a> uses <a href="#ROOT:BlockManager.adoc#BlockManagerId" class="page unresolved">BlockManagerId</a> (to track similar information, i.e. block locations).
+DAGScheduler uses <a href="spark-TaskLocation.adoc">TaskLocations</a> (with host and executor) while <a href="storage/BlockManagerMaster.html" class="page">BlockManagerMaster</a> uses <a href="#ROOT:BlockManager.adoc#BlockManagerId" class="page unresolved">BlockManagerId</a> (to track similar information, i.e. block locations).
 </td>
 </tr>
 </table>
@@ -4022,14 +3972,16 @@ The size of every <a href="spark-TaskLocation.adoc">TaskLocation</a> collection 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getCacheLocs</code> is used when <code>DAGScheduler</code> finds <a href="#getMissingParentStages">missing parent MapStages</a> and <a href="#getPreferredLocsInternal">getPreferredLocsInternal</a>.
+<code>getCacheLocs</code> is used when DAGScheduler finds <a href="#getMissingParentStages">missing parent MapStages</a> and <a href="#getPreferredLocsInternal">getPreferredLocsInternal</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="finding-placement-preferences-for-rdd-partition-recursivelygetpreferredlocsinternal-internal-method"><a class="anchor" href="#finding-placement-preferences-for-rdd-partition-recursivelygetpreferredlocsinternal-internal-method"></a><a class="link" href="#finding-placement-preferences-for-rdd-partition-recursivelygetpreferredlocsinternal-internal-method"><a id="getPreferredLocsInternal"></a> Finding Placement Preferences for RDD Partition (recursively)&#8201;&#8212;&#8201;<code>getPreferredLocsInternal</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="finding-placement-preferences-for-rdd-partition-recursivelygetpreferredlocsinternal-internal-method"><a class="anchor" href="#finding-placement-preferences-for-rdd-partition-recursivelygetpreferredlocsinternal-internal-method"></a><a class="link" href="#finding-placement-preferences-for-rdd-partition-recursivelygetpreferredlocsinternal-internal-method"><a id="getPreferredLocsInternal"></a> Finding Placement Preferences for RDD Partition (recursively)&#8201;&#8212;&#8201;<code>getPreferredLocsInternal</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getPreferredLocsInternal(
@@ -4069,14 +4021,16 @@ Preferred locations of the partitions of a RDD are also called <strong>placement
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getPreferredLocsInternal</code> is used exclusively when <code>DAGScheduler</code> <a href="#getPreferredLocs">computes preferred locations for missing partitions</a>.
+<code>getPreferredLocsInternal</code> is used exclusively when DAGScheduler <a href="#getPreferredLocs">computes preferred locations for missing partitions</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="stopping-dagschedulerstop-method"><a class="anchor" href="#stopping-dagschedulerstop-method"></a><a class="link" href="#stopping-dagschedulerstop-method"><a id="stop"></a> Stopping DAGScheduler&#8201;&#8212;&#8201;<code>stop</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="stopping-dagschedulerstop-method"><a class="anchor" href="#stopping-dagschedulerstop-method"></a><a class="link" href="#stopping-dagschedulerstop-method"><a id="stop"></a> Stopping DAGScheduler&#8201;&#8212;&#8201;<code>stop</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(): Unit</code></pre>
@@ -4086,8 +4040,10 @@ Preferred locations of the partitions of a RDD are also called <strong>placement
 <p><code>stop</code> stops the internal <code>dag-scheduler-message</code> thread pool, <a href="#event-loop">dag-scheduler-event-loop</a>, and <a href="scheduler/TaskScheduler.html#stop" class="page">TaskScheduler</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="updating-accumulators-with-partial-values-from-completed-tasksupdateaccumulators-internal-method"><a class="anchor" href="#updating-accumulators-with-partial-values-from-completed-tasksupdateaccumulators-internal-method"></a><a class="link" href="#updating-accumulators-with-partial-values-from-completed-tasksupdateaccumulators-internal-method"><a id="updateAccumulators"></a> Updating Accumulators with Partial Values from Completed Tasks&#8201;&#8212;&#8201;<code>updateAccumulators</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="updating-accumulators-with-partial-values-from-completed-tasksupdateaccumulators-internal-method"><a class="anchor" href="#updating-accumulators-with-partial-values-from-completed-tasksupdateaccumulators-internal-method"></a><a class="link" href="#updating-accumulators-with-partial-values-from-completed-tasksupdateaccumulators-internal-method"><a id="updateAccumulators"></a> Updating Accumulators with Partial Values from Completed Tasks&#8201;&#8212;&#8201;<code>updateAccumulators</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">updateAccumulators(event: CompletionEvent): Unit</code></pre>
@@ -4143,14 +4099,16 @@ FIXME Where are <code>Stage.latestInfo.accumulables</code> and <code>CompletionE
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>updateAccumulators</code> is used exclusively when <code>DAGScheduler</code> is requested to <a href="#handleTaskCompletion">handle a task completion</a>.
+<code>updateAccumulators</code> is used exclusively when DAGScheduler is requested to <a href="#handleTaskCompletion">handle a task completion</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="checkbarrierstagewithnumslots-internal-method"><a class="anchor" href="#checkbarrierstagewithnumslots-internal-method"></a><a class="link" href="#checkbarrierstagewithnumslots-internal-method"><a id="checkBarrierStageWithNumSlots"></a> <code>checkBarrierStageWithNumSlots</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="checkbarrierstagewithnumslots-internal-method"><a class="anchor" href="#checkbarrierstagewithnumslots-internal-method"></a><a class="link" href="#checkbarrierstagewithnumslots-internal-method"><a id="checkBarrierStageWithNumSlots"></a> <code>checkBarrierStageWithNumSlots</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">checkBarrierStageWithNumSlots(rdd: RDD[_]): Unit</code></pre>
@@ -4166,16 +4124,18 @@ FIXME Where are <code>Stage.latestInfo.accumulables</code> and <code>CompletionE
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>checkBarrierStageWithNumSlots</code> is used when <code>DAGScheduler</code> is requested to <a href="#createShuffleMapStage">createShuffleMapStage</a> and <a href="#createResultStage">createResultStage</a>.
+<code>checkBarrierStageWithNumSlots</code> is used when DAGScheduler is requested to <a href="#createShuffleMapStage">createShuffleMapStage</a> and <a href="#createResultStage">createResultStage</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h3>
+</div>
+<div class="sect1">
+<h2 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h2>
+<div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Spark Properties</caption>
+<caption class="title">Table 1. Spark Properties</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -4197,8 +4157,10 @@ FIXME Where are <code>Stage.latestInfo.accumulables</code> and <code>CompletionE
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="workerremoved-method"><a class="anchor" href="#workerremoved-method"></a><a class="link" href="#workerremoved-method"><a id="workerRemoved"></a> <code>workerRemoved</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="workerremoved-method"><a class="anchor" href="#workerremoved-method"></a><a class="link" href="#workerremoved-method"><a id="workerRemoved"></a> <code>workerRemoved</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">workerRemoved(
@@ -4223,8 +4185,10 @@ FIXME Where are <code>Stage.latestInfo.accumulables</code> and <code>CompletionE
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="posttaskend-internal-method"><a class="anchor" href="#posttaskend-internal-method"></a><a class="link" href="#posttaskend-internal-method"><a id="postTaskEnd"></a> <code>postTaskEnd</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="posttaskend-internal-method"><a class="anchor" href="#posttaskend-internal-method"></a><a class="link" href="#posttaskend-internal-method"><a id="postTaskEnd"></a> <code>postTaskEnd</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">postTaskEnd(event: CompletionEvent): Unit</code></pre>
@@ -4240,12 +4204,132 @@ FIXME Where are <code>Stage.latestInfo.accumulables</code> and <code>CompletionE
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>postTaskEnd</code> is used exclusively when <code>DAGScheduler</code> is requested to <a href="#handleTaskCompletion">handle a task completion</a>.
+<code>postTaskEnd</code> is used exclusively when DAGScheduler is requested to <a href="#handleTaskCompletion">handle a task completion</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="running-approximate-job"><a class="anchor" href="#running-approximate-job"></a><a class="link" href="#running-approximate-job"><a id="runApproximateJob"></a> Running Approximate Job</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">runApproximateJob[T, U, R](
+  rdd: RDD[T],
+  func: (TaskContext, Iterator[T]) =&gt; U,
+  evaluator: ApproximateEvaluator[U, R],
+  callSite: CallSite,
+  timeout: Long,
+  properties: Properties): PartialResult[R]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>runApproximateJob&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>runApproximateJob is used when SparkContext is requested to <a href="spark-SparkContext.html#runApproximateJob" class="page">runApproximateJob</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.scheduler.DAGSchedule</code> logger to see what happens inside.</p>
+</div>
+<div class="paragraph">
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.scheduler.DAGScheduler=ALL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="spark-logging.html" class="page">Logging</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="activeJobs"></a> <code>activeJobs</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ActiveJob</code> instances</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="cacheLocs"></a> <code>cacheLocs</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Block locations per RDD and partition.</p>
+<p class="tableblock">Uses <a href="spark-TaskLocation.adoc">TaskLocation</a> that includes a host name and an executor id on that host (as <code>ExecutorCacheTaskLocation</code>).</p>
+<p class="tableblock">The keys are RDDs (their ids) and the values are arrays indexed by partition numbers.</p>
+<p class="tableblock">Each entry is a set of block locations where a RDD partition is cached, i.e. the <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>s of the blocks.</p>
+<p class="tableblock">Initialized empty when <a href="#creating-instance">DAGScheduler is created</a>.</p>
+<p class="tableblock">Used when DAGScheduler is requested for the <a href="#getCacheLocs">locations of the cache blocks of a RDD</a> or <a href="#clearCacheLocs">clear them</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="failedEpoch"></a> <code>failedEpoch</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table of lost executors and the epoch of the event.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="failedStages"></a> <code>failedStages</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stages that failed due to fetch failures (when a <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion-FetchFailed">task fails with <code>FetchFailed</code> exception</a>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="jobIdToActiveJob"></a> <code>jobIdToActiveJob</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table of <code>ActiveJob</code>s per job id.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="jobIdToStageIds"></a> <code>jobIdToStageIds</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table of all stages per <code>ActiveJob</code> id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>metricsSource</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="metricsSource"></a> <a href="metrics/spark-scheduler-DAGSchedulerSource.html" class="page">DAGSchedulerSource</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="nextJobId"></a> <code>nextJobId</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The next job id counting from <code>0</code>.</p>
+<p class="tableblock">Used when DAGScheduler <a href="#submitJob">submits a job</a> and <a href="#submitMapStage">a map stage</a>, and <a href="#runApproximateJob">runs an approximate job</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="nextStageId"></a> <code>nextStageId</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The next stage id counting from <code>0</code>.</p>
+<p class="tableblock">Used when DAGScheduler creates a <a href="#createShuffleMapStage">shuffle map stage</a> and a <a href="#createResultStage">result stage</a>. It is the key in <a href="#stageIdToStage">stageIdToStage</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="runningStages"></a> <code>runningStages</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The set of stages that are currently "running".</p>
+<p class="tableblock">A stage is added when <a href="#submitMissingTasks">submitMissingTasks</a> gets executed (without first checking if the stage has not already been added).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="shuffleIdToMapStage"></a> <code>shuffleIdToMapStage</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table of <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a>s per <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="stageIdToStage"></a> <code>stageIdToStage</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table for stages per their ids.</p>
+<p class="tableblock">Used when DAGScheduler <a href="#createShuffleMapStage">creates a shuffle map stage</a>, <a href="#createResultStage">creates a result stage</a>, <a href="#cleanupStateForJobAndIndependentStages">cleans up job state and independent stages</a>, is informed that <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleBeginEvent">a task is started</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskSetFailed">a taskset has failed</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleJobSubmitted">a job is submitted (to compute a <code>ResultStage</code>)</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleMapStageSubmitted">a map stage was submitted</a>, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion">a task has completed</a> or <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleStageCancellation">a stage was cancelled</a>, <a href="#updateAccumulators">updates accumulators</a>, <a href="#abortStage">aborts a stage</a> and <a href="#failJobAndIndependentStages">fails a job and independent stages</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="waitingStages"></a> <code>waitingStages</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The stages with parents to be computed</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </article>

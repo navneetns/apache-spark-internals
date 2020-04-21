@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> DAGSchedulerEventProcessLoop :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-scheduler-DAGSchedulerEventProcessLoop.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -1833,14 +1833,17 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="dagschedulereventprocessloopdagscheduler-event-bus"><a class="anchor" href="#dagschedulereventprocessloopdagscheduler-event-bus"></a><a class="link" href="#dagschedulereventprocessloopdagscheduler-event-bus"><a id="DAGSchedulerEventProcessLoop"></a> DAGSchedulerEventProcessLoop&#8201;&#8212;&#8201;DAGScheduler Event Bus</a></h2>
+<h1 class="page"><a id="DAGSchedulerEventProcessLoop"></a> DAGSchedulerEventProcessLoop</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>DAGSchedulerEventProcessLoop</code> (<strong>dag-scheduler-event-loop</strong>) is an <code>EventLoop</code> single "business logic" thread for processing <a href="#DAGSchedulerEvent">DAGSchedulerEvent</a> events.</p>
+<p><strong>DAGSchedulerEventProcessLoop</strong> is a event processing thread to handle <a href="#DAGSchedulerEvent">DAGScheduler events</a> asynchronously and serially, i.e. one by one.</p>
 </div>
 <div class="paragraph">
-<p>The purpose of the <code>DAGSchedulerEventProcessLoop</code> is to have a separate thread to process events asynchronously and serially, i.e. one by one, and let <a href="spark-scheduler-DAGScheduler.adoc">DAGScheduler</a> do its work on the main thread.</p>
+<p>DAGSchedulerEventProcessLoop is registered with the name of <strong>dag-scheduler-event-loop</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The purpose of the DAGSchedulerEventProcessLoop is to have a separate thread to process events asynchronously alongside <a href="spark-scheduler-DAGScheduler.html" class="page">DAGScheduler</a>.</p>
 </div>
 <table id="DAGSchedulerEvent" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. DAGSchedulerEvents and Event Handlers (in alphabetical order)</caption>
@@ -1860,18 +1863,18 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#AllJobsCancelled">AllJobsCancelled</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> was requested to <a href="spark-scheduler-DAGScheduler.adoc#cancelAllJobs">cancel all running or waiting jobs</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DAGScheduler was requested to <a href="spark-scheduler-DAGScheduler.adoc#cancelAllJobs">cancel all running or waiting jobs</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BeginEvent">BeginEvent</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#handleBeginEvent">handleBeginEvent</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="scheduler/TaskSetManager.html" class="page">TaskSetManager</a> informs <code>DAGScheduler</code> that a task is starting (through <a href="spark-scheduler-DAGScheduler.adoc#taskStarted">taskStarted</a>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="scheduler/TaskSetManager.html" class="page">TaskSetManager</a> informs DAGScheduler that a task is starting (through <a href="spark-scheduler-DAGScheduler.adoc#taskStarted">taskStarted</a>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CompletionEvent"></a> <code>CompletionEvent</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Posted exclusively when <code>DAGScheduler</code> is requested to <a href="#taskEnded">taskEnded</a></p>
+<p>Posted exclusively when DAGScheduler is requested to <a href="#taskEnded">taskEnded</a></p>
 </div>
 <div class="paragraph">
 <p>Event handler: <a href="#handleTaskCompletion">handleTaskCompletion</a></p>
@@ -1902,50 +1905,37 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ExecutorAdded">ExecutorAdded</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#handleExecutorAdded">handleExecutorAdded</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> was informed (through <a href="spark-scheduler-DAGScheduler.adoc#executorAdded">executorAdded</a>) that an executor was spun up on a host.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DAGScheduler was informed (through <a href="spark-scheduler-DAGScheduler.adoc#executorAdded">executorAdded</a>) that an executor was spun up on a host.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ExecutorLost"></a> <code>ExecutorLost</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#handleExecutorLost">handleExecutorLost</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Posted to notify <a href="spark-scheduler-DAGScheduler.adoc#executorLost"><code>DAGScheduler</code> that an executor was lost</a>.</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Posted to notify <a href="spark-scheduler-DAGScheduler.adoc#executorLost">DAGScheduler that an executor was lost</a>.</p>
 <p class="tableblock"><code>ExecutorLost</code> conveys the following information:</p>
 <p class="tableblock">1. <code>execId</code></p>
 <p class="tableblock">2. <code>ExecutorLossReason</code></p>
 <p class="tableblock">NOTE: The input <code>filesLost</code> for <a href="#handleExecutorLost">handleExecutorLost</a> is enabled when <code>ExecutorLossReason</code> is <code>SlaveLost</code> with <code>workerLost</code> enabled (it is disabled by default).</p>
-<p class="tableblock">NOTE: <a href="#handleExecutorLost">handleExecutorLost</a> is also called when <code>DAGScheduler</code> is informed that a <a href="#handleTaskCompletion-FetchFailed">task has failed due to <code>FetchFailed</code> exception</a>.</p></td>
+<p class="tableblock">NOTE: <a href="#handleExecutorLost">handleExecutorLost</a> is also called when DAGScheduler is informed that a <a href="#handleTaskCompletion-FetchFailed">task has failed due to <code>FetchFailed</code> exception</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#GettingResultEvent">GettingResultEvent</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="scheduler/TaskSetManager.html" class="page">TaskSetManager</a> informs <code>DAGScheduler</code> (through <a href="spark-scheduler-DAGScheduler.adoc#taskGettingResult">taskGettingResult</a>) that a task has completed and results are being fetched remotely.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="scheduler/TaskSetManager.html" class="page">TaskSetManager</a> informs DAGScheduler (through <a href="spark-scheduler-DAGScheduler.adoc#taskGettingResult">taskGettingResult</a>) that a task has completed and results are being fetched remotely.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#JobCancelled">JobCancelled</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#handleJobCancellation">handleJobCancellation</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> was requested to <a href="spark-scheduler-DAGScheduler.adoc#cancelJob">cancel a job</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DAGScheduler was requested to <a href="spark-scheduler-DAGScheduler.adoc#cancelJob">cancel a job</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#JobGroupCancelled">JobGroupCancelled</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#handleJobGroupCancelled">handleJobGroupCancelled</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> was requested to <a href="spark-scheduler-DAGScheduler.adoc#cancelJobGroup">cancel a job group</a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="JobSubmitted"></a> <code>JobSubmitted</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#handleJobSubmitted">handleJobSubmitted</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Posted when <code>DAGScheduler</code> is requested to <a href="spark-scheduler-DAGScheduler.adoc#submitJob">submit a job</a> or <a href="spark-scheduler-DAGScheduler.adoc#runApproximateJob">run an approximate job</a>.</p>
-<p class="tableblock"><code>JobSubmitted</code> conveys the following information:</p>
-<p class="tableblock">1. A job identifier (as <code>jobId</code>)</p>
-<p class="tableblock">2. A <a href="rdd/index.html" class="page">RDD</a> (as <code>finalRDD</code>)</p>
-<p class="tableblock">3. The function to execute (as <code>func: (TaskContext, Iterator[_]) &#8658; _</code>)</p>
-<p class="tableblock">4. The partitions to compute (as <code>partitions</code>)</p>
-<p class="tableblock">5. A <code>CallSite</code> (as <code>callSite</code>)</p>
-<p class="tableblock">6. The <a href="spark-scheduler-JobListener.adoc">JobListener</a> to inform about the status of the stage.</p>
-<p class="tableblock">7. <code>Properties</code> of the execution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DAGScheduler was requested to <a href="spark-scheduler-DAGScheduler.adoc#cancelJobGroup">cancel a job group</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="MapStageSubmitted"></a> <code>MapStageSubmitted</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#handleMapStageSubmitted">handleMapStageSubmitted</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Posted to inform <code>DAGScheduler</code> that <a href="spark-SparkContext.adoc#submitMapStage"><code>SparkContext</code> submitted a <code>MapStage</code> for execution</a> (through <a href="spark-scheduler-DAGScheduler.adoc#submitMapStage">submitMapStage</a>).</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Posted to inform DAGScheduler that <a href="spark-SparkContext.adoc#submitMapStage"><code>SparkContext</code> submitted a <code>MapStage</code> for execution</a> (through <a href="spark-scheduler-DAGScheduler.adoc#submitMapStage">submitMapStage</a>).</p>
 <p class="tableblock"><code>MapStageSubmitted</code> conveys the following information:</p>
 <p class="tableblock">1. A job identifier (as <code>jobId</code>)</p>
 <p class="tableblock">2. The <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a></p>
@@ -1956,22 +1946,22 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResubmitFailedStages">ResubmitFailedStages</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#resubmitFailedStages">resubmitFailedStages</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> was informed that a <a href="spark-scheduler-DAGScheduler.adoc#handleTaskCompletion-FetchFailed">task has failed due to <code>FetchFailed</code> exception</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DAGScheduler was informed that a <a href="spark-scheduler-DAGScheduler.adoc#handleTaskCompletion-FetchFailed">task has failed due to <code>FetchFailed</code> exception</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#StageCancelled">StageCancelled</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#handleStageCancellation">handleStageCancellation</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> was requested to <a href="spark-scheduler-DAGScheduler.adoc#cancelStage">cancel a stage</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DAGScheduler was requested to <a href="spark-scheduler-DAGScheduler.adoc#cancelStage">cancel a stage</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#TaskSetFailed">TaskSetFailed</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#handleTaskSetFailed">handleTaskSetFailed</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> was requested to <a href="spark-scheduler-DAGScheduler.adoc#taskSetFailed">cancel a <code>TaskSet</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DAGScheduler was requested to <a href="spark-scheduler-DAGScheduler.adoc#taskSetFailed">cancel a <code>TaskSet</code></a></p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>When created, <code>DAGSchedulerEventProcessLoop</code> gets the reference to the owning <a href="spark-scheduler-DAGScheduler.adoc">DAGScheduler</a> that it uses to call event handler methods on.</p>
+<div id="dagScheduler" class="paragraph">
+<p>When created, DAGSchedulerEventProcessLoop gets the reference to the owning <a href="spark-scheduler-DAGScheduler.adoc">DAGScheduler</a> that it uses to call event handler methods on.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1980,13 +1970,16 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>DAGSchedulerEventProcessLoop</code> uses <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/LinkedBlockingDeque.html">java.util.concurrent.LinkedBlockingDeque</a> blocking deque that grows indefinitely, i.e. up to <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html#MAX_VALUE">Integer.MAX_VALUE</a> events.
+DAGSchedulerEventProcessLoop uses <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/LinkedBlockingDeque.html">java.util.concurrent.LinkedBlockingDeque</a> blocking deque that grows indefinitely, i.e. up to <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html#MAX_VALUE">Integer.MAX_VALUE</a> events.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="alljobscancelled-event-and"><a class="anchor" href="#alljobscancelled-event-and"></a><a class="link" href="#alljobscancelled-event-and"><a id="AllJobsCancelled"></a> <code>AllJobsCancelled</code> Event and&#8230;&#8203;</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="alljobscancelled-event-and"><a class="anchor" href="#alljobscancelled-event-and"></a><a class="link" href="#alljobscancelled-event-and"><a id="AllJobsCancelled"></a> <code>AllJobsCancelled</code> Event and&#8230;&#8203;</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -2000,8 +1993,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="gettingresultevent-event-and-handlegettaskresult-handler"><a class="anchor" href="#gettingresultevent-event-and-handlegettaskresult-handler"></a><a class="link" href="#gettingresultevent-event-and-handlegettaskresult-handler"><a id="GettingResultEvent"></a> <code>GettingResultEvent</code> Event and <code>handleGetTaskResult</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="gettingresultevent-event-and-handlegettaskresult-handler"><a class="anchor" href="#gettingresultevent-event-and-handlegettaskresult-handler"></a><a class="link" href="#gettingresultevent-event-and-handlegettaskresult-handler"><a id="GettingResultEvent"></a> <code>GettingResultEvent</code> Event and <code>handleGetTaskResult</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">GettingResultEvent(taskInfo: TaskInfo) extends DAGSchedulerEvent</code></pre>
@@ -2017,13 +2012,13 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>GettingResultEvent</code> is posted to inform <code>DAGScheduler</code> (through <a href="spark-scheduler-DAGScheduler.adoc#taskGettingResult">taskGettingResult</a>) that a <a href="scheduler/TaskSetManager.html#handleTaskGettingResult" class="page">task fetches results</a>.
+<code>GettingResultEvent</code> is posted to inform DAGScheduler (through <a href="spark-scheduler-DAGScheduler.adoc#taskGettingResult">taskGettingResult</a>) that a <a href="scheduler/TaskSetManager.html#handleTaskGettingResult" class="page">task fetches results</a>.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="handlegettaskresult-handler"><a class="anchor" href="#handlegettaskresult-handler"></a><a class="link" href="#handlegettaskresult-handler"><a id="handleGetTaskResult"></a> <code>handleGetTaskResult</code> Handler</a></h4>
+<div class="sect2">
+<h3 id="handlegettaskresult-handler"><a class="anchor" href="#handlegettaskresult-handler"></a><a class="link" href="#handlegettaskresult-handler"><a id="handleGetTaskResult"></a> <code>handleGetTaskResult</code> Handler</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleGetTaskResult(taskInfo: TaskInfo): Unit</code></pre>
@@ -2034,8 +2029,10 @@ FIXME
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="beginevent-event-and-handlebeginevent-handler"><a class="anchor" href="#beginevent-event-and-handlebeginevent-handler"></a><a class="link" href="#beginevent-event-and-handlebeginevent-handler"><a id="BeginEvent"></a> <code>BeginEvent</code> Event and <code>handleBeginEvent</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="beginevent-event-and-handlebeginevent-handler"><a class="anchor" href="#beginevent-event-and-handlebeginevent-handler"></a><a class="link" href="#beginevent-event-and-handlebeginevent-handler"><a id="BeginEvent"></a> <code>BeginEvent</code> Event and <code>handleBeginEvent</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">BeginEvent(task: Task[_], taskInfo: TaskInfo) extends DAGSchedulerEvent</code></pre>
@@ -2051,13 +2048,13 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>BeginEvent</code> is posted to inform <code>DAGScheduler</code> (through <a href="spark-scheduler-DAGScheduler.adoc#taskStarted">taskStarted</a>) that a <a href="scheduler/TaskSetManager.html#resourceOffer" class="page"><code>TaskSetManager</code> starts a task</a>.
+<code>BeginEvent</code> is posted to inform DAGScheduler (through <a href="spark-scheduler-DAGScheduler.adoc#taskStarted">taskStarted</a>) that a <a href="scheduler/TaskSetManager.html#resourceOffer" class="page"><code>TaskSetManager</code> starts a task</a>.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="handlebeginevent-handler"><a class="anchor" href="#handlebeginevent-handler"></a><a class="link" href="#handlebeginevent-handler"><a id="handleBeginEvent"></a> <code>handleBeginEvent</code> Handler</a></h4>
+<div class="sect2">
+<h3 id="handlebeginevent-handler"><a class="anchor" href="#handlebeginevent-handler"></a><a class="link" href="#handlebeginevent-handler"><a id="handleBeginEvent"></a> <code>handleBeginEvent</code> Handler</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleBeginEvent(task: Task[_], taskInfo: TaskInfo): Unit</code></pre>
@@ -2068,8 +2065,10 @@ FIXME
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="jobgroupcancelled-event-and-handlejobgroupcancelled-handler"><a class="anchor" href="#jobgroupcancelled-event-and-handlejobgroupcancelled-handler"></a><a class="link" href="#jobgroupcancelled-event-and-handlejobgroupcancelled-handler"><a id="JobGroupCancelled"></a> <code>JobGroupCancelled</code> Event and <code>handleJobGroupCancelled</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="jobgroupcancelled-event-and-handlejobgroupcancelled-handler"><a class="anchor" href="#jobgroupcancelled-event-and-handlejobgroupcancelled-handler"></a><a class="link" href="#jobgroupcancelled-event-and-handlejobgroupcancelled-handler"><a id="JobGroupCancelled"></a> <code>JobGroupCancelled</code> Event and <code>handleJobGroupCancelled</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">JobGroupCancelled(groupId: String) extends DAGSchedulerEvent</code></pre>
@@ -2085,13 +2084,13 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>JobGroupCancelled</code> is posted when <code>DAGScheduler</code> is informed (through <a href="spark-scheduler-DAGScheduler.adoc#cancelJobGroup">cancelJobGroup</a>) that <a href="spark-SparkContext.adoc#cancelJobGroup"><code>SparkContext</code> was requested to cancel a job group</a>.
+<code>JobGroupCancelled</code> is posted when DAGScheduler is informed (through <a href="spark-scheduler-DAGScheduler.adoc#cancelJobGroup">cancelJobGroup</a>) that <a href="spark-SparkContext.adoc#cancelJobGroup"><code>SparkContext</code> was requested to cancel a job group</a>.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="handlejobgroupcancelled-handler"><a class="anchor" href="#handlejobgroupcancelled-handler"></a><a class="link" href="#handlejobgroupcancelled-handler"><a id="handleJobGroupCancelled"></a> <code>handleJobGroupCancelled</code> Handler</a></h4>
+<div class="sect2">
+<h3 id="handlejobgroupcancelled-handler"><a class="anchor" href="#handlejobgroupcancelled-handler"></a><a class="link" href="#handlejobgroupcancelled-handler"><a id="handleJobGroupCancelled"></a> <code>handleJobGroupCancelled</code> Handler</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleJobGroupCancelled(groupId: String): Unit</code></pre>
@@ -2108,8 +2107,10 @@ FIXME
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting-notified-that-shuffledependency-was-submittedhandlemapstagesubmitted-handler"><a class="anchor" href="#getting-notified-that-shuffledependency-was-submittedhandlemapstagesubmitted-handler"></a><a class="link" href="#getting-notified-that-shuffledependency-was-submittedhandlemapstagesubmitted-handler"><a id="handleMapStageSubmitted"></a> Getting Notified that ShuffleDependency Was Submitted&#8201;&#8212;&#8201;<code>handleMapStageSubmitted</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="getting-notified-that-shuffledependency-was-submittedhandlemapstagesubmitted-handler"><a class="anchor" href="#getting-notified-that-shuffledependency-was-submittedhandlemapstagesubmitted-handler"></a><a class="link" href="#getting-notified-that-shuffledependency-was-submittedhandlemapstagesubmitted-handler"><a id="handleMapStageSubmitted"></a> Getting Notified that ShuffleDependency Was Submitted&#8201;&#8212;&#8201;<code>handleMapStageSubmitted</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleMapStageSubmitted(
@@ -2189,7 +2190,7 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>DAGScheduler</code> <a href="spark-service-mapoutputtracker.adoc#getStatistics">requests <code>MapOutputTrackerMaster</code> for statistics for <code>ShuffleDependency</code></a> that it uses for <code>handleMapStageSubmitted</code>.
+DAGScheduler <a href="spark-service-mapoutputtracker.adoc#getStatistics">requests <code>MapOutputTrackerMaster</code> for statistics for <code>ShuffleDependency</code></a> that it uses for <code>handleMapStageSubmitted</code>.
 </td>
 </tr>
 </table>
@@ -2201,7 +2202,7 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>MapOutputTrackerMaster</code> is passed in when <a href="spark-scheduler-DAGScheduler.adoc#creating-instance"><code>DAGScheduler</code> is created</a>.
+<code>MapOutputTrackerMaster</code> is passed in when <a href="spark-scheduler-DAGScheduler.adoc#creating-instance">DAGScheduler is created</a>.
 </td>
 </tr>
 </table>
@@ -2273,8 +2274,10 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="tasksetfailed-event-and-handletasksetfailed-handler"><a class="anchor" href="#tasksetfailed-event-and-handletasksetfailed-handler"></a><a class="link" href="#tasksetfailed-event-and-handletasksetfailed-handler"><a id="TaskSetFailed"></a> <code>TaskSetFailed</code> Event and <code>handleTaskSetFailed</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="tasksetfailed-event-and-handletasksetfailed-handler"><a class="anchor" href="#tasksetfailed-event-and-handletasksetfailed-handler"></a><a class="link" href="#tasksetfailed-event-and-handletasksetfailed-handler"><a id="TaskSetFailed"></a> <code>TaskSetFailed</code> Event and <code>handleTaskSetFailed</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">TaskSetFailed(
@@ -2294,13 +2297,13 @@ extends DAGSchedulerEvent</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>TaskSetFailed</code> is posted when <a href="spark-scheduler-DAGScheduler.adoc#taskSetFailed"><code>DAGScheduler</code> is requested to cancel a <code>TaskSet</code></a>.
+<code>TaskSetFailed</code> is posted when <a href="spark-scheduler-DAGScheduler.adoc#taskSetFailed">DAGScheduler is requested to cancel a <code>TaskSet</code></a>.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="handletasksetfailed-handler"><a class="anchor" href="#handletasksetfailed-handler"></a><a class="link" href="#handletasksetfailed-handler"><a id="handleTaskSetFailed"></a> <code>handleTaskSetFailed</code> Handler</a></h4>
+<div class="sect2">
+<h3 id="handletasksetfailed-handler"><a class="anchor" href="#handletasksetfailed-handler"></a><a class="link" href="#handletasksetfailed-handler"><a id="handleTaskSetFailed"></a> <code>handleTaskSetFailed</code> Handler</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleTaskSetFailed(
@@ -2314,8 +2317,10 @@ extends DAGSchedulerEvent</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="resubmitfailedstages-event-and-resubmitfailedstages-handler"><a class="anchor" href="#resubmitfailedstages-event-and-resubmitfailedstages-handler"></a><a class="link" href="#resubmitfailedstages-event-and-resubmitfailedstages-handler"><a id="ResubmitFailedStages"></a> <code>ResubmitFailedStages</code> Event and <code>resubmitFailedStages</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="resubmitfailedstages-event-and-resubmitfailedstages-handler"><a class="anchor" href="#resubmitfailedstages-event-and-resubmitfailedstages-handler"></a><a class="link" href="#resubmitfailedstages-event-and-resubmitfailedstages-handler"><a id="ResubmitFailedStages"></a> <code>ResubmitFailedStages</code> Event and <code>resubmitFailedStages</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">ResubmitFailedStages extends DAGSchedulerEvent</code></pre>
@@ -2336,8 +2341,8 @@ extends DAGSchedulerEvent</code></pre>
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="resubmitfailedstages-handler"><a class="anchor" href="#resubmitfailedstages-handler"></a><a class="link" href="#resubmitfailedstages-handler"><a id="resubmitFailedStages"></a> <code>resubmitFailedStages</code> Handler</a></h4>
+<div class="sect2">
+<h3 id="resubmitfailedstages-handler"><a class="anchor" href="#resubmitfailedstages-handler"></a><a class="link" href="#resubmitfailedstages-handler"><a id="resubmitFailedStages"></a> <code>resubmitFailedStages</code> Handler</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">resubmitFailedStages(): Unit</code></pre>
@@ -2367,7 +2372,7 @@ extends DAGSchedulerEvent</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>resubmitFailedStages</code> <a href="spark-scheduler-DAGScheduler.adoc#clearCacheLocs">clears the internal cache of RDD partition locations</a> first. It then makes a copy of the <a href="spark-scheduler-DAGScheduler.adoc#failedStages">collection of failed stages</a> so <code>DAGScheduler</code> can track failed stages afresh.</p>
+<p><code>resubmitFailedStages</code> <a href="spark-scheduler-DAGScheduler.adoc#clearCacheLocs">clears the internal cache of RDD partition locations</a> first. It then makes a copy of the <a href="spark-scheduler-DAGScheduler.adoc#failedStages">collection of failed stages</a> so DAGScheduler can track failed stages afresh.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2376,7 +2381,7 @@ extends DAGSchedulerEvent</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-At this point <code>DAGScheduler</code> has no failed stages reported.
+At this point DAGScheduler has no failed stages reported.
 </td>
 </tr>
 </table>
@@ -2386,8 +2391,10 @@ At this point <code>DAGScheduler</code> has no failed stages reported.
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting-notified-that-executor-is-losthandleexecutorlost-handler"><a class="anchor" href="#getting-notified-that-executor-is-losthandleexecutorlost-handler"></a><a class="link" href="#getting-notified-that-executor-is-losthandleexecutorlost-handler"><a id="handleExecutorLost"></a> Getting Notified that Executor Is Lost&#8201;&#8212;&#8201;<code>handleExecutorLost</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="getting-notified-that-executor-is-losthandleexecutorlost-handler"><a class="anchor" href="#getting-notified-that-executor-is-losthandleexecutorlost-handler"></a><a class="link" href="#getting-notified-that-executor-is-losthandleexecutorlost-handler"><a id="handleExecutorLost"></a> Getting Notified that Executor Is Lost&#8201;&#8212;&#8201;<code>handleExecutorLost</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleExecutorLost(
@@ -2406,7 +2413,7 @@ At this point <code>DAGScheduler</code> has no failed stages reported.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>MapOutputTrackerMaster</code> is passed in (as <code>mapOutputTracker</code>) when <a href="spark-scheduler-DAGScheduler.adoc#creating-instance"><code>DAGScheduler</code> is created</a>.
+<code>MapOutputTrackerMaster</code> is passed in (as <code>mapOutputTracker</code>) when <a href="spark-scheduler-DAGScheduler.adoc#creating-instance">DAGScheduler is created</a>.
 </td>
 </tr>
 </table>
@@ -2444,7 +2451,7 @@ FIXME When is <code>maybeEpoch</code> passed in?
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>handleExecutorLost</code> handler uses <code>DAGScheduler</code>'s <code>failedEpoch</code> and FIXME internal registries.
+<code>handleExecutorLost</code> handler uses <code>DAGScheduler&#8217;s `failedEpoch</code> and FIXME internal registries.
 </td>
 </tr>
 </table>
@@ -2515,11 +2522,13 @@ FIXME Review what&#8217;s <code>filesLost</code>.
 <p>In case <a href="spark-scheduler-DAGScheduler.adoc#shuffleToMapStage">DAGScheduler&#8217;s <code>shuffleToMapStage</code> internal registry</a> has no shuffles registered,  <a href="spark-service-MapOutputTrackerMaster.adoc#incrementEpoch"><code>MapOutputTrackerMaster</code> is requested to increment epoch</a>.</p>
 </div>
 <div class="paragraph">
-<p>Ultimatelly, <code>DAGScheduler</code> <a href="spark-scheduler-DAGScheduler.adoc#clearCacheLocs">clears the internal cache of RDD partition locations</a>.</p>
+<p>Ultimatelly, DAGScheduler <a href="spark-scheduler-DAGScheduler.adoc#clearCacheLocs">clears the internal cache of RDD partition locations</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="jobcancelled-event-and-handlejobcancellation-handler"><a class="anchor" href="#jobcancelled-event-and-handlejobcancellation-handler"></a><a class="link" href="#jobcancelled-event-and-handlejobcancellation-handler"><a id="JobCancelled"></a> <code>JobCancelled</code> Event and <code>handleJobCancellation</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="jobcancelled-event-and-handlejobcancellation-handler"><a class="anchor" href="#jobcancelled-event-and-handlejobcancellation-handler"></a><a class="link" href="#jobcancelled-event-and-handlejobcancellation-handler"><a id="JobCancelled"></a> <code>JobCancelled</code> Event and <code>handleJobCancellation</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">JobCancelled(jobId: Int) extends DAGSchedulerEvent</code></pre>
@@ -2535,13 +2544,13 @@ FIXME Review what&#8217;s <code>filesLost</code>.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>JobCancelled</code> is posted when <a href="spark-scheduler-DAGScheduler.adoc#cancelJob"><code>DAGScheduler</code> is requested to cancel a job</a>.
+<code>JobCancelled</code> is posted when <a href="spark-scheduler-DAGScheduler.adoc#cancelJob">DAGScheduler is requested to cancel a job</a>.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="handlejobcancellation-handler"><a class="anchor" href="#handlejobcancellation-handler"></a><a class="link" href="#handlejobcancellation-handler"><a id="handleJobCancellation"></a> <code>handleJobCancellation</code> Handler</a></h4>
+<div class="sect2">
+<h3 id="handlejobcancellation-handler"><a class="anchor" href="#handlejobcancellation-handler"></a><a class="link" href="#handlejobcancellation-handler"><a id="handleJobCancellation"></a> <code>handleJobCancellation</code> Handler</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleJobCancellation(jobId: Int, reason: String = "")</code></pre>
@@ -2551,7 +2560,7 @@ FIXME Review what&#8217;s <code>filesLost</code>.
 <p><code>handleJobCancellation</code> first makes sure that the input <code>jobId</code> has been registered earlier (using <a href="spark-scheduler-DAGScheduler.adoc#jobIdToStageIds">jobIdToStageIds</a> internal registry).</p>
 </div>
 <div class="paragraph">
-<p>If the input <code>jobId</code> is not known to <code>DAGScheduler</code>, you should see the following DEBUG message in the logs:</p>
+<p>If the input <code>jobId</code> is not known to DAGScheduler, you should see the following DEBUG message in the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2568,8 +2577,10 @@ FIXME Review what&#8217;s <code>filesLost</code>.
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting-notified-that-task-has-finishedhandletaskcompletion-handler"><a class="anchor" href="#getting-notified-that-task-has-finishedhandletaskcompletion-handler"></a><a class="link" href="#getting-notified-that-task-has-finishedhandletaskcompletion-handler"><a id="handleTaskCompletion"></a> Getting Notified That Task Has Finished&#8201;&#8212;&#8201;<code>handleTaskCompletion</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="getting-notified-that-task-has-finishedhandletaskcompletion-handler"><a class="anchor" href="#getting-notified-that-task-has-finishedhandletaskcompletion-handler"></a><a class="link" href="#getting-notified-that-task-has-finishedhandletaskcompletion-handler"><a id="handleTaskCompletion"></a> Getting Notified That Task Has Finished&#8201;&#8212;&#8201;<code>handleTaskCompletion</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleTaskCompletion(event: CompletionEvent): Unit</code></pre>
@@ -2706,8 +2717,8 @@ FIXME Review what&#8217;s <code>filesLost</code>.
 </tr>
 </tbody>
 </table>
-<div class="sect3">
-<h4 id="handling-successful-task-completion"><a class="anchor" href="#handling-successful-task-completion"></a><a class="link" href="#handling-successful-task-completion"><a id="handleTaskCompletion-Success"></a> Handling Successful Task Completion</a></h4>
+<div class="sect2">
+<h3 id="handling-successful-task-completion"><a class="anchor" href="#handling-successful-task-completion"></a><a class="link" href="#handling-successful-task-completion"><a id="handleTaskCompletion-Success"></a> Handling Successful Task Completion</a></h3>
 <div class="paragraph">
 <p>When a task has finished successfully (i.e. <code>Success</code> end reason), <code>handleTaskCompletion</code> marks the partition as no longer pending (i.e. the partition the task worked on is removed from <code>pendingPartitions</code> of the stage).</p>
 </div>
@@ -2726,8 +2737,8 @@ A <code>Stage</code> tracks its own pending partitions using <a href="spark-sche
 <div class="paragraph">
 <p><code>handleTaskCompletion</code> branches off given the type of the task that completed, i.e. <a href="#handleTaskCompletion-Success-ShuffleMapTask">ShuffleMapTask</a> and <a href="#handleTaskCompletion-Success-ResultTask">ResultTask</a>.</p>
 </div>
-<div class="sect4">
-<h5 id="handling-successful-resulttask-completion"><a class="anchor" href="#handling-successful-resulttask-completion"></a><a class="link" href="#handling-successful-resulttask-completion"><a id="handleTaskCompletion-Success-ResultTask"></a> Handling Successful <code>ResultTask</code> Completion</a></h5>
+<div class="sect3">
+<h4 id="handling-successful-resulttask-completion"><a class="anchor" href="#handling-successful-resulttask-completion"></a><a class="link" href="#handling-successful-resulttask-completion"><a id="handleTaskCompletion-Success-ResultTask"></a> Handling Successful <code>ResultTask</code> Completion</a></h4>
 <div class="paragraph">
 <p>For <a href="scheduler/ResultTask.html" class="page">ResultTask</a>, the stage is assumed a <a href="spark-scheduler-ResultStage.adoc">ResultStage</a>.</p>
 </div>
@@ -2837,8 +2848,8 @@ A task succeeded notification holds the output index and the result.
 <p>When the notification throws an exception (because it runs user code), <code>handleTaskCompletion</code> <a href="spark-scheduler-JobListener.adoc#jobFailed">notifies <code>JobListener</code> about the failure</a> (wrapping it inside a <code>SparkDriverExecutionException</code> exception).</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="handling-successful-shufflemaptask-completion"><a class="anchor" href="#handling-successful-shufflemaptask-completion"></a><a class="link" href="#handling-successful-shufflemaptask-completion"><a id="handleTaskCompletion-Success-ShuffleMapTask"></a> Handling Successful <code>ShuffleMapTask</code> Completion</a></h5>
+<div class="sect3">
+<h4 id="handling-successful-shufflemaptask-completion"><a class="anchor" href="#handling-successful-shufflemaptask-completion"></a><a class="link" href="#handling-successful-shufflemaptask-completion"><a id="handleTaskCompletion-Success-ShuffleMapTask"></a> Handling Successful <code>ShuffleMapTask</code> Completion</a></h4>
 <div class="paragraph">
 <p>For <a href="scheduler/ShuffleMapTask.html" class="page">ShuffleMapTask</a>, the stage is assumed a  <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a>.</p>
 </div>
@@ -2894,7 +2905,7 @@ INFO DAGScheduler: failed: [failedStages]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="spark-service-MapOutputTrackerMaster.adoc">MapOutputTrackerMaster</a> is given when <a href="spark-scheduler-DAGScheduler.adoc#creating-instance"><code>DAGScheduler</code> is created</a>.
+<a href="spark-service-MapOutputTrackerMaster.adoc">MapOutputTrackerMaster</a> is given when <a href="spark-scheduler-DAGScheduler.adoc#creating-instance">DAGScheduler is created</a>.
 </td>
 </tr>
 </table>
@@ -2930,8 +2941,8 @@ A <code>ShuffleMapStage</code> stage is ready (aka <em>available</em>) when all 
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="taskendreason-resubmitted"><a class="anchor" href="#taskendreason-resubmitted"></a><a class="link" href="#taskendreason-resubmitted"><a id="handleTaskCompletion-Resubmitted"></a> TaskEndReason: Resubmitted</a></h4>
+<div class="sect2">
+<h3 id="taskendreason-resubmitted"><a class="anchor" href="#taskendreason-resubmitted"></a><a class="link" href="#taskendreason-resubmitted"><a id="handleTaskCompletion-Resubmitted"></a> TaskEndReason: Resubmitted</a></h3>
 <div class="paragraph">
 <p>For <code>Resubmitted</code> case, you should see the following INFO message in the logs:</p>
 </div>
@@ -2956,8 +2967,8 @@ A stage knows how many partitions are yet to be calculated. A task knows about t
 </table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="task-failed-with-fetchfailed-exceptiontaskendreason-fetchfailed"><a class="anchor" href="#task-failed-with-fetchfailed-exceptiontaskendreason-fetchfailed"></a><a class="link" href="#task-failed-with-fetchfailed-exceptiontaskendreason-fetchfailed"><a id="handleTaskCompletion-FetchFailed"></a> Task Failed with <code>FetchFailed</code> Exception&#8201;&#8212;&#8201;TaskEndReason: FetchFailed</a></h4>
+<div class="sect2">
+<h3 id="task-failed-with-fetchfailed-exceptiontaskendreason-fetchfailed"><a class="anchor" href="#task-failed-with-fetchfailed-exceptiontaskendreason-fetchfailed"></a><a class="link" href="#task-failed-with-fetchfailed-exceptiontaskendreason-fetchfailed"><a id="handleTaskCompletion-FetchFailed"></a> Task Failed with <code>FetchFailed</code> Exception&#8201;&#8212;&#8201;TaskEndReason: FetchFailed</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">FetchFailed(
@@ -3146,12 +3157,14 @@ FIXME What does <code>mapStage.removeOutputLoc</code> do?
 </table>
 </div>
 <div class="paragraph">
-<p>If <code>BlockManagerId</code> (as <code>bmAddress</code> in the <code>FetchFailed</code> object) is defined, <code>handleTaskCompletion</code> <a href="#handleExecutorLost">notifies <code>DAGScheduler</code> that an executor was lost</a> (with <code>filesLost</code> enabled and <code>maybeEpoch</code> from the <a href="scheduler/Task.html#epoch" class="page">Task</a> that completed).</p>
+<p>If <code>BlockManagerId</code> (as <code>bmAddress</code> in the <code>FetchFailed</code> object) is defined, <code>handleTaskCompletion</code> <a href="#handleExecutorLost">notifies DAGScheduler that an executor was lost</a> (with <code>filesLost</code> enabled and <code>maybeEpoch</code> from the <a href="scheduler/Task.html#epoch" class="page">Task</a> that completed).</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="stagecancelled-event-and-handlestagecancellation-handler"><a class="anchor" href="#stagecancelled-event-and-handlestagecancellation-handler"></a><a class="link" href="#stagecancelled-event-and-handlestagecancellation-handler"><a id="StageCancelled"></a> <code>StageCancelled</code> Event and <code>handleStageCancellation</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="stagecancelled-event-and-handlestagecancellation-handler"><a class="anchor" href="#stagecancelled-event-and-handlestagecancellation-handler"></a><a class="link" href="#stagecancelled-event-and-handlestagecancellation-handler"><a id="StageCancelled"></a> <code>StageCancelled</code> Event and <code>handleStageCancellation</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">StageCancelled(stageId: Int) extends DAGSchedulerEvent</code></pre>
@@ -3160,8 +3173,8 @@ FIXME What does <code>mapStage.removeOutputLoc</code> do?
 <div class="paragraph">
 <p><code>StageCancelled</code> is a <code>DAGSchedulerEvent</code> that triggers <a href="#handleStageCancellation">handleStageCancellation</a> (on a separate thread).</p>
 </div>
-<div class="sect3">
-<h4 id="handlestagecancellation-handler"><a class="anchor" href="#handlestagecancellation-handler"></a><a class="link" href="#handlestagecancellation-handler"><a id="handleStageCancellation"></a> <code>handleStageCancellation</code> Handler</a></h4>
+<div class="sect2">
+<h3 id="handlestagecancellation-handler"><a class="anchor" href="#handlestagecancellation-handler"></a><a class="link" href="#handlestagecancellation-handler"><a id="handleStageCancellation"></a> <code>handleStageCancellation</code> Handler</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleStageCancellation(stageId: Int): Unit</code></pre>
@@ -3204,8 +3217,10 @@ A stage tracks the jobs it belongs to using <code>jobIds</code> property.
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="handlejobsubmitted-handler"><a class="anchor" href="#handlejobsubmitted-handler"></a><a class="link" href="#handlejobsubmitted-handler"><a id="handleJobSubmitted"></a> <code>handleJobSubmitted</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="handlejobsubmitted-handler"><a class="anchor" href="#handlejobsubmitted-handler"></a><a class="link" href="#handlejobsubmitted-handler"><a id="handleJobSubmitted"></a> <code>handleJobSubmitted</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleJobSubmitted(
@@ -3278,8 +3293,10 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 <p>Ultimately, <code>handleJobSubmitted</code> posts  <a href="spark-scheduler-SparkListener.adoc#SparkListenerJobStart">SparkListenerJobStart</a> message to <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> and <a href="spark-scheduler-DAGScheduler.adoc#submitStage">submits the stage</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="executoradded-event-and-handleexecutoradded-handler"><a class="anchor" href="#executoradded-event-and-handleexecutoradded-handler"></a><a class="link" href="#executoradded-event-and-handleexecutoradded-handler"><a id="ExecutorAdded"></a> <code>ExecutorAdded</code> Event and <code>handleExecutorAdded</code> Handler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="executoradded-event-and-handleexecutoradded-handler"><a class="anchor" href="#executoradded-event-and-handleexecutoradded-handler"></a><a class="link" href="#executoradded-event-and-handleexecutoradded-handler"><a id="ExecutorAdded"></a> <code>ExecutorAdded</code> Event and <code>handleExecutorAdded</code> Handler</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">ExecutorAdded(execId: String, host: String) extends DAGSchedulerEvent</code></pre>
@@ -3288,8 +3305,8 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 <div class="paragraph">
 <p><code>ExecutorAdded</code> is a <code>DAGSchedulerEvent</code> that triggers <a href="#handleExecutorAdded">handleExecutorAdded</a> method (on a separate thread).</p>
 </div>
-<div class="sect3">
-<h4 id="removing-executor-from-failedepoch-registryhandleexecutoradded-handler"><a class="anchor" href="#removing-executor-from-failedepoch-registryhandleexecutoradded-handler"></a><a class="link" href="#removing-executor-from-failedepoch-registryhandleexecutoradded-handler"><a id="handleExecutorAdded"></a> Removing Executor From <code>failedEpoch</code> Registry&#8201;&#8212;&#8201;<code>handleExecutorAdded</code> Handler</a></h4>
+<div class="sect2">
+<h3 id="removing-executor-from-failedepoch-registryhandleexecutoradded-handler"><a class="anchor" href="#removing-executor-from-failedepoch-registryhandleexecutoradded-handler"></a><a class="link" href="#removing-executor-from-failedepoch-registryhandleexecutoradded-handler"><a id="handleExecutorAdded"></a> Removing Executor From <code>failedEpoch</code> Registry&#8201;&#8212;&#8201;<code>handleExecutorAdded</code> Handler</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">handleExecutorAdded(execId: String, host: String)</code></pre>
@@ -3303,9 +3320,47 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>INFO Host added was in lost list earlier: [host]</code></pre>
+<pre class="highlightjs highlight"><code>Host added was in lost list earlier: [host]</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dagscheduler-events"><a class="anchor" href="#dagscheduler-events"></a><a class="link" href="#dagscheduler-events"><a id="events"></a> DAGScheduler Events</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="jobsubmitted"><a class="anchor" href="#jobsubmitted"></a><a class="link" href="#jobsubmitted"><a id="JobSubmitted"></a> JobSubmitted</a></h3>
+<div class="paragraph">
+<p>JobSubmitted is a DAGSchedulerEvent that is posted when DAGScheduler is requested to <a href="spark-scheduler-DAGScheduler.html#submitJob" class="page">submit a job</a> or <a href="spark-scheduler-DAGScheduler.html#runApproximateJob" class="page">run an approximate job</a>.</p>
+</div>
+<div class="paragraph">
+<p>JobSubmitted event carries all the required details for the <a href="#dagScheduler">DAGScheduler</a> to <a href="#handleJobSubmitted">handle it</a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Job ID</p>
+</li>
+<li>
+<p><a href="rdd/spark-rdd-RDD.html" class="page">RDD</a></p>
+</li>
+<li>
+<p>Partition function (<code>(TaskContext, Iterator[_]) &#8658; _</code>)</p>
+</li>
+<li>
+<p>Partitions to compute</p>
+</li>
+<li>
+<p>CallSite</p>
+</li>
+<li>
+<p><a href="spark-scheduler-JobListener.html" class="page">JobListener</a> to keep updated about the status of the stage execution</p>
+</li>
+<li>
+<p>Execution properties</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

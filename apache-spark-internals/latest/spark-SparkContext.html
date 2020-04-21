@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> SparkContext :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-SparkContext.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -1832,11 +1832,11 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="sparkcontextentry-point-to-spark-core"><a class="anchor" href="#sparkcontextentry-point-to-spark-core"></a><a class="link" href="#sparkcontextentry-point-to-spark-core"><a id="SparkContext"></a> SparkContext&#8201;&#8212;&#8201;Entry Point to Spark Core</a></h2>
+<h1 class="page"><a id="SparkContext"></a> SparkContext</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>SparkContext</code> (aka <strong>Spark context</strong>) is the entry point to the services of Apache Spark (execution engine) and so the heart of a Spark application. In fact, you can consider an application a Spark application only when it uses a <code>SparkContext</code> (directly or indirectly).</p>
+<p><code>SparkContext</code> (aka <strong>Spark context</strong>) is the entry point to all services of Apache Spark (execution engine) and so the heart of a Spark application. In fact, you can consider an application a Spark application only when it uses a <code>SparkContext</code> (directly or indirectly).</p>
 </div>
 <table id="methods" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. SparkContext&#8217;s Developer API (Public Methods)</caption>
@@ -2105,8 +2105,11 @@ Read the scaladoc of  <a href="http://spark.apache.org/docs/latest/api/scala/ind
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="addfile-method"><a class="anchor" href="#addfile-method"></a><a class="link" href="#addfile-method"><a id="addFile"></a> <code>addFile</code> Method</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="addfile-method"><a class="anchor" href="#addfile-method"></a><a class="link" href="#addfile-method"><a id="addFile"></a> <code>addFile</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">addFile(path: String): Unit <i class="conum" data-value="1"></i><b>(1)</b>
@@ -2152,8 +2155,10 @@ addFile(path: String, recursive: Boolean): Unit</code></pre>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="removing-rdd-blocks-from-blockmanagermasterunpersistrdd-internal-method"><a class="anchor" href="#removing-rdd-blocks-from-blockmanagermasterunpersistrdd-internal-method"></a><a class="link" href="#removing-rdd-blocks-from-blockmanagermasterunpersistrdd-internal-method"><a id="unpersistRDD"></a> Removing RDD Blocks from BlockManagerMaster&#8201;&#8212;&#8201;<code>unpersistRDD</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="removing-rdd-blocks-from-blockmanagermasterunpersistrdd-internal-method"><a class="anchor" href="#removing-rdd-blocks-from-blockmanagermasterunpersistrdd-internal-method"></a><a class="link" href="#removing-rdd-blocks-from-blockmanagermasterunpersistrdd-internal-method"><a id="unpersistRDD"></a> Removing RDD Blocks from BlockManagerMaster&#8201;&#8212;&#8201;<code>unpersistRDD</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">unpersistRDD(rddId: Int, blocking: Boolean = true): Unit</code></pre>
@@ -2205,8 +2210,10 @@ addFile(path: String, recursive: Boolean): Unit</code></pre>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="unique-identifier-of-spark-applicationapplicationid-method"><a class="anchor" href="#unique-identifier-of-spark-applicationapplicationid-method"></a><a class="link" href="#unique-identifier-of-spark-applicationapplicationid-method"><a id="applicationId"></a> Unique Identifier of Spark Application&#8201;&#8212;&#8201;<code>applicationId</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="unique-identifier-of-spark-applicationapplicationid-method"><a class="anchor" href="#unique-identifier-of-spark-applicationapplicationid-method"></a><a class="link" href="#unique-identifier-of-spark-applicationapplicationid-method"><a id="applicationId"></a> Unique Identifier of Spark Application&#8201;&#8212;&#8201;<code>applicationId</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -2220,8 +2227,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="postapplicationstart-internal-method"><a class="anchor" href="#postapplicationstart-internal-method"></a><a class="link" href="#postapplicationstart-internal-method"><a id="postApplicationStart"></a> <code>postApplicationStart</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="postapplicationstart-internal-method"><a class="anchor" href="#postapplicationstart-internal-method"></a><a class="link" href="#postapplicationstart-internal-method"><a id="postApplicationStart"></a> <code>postApplicationStart</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">postApplicationStart(): Unit</code></pre>
@@ -2243,8 +2252,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="postapplicationend-method"><a class="anchor" href="#postapplicationend-method"></a><a class="link" href="#postapplicationend-method"><a id="postApplicationEnd"></a> <code>postApplicationEnd</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="postapplicationend-method"><a class="anchor" href="#postapplicationend-method"></a><a class="link" href="#postapplicationend-method"><a id="postApplicationEnd"></a> <code>postApplicationEnd</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -2258,8 +2269,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="clearactivecontext-method"><a class="anchor" href="#clearactivecontext-method"></a><a class="link" href="#clearactivecontext-method"><a id="clearActiveContext"></a> <code>clearActiveContext</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="clearactivecontext-method"><a class="anchor" href="#clearactivecontext-method"></a><a class="link" href="#clearactivecontext-method"><a id="clearActiveContext"></a> <code>clearActiveContext</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -2273,8 +2286,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="accessing-persistent-rddsgetpersistentrdds-method"><a class="anchor" href="#accessing-persistent-rddsgetpersistentrdds-method"></a><a class="link" href="#accessing-persistent-rddsgetpersistentrdds-method"><a id="getPersistentRDDs"></a> Accessing persistent RDDs&#8201;&#8212;&#8201;<code>getPersistentRDDs</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="accessing-persistent-rddsgetpersistentrdds-method"><a class="anchor" href="#accessing-persistent-rddsgetpersistentrdds-method"></a><a class="link" href="#accessing-persistent-rddsgetpersistentrdds-method"><a id="getPersistentRDDs"></a> Accessing persistent RDDs&#8201;&#8212;&#8201;<code>getPersistentRDDs</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getPersistentRDDs: Map[Int, RDD[_]]</code></pre>
@@ -2287,8 +2302,10 @@ FIXME
 <p>Internally, <code>getPersistentRDDs</code> returns <a href="#persistentRdds">persistentRdds</a> internal registry.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cancelling-jobcanceljob-method"><a class="anchor" href="#cancelling-jobcanceljob-method"></a><a class="link" href="#cancelling-jobcanceljob-method"><a id="cancelJob"></a> Cancelling Job&#8201;&#8212;&#8201;<code>cancelJob</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="cancelling-jobcanceljob-method"><a class="anchor" href="#cancelling-jobcanceljob-method"></a><a class="link" href="#cancelling-jobcanceljob-method"><a id="cancelJob"></a> Cancelling Job&#8201;&#8212;&#8201;<code>cancelJob</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">cancelJob(jobId: Int)</code></pre>
@@ -2298,8 +2315,10 @@ FIXME
 <p><code>cancelJob</code> requests <code>DAGScheduler</code> <a href="spark-scheduler-DAGScheduler.adoc#cancelJob">to cancel a Spark job</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cancelling-stagecancelstage-methods"><a class="anchor" href="#cancelling-stagecancelstage-methods"></a><a class="link" href="#cancelling-stagecancelstage-methods"><a id="cancelStage"></a> Cancelling Stage&#8201;&#8212;&#8201;<code>cancelStage</code> Methods</a></h3>
+</div>
+<div class="sect1">
+<h2 id="cancelling-stagecancelstage-methods"><a class="anchor" href="#cancelling-stagecancelstage-methods"></a><a class="link" href="#cancelling-stagecancelstage-methods"><a id="cancelStage"></a> Cancelling Stage&#8201;&#8212;&#8201;<code>cancelStage</code> Methods</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">cancelStage(stageId: Int): Unit
@@ -2322,8 +2341,10 @@ cancelStage(stageId: Int, reason: String): Unit</code></pre>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="programmable-dynamic-allocation"><a class="anchor" href="#programmable-dynamic-allocation"></a><a class="link" href="#programmable-dynamic-allocation"><a id="dynamic-allocation"></a> Programmable Dynamic Allocation</a></h3>
+</div>
+<div class="sect1">
+<h2 id="programmable-dynamic-allocation"><a class="anchor" href="#programmable-dynamic-allocation"></a><a class="link" href="#programmable-dynamic-allocation"><a id="dynamic-allocation"></a> Programmable Dynamic Allocation</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><code>SparkContext</code> offers the following methods as the developer API for <a href="spark-dynamic-allocation.adoc">dynamic allocation of executors</a>:</p>
 </div>
@@ -2343,8 +2364,8 @@ cancelStage(stageId: Int, reason: String): Unit</code></pre>
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="requesting-new-executorsrequestexecutors-method"><a class="anchor" href="#requesting-new-executorsrequestexecutors-method"></a><a class="link" href="#requesting-new-executorsrequestexecutors-method"><a id="requestExecutors"></a> Requesting New Executors&#8201;&#8212;&#8201;<code>requestExecutors</code> Method</a></h4>
+<div class="sect2">
+<h3 id="requesting-new-executorsrequestexecutors-method"><a class="anchor" href="#requesting-new-executorsrequestexecutors-method"></a><a class="link" href="#requesting-new-executorsrequestexecutors-method"><a id="requestExecutors"></a> Requesting New Executors&#8201;&#8212;&#8201;<code>requestExecutors</code> Method</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">requestExecutors(numAdditionalExecutors: Int): Boolean</code></pre>
@@ -2354,8 +2375,8 @@ cancelStage(stageId: Int, reason: String): Unit</code></pre>
 <p><code>requestExecutors</code> requests <code>numAdditionalExecutors</code> executors from <a href="spark-CoarseGrainedSchedulerBackend.adoc">CoarseGrainedSchedulerBackend</a>.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="requesting-to-kill-executorskillexecutors-method"><a class="anchor" href="#requesting-to-kill-executorskillexecutors-method"></a><a class="link" href="#requesting-to-kill-executorskillexecutors-method"><a id="killExecutors"></a> Requesting to Kill Executors&#8201;&#8212;&#8201;<code>killExecutors</code> Method</a></h4>
+<div class="sect2">
+<h3 id="requesting-to-kill-executorskillexecutors-method"><a class="anchor" href="#requesting-to-kill-executorskillexecutors-method"></a><a class="link" href="#requesting-to-kill-executorskillexecutors-method"><a id="killExecutors"></a> Requesting to Kill Executors&#8201;&#8212;&#8201;<code>killExecutors</code> Method</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">killExecutors(executorIds: Seq[String]): Boolean</code></pre>
@@ -2374,8 +2395,8 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="requesting-total-executorsrequesttotalexecutors-method"><a class="anchor" href="#requesting-total-executorsrequesttotalexecutors-method"></a><a class="link" href="#requesting-total-executorsrequesttotalexecutors-method"><a id="requestTotalExecutors"></a> Requesting Total Executors&#8201;&#8212;&#8201;<code>requestTotalExecutors</code> Method</a></h4>
+<div class="sect2">
+<h3 id="requesting-total-executorsrequesttotalexecutors-method"><a class="anchor" href="#requesting-total-executorsrequesttotalexecutors-method"></a><a class="link" href="#requesting-total-executorsrequesttotalexecutors-method"><a id="requestTotalExecutors"></a> Requesting Total Executors&#8201;&#8212;&#8201;<code>requestTotalExecutors</code> Method</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">requestTotalExecutors(
@@ -2408,8 +2429,8 @@ It works for <a href="spark-CoarseGrainedSchedulerBackend.adoc">coarse-grained s
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="getting-executor-idsgetexecutorids-method"><a class="anchor" href="#getting-executor-idsgetexecutorids-method"></a><a class="link" href="#getting-executor-idsgetexecutorids-method"><a id="getExecutorIds"></a> Getting Executor Ids&#8201;&#8212;&#8201;<code>getExecutorIds</code> Method</a></h4>
+<div class="sect2">
+<h3 id="getting-executor-idsgetexecutorids-method"><a class="anchor" href="#getting-executor-idsgetexecutorids-method"></a><a class="link" href="#getting-executor-idsgetexecutorids-method"><a id="getExecutorIds"></a> Getting Executor Ids&#8201;&#8212;&#8201;<code>getExecutorIds</code> Method</a></h3>
 <div class="paragraph">
 <p><code>getExecutorIds</code> is a <code>private[spark]</code> method that is part of <a href="spark-service-ExecutorAllocationClient.adoc">ExecutorAllocationClient contract</a>. It simply <a href="spark-CoarseGrainedSchedulerBackend.adoc#getExecutorIds">passes the call on to the current coarse-grained scheduler backend, i.e. calls <code>getExecutorIds</code></a>.</p>
 </div>
@@ -2447,8 +2468,10 @@ FIXME Why does SparkContext implement the method for coarse-grained scheduler ba
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-sparkcontext-instance"><a class="anchor" href="#creating-sparkcontext-instance"></a><a class="link" href="#creating-sparkcontext-instance"><a id="creating-instance"></a> Creating <code>SparkContext</code> Instance</a></h3>
+</div>
+<div class="sect1">
+<h2 id="creating-sparkcontext-instance"><a class="anchor" href="#creating-sparkcontext-instance"></a><a class="link" href="#creating-sparkcontext-instance"><a id="creating-instance"></a> Creating <code>SparkContext</code> Instance</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>You can create a <code>SparkContext</code> instance with or without creating a <a href="spark-SparkConf.adoc">SparkConf</a> object first.</p>
 </div>
@@ -2464,8 +2487,8 @@ You may want to read <a href="spark-SparkContext-creating-instance-internals.ado
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="getting-existing-or-creating-new-sparkcontextgetorcreate-methods"><a class="anchor" href="#getting-existing-or-creating-new-sparkcontextgetorcreate-methods"></a><a class="link" href="#getting-existing-or-creating-new-sparkcontextgetorcreate-methods"><a id="getOrCreate"></a> Getting Existing or Creating New SparkContext&#8201;&#8212;&#8201;<code>getOrCreate</code> Methods</a></h4>
+<div class="sect2">
+<h3 id="getting-existing-or-creating-new-sparkcontextgetorcreate-methods"><a class="anchor" href="#getting-existing-or-creating-new-sparkcontextgetorcreate-methods"></a><a class="link" href="#getting-existing-or-creating-new-sparkcontextgetorcreate-methods"><a id="getOrCreate"></a> Getting Existing or Creating New SparkContext&#8201;&#8212;&#8201;<code>getOrCreate</code> Methods</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getOrCreate(): SparkContext
@@ -2492,8 +2515,8 @@ val sc = SparkContext.getOrCreate(conf)</code></pre>
 <p>The no-param <code>getOrCreate</code> method requires that the two mandatory Spark settings - <a href="#master">master</a> and <a href="#appName">application name</a> - are specified using <a href="spark-submit.adoc">spark-submit</a>.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="constructors"><a class="anchor" href="#constructors"></a><a class="link" href="#constructors"><a id="constructors"></a> Constructors</a></h4>
+<div class="sect2">
+<h3 id="constructors"><a class="anchor" href="#constructors"></a><a class="link" href="#constructors"><a id="constructors"></a> Constructors</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">SparkContext()
@@ -2543,8 +2566,10 @@ Only one SparkContext may be running in a single JVM (check out <a href="https:/
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="accessing-current-sparkenvenv-method"><a class="anchor" href="#accessing-current-sparkenvenv-method"></a><a class="link" href="#accessing-current-sparkenvenv-method"><a id="env"></a> Accessing Current SparkEnv&#8201;&#8212;&#8201;<code>env</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="accessing-current-sparkenvenv-method"><a class="anchor" href="#accessing-current-sparkenvenv-method"></a><a class="link" href="#accessing-current-sparkenvenv-method"><a id="env"></a> Accessing Current SparkEnv&#8201;&#8212;&#8201;<code>env</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -2558,8 +2583,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting-current-sparkconfgetconf-method"><a class="anchor" href="#getting-current-sparkconfgetconf-method"></a><a class="link" href="#getting-current-sparkconfgetconf-method"><a id="getConf"></a> Getting Current SparkConf&#8201;&#8212;&#8201;<code>getConf</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="getting-current-sparkconfgetconf-method"><a class="anchor" href="#getting-current-sparkconfgetconf-method"></a><a class="link" href="#getting-current-sparkconfgetconf-method"><a id="getConf"></a> Getting Current SparkConf&#8201;&#8212;&#8201;<code>getConf</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getConf: SparkConf</code></pre>
@@ -2581,8 +2608,10 @@ Changing the <code>SparkConf</code> object does not change the current configura
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deployment-environmentmaster-method"><a class="anchor" href="#deployment-environmentmaster-method"></a><a class="link" href="#deployment-environmentmaster-method"><a id="master"></a><a id="master-url"></a> Deployment Environment&#8201;&#8212;&#8201;<code>master</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="deployment-environmentmaster-method"><a class="anchor" href="#deployment-environmentmaster-method"></a><a class="link" href="#deployment-environmentmaster-method"><a id="master"></a><a id="master-url"></a> Deployment Environment&#8201;&#8212;&#8201;<code>master</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">master: String</code></pre>
@@ -2592,8 +2621,10 @@ Changing the <code>SparkConf</code> object does not change the current configura
 <p><code>master</code> method returns the current value of <a href="spark-configuration-properties.adoc#spark.master">spark.master</a> which is the <a href="spark-deployment-environments.adoc">deployment environment</a> in use.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="application-nameappname-method"><a class="anchor" href="#application-nameappname-method"></a><a class="link" href="#application-nameappname-method"><a id="appName"></a> Application Name&#8201;&#8212;&#8201;<code>appName</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="application-nameappname-method"><a class="anchor" href="#application-nameappname-method"></a><a class="link" href="#application-nameappname-method"><a id="appName"></a> Application Name&#8201;&#8212;&#8201;<code>appName</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">appName: String</code></pre>
@@ -2615,8 +2646,10 @@ Changing the <code>SparkConf</code> object does not change the current configura
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="unique-identifier-of-execution-attemptapplicationattemptid-method"><a class="anchor" href="#unique-identifier-of-execution-attemptapplicationattemptid-method"></a><a class="link" href="#unique-identifier-of-execution-attemptapplicationattemptid-method"><a id="applicationAttemptId"></a> Unique Identifier of Execution Attempt&#8201;&#8212;&#8201;<code>applicationAttemptId</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="unique-identifier-of-execution-attemptapplicationattemptid-method"><a class="anchor" href="#unique-identifier-of-execution-attemptapplicationattemptid-method"></a><a class="link" href="#unique-identifier-of-execution-attemptapplicationattemptid-method"><a id="applicationAttemptId"></a> Unique Identifier of Execution Attempt&#8201;&#8212;&#8201;<code>applicationAttemptId</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">applicationAttemptId: Option[String]</code></pre>
@@ -2650,8 +2683,10 @@ Changing the <code>SparkConf</code> object does not change the current configura
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="storage-status-of-all-blockmanagersgetexecutorstoragestatus-method"><a class="anchor" href="#storage-status-of-all-blockmanagersgetexecutorstoragestatus-method"></a><a class="link" href="#storage-status-of-all-blockmanagersgetexecutorstoragestatus-method"><a id="getExecutorStorageStatus"></a> Storage Status (of All BlockManagers)&#8201;&#8212;&#8201;<code>getExecutorStorageStatus</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="storage-status-of-all-blockmanagersgetexecutorstoragestatus-method"><a class="anchor" href="#storage-status-of-all-blockmanagersgetexecutorstoragestatus-method"></a><a class="link" href="#storage-status-of-all-blockmanagersgetexecutorstoragestatus-method"><a id="getExecutorStorageStatus"></a> Storage Status (of All BlockManagers)&#8201;&#8212;&#8201;<code>getExecutorStorageStatus</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getExecutorStorageStatus: Array[StorageStatus]</code></pre>
@@ -2697,8 +2732,10 @@ Changing the <code>SparkConf</code> object does not change the current configura
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deploy-modedeploymode-method"><a class="anchor" href="#deploy-modedeploymode-method"></a><a class="link" href="#deploy-modedeploymode-method"><a id="deployMode"></a> Deploy Mode&#8201;&#8212;&#8201;<code>deployMode</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="deploy-modedeploymode-method"><a class="anchor" href="#deploy-modedeploymode-method"></a><a class="link" href="#deploy-modedeploymode-method"><a id="deployMode"></a> Deploy Mode&#8201;&#8212;&#8201;<code>deployMode</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">deployMode: String</code></pre>
@@ -2708,8 +2745,10 @@ Changing the <code>SparkConf</code> object does not change the current configura
 <p><code>deployMode</code> returns the current value of <a href="spark-deploy-mode.adoc">spark.submit.deployMode</a> setting or <code>client</code> if not set.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="scheduling-modegetschedulingmode-method"><a class="anchor" href="#scheduling-modegetschedulingmode-method"></a><a class="link" href="#scheduling-modegetschedulingmode-method"><a id="getSchedulingMode"></a> Scheduling Mode&#8201;&#8212;&#8201;<code>getSchedulingMode</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="scheduling-modegetschedulingmode-method"><a class="anchor" href="#scheduling-modegetschedulingmode-method"></a><a class="link" href="#scheduling-modegetschedulingmode-method"><a id="getSchedulingMode"></a> Scheduling Mode&#8201;&#8212;&#8201;<code>getSchedulingMode</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getSchedulingMode: SchedulingMode.SchedulingMode</code></pre>
@@ -2719,8 +2758,10 @@ Changing the <code>SparkConf</code> object does not change the current configura
 <p><code>getSchedulingMode</code> returns the current <a href="spark-scheduler-SchedulingMode.adoc">Scheduling Mode</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="schedulable-pool-by-namegetpoolforname-method"><a class="anchor" href="#schedulable-pool-by-namegetpoolforname-method"></a><a class="link" href="#schedulable-pool-by-namegetpoolforname-method"><a id="getPoolForName"></a> Schedulable (Pool) by Name&#8201;&#8212;&#8201;<code>getPoolForName</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="schedulable-pool-by-namegetpoolforname-method"><a class="anchor" href="#schedulable-pool-by-namegetpoolforname-method"></a><a class="link" href="#schedulable-pool-by-namegetpoolforname-method"><a id="getPoolForName"></a> Schedulable (Pool) by Name&#8201;&#8212;&#8201;<code>getPoolForName</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getPoolForName(pool: String): Option[Schedulable]</code></pre>
@@ -2748,8 +2789,10 @@ Changing the <code>SparkConf</code> object does not change the current configura
 <p>It is exclusively used to <a href="spark-webui-PoolPage.adoc">show pool details in web UI (for a stage)</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="all-schedulable-poolsgetallpools-method"><a class="anchor" href="#all-schedulable-poolsgetallpools-method"></a><a class="link" href="#all-schedulable-poolsgetallpools-method"><a id="getAllPools"></a> All Schedulable Pools&#8201;&#8212;&#8201;<code>getAllPools</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="all-schedulable-poolsgetallpools-method"><a class="anchor" href="#all-schedulable-poolsgetallpools-method"></a><a class="link" href="#all-schedulable-poolsgetallpools-method"><a id="getAllPools"></a> All Schedulable Pools&#8201;&#8212;&#8201;<code>getAllPools</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getAllPools: Seq[Schedulable]</code></pre>
@@ -2807,8 +2850,10 @@ FIXME Where is the method used?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="default-level-of-parallelism"><a class="anchor" href="#default-level-of-parallelism"></a><a class="link" href="#default-level-of-parallelism"><a id="defaultParallelism"></a> Default Level of Parallelism</a></h3>
+</div>
+<div class="sect1">
+<h2 id="default-level-of-parallelism"><a class="anchor" href="#default-level-of-parallelism"></a><a class="link" href="#default-level-of-parallelism"><a id="defaultParallelism"></a> Default Level of Parallelism</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">defaultParallelism: Int</code></pre>
@@ -2847,8 +2892,10 @@ FIXME Where is the method used?
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="current-spark-scheduler-aka-taskschedulertaskscheduler-property"><a class="anchor" href="#current-spark-scheduler-aka-taskschedulertaskscheduler-property"></a><a class="link" href="#current-spark-scheduler-aka-taskschedulertaskscheduler-property"><a id="taskScheduler"></a> Current Spark Scheduler (aka TaskScheduler)&#8201;&#8212;&#8201;<code>taskScheduler</code> Property</a></h3>
+</div>
+<div class="sect1">
+<h2 id="current-spark-scheduler-aka-taskschedulertaskscheduler-property"><a class="anchor" href="#current-spark-scheduler-aka-taskschedulertaskscheduler-property"></a><a class="link" href="#current-spark-scheduler-aka-taskschedulertaskscheduler-property"><a id="taskScheduler"></a> Current Spark Scheduler (aka TaskScheduler)&#8201;&#8212;&#8201;<code>taskScheduler</code> Property</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">taskScheduler: TaskScheduler
@@ -2859,8 +2906,10 @@ taskScheduler_=(ts: TaskScheduler): Unit</code></pre>
 <p><code>taskScheduler</code> manages (i.e. reads or writes) <a href="#_taskScheduler">_taskScheduler</a> internal property.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting-spark-versionversion-property"><a class="anchor" href="#getting-spark-versionversion-property"></a><a class="link" href="#getting-spark-versionversion-property"><a id="version"></a> Getting Spark Version&#8201;&#8212;&#8201;<code>version</code> Property</a></h3>
+</div>
+<div class="sect1">
+<h2 id="getting-spark-versionversion-property"><a class="anchor" href="#getting-spark-versionversion-property"></a><a class="link" href="#getting-spark-versionversion-property"><a id="version"></a> Getting Spark Version&#8201;&#8212;&#8201;<code>version</code> Property</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">version: String</code></pre>
@@ -2870,8 +2919,10 @@ taskScheduler_=(ts: TaskScheduler): Unit</code></pre>
 <p><code>version</code> returns the Spark version this <code>SparkContext</code> uses.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="makerdd-method"><a class="anchor" href="#makerdd-method"></a><a class="link" href="#makerdd-method"><a id="makeRDD"></a> <code>makeRDD</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="makerdd-method"><a class="anchor" href="#makerdd-method"></a><a class="link" href="#makerdd-method"><a id="makeRDD"></a> <code>makeRDD</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -2885,8 +2936,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="submitting-jobs-asynchronouslysubmitjob-method"><a class="anchor" href="#submitting-jobs-asynchronouslysubmitjob-method"></a><a class="link" href="#submitting-jobs-asynchronouslysubmitjob-method"><a id="submitJob"></a> Submitting Jobs Asynchronously&#8201;&#8212;&#8201;<code>submitJob</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="submitting-jobs-asynchronouslysubmitjob-method"><a class="anchor" href="#submitting-jobs-asynchronouslysubmitjob-method"></a><a class="link" href="#submitting-jobs-asynchronouslysubmitjob-method"><a id="submitJob"></a> Submitting Jobs Asynchronously&#8201;&#8212;&#8201;<code>submitJob</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitJob[T, U, R](
@@ -2929,8 +2982,10 @@ FIXME What are <code>resultFunc</code>?
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="spark-configuration"><a class="anchor" href="#spark-configuration"></a><a class="link" href="#spark-configuration"><a id="spark-configuration"></a> Spark Configuration</a></h3>
+</div>
+<div class="sect1">
+<h2 id="spark-configuration"><a class="anchor" href="#spark-configuration"></a><a class="link" href="#spark-configuration"><a id="spark-configuration"></a> Spark Configuration</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -2944,8 +2999,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="sparkcontext-and-rdds"><a class="anchor" href="#sparkcontext-and-rdds"></a><a class="link" href="#sparkcontext-and-rdds"><a id="sparkcontext-and-rdd"></a> SparkContext and RDDs</a></h3>
+</div>
+<div class="sect1">
+<h2 id="sparkcontext-and-rdds"><a class="anchor" href="#sparkcontext-and-rdds"></a><a class="link" href="#sparkcontext-and-rdds"><a id="sparkcontext-and-rdd"></a> SparkContext and RDDs</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>You use a Spark context to create RDDs (see <a href="#creating-rdds">Creating RDD</a>).</p>
 </div>
@@ -2959,8 +3016,10 @@ FIXME
 <div class="title">Figure 2. A Spark context creates a living space for RDDs.</div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-rddparallelize-method"><a class="anchor" href="#creating-rddparallelize-method"></a><a class="link" href="#creating-rddparallelize-method"><a id="creating-rdds"></a><a id="parallelize"></a> Creating RDD&#8201;&#8212;&#8201;<code>parallelize</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="creating-rddparallelize-method"><a class="anchor" href="#creating-rddparallelize-method"></a><a class="link" href="#creating-rddparallelize-method"><a id="creating-rdds"></a><a id="parallelize"></a> Creating RDD&#8201;&#8212;&#8201;<code>parallelize</code> Method</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><code>SparkContext</code> allows you to create many different RDDs from input sources like:</p>
 </div>
@@ -2981,8 +3040,10 @@ FIXME
 <p>Read <a href="rdd/index.html#creating-rdds" class="page">Creating RDDs</a> in <a href="rdd/index.html" class="page">RDD - Resilient Distributed Dataset</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="unpersisting-rdd-marking-rdd-as-non-persistentunpersist-method"><a class="anchor" href="#unpersisting-rdd-marking-rdd-as-non-persistentunpersist-method"></a><a class="link" href="#unpersisting-rdd-marking-rdd-as-non-persistentunpersist-method"><a id="unpersist"></a> Unpersisting RDD (Marking RDD as Non-Persistent)&#8201;&#8212;&#8201;<code>unpersist</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="unpersisting-rdd-marking-rdd-as-non-persistentunpersist-method"><a class="anchor" href="#unpersisting-rdd-marking-rdd-as-non-persistentunpersist-method"></a><a class="link" href="#unpersisting-rdd-marking-rdd-as-non-persistentunpersist-method"><a id="unpersist"></a> Unpersisting RDD (Marking RDD as Non-Persistent)&#8201;&#8212;&#8201;<code>unpersist</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -3002,8 +3063,10 @@ FIXME
 <p>It finally posts <a href="spark-scheduler-SparkListener.adoc#SparkListenerUnpersistRDD">SparkListenerUnpersistRDD</a> message to <code>listenerBus</code>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="setting-checkpoint-directorysetcheckpointdir-method"><a class="anchor" href="#setting-checkpoint-directorysetcheckpointdir-method"></a><a class="link" href="#setting-checkpoint-directorysetcheckpointdir-method"><a id="setCheckpointDir"></a> Setting Checkpoint Directory&#8201;&#8212;&#8201;<code>setCheckpointDir</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="setting-checkpoint-directorysetcheckpointdir-method"><a class="anchor" href="#setting-checkpoint-directorysetcheckpointdir-method"></a><a class="link" href="#setting-checkpoint-directorysetcheckpointdir-method"><a id="setCheckpointDir"></a> Setting Checkpoint Directory&#8201;&#8212;&#8201;<code>setCheckpointDir</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">setCheckpointDir(directory: String)</code></pre>
@@ -3025,8 +3088,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="registering-accumulatorregister-methods"><a class="anchor" href="#registering-accumulatorregister-methods"></a><a class="link" href="#registering-accumulatorregister-methods"><a id="register"></a> Registering Accumulator&#8201;&#8212;&#8201;<code>register</code> Methods</a></h3>
+</div>
+<div class="sect1">
+<h2 id="registering-accumulatorregister-methods"><a class="anchor" href="#registering-accumulatorregister-methods"></a><a class="link" href="#registering-accumulatorregister-methods"><a id="register"></a> Registering Accumulator&#8201;&#8212;&#8201;<code>register</code> Methods</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">register(acc: AccumulatorV2[_, _]): Unit
@@ -3052,8 +3117,10 @@ You can create built-in accumulators for longs, doubles, and collection types us
 <p>Internally, <code>register</code> <a href="spark-accumulators.adoc#register">registers <code>acc</code> accumulator</a> (with the current <code>SparkContext</code>).</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-built-in-accumulators"><a class="anchor" href="#creating-built-in-accumulators"></a><a class="link" href="#creating-built-in-accumulators"><a id="creating-accumulators"></a><a id="longAccumulator"></a><a id="doubleAccumulator"></a><a id="collectionAccumulator"></a> Creating Built-In Accumulators</a></h3>
+</div>
+<div class="sect1">
+<h2 id="creating-built-in-accumulators"><a class="anchor" href="#creating-built-in-accumulators"></a><a class="link" href="#creating-built-in-accumulators"><a id="creating-accumulators"></a><a id="longAccumulator"></a><a id="doubleAccumulator"></a><a id="collectionAccumulator"></a> Creating Built-In Accumulators</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">longAccumulator: LongAccumulator
@@ -3115,8 +3182,10 @@ You can register custom accumulators using <a href="#register">register</a> meth
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-broadcast-variablebroadcast-method"><a class="anchor" href="#creating-broadcast-variablebroadcast-method"></a><a class="link" href="#creating-broadcast-variablebroadcast-method"><a id="broadcast"></a> Creating Broadcast Variable&#8201;&#8212;&#8201;<code>broadcast</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="creating-broadcast-variablebroadcast-method"><a class="anchor" href="#creating-broadcast-variablebroadcast-method"></a><a class="link" href="#creating-broadcast-variablebroadcast-method"><a id="broadcast"></a> Creating Broadcast Variable&#8201;&#8212;&#8201;<code>broadcast</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">broadcast[T](value: T): Broadcast[T]</code></pre>
@@ -3200,8 +3269,10 @@ java.lang.IllegalArgumentException: requirement failed: Can not directly broadca
 <div class="title">Figure 5. Broadcast Variables In web UI&#8217;s Executors Tab</div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="distribute-jars-to-workers"><a class="anchor" href="#distribute-jars-to-workers"></a><a class="link" href="#distribute-jars-to-workers"><a id="jars"></a> Distribute JARs to workers</a></h3>
+</div>
+<div class="sect1">
+<h2 id="distribute-jars-to-workers"><a class="anchor" href="#distribute-jars-to-workers"></a><a class="link" href="#distribute-jars-to-workers"><a id="jars"></a> Distribute JARs to workers</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The jar you specify with <code>SparkContext.addJar</code> will be copied to all the worker nodes.</p>
 </div>
@@ -3226,7 +3297,6 @@ FIXME Why is HttpFileServer used for addJar?
 </tr>
 </table>
 </div>
-</div>
 <div class="sect2">
 <h3 id="sparkcontext-as-application-wide-counter"><a class="anchor" href="#sparkcontext-as-application-wide-counter"></a><a class="link" href="#sparkcontext-as-application-wide-counter"><code>SparkContext</code> as Application-Wide Counter</a></h3>
 <div class="paragraph">
@@ -3240,8 +3310,11 @@ FIXME Why is HttpFileServer used for addJar?
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="running-job-synchronouslyrunjob-methods"><a class="anchor" href="#running-job-synchronouslyrunjob-methods"></a><a class="link" href="#running-job-synchronouslyrunjob-methods"><a id="runJob"></a> Running Job Synchronously&#8201;&#8212;&#8201;<code>runJob</code> Methods</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-job-synchronouslyrunjob-methods"><a class="anchor" href="#running-job-synchronouslyrunjob-methods"></a><a class="link" href="#running-job-synchronouslyrunjob-methods"><a id="runJob"></a> Running Job Synchronously&#8201;&#8212;&#8201;<code>runJob</code> Methods</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><a href="rdd/index.html#actions" class="page">RDD actions</a> run <a href="spark-scheduler-ActiveJob.adoc">jobs</a> using one of <code>runJob</code> methods.</p>
 </div>
@@ -3393,8 +3466,10 @@ Read <a href="spark-TaskContext.adoc">TaskContext</a>.
 <div class="title">Figure 6. Executing action</div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="stopping-sparkcontextstop-method"><a class="anchor" href="#stopping-sparkcontextstop-method"></a><a class="link" href="#stopping-sparkcontextstop-method"><a id="stop"></a><a id="stopping"></a> Stopping <code>SparkContext</code>&#8201;&#8212;&#8201;<code>stop</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="stopping-sparkcontextstop-method"><a class="anchor" href="#stopping-sparkcontextstop-method"></a><a class="link" href="#stopping-sparkcontextstop-method"><a id="stop"></a><a id="stopping"></a> Stopping <code>SparkContext</code>&#8201;&#8212;&#8201;<code>stop</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(): Unit</code></pre>
@@ -3472,8 +3547,10 @@ Read <a href="spark-TaskContext.adoc">TaskContext</a>.
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="registering-sparklisteneraddsparklistener-method"><a class="anchor" href="#registering-sparklisteneraddsparklistener-method"></a><a class="link" href="#registering-sparklisteneraddsparklistener-method"><a id="addSparkListener"></a> Registering SparkListener&#8201;&#8212;&#8201;<code>addSparkListener</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="registering-sparklisteneraddsparklistener-method"><a class="anchor" href="#registering-sparklisteneraddsparklistener-method"></a><a class="link" href="#registering-sparklisteneraddsparklistener-method"><a id="addSparkListener"></a> Registering SparkListener&#8201;&#8212;&#8201;<code>addSparkListener</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">addSparkListener(listener: SparkListenerInterface): Unit</code></pre>
@@ -3495,8 +3572,10 @@ You can also register custom listeners using <a href="spark-scheduler-LiveListen
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="custom-schedulerbackend-taskscheduler-and-dagscheduler"><a class="anchor" href="#custom-schedulerbackend-taskscheduler-and-dagscheduler"></a><a class="link" href="#custom-schedulerbackend-taskscheduler-and-dagscheduler"><a id="custom-schedulers"></a> Custom SchedulerBackend, TaskScheduler and DAGScheduler</a></h3>
+</div>
+<div class="sect1">
+<h2 id="custom-schedulerbackend-taskscheduler-and-dagscheduler"><a class="anchor" href="#custom-schedulerbackend-taskscheduler-and-dagscheduler"></a><a class="link" href="#custom-schedulerbackend-taskscheduler-and-dagscheduler"><a id="custom-schedulers"></a> Custom SchedulerBackend, TaskScheduler and DAGScheduler</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>By default, SparkContext uses (<code>private[spark]</code> class) <code>org.apache.spark.scheduler.DAGScheduler</code>, but you can develop your own custom DAGScheduler implementation, and use (<code>private[spark]</code>) <code>SparkContext.dagScheduler_=(ds: DAGScheduler)</code> method to assign yours.</p>
 </div>
@@ -3516,8 +3595,10 @@ FIXME Make it an advanced exercise.
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="events"><a class="anchor" href="#events"></a><a class="link" href="#events"><a id="events"></a> Events</a></h3>
+</div>
+<div class="sect1">
+<h2 id="events"><a class="anchor" href="#events"></a><a class="link" href="#events"><a id="events"></a> Events</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>When a Spark context starts, it triggers <a href="spark-scheduler-SparkListener.adoc#SparkListenerEnvironmentUpdate">SparkListenerEnvironmentUpdate</a> and <a href="spark-scheduler-SparkListener.adoc#SparkListenerApplicationStart">SparkListenerApplicationStart</a> messages.</p>
 </div>
@@ -3525,8 +3606,10 @@ FIXME Make it an advanced exercise.
 <p>Refer to the section <a href="#creating-instance">SparkContext&#8217;s initialization</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="setting-default-logging-levelsetloglevel-method"><a class="anchor" href="#setting-default-logging-levelsetloglevel-method"></a><a class="link" href="#setting-default-logging-levelsetloglevel-method"><a id="setLogLevel"></a><a id="setting-default-log-level"></a> Setting Default Logging Level&#8201;&#8212;&#8201;<code>setLogLevel</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="setting-default-logging-levelsetloglevel-method"><a class="anchor" href="#setting-default-logging-levelsetloglevel-method"></a><a class="link" href="#setting-default-logging-levelsetloglevel-method"><a id="setLogLevel"></a><a id="setting-default-log-level"></a> Setting Default Logging Level&#8201;&#8212;&#8201;<code>setLogLevel</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">setLogLevel(logLevel: String)</code></pre>
@@ -3558,8 +3641,10 @@ FIXME Make it an advanced exercise.
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="closure-cleaningclean-method"><a class="anchor" href="#closure-cleaningclean-method"></a><a class="link" href="#closure-cleaningclean-method"><a id="clean"></a><a id="closure-cleaning"></a> Closure Cleaning&#8201;&#8212;&#8201;<code>clean</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="closure-cleaningclean-method"><a class="anchor" href="#closure-cleaningclean-method"></a><a class="link" href="#closure-cleaningclean-method"><a id="clean"></a><a id="closure-cleaning"></a> Closure Cleaning&#8201;&#8212;&#8201;<code>clean</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">clean(f: F, checkSerializable: Boolean = true): F</code></pre>
@@ -3630,8 +3715,10 @@ FIXME an example, please.
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="hadoop-configuration"><a class="anchor" href="#hadoop-configuration"></a><a class="link" href="#hadoop-configuration"><a id="hadoopConfiguration"></a> Hadoop Configuration</a></h3>
+</div>
+<div class="sect1">
+<h2 id="hadoop-configuration"><a class="anchor" href="#hadoop-configuration"></a><a class="link" href="#hadoop-configuration"><a id="hadoopConfiguration"></a> Hadoop Configuration</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>While a <a href="#creating-instance"><code>SparkContext</code> is being created</a>, so is a Hadoop configuration (as an instance of <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/conf/Configuration.html">org.apache.hadoop.conf.Configuration</a> that is available as <code>_hadoopConfiguration</code>).</p>
 </div>
@@ -3670,8 +3757,10 @@ FIXME an example, please.
 <p>The value of <code>spark.buffer.size</code> (default: <code>65536</code>) is used as the value of <code>io.file.buffer.size</code>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="listenerbuslivelistenerbus-event-bus"><a class="anchor" href="#listenerbuslivelistenerbus-event-bus"></a><a class="link" href="#listenerbuslivelistenerbus-event-bus"><a id="listenerBus"></a> <code>listenerBus</code>&#8201;&#8212;&#8201;<code>LiveListenerBus</code> Event Bus</a></h3>
+</div>
+<div class="sect1">
+<h2 id="listenerbuslivelistenerbus-event-bus"><a class="anchor" href="#listenerbuslivelistenerbus-event-bus"></a><a class="link" href="#listenerbuslivelistenerbus-event-bus"><a id="listenerBus"></a> <code>listenerBus</code>&#8201;&#8212;&#8201;<code>LiveListenerBus</code> Event Bus</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><code>listenerBus</code> is a <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> object that acts as a mechanism to announce events to other services on the <a href="spark-driver.adoc">driver</a>.</p>
 </div>
@@ -3700,8 +3789,10 @@ It is created and started when <a href="spark-SparkContext-creating-instance-int
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="time-when-sparkcontext-was-createdstarttime-property"><a class="anchor" href="#time-when-sparkcontext-was-createdstarttime-property"></a><a class="link" href="#time-when-sparkcontext-was-createdstarttime-property"><a id="startTime"></a> Time when <code>SparkContext</code> was Created&#8201;&#8212;&#8201;<code>startTime</code> Property</a></h3>
+</div>
+<div class="sect1">
+<h2 id="time-when-sparkcontext-was-createdstarttime-property"><a class="anchor" href="#time-when-sparkcontext-was-createdstarttime-property"></a><a class="link" href="#time-when-sparkcontext-was-createdstarttime-property"><a id="startTime"></a> Time when <code>SparkContext</code> was Created&#8201;&#8212;&#8201;<code>startTime</code> Property</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">startTime: Long</code></pre>
@@ -3717,8 +3808,10 @@ res0: Long = 1464425605653</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="spark-usersparkuser-property"><a class="anchor" href="#spark-usersparkuser-property"></a><a class="link" href="#spark-usersparkuser-property"><a id="sparkUser"></a> Spark User&#8201;&#8212;&#8201;<code>sparkUser</code> Property</a></h3>
+</div>
+<div class="sect1">
+<h2 id="spark-usersparkuser-property"><a class="anchor" href="#spark-usersparkuser-property"></a><a class="link" href="#spark-usersparkuser-property"><a id="sparkUser"></a> Spark User&#8201;&#8212;&#8201;<code>sparkUser</code> Property</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">sparkUser: String</code></pre>
@@ -3740,8 +3833,10 @@ It is computed when <a href="spark-SparkContext-creating-instance-internals.adoc
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="submitting-shuffledependency-for-executionsubmitmapstage-internal-method"><a class="anchor" href="#submitting-shuffledependency-for-executionsubmitmapstage-internal-method"></a><a class="link" href="#submitting-shuffledependency-for-executionsubmitmapstage-internal-method"><a id="submitMapStage"></a> Submitting <code>ShuffleDependency</code> for Execution&#8201;&#8212;&#8201;<code>submitMapStage</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="submitting-shuffledependency-for-executionsubmitmapstage-internal-method"><a class="anchor" href="#submitting-shuffledependency-for-executionsubmitmapstage-internal-method"></a><a class="link" href="#submitting-shuffledependency-for-executionsubmitmapstage-internal-method"><a id="submitMapStage"></a> Submitting <code>ShuffleDependency</code> for Execution&#8201;&#8212;&#8201;<code>submitMapStage</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">submitMapStage[K, V, C](
@@ -3779,8 +3874,10 @@ Interestingly, <code>submitMapStage</code> is used exclusively when Spark SQL&#8
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="calculating-call-sitegetcallsite-method"><a class="anchor" href="#calculating-call-sitegetcallsite-method"></a><a class="link" href="#calculating-call-sitegetcallsite-method"><a id="getCallSite"></a> Calculating Call Site&#8201;&#8212;&#8201;<code>getCallSite</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="calculating-call-sitegetcallsite-method"><a class="anchor" href="#calculating-call-sitegetcallsite-method"></a><a class="link" href="#calculating-call-sitegetcallsite-method"><a id="getCallSite"></a> Calculating Call Site&#8201;&#8212;&#8201;<code>getCallSite</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -3794,8 +3891,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cancelling-job-groupcanceljobgroup-method"><a class="anchor" href="#cancelling-job-groupcanceljobgroup-method"></a><a class="link" href="#cancelling-job-groupcanceljobgroup-method"><a id="cancelJobGroup"></a> Cancelling Job Group&#8201;&#8212;&#8201;<code>cancelJobGroup</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="cancelling-job-groupcanceljobgroup-method"><a class="anchor" href="#cancelling-job-groupcanceljobgroup-method"></a><a class="link" href="#cancelling-job-groupcanceljobgroup-method"><a id="cancelJobGroup"></a> Cancelling Job Group&#8201;&#8212;&#8201;<code>cancelJobGroup</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">cancelJobGroup(groupId: String)</code></pre>
@@ -3817,8 +3916,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cancelling-all-running-and-scheduled-jobscancelalljobs-method"><a class="anchor" href="#cancelling-all-running-and-scheduled-jobscancelalljobs-method"></a><a class="link" href="#cancelling-all-running-and-scheduled-jobscancelalljobs-method"><a id="cancelAllJobs"></a> Cancelling All Running and Scheduled Jobs&#8201;&#8212;&#8201;<code>cancelAllJobs</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="cancelling-all-running-and-scheduled-jobscancelalljobs-method"><a class="anchor" href="#cancelling-all-running-and-scheduled-jobscancelalljobs-method"></a><a class="link" href="#cancelling-all-running-and-scheduled-jobscancelalljobs-method"><a id="cancelAllJobs"></a> Cancelling All Running and Scheduled Jobs&#8201;&#8212;&#8201;<code>cancelAllJobs</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -3844,8 +3945,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="setting-local-properties-to-group-spark-jobssetjobgroup-method"><a class="anchor" href="#setting-local-properties-to-group-spark-jobssetjobgroup-method"></a><a class="link" href="#setting-local-properties-to-group-spark-jobssetjobgroup-method"><a id="setJobGroup"></a> Setting Local Properties to Group Spark Jobs&#8201;&#8212;&#8201;<code>setJobGroup</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="setting-local-properties-to-group-spark-jobssetjobgroup-method"><a class="anchor" href="#setting-local-properties-to-group-spark-jobssetjobgroup-method"></a><a class="link" href="#setting-local-properties-to-group-spark-jobssetjobgroup-method"><a id="setJobGroup"></a> Setting Local Properties to Group Spark Jobs&#8201;&#8212;&#8201;<code>setJobGroup</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">setJobGroup(
@@ -3895,8 +3998,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cleaner-method"><a class="anchor" href="#cleaner-method"></a><a class="link" href="#cleaner-method"><a id="cleaner"></a> <code>cleaner</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="cleaner-method"><a class="anchor" href="#cleaner-method"></a><a class="link" href="#cleaner-method"><a id="cleaner"></a> <code>cleaner</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">cleaner: Option[ContextCleaner]</code></pre>
@@ -3918,8 +4023,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="finding-preferred-locations-placement-preferences-for-rdd-partitiongetpreferredlocs-method"><a class="anchor" href="#finding-preferred-locations-placement-preferences-for-rdd-partitiongetpreferredlocs-method"></a><a class="link" href="#finding-preferred-locations-placement-preferences-for-rdd-partitiongetpreferredlocs-method"><a id="getPreferredLocs"></a> Finding Preferred Locations (Placement Preferences) for RDD Partition&#8201;&#8212;&#8201;<code>getPreferredLocs</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="finding-preferred-locations-placement-preferences-for-rdd-partitiongetpreferredlocs-method"><a class="anchor" href="#finding-preferred-locations-placement-preferences-for-rdd-partitiongetpreferredlocs-method"></a><a class="link" href="#finding-preferred-locations-placement-preferences-for-rdd-partitiongetpreferredlocs-method"><a id="getPreferredLocs"></a> Finding Preferred Locations (Placement Preferences) for RDD Partition&#8201;&#8212;&#8201;<code>getPreferredLocs</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getPreferredLocs(rdd: RDD[_], partition: Int): Seq[TaskLocation]</code></pre>
@@ -3953,8 +4060,10 @@ Preferred locations of a partition of a RDD are also called <strong>placement pr
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="registering-rdd-in-persistentrdds-internal-registrypersistrdd-internal-method"><a class="anchor" href="#registering-rdd-in-persistentrdds-internal-registrypersistrdd-internal-method"></a><a class="link" href="#registering-rdd-in-persistentrdds-internal-registrypersistrdd-internal-method"><a id="persistRDD"></a> Registering RDD in persistentRdds Internal Registry&#8201;&#8212;&#8201;<code>persistRDD</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="registering-rdd-in-persistentrdds-internal-registrypersistrdd-internal-method"><a class="anchor" href="#registering-rdd-in-persistentrdds-internal-registrypersistrdd-internal-method"></a><a class="link" href="#registering-rdd-in-persistentrdds-internal-registrypersistrdd-internal-method"><a id="persistRDD"></a> Registering RDD in persistentRdds Internal Registry&#8201;&#8212;&#8201;<code>persistRDD</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">persistRDD(rdd: RDD[_]): Unit</code></pre>
@@ -3976,8 +4085,10 @@ Preferred locations of a partition of a RDD are also called <strong>placement pr
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting-storage-status-of-cached-rdds-as-rddinfosgetrddstorageinfo-methods"><a class="anchor" href="#getting-storage-status-of-cached-rdds-as-rddinfosgetrddstorageinfo-methods"></a><a class="link" href="#getting-storage-status-of-cached-rdds-as-rddinfosgetrddstorageinfo-methods"><a id="getRDDStorageInfo"></a> Getting Storage Status of Cached RDDs (as RDDInfos)&#8201;&#8212;&#8201;<code>getRDDStorageInfo</code> Methods</a></h3>
+</div>
+<div class="sect1">
+<h2 id="getting-storage-status-of-cached-rdds-as-rddinfosgetrddstorageinfo-methods"><a class="anchor" href="#getting-storage-status-of-cached-rdds-as-rddinfosgetrddstorageinfo-methods"></a><a class="link" href="#getting-storage-status-of-cached-rdds-as-rddinfosgetrddstorageinfo-methods"><a id="getRDDStorageInfo"></a> Getting Storage Status of Cached RDDs (as RDDInfos)&#8201;&#8212;&#8201;<code>getRDDStorageInfo</code> Methods</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getRDDStorageInfo: Array[RDDInfo] <i class="conum" data-value="1"></i><b>(1)</b>
@@ -4014,10 +4125,12 @@ getRDDStorageInfo(filter: RDD[_] =&gt; Boolean): Array[RDDInfo]  <i class="conum
 </table>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h3>
-<div class="sect3">
-<h4 id="spark-driver-allowmultiplecontexts"><a class="anchor" href="#spark-driver-allowmultiplecontexts"></a><a class="link" href="#spark-driver-allowmultiplecontexts"><a id="spark.driver.allowMultipleContexts"></a> spark.driver.allowMultipleContexts</a></h4>
+<h3 id="spark-driver-allowmultiplecontexts"><a class="anchor" href="#spark-driver-allowmultiplecontexts"></a><a class="link" href="#spark-driver-allowmultiplecontexts"><a id="spark.driver.allowMultipleContexts"></a> spark.driver.allowMultipleContexts</a></h3>
 <div class="paragraph">
 <p>Quoting the scaladoc of  <a href="http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.SparkContext">org.apache.spark.SparkContext</a>:</p>
 </div>
@@ -4068,8 +4181,10 @@ It&#8217;s not guaranteed that Spark will work properly with two or more SparkCo
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="accessing-appstatusstorestatusstore-method"><a class="anchor" href="#accessing-appstatusstorestatusstore-method"></a><a class="link" href="#accessing-appstatusstorestatusstore-method"><a id="statusStore"></a> Accessing AppStatusStore&#8201;&#8212;&#8201;<code>statusStore</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="accessing-appstatusstorestatusstore-method"><a class="anchor" href="#accessing-appstatusstorestatusstore-method"></a><a class="link" href="#accessing-appstatusstorestatusstore-method"><a id="statusStore"></a> Accessing AppStatusStore&#8201;&#8212;&#8201;<code>statusStore</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">statusStore: AppStatusStore</code></pre>
@@ -4103,8 +4218,10 @@ It&#8217;s not guaranteed that Spark will work properly with two or more SparkCo
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="requesting-url-of-web-uiuiweburl-method"><a class="anchor" href="#requesting-url-of-web-uiuiweburl-method"></a><a class="link" href="#requesting-url-of-web-uiuiweburl-method"><a id="uiWebUrl"></a> Requesting URL of web UI&#8201;&#8212;&#8201;<code>uiWebUrl</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="requesting-url-of-web-uiuiweburl-method"><a class="anchor" href="#requesting-url-of-web-uiuiweburl-method"></a><a class="link" href="#requesting-url-of-web-uiuiweburl-method"><a id="uiWebUrl"></a> Requesting URL of web UI&#8201;&#8212;&#8201;<code>uiWebUrl</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">uiWebUrl: Option[String]</code></pre>
@@ -4114,8 +4231,10 @@ It&#8217;s not guaranteed that Spark will work properly with two or more SparkCo
 <p><code>uiWebUrl</code> requests the <a href="spark-SparkContext-creating-instance-internals.adoc#_ui">SparkUI</a> for <a href="spark-webui-WebUI.adoc#webUrl">webUrl</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="maxnumconcurrenttasks-method"><a class="anchor" href="#maxnumconcurrenttasks-method"></a><a class="link" href="#maxnumconcurrenttasks-method"><a id="maxNumConcurrentTasks"></a> <code>maxNumConcurrentTasks</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="maxnumconcurrenttasks-method"><a class="anchor" href="#maxnumconcurrenttasks-method"></a><a class="link" href="#maxnumconcurrenttasks-method"><a id="maxNumConcurrentTasks"></a> <code>maxNumConcurrentTasks</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">maxNumConcurrentTasks(): Int</code></pre>
@@ -4137,8 +4256,10 @@ It&#8217;s not guaranteed that Spark will work properly with two or more SparkCo
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-schedulerbackend-and-taskschedulercreatetaskscheduler-internal-factory-method"><a class="anchor" href="#creating-schedulerbackend-and-taskschedulercreatetaskscheduler-internal-factory-method"></a><a class="link" href="#creating-schedulerbackend-and-taskschedulercreatetaskscheduler-internal-factory-method"><a id="createTaskScheduler"></a> Creating SchedulerBackend and TaskScheduler&#8201;&#8212;&#8201;<code>createTaskScheduler</code> Internal Factory Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="creating-schedulerbackend-and-taskschedulercreatetaskscheduler-internal-factory-method"><a class="anchor" href="#creating-schedulerbackend-and-taskschedulercreatetaskscheduler-internal-factory-method"></a><a class="link" href="#creating-schedulerbackend-and-taskschedulercreatetaskscheduler-internal-factory-method"><a id="createTaskScheduler"></a> Creating SchedulerBackend and TaskScheduler&#8201;&#8212;&#8201;<code>createTaskScheduler</code> Internal Factory Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">createTaskScheduler(
@@ -4197,8 +4318,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="environment-variables"><a class="anchor" href="#environment-variables"></a><a class="link" href="#environment-variables"><a id="environment-variables"></a> Environment Variables</a></h3>
+</div>
+<div class="sect1">
+<h2 id="environment-variables"><a class="anchor" href="#environment-variables"></a><a class="link" href="#environment-variables"><a id="environment-variables"></a> Environment Variables</a></h2>
+<div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 4. Environment Variables</caption>
 <colgroup>
@@ -4228,8 +4351,10 @@ FIXME
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="posting-sparklistenerenvironmentupdate-event-to-livelistenerbuspostenvironmentupdate-internal-method"><a class="anchor" href="#posting-sparklistenerenvironmentupdate-event-to-livelistenerbuspostenvironmentupdate-internal-method"></a><a class="link" href="#posting-sparklistenerenvironmentupdate-event-to-livelistenerbuspostenvironmentupdate-internal-method"><a id="postEnvironmentUpdate"></a> Posting SparkListenerEnvironmentUpdate Event to LiveListenerBus&#8201;&#8212;&#8201;<code>postEnvironmentUpdate</code> Internal Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="posting-sparklistenerenvironmentupdate-event-to-livelistenerbuspostenvironmentupdate-internal-method"><a class="anchor" href="#posting-sparklistenerenvironmentupdate-event-to-livelistenerbuspostenvironmentupdate-internal-method"></a><a class="link" href="#posting-sparklistenerenvironmentupdate-event-to-livelistenerbuspostenvironmentupdate-internal-method"><a id="postEnvironmentUpdate"></a> Posting SparkListenerEnvironmentUpdate Event to LiveListenerBus&#8201;&#8212;&#8201;<code>postEnvironmentUpdate</code> Internal Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">postEnvironmentUpdate(): Unit</code></pre>
@@ -4251,8 +4376,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="addjar-method"><a class="anchor" href="#addjar-method"></a><a class="link" href="#addjar-method"><a id="addJar-internals"></a> <code>addJar</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="addjar-method"><a class="anchor" href="#addjar-method"></a><a class="link" href="#addjar-method"><a id="addJar-internals"></a> <code>addJar</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">addJar(path: String): Unit</code></pre>
@@ -4273,6 +4400,35 @@ FIXME
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-approximate-job"><a class="anchor" href="#running-approximate-job"></a><a class="link" href="#running-approximate-job"><a id="runApproximateJob"></a> Running Approximate Job</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">runApproximateJob[T, U, R](
+  rdd: RDD[T],
+  func: (TaskContext, Iterator[T]) =&gt; U,
+  evaluator: ApproximateEvaluator[U, R],
+  timeout: Long): PartialResult[R]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>runApproximateJob&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>runApproximateJob is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DoubleRDDFunctions is requested to meanApprox and sumApprox</p>
+</li>
+<li>
+<p>RDD is requested to countApprox and countByValueApprox</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
