@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="../scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="../scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -2007,7 +2013,7 @@ FIXME Review <code>JettyUtils.addFilters(ui.getHandlers, conf)</code>.
 <div class="sect3">
 <h4 id="retrievelastallocatedexecutorid"><a class="anchor" href="#retrievelastallocatedexecutorid"></a><a class="link" href="#retrievelastallocatedexecutorid"><a id="RetrieveLastAllocatedExecutorId"></a> RetrieveLastAllocatedExecutorId</a></h4>
 <div class="paragraph">
-<p>When <code>RetrieveLastAllocatedExecutorId</code> is received, <code>YarnSchedulerEndpoint</code> responds with the current value of <a href="../spark-CoarseGrainedSchedulerBackend.adoc#currentExecutorIdCounter">currentExecutorIdCounter</a>.</p>
+<p>When <code>RetrieveLastAllocatedExecutorId</code> is received, <code>YarnSchedulerEndpoint</code> responds with the current value of <a href="../scheduler/CoarseGrainedSchedulerBackend.html#currentExecutorIdCounter" class="page">currentExecutorIdCounter</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>

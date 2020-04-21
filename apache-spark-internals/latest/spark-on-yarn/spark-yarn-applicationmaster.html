@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="../scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="../scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -2555,7 +2561,7 @@ A Spark application&#8217;s exit codes are passed directly to <a href="#finish">
 <p>Internally, <code>registerAM</code> first takes the application and attempt ids, and creates the URL of <a href="../spark-history-server/index.html" class="page">Spark History Server</a> for the Spark application, i.e. <code>[address]/history/[appId]/[attemptId]</code>, by <a href="../spark-SparkHadoopUtil.adoc#substituteHadoopVariables">substituting Hadoop variables</a> (using the internal <a href="#yarnConf">YarnConfiguration</a>) in the optional <a href="spark-yarn-settings.adoc#spark.yarn.historyServer.address">spark.yarn.historyServer.address</a> setting.</p>
 </div>
 <div class="paragraph">
-<p><code>registerAM</code> then creates a <a href="../spark-rpc.adoc#RpcEndpointAddress">RpcEndpointAddress</a> for the driver&#8217;s <a href="../spark-CoarseGrainedSchedulerBackend.adoc#CoarseGrainedScheduler">CoarseGrainedScheduler RPC endpoint</a> available at <a href="../spark-driver.adoc#spark.driver.host">spark.driver.host</a> and <a href="../spark-driver.adoc#spark.driver.port">spark.driver.port</a>.</p>
+<p><code>registerAM</code> then creates a <a href="../spark-rpc.adoc#RpcEndpointAddress">RpcEndpointAddress</a> for the driver&#8217;s <a href="../scheduler/CoarseGrainedSchedulerBackend.html#CoarseGrainedScheduler" class="page">CoarseGrainedScheduler RPC endpoint</a> available at <a href="../spark-driver.adoc#spark.driver.host">spark.driver.host</a> and <a href="../spark-driver.adoc#spark.driver.port">spark.driver.port</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>registerAM</code> <a href="spark-yarn-ExecutorRunnable.adoc#launchContextDebugInfo">prints YARN launch context diagnostic information (with command, environment and resources) for executors</a> (with <a href="../spark-Executor.adoc#spark.executor.memory">spark.executor.memory</a>, <a href="../spark-Executor.adoc#spark.executor.cores">spark.executor.cores</a> and dummy <code>&lt;executorId&gt;</code> and <code>&lt;hostname&gt;</code>)</p>

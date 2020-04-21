@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1847,7 +1853,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>ShuffleMapStage</code> <a href="spark-scheduler-DAGScheduler.adoc#submitMapStage">can also be submitted independently as a Spark job</a> for <a href="spark-scheduler-DAGScheduler.adoc#adaptive-query-planning">Adaptive Query Planning / Adaptive Scheduling</a>.
+<code>ShuffleMapStage</code> <a href="DAGScheduler.html#submitMapStage" class="page">can also be submitted independently as a Spark job</a> for <a href="DAGScheduler.html#adaptive-query-planning" class="page">Adaptive Query Planning / Adaptive Scheduling</a>.
 </td>
 </tr>
 </table>
@@ -1956,7 +1962,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>DAGScheduler</code> tracks the <a href="spark-scheduler-DAGScheduler.adoc#nextStageId">number of <code>ShuffleMapStage</code> created</a> so far.
+<code>DAGScheduler</code> tracks the <a href="DAGScheduler.html#nextStageId" class="page">number of <code>ShuffleMapStage</code> created</a> so far.
 </td>
 </tr>
 </table>
@@ -1968,7 +1974,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>ShuffleMapStage</code> is created only when <a href="spark-scheduler-DAGScheduler.adoc#createShuffleMapStage"><code>DAGScheduler</code> creates one for a <code>ShuffleDependency</code></a>.
+<code>ShuffleMapStage</code> is created only when <a href="DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates one for a <code>ShuffleDependency</code></a>.
 </td>
 </tr>
 </table>
@@ -1994,7 +2000,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>addOutputLoc</code> is used when <a href="spark-scheduler-DAGScheduler.adoc#createShuffleMapStage"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code> for a <code>ShuffleDependency</code> and a <code>ActiveJob</code></a> (and <a href="spark-service-MapOutputTrackerMaster.adoc#containsShuffle"><code>MapOutputTrackerMaster</code> tracks some output locations of the <code>ShuffleDependency</code></a>) and when <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion-Success-ShuffleMapTask"><code>ShuffleMapTask</code> has finished</a>.
+<code>addOutputLoc</code> is used when <a href="DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code> for a <code>ShuffleDependency</code> and a <code>ActiveJob</code></a> (and <a href="spark-service-MapOutputTrackerMaster.adoc#containsShuffle"><code>MapOutputTrackerMaster</code> tracks some output locations of the <code>ShuffleDependency</code></a>) and when <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion-Success-ShuffleMapTask" class="page"><code>ShuffleMapTask</code> has finished</a>.
 </td>
 </tr>
 </table>
@@ -2020,7 +2026,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>removeOutputLoc</code> is exclusively used when a <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion-FetchFailed"><code>Task</code> has failed with <code>FetchFailed</code> exception</a>.
+<code>removeOutputLoc</code> is exclusively used when a <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion-FetchFailed" class="page"><code>Task</code> has failed with <code>FetchFailed</code> exception</a>.
 </td>
 </tr>
 </table>
@@ -2106,7 +2112,7 @@ scala&gt; rdd.count  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>numAvailableOutputs</code> is used exclusively when <a href="spark-scheduler-DAGScheduler.adoc#submitMissingTasks"><code>DAGScheduler</code> submits missing tasks for <code>ShuffleMapStage</code></a> (and only to print a DEBUG message when the <code>ShuffleMapStage</code> is finished).
+<code>numAvailableOutputs</code> is used exclusively when <a href="DAGScheduler.html#submitMissingTasks" class="page"><code>DAGScheduler</code> submits missing tasks for <code>ShuffleMapStage</code></a> (and only to print a DEBUG message when the <code>ShuffleMapStage</code> is finished).
 </td>
 </tr>
 </table>
@@ -2129,7 +2135,7 @@ scala&gt; rdd.count  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>mapStageJobs</code> is used exclusively when <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion"><code>DAGScheduler</code> is notified that a <code>ShuffleMapTask</code> has finished successfully</a> (and the task made <code>ShuffleMapStage</code> completed and so marks any map-stage jobs waiting on this stage as finished).
+<code>mapStageJobs</code> is used exclusively when <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion" class="page"><code>DAGScheduler</code> is notified that a <code>ShuffleMapTask</code> has finished successfully</a> (and the task made <code>ShuffleMapStage</code> completed and so marks any map-stage jobs waiting on this stage as finished).
 </td>
 </tr>
 </table>
@@ -2164,7 +2170,7 @@ The <code>ActiveJob</code> is added as the first element in <code>_mapStageJobs<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>addActiveJob</code> is used exclusively when <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleMapStageSubmitted"><code>DAGScheduler</code> is notified that a <code>ShuffleDependency</code> was submitted</a> (and so a new <code>ActiveJob</code> is created to compute it).
+<code>addActiveJob</code> is used exclusively when <a href="DAGSchedulerEventProcessLoop.html#handleMapStageSubmitted" class="page"><code>DAGScheduler</code> is notified that a <code>ShuffleDependency</code> was submitted</a> (and so a new <code>ActiveJob</code> is created to compute it).
 </td>
 </tr>
 </table>
@@ -2187,7 +2193,7 @@ The <code>ActiveJob</code> is added as the first element in <code>_mapStageJobs<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>removeActiveJob</code> is used exclusively when <a href="spark-scheduler-DAGScheduler.adoc#cleanupStateForJobAndIndependentStages"><code>DAGScheduler</code> cleans up after <code>ActiveJob</code> has finished</a> (regardless of the outcome).
+<code>removeActiveJob</code> is used exclusively when <a href="DAGScheduler.html#cleanupStateForJobAndIndependentStages" class="page"><code>DAGScheduler</code> cleans up after <code>ActiveJob</code> has finished</a> (regardless of the outcome).
 </td>
 </tr>
 </table>
@@ -2218,7 +2224,7 @@ The <code>ActiveJob</code> is added as the first element in <code>_mapStageJobs<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>removeOutputsOnExecutor</code> is used exclusively when <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleExecutorLost"><code>DAGScheduler</code> cleans up after a lost executor</a>.
+<code>removeOutputsOnExecutor</code> is used exclusively when <a href="DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page"><code>DAGScheduler</code> cleans up after a lost executor</a>.
 </td>
 </tr>
 </table>
@@ -2242,7 +2248,7 @@ The <code>ActiveJob</code> is added as the first element in <code>_mapStageJobs<
 </td>
 <td class="content">
 <div class="paragraph">
-<p><code>outputLocInMapOutputTrackerFormat</code> is used when <code>DAGScheduler</code> is <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleTaskCompletion">notified that a <code>ShuffleMapTask</code> has finished successfully</a> (and the corresponding <code>ShuffleMapStage</code> is complete) and <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#handleExecutorLost">cleans up after a lost executor</a>.</p>
+<p><code>outputLocInMapOutputTrackerFormat</code> is used when <code>DAGScheduler</code> is <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion" class="page">notified that a <code>ShuffleMapTask</code> has finished successfully</a> (and the corresponding <code>ShuffleMapStage</code> is complete) and <a href="DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page">cleans up after a lost executor</a>.</p>
 </div>
 <div class="paragraph">
 <p>In both cases, <code>outputLocInMapOutputTrackerFormat</code> is used to <a href="spark-service-MapOutputTrackerMaster.adoc#registerMapOutputs">register the shuffle map outputs (of the <code>ShuffleDependency</code>) with <code>MapOutputTrackerMaster</code></a>.</p>

@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1839,7 +1845,7 @@
 <p>A <strong>Spark driver</strong> (<em>aka</em> <strong>an application&#8217;s driver process</strong>) is a JVM process that hosts <a href="spark-SparkContext.adoc">SparkContext</a> for a Spark application. It is the master node in a Spark application.</p>
 </div>
 <div class="paragraph">
-<p>It is the cockpit of jobs and tasks execution (using <a href="spark-scheduler-DAGScheduler.adoc">DAGScheduler</a> and <a href="scheduler/TaskScheduler.html" class="page">Task Scheduler</a>). It hosts <a href="spark-webui.adoc">Web UI</a> for the environment.</p>
+<p>It is the cockpit of jobs and tasks execution (using <a href="DAGScheduler.html" class="page">DAGScheduler</a> and <a href="scheduler/TaskScheduler.html" class="page">Task Scheduler</a>). It hosts <a href="spark-webui.adoc">Web UI</a> for the environment.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">

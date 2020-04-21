@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1852,13 +1858,13 @@
 <p>In other words, a Spark job is a computation with that computation sliced into stages.</p>
 </div>
 <div class="paragraph">
-<p>A stage is uniquely identified by <code>id</code>. When a stage is created, <a href="spark-scheduler-DAGScheduler.adoc">DAGScheduler</a> increments internal counter <code>nextStageId</code> to track the number of <a href="spark-scheduler-DAGScheduler.adoc#submitStage">stage submissions</a>.</p>
+<p>A stage is uniquely identified by <code>id</code>. When a stage is created, <a href="DAGScheduler.html" class="page">DAGScheduler</a> increments internal counter <code>nextStageId</code> to track the number of <a href="DAGScheduler.html#submitStage" class="page">stage submissions</a>.</p>
 </div>
 <div id="rdd" class="paragraph">
 <p>A stage can only work on the partitions of a single RDD (identified by <code>rdd</code>), but can be associated with many other dependent parent stages (via internal field <code>parents</code>), with the boundary of a stage marked by shuffle dependencies.</p>
 </div>
 <div class="paragraph">
-<p>Submitting a stage can therefore trigger execution of a series of dependent parent stages (refer to <a href="spark-scheduler-DAGScheduler.adoc#runJob">RDDs, Job Execution, Stages, and Partitions</a>).</p>
+<p>Submitting a stage can therefore trigger execution of a series of dependent parent stages (refer to <a href="DAGScheduler.html#runJob" class="page">RDDs, Job Execution, Stages, and Partitions</a>).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1875,7 +1881,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> is an intermediate stage (in the execution DAG) that produces data for other stage(s). It writes <strong>map output files</strong> for a shuffle. It can also be the final stage in a job in <a href="spark-scheduler-DAGScheduler.adoc#adaptive-query-planning">Adaptive Query Planning / Adaptive Scheduling</a>.</p>
+<p><a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> is an intermediate stage (in the execution DAG) that produces data for other stage(s). It writes <strong>map output files</strong> for a shuffle. It can also be the final stage in a job in <a href="DAGScheduler.html#adaptive-query-planning" class="page">Adaptive Query Planning / Adaptive Scheduling</a>.</p>
 </li>
 <li>
 <p><a href="spark-scheduler-ResultStage.adoc">ResultStage</a> is the final stage that executes <a href="rdd/index.html#actions" class="page">a Spark action</a> in a user program by running a function on an RDD.</p>
@@ -2131,7 +2137,7 @@ The number of consecutive failures for a stage is not configurable.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>makeNewStageAttempt</code> is used exclusively when <code>DAGScheduler</code> is requested to <a href="spark-scheduler-DAGScheduler.html#submitMissingTasks" class="page">submit the missing tasks of a stage</a>.
+<code>makeNewStageAttempt</code> is used exclusively when <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#submitMissingTasks" class="page">submit the missing tasks of a stage</a>.
 </td>
 </tr>
 </table>

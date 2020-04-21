@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1966,7 +1972,7 @@
 </div>
 </li>
 <li>
-<p>Accessing services, e.g. <a href="#statusStore">AppStatusStore</a>, <a href="#taskScheduler">TaskScheduler</a>, <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a>, <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>, <a href="spark-SchedulerBackend.adoc">SchedulerBackends</a>, <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a> and the <a href="#cleaner">optional ContextCleaner</a>.</p>
+<p>Accessing services, e.g. <a href="#statusStore">AppStatusStore</a>, <a href="#taskScheduler">TaskScheduler</a>, <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a>, <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>, <a href="scheduler/SchedulerBackend.html" class="page">SchedulerBackends</a>, <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a> and the <a href="#cleaner">optional ContextCleaner</a>.</p>
 </li>
 <li>
 <p><a href="#runJob">Running jobs synchronously</a></p>
@@ -2312,7 +2318,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>cancelJob</code> requests <code>DAGScheduler</code> <a href="spark-scheduler-DAGScheduler.adoc#cancelJob">to cancel a Spark job</a>.</p>
+<p><code>cancelJob</code> requests <code>DAGScheduler</code> <a href="DAGScheduler.html#cancelJob" class="page">to cancel a Spark job</a>.</p>
 </div>
 </div>
 </div>
@@ -2326,7 +2332,7 @@ cancelStage(stageId: Int, reason: String): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>cancelStage</code> simply requests <code>DAGScheduler</code> <a href="spark-scheduler-DAGScheduler.adoc#cancelJob">to cancel a Spark stage</a> (with an optional <code>reason</code>).</p>
+<p><code>cancelStage</code> simply requests <code>DAGScheduler</code> <a href="DAGScheduler.html#cancelJob" class="page">to cancel a Spark stage</a> (with an optional <code>reason</code>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2372,7 +2378,7 @@ cancelStage(stageId: Int, reason: String): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>requestExecutors</code> requests <code>numAdditionalExecutors</code> executors from <a href="spark-CoarseGrainedSchedulerBackend.adoc">CoarseGrainedSchedulerBackend</a>.</p>
+<p><code>requestExecutors</code> requests <code>numAdditionalExecutors</code> executors from <a href="scheduler/CoarseGrainedSchedulerBackend.html" class="page">CoarseGrainedSchedulerBackend</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2406,7 +2412,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>requestTotalExecutors</code> is a <code>private[spark]</code> method that <a href="spark-CoarseGrainedSchedulerBackend.adoc#requestTotalExecutors">requests the exact number of executors from a coarse-grained scheduler backend</a>.</p>
+<p><code>requestTotalExecutors</code> is a <code>private[spark]</code> method that <a href="scheduler/CoarseGrainedSchedulerBackend.html#requestTotalExecutors" class="page">requests the exact number of executors from a coarse-grained scheduler backend</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2415,7 +2421,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-It works for <a href="spark-CoarseGrainedSchedulerBackend.adoc">coarse-grained scheduler backends</a> only.
+It works for <a href="scheduler/CoarseGrainedSchedulerBackend.html" class="page">coarse-grained scheduler backends</a> only.
 </td>
 </tr>
 </table>
@@ -2432,7 +2438,7 @@ It works for <a href="spark-CoarseGrainedSchedulerBackend.adoc">coarse-grained s
 <div class="sect2">
 <h3 id="getting-executor-idsgetexecutorids-method"><a class="anchor" href="#getting-executor-idsgetexecutorids-method"></a><a class="link" href="#getting-executor-idsgetexecutorids-method"><a id="getExecutorIds"></a> Getting Executor Ids&#8201;&#8212;&#8201;<code>getExecutorIds</code> Method</a></h3>
 <div class="paragraph">
-<p><code>getExecutorIds</code> is a <code>private[spark]</code> method that is part of <a href="spark-service-ExecutorAllocationClient.adoc">ExecutorAllocationClient contract</a>. It simply <a href="spark-CoarseGrainedSchedulerBackend.adoc#getExecutorIds">passes the call on to the current coarse-grained scheduler backend, i.e. calls <code>getExecutorIds</code></a>.</p>
+<p><code>getExecutorIds</code> is a <code>private[spark]</code> method that is part of <a href="spark-service-ExecutorAllocationClient.adoc">ExecutorAllocationClient contract</a>. It simply <a href="scheduler/CoarseGrainedSchedulerBackend.html#getExecutorIds" class="page">passes the call on to the current coarse-grained scheduler backend, i.e. calls <code>getExecutorIds</code></a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2441,7 +2447,7 @@ It works for <a href="spark-CoarseGrainedSchedulerBackend.adoc">coarse-grained s
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-It works for <a href="spark-CoarseGrainedSchedulerBackend.adoc">coarse-grained scheduler backends</a> only.
+It works for <a href="scheduler/CoarseGrainedSchedulerBackend.html" class="page">coarse-grained scheduler backends</a> only.
 </td>
 </tr>
 </table>
@@ -2951,7 +2957,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>submitJob</code> submits a job in an asynchronous, non-blocking way to <a href="spark-scheduler-DAGScheduler.adoc#submitJob">DAGScheduler</a>.</p>
+<p><code>submitJob</code> submits a job in an asynchronous, non-blocking way to <a href="DAGScheduler.html#submitJob" class="page">DAGScheduler</a>.</p>
 </div>
 <div class="paragraph">
 <p>It cleans the <code>processPartition</code> input function argument and returns an instance of <a href="spark-rdd-actions.adoc#FutureAction">SimpleFutureAction</a> that holds the <a href="spark-scheduler-JobWaiter.adoc">JobWaiter</a> instance.</p>
@@ -3393,7 +3399,7 @@ runJob[T, U: ClassTag](
 </div>
 </div>
 <div class="paragraph">
-<p><code>runJob</code> requests  <a href="spark-scheduler-DAGScheduler.adoc#runJob"><code>DAGScheduler</code> to run a job</a>.</p>
+<p><code>runJob</code> requests  <a href="DAGScheduler.html#runJob" class="page"><code>DAGScheduler</code> to run a job</a>.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -3402,7 +3408,7 @@ runJob[T, U: ClassTag](
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-<code>runJob</code> just prepares input parameters for <a href="spark-scheduler-DAGScheduler.adoc#runJob"><code>DAGScheduler</code> to run a job</a>.
+<code>runJob</code> just prepares input parameters for <a href="DAGScheduler.html#runJob" class="page"><code>DAGScheduler</code> to run a job</a>.
 </td>
 </tr>
 </table>
@@ -3516,7 +3522,7 @@ Read <a href="spark-TaskContext.adoc">TaskContext</a>.
 <p>Requests <a href="spark-history-server/EventLoggingListener.html#stop" class="page"><code>EventLoggingListener</code> to stop</a></p>
 </li>
 <li>
-<p>Requests <a href="spark-scheduler-DAGScheduler.adoc#stop"><code>DAGScheduler</code> to stop</a></p>
+<p>Requests <a href="DAGScheduler.html#stop" class="page"><code>DAGScheduler</code> to stop</a></p>
 </li>
 <li>
 <p>Requests <a href="spark-rpc.adoc#stop">RpcEnv to stop <code>HeartbeatReceiver</code> endpoint</a></p>
@@ -3844,7 +3850,7 @@ It is computed when <a href="spark-SparkContext-creating-instance-internals.adoc
 </div>
 </div>
 <div class="paragraph">
-<p><code>submitMapStage</code> <a href="spark-scheduler-DAGScheduler.adoc#submitMapStage">submits the input <code>ShuffleDependency</code> to <code>DAGScheduler</code> for execution</a> and returns a <code>SimpleFutureAction</code>.</p>
+<p><code>submitMapStage</code> <a href="DAGScheduler.html#submitMapStage" class="page">submits the input <code>ShuffleDependency</code> to <code>DAGScheduler</code> for execution</a> and returns a <code>SimpleFutureAction</code>.</p>
 </div>
 <div class="paragraph">
 <p>Internally, <code>submitMapStage</code> <a href="#getCallSite">calculates the call site</a> first and submits it with <code>localProperties</code>.</p>
@@ -3868,7 +3874,7 @@ Interestingly, <code>submitMapStage</code> is used exclusively when Spark SQL&#8
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>submitMapStage</code> <em>seems</em> related to <a href="spark-scheduler-DAGScheduler.adoc#adaptive-query-planning">Adaptive Query Planning / Adaptive Scheduling</a>.
+<code>submitMapStage</code> <em>seems</em> related to <a href="DAGScheduler.html#adaptive-query-planning" class="page">Adaptive Query Planning / Adaptive Scheduling</a>.
 </td>
 </tr>
 </table>
@@ -3901,7 +3907,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>cancelJobGroup</code> requests <code>DAGScheduler</code> <a href="spark-scheduler-DAGScheduler.adoc#cancelJobGroup">to cancel a group of active Spark jobs</a>.</p>
+<p><code>cancelJobGroup</code> requests <code>DAGScheduler</code> <a href="DAGScheduler.html#cancelJobGroup" class="page">to cancel a group of active Spark jobs</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4033,7 +4039,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>getPreferredLocs</code> simply <a href="spark-scheduler-DAGScheduler.adoc#getPreferredLocs">requests <code>DAGScheduler</code> for the preferred locations for <code>partition</code></a>.</p>
+<p><code>getPreferredLocs</code> simply <a href="DAGScheduler.html#getPreferredLocs" class="page">requests <code>DAGScheduler</code> for the preferred locations for <code>partition</code></a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4241,7 +4247,7 @@ It&#8217;s not guaranteed that Spark will work properly with two or more SparkCo
 </div>
 </div>
 <div class="paragraph">
-<p><code>maxNumConcurrentTasks</code> simply requests the <a href="#schedulerBackend">SchedulerBackend</a> for the <a href="spark-SchedulerBackend.html#maxNumConcurrentTasks" class="page">maximum number of tasks that can be launched concurrently</a>.</p>
+<p><code>maxNumConcurrentTasks</code> simply requests the <a href="#schedulerBackend">SchedulerBackend</a> for the <a href="scheduler/SchedulerBackend.html#maxNumConcurrentTasks" class="page">maximum number of tasks that can be launched concurrently</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4250,7 +4256,7 @@ It&#8217;s not guaranteed that Spark will work properly with two or more SparkCo
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>maxNumConcurrentTasks</code> is used exclusively when <code>DAGScheduler</code> is requested to <a href="spark-scheduler-DAGScheduler.html#checkBarrierStageWithNumSlots" class="page">checkBarrierStageWithNumSlots</a>.
+<code>maxNumConcurrentTasks</code> is used exclusively when <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#checkBarrierStageWithNumSlots" class="page">checkBarrierStageWithNumSlots</a>.
 </td>
 </tr>
 </table>
@@ -4269,7 +4275,7 @@ It&#8217;s not guaranteed that Spark will work properly with two or more SparkCo
 </div>
 </div>
 <div class="paragraph">
-<p><code>createTaskScheduler</code> creates the <a href="spark-SchedulerBackend.html" class="page">SchedulerBackend</a> and the <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a> for the given master URL and deployment mode.</p>
+<p><code>createTaskScheduler</code> creates the <a href="scheduler/SchedulerBackend.html" class="page">SchedulerBackend</a> and the <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a> for the given master URL and deployment mode.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">

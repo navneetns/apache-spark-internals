@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="../scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="../scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1837,7 +1843,7 @@
 <h2 id="yarnschedulerbackendfoundation-for-coarse-grained-scheduler-backends-for-yarn"><a class="anchor" href="#yarnschedulerbackendfoundation-for-coarse-grained-scheduler-backends-for-yarn"></a><a class="link" href="#yarnschedulerbackendfoundation-for-coarse-grained-scheduler-backends-for-yarn"><a id="YarnSchedulerBackend"></a> YarnSchedulerBackend&#8201;&#8212;&#8201;Foundation for Coarse-Grained Scheduler Backends for YARN</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>YarnSchedulerBackend</code> is a <a href="../spark-CoarseGrainedSchedulerBackend.adoc">CoarseGrainedSchedulerBackend</a> that acts as the foundation for the concrete deploy mode-specific Spark scheduler backends for YARN, i.e. <a href="spark-yarn-client-yarnclientschedulerbackend.adoc">YarnClientSchedulerBackend</a> and <a href="spark-yarn-cluster-yarnclusterschedulerbackend.adoc">YarnClusterSchedulerBackend</a> for <a href="../spark-deploy-mode.adoc#client"><code>client</code> deploy mode</a> and <a href="../spark-deploy-mode.adoc#cluster"><code>cluster</code> deploy mode</a>, respectively.</p>
+<p><code>YarnSchedulerBackend</code> is a <a href="../scheduler/CoarseGrainedSchedulerBackend.html" class="page">CoarseGrainedSchedulerBackend</a> that acts as the foundation for the concrete deploy mode-specific Spark scheduler backends for YARN, i.e. <a href="spark-yarn-client-yarnclientschedulerbackend.adoc">YarnClientSchedulerBackend</a> and <a href="spark-yarn-cluster-yarnclusterschedulerbackend.adoc">YarnClusterSchedulerBackend</a> for <a href="../spark-deploy-mode.adoc#client"><code>client</code> deploy mode</a> and <a href="../spark-deploy-mode.adoc#cluster"><code>cluster</code> deploy mode</a>, respectively.</p>
 </div>
 <div class="paragraph">
 <p><code>YarnSchedulerBackend</code> registers itself as <a href="#yarnSchedulerEndpointRef"><code>YarnScheduler</code> RPC endpoint</a> in the RPC Environment.</p>
@@ -1898,10 +1904,10 @@ With no extra configuration, <code>YarnSchedulerBackend</code> is ready for task
 <div class="ulist">
 <ul>
 <li>
-<p><code>0.8</code> (when <a href="../spark-CoarseGrainedSchedulerBackend.adoc#spark.scheduler.minRegisteredResourcesRatio">spark.scheduler.minRegisteredResourcesRatio</a> property is undefined)</p>
+<p><code>0.8</code> (when <a href="../scheduler/CoarseGrainedSchedulerBackend.html#spark.scheduler.minRegisteredResourcesRatio" class="page">spark.scheduler.minRegisteredResourcesRatio</a> property is undefined)</p>
 </li>
 <li>
-<p><a href="../spark-CoarseGrainedSchedulerBackend.adoc#minRegisteredRatio#minRegisteredRatio">minRegisteredRatio</a> from the parent <code>CoarseGrainedSchedulerBackend</code></p>
+<p><a href="../scheduler/CoarseGrainedSchedulerBackend.html#minRegisteredRatio#minRegisteredRatio" class="page">minRegisteredRatio</a> from the parent <code>CoarseGrainedSchedulerBackend</code></p>
 </li>
 </ul>
 </div></div></td>
@@ -1939,7 +1945,7 @@ With no extra configuration, <code>YarnSchedulerBackend</code> is ready for task
 <td class="tableblock halign-left valign-top"><p class="tableblock">YARN&#8217;s <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/yarn/api/records/ApplicationAttemptId.html">ApplicationAttemptId</a> of a Spark application.</p>
 <p class="tableblock">Only defined in <a href="../spark-deploy-mode.adoc#cluster"><code>cluster</code> deploy mode</a>.</p>
 <p class="tableblock">Set when <a href="spark-yarn-cluster-yarnclusterschedulerbackend.adoc#start">YarnClusterSchedulerBackend starts</a> (and <a href="#bindToYarn">bindToYarn</a> is called) using YARN&#8217;s <code>ApplicationMaster.getAttemptId</code>.</p>
-<p class="tableblock">Used for <a href="#applicationAttemptId">applicationAttemptId</a> which is part of <a href="spark-SchedulerBackend.adoc#contract">SchedulerBackend Contract</a>.</p></td>
+<p class="tableblock">Used for <a href="#applicationAttemptId">applicationAttemptId</a> which is part of <a href="../scheduler/SchedulerBackend.html#contract" class="page">SchedulerBackend Contract</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="shouldResetOnAmRegister"></a> <code>shouldResetOnAmRegister</code></p></td>
@@ -1958,13 +1964,13 @@ With no extra configuration, <code>YarnSchedulerBackend</code> is ready for task
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>reset</code> is part of <a href="../spark-CoarseGrainedSchedulerBackend.adoc#contract">CoarseGrainedSchedulerBackend Contract</a>.
+<code>reset</code> is part of <a href="../scheduler/CoarseGrainedSchedulerBackend.html#contract" class="page">CoarseGrainedSchedulerBackend Contract</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>reset</code> <a href="../spark-CoarseGrainedSchedulerBackend.adoc#reset">resets</a> the parent <code>CoarseGrainedSchedulerBackend</code> scheduler backend and <a href="../spark-ExecutorAllocationManager.adoc">ExecutorAllocationManager</a> (accessible by <code>SparkContext.executorAllocationManager</code>).</p>
+<p><code>reset</code> <a href="../scheduler/CoarseGrainedSchedulerBackend.html#reset" class="page">resets</a> the parent <code>CoarseGrainedSchedulerBackend</code> scheduler backend and <a href="../spark-ExecutorAllocationManager.adoc">ExecutorAllocationManager</a> (accessible by <code>SparkContext.executorAllocationManager</code>).</p>
 </div>
 </div>
 <div class="sect2">
@@ -1981,7 +1987,7 @@ With no extra configuration, <code>YarnSchedulerBackend</code> is ready for task
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>doRequestTotalExecutors</code> is part of the <a href="../spark-CoarseGrainedSchedulerBackend.adoc#doRequestTotalExecutors">CoarseGrainedSchedulerBackend Contract</a>.
+<code>doRequestTotalExecutors</code> is part of the <a href="../scheduler/CoarseGrainedSchedulerBackend.html#doRequestTotalExecutors" class="page">CoarseGrainedSchedulerBackend Contract</a>.
 </td>
 </tr>
 </table>
@@ -2121,7 +2127,7 @@ FIXME Link the description of <code>services.stop()</code> here.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>applicationAttemptId</code> is part of <a href="spark-SchedulerBackend.adoc#contract">SchedulerBackend Contract</a>.
+<code>applicationAttemptId</code> is part of <a href="../scheduler/SchedulerBackend.html#contract" class="page">SchedulerBackend Contract</a>.
 </td>
 </tr>
 </table>
@@ -2175,13 +2181,13 @@ This section is only to take notes about the required components to instantiate 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>sufficientResourcesRegistered</code> is part of the <a href="../spark-CoarseGrainedSchedulerBackend.adoc#contract">CoarseGrainedSchedulerBackend contract</a> that makes sure that sufficient resources are available.
+<code>sufficientResourcesRegistered</code> is part of the <a href="../scheduler/CoarseGrainedSchedulerBackend.html#contract" class="page">CoarseGrainedSchedulerBackend contract</a> that makes sure that sufficient resources are available.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>sufficientResourcesRegistered</code> is positive, i.e. <code>true</code>, when <a href="../spark-CoarseGrainedSchedulerBackend.adoc#totalRegisteredExecutors">totalRegisteredExecutors</a> is exactly or above <a href="#minRegisteredRatio">minRegisteredRatio</a> of <a href="#totalExpectedExecutors">totalExpectedExecutors</a>.</p>
+<p><code>sufficientResourcesRegistered</code> is positive, i.e. <code>true</code>, when <a href="../scheduler/CoarseGrainedSchedulerBackend.html#totalRegisteredExecutors" class="page">totalRegisteredExecutors</a> is exactly or above <a href="#minRegisteredRatio">minRegisteredRatio</a> of <a href="#totalExpectedExecutors">totalExpectedExecutors</a>.</p>
 </div>
 </div>
 </div>

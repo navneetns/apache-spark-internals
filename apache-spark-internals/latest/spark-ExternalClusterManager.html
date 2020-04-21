@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1836,7 +1842,7 @@
 <h2 id="externalclustermanagerpluggable-cluster-managers"><a class="anchor" href="#externalclustermanagerpluggable-cluster-managers"></a><a class="link" href="#externalclustermanagerpluggable-cluster-managers"><a id="ExternalClusterManager"></a> ExternalClusterManager&#8201;&#8212;&#8201;Pluggable Cluster Managers</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>ExternalClusterManager</code> is a <a href="#contract">contract for pluggable cluster managers</a>. It returns a <a href="scheduler/TaskScheduler.html" class="page">task scheduler</a> and a <a href="spark-SchedulerBackend.adoc">backend scheduler</a> that will be used by <a href="spark-SparkContext.adoc">SparkContext</a> to schedule tasks.</p>
+<p><code>ExternalClusterManager</code> is a <a href="#contract">contract for pluggable cluster managers</a>. It returns a <a href="scheduler/TaskScheduler.html" class="page">task scheduler</a> and a <a href="scheduler/SchedulerBackend.html" class="page">backend scheduler</a> that will be used by <a href="spark-SparkContext.adoc">SparkContext</a> to schedule tasks.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1923,7 +1929,7 @@ The two implementations of the <a href="#contract">ExternalClusterManager contra
 </div>
 </div>
 <div class="paragraph">
-<p><code>createSchedulerBackend</code> creates a <a href="spark-SchedulerBackend.adoc">SchedulerBackend</a> given a <a href="spark-SparkContext.adoc">SparkContext</a>, the input <code>masterURL</code>, and <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a>.</p>
+<p><code>createSchedulerBackend</code> creates a <a href="scheduler/SchedulerBackend.html" class="page">SchedulerBackend</a> given a <a href="spark-SparkContext.adoc">SparkContext</a>, the input <code>masterURL</code>, and <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1934,7 +1940,7 @@ The two implementations of the <a href="#contract">ExternalClusterManager contra
 </div>
 </div>
 <div class="paragraph">
-<p><code>initialize</code> is called after the <a href="scheduler/TaskScheduler.html" class="page">task scheduler</a> and the <a href="spark-SchedulerBackend.adoc">backend scheduler</a> were created and initialized separately.</p>
+<p><code>initialize</code> is called after the <a href="scheduler/TaskScheduler.html" class="page">task scheduler</a> and the <a href="scheduler/SchedulerBackend.html" class="page">backend scheduler</a> were created and initialized separately.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1955,7 +1961,7 @@ There is a cyclic dependency between a task scheduler and a backend scheduler th
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a> and <a href="spark-SchedulerBackend.adoc">SchedulerBackend</a> (with <a href="spark-scheduler-DAGScheduler.adoc">DAGScheduler</a>) are commonly referred to as <strong>scheduling components</strong>.
+<a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a> and <a href="scheduler/SchedulerBackend.html" class="page">SchedulerBackend</a> (with <a href="DAGScheduler.html" class="page">DAGScheduler</a>) are commonly referred to as <strong>scheduling components</strong>.
 </td>
 </tr>
 </table>

@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="../scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="../scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1840,7 +1846,7 @@
 <p><code>YarnClusterSchedulerBackend</code> is a custom <a href="spark-yarn-yarnschedulerbackend.adoc">YarnSchedulerBackend</a> for Spark on YARN in <a href="#cluster-mode">cluster deploy mode</a>.</p>
 </div>
 <div class="paragraph">
-<p>This is a scheduler backend that supports <a href="#multiple-application-attempts">multiple application attempts</a> and <a href="spark-SchedulerBackend.adoc#getDriverLogUrls">URLs for driver&#8217;s logs</a> to display as links in the web UI in the Executors tab for the driver.</p>
+<p>This is a scheduler backend that supports <a href="#multiple-application-attempts">multiple application attempts</a> and <a href="../scheduler/SchedulerBackend.html#getDriverLogUrls" class="page">URLs for driver&#8217;s logs</a> to display as links in the web UI in the Executors tab for the driver.</p>
 </div>
 <div class="paragraph">
 <p>It uses <code>spark.yarn.app.attemptId</code> under the covers (that the YARN resource manager sets?).</p>
@@ -1900,7 +1906,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>start</code> is part of the <a href="spark-SchedulerBackend.adoc#contract">SchedulerBackend Contract</a>.
+<code>start</code> is part of the <a href="../scheduler/SchedulerBackend.html#contract" class="page">SchedulerBackend Contract</a>.
 </td>
 </tr>
 </table>
@@ -1924,7 +1930,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getDriverLogUrls</code> is part of the <a href="spark-SchedulerBackend.adoc#contract">SchedulerBackend Contract</a>.
+<code>getDriverLogUrls</code> is part of the <a href="../scheduler/SchedulerBackend.html#contract" class="page">SchedulerBackend Contract</a>.
 </td>
 </tr>
 </table>

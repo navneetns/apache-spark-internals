@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1848,13 +1854,13 @@ extends JobListener</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>JobWaiter</code> is a <a href="spark-scheduler-JobListener.adoc">JobListener</a> that is used when <code>DAGScheduler</code> <a href="spark-scheduler-DAGScheduler.adoc#submitJob">submits a job</a> or <a href="spark-scheduler-DAGScheduler.adoc#submitMapStage">submits a map stage</a>.</p>
+<p><code>JobWaiter</code> is a <a href="spark-scheduler-JobListener.adoc">JobListener</a> that is used when <code>DAGScheduler</code> <a href="DAGScheduler.html#submitJob" class="page">submits a job</a> or <a href="DAGScheduler.html#submitMapStage" class="page">submits a map stage</a>.</p>
 </div>
 <div class="paragraph">
 <p>You can use a <code>JobWaiter</code> to block until the job finishes executing or to cancel it.</p>
 </div>
 <div class="paragraph">
-<p>While the methods execute, <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#JobSubmitted"><code>JobSubmitted</code></a> and <a href="spark-scheduler-DAGSchedulerEventProcessLoop.adoc#MapStageSubmitted">MapStageSubmitted</a> events are posted that reference the <code>JobWaiter</code>.</p>
+<p>While the methods execute, <a href="DAGSchedulerEventProcessLoop.html#JobSubmitted" class="page"><code>JobSubmitted</code></a> and <a href="DAGSchedulerEventProcessLoop.html#MapStageSubmitted" class="page">MapStageSubmitted</a> events are posted that reference the <code>JobWaiter</code>.</p>
 </div>
 <div class="paragraph">
 <p>As a <code>JobListener</code>, <code>JobWaiter</code> gets notified about task completions or failures, using <code>taskSucceeded</code> and <code>jobFailed</code>, respectively. When the total number of tasks (that equals the number of partitions to compute) equals the number of <code>taskSucceeded</code>, the <code>JobWaiter</code> instance is marked successful. A <code>jobFailed</code> event marks the <code>JobWaiter</code> instance failed.</p>

@@ -69,10 +69,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+    <span class="nav-text">Schedule System</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="scheduler/TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1853,7 +1859,7 @@
 </ol>
 </div>
 <div class="paragraph">
-<p>When <a href="#run">started</a>, <code>CoarseGrainedExecutorBackend</code> <a href="#creating-instance">registers the Executor RPC endpoint</a> to communicate with the driver (i.e. with <a href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.adoc">CoarseGrainedScheduler RPC endpoint</a>).</p>
+<p>When <a href="#run">started</a>, <code>CoarseGrainedExecutorBackend</code> <a href="#creating-instance">registers the Executor RPC endpoint</a> to communicate with the driver (i.e. with <a href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html" class="page">CoarseGrainedScheduler RPC endpoint</a>).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1862,7 +1868,7 @@
 <div class="title">Figure 1. CoarseGrainedExecutorBackend Communicates with Driver&#8217;s CoarseGrainedSchedulerBackend Endpoint</div>
 </div>
 <div class="paragraph">
-<p>When <a href="#main">launched</a>, <code>CoarseGrainedExecutorBackend</code> immediately connects to the owning <a href="spark-CoarseGrainedSchedulerBackend.adoc">CoarseGrainedSchedulerBackend</a> to inform that it is ready to launch tasks.</p>
+<p>When <a href="#main">launched</a>, <code>CoarseGrainedExecutorBackend</code> immediately connects to the owning <a href="scheduler/CoarseGrainedSchedulerBackend.html" class="page">CoarseGrainedSchedulerBackend</a> to inform that it is ready to launch tasks.</p>
 </div>
 <div class="paragraph">
 <p><code>CoarseGrainedExecutorBackend</code> is an <a href="spark-ExecutorBackend.adoc">ExecutorBackend</a> that controls the lifecycle of a single <a href="#executor">executor</a> and sends <a href="#statusUpdate">the executor&#8217;s status updates</a> to the driver.</p>
@@ -1900,7 +1906,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#RegisteredExecutor">RegisteredExecutor</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Creates the single managed <a href="#executor">Executor</a>.</p>
-<p class="tableblock">Sent exclusively when <code>CoarseGrainedSchedulerBackend</code> <a href="spark-CoarseGrainedSchedulerBackend.adoc#RegisterExecutor">receives <code>RegisterExecutor</code></a>.</p></td>
+<p class="tableblock">Sent exclusively when <code>CoarseGrainedSchedulerBackend</code> <a href="scheduler/CoarseGrainedSchedulerBackend.html#RegisterExecutor" class="page">receives <code>RegisterExecutor</code></a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#RegisterExecutorFailed">RegisterExecutorFailed</a></p></td>
@@ -2024,7 +2030,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>LaunchTask</code> is sent when <code>CoarseGrainedSchedulerBackend</code> is requested to <a href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.adoc#launchTasks">launch tasks</a> (one <code>LaunchTask</code> per task).
+<code>LaunchTask</code> is sent when <code>CoarseGrainedSchedulerBackend</code> is requested to <a href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html#launchTasks" class="page">launch tasks</a> (one <code>LaunchTask</code> per task).
 </td>
 </tr>
 </table>
@@ -2050,7 +2056,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p><code>statusUpdate</code> creates a <a href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.adoc#StatusUpdate">StatusUpdate</a> (with the input <code>taskId</code>, <code>state</code>, and <code>data</code> together with the <a href="#executorId">executor id</a>) and sends it to the <a href="#driver">driver</a> (if connected already).</p>
+<p><code>statusUpdate</code> creates a <a href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html#StatusUpdate" class="page">StatusUpdate</a> (with the input <code>taskId</code>, <code>state</code>, and <code>data</code> together with the <a href="#executorId">executor id</a>) and sends it to the <a href="#driver">driver</a> (if connected already).</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -2448,7 +2454,7 @@ FIXME Think of the place for <code>Utils.initDaemon</code>, <code>Utils.getProce
 </table>
 </div>
 <div class="paragraph">
-<p><code>onStart</code> then <a href="spark-rpc.adoc#asyncSetupEndpointRefByURI">takes the <code>RpcEndpointRef</code> of the driver asynchronously</a> and initializes the internal <a href="#driver">driver</a> property. <code>onStart</code> sends a blocking <a href="spark-CoarseGrainedSchedulerBackend.adoc#RegisterExecutor">RegisterExecutor</a> message immediately (with <a href="#executorId">executorId</a>, <a href="spark-RpcEndpointRef.adoc">RpcEndpointRef</a> to itself, <a href="#hostname">hostname</a>, <a href="#cores">cores</a> and <a href="#extractLogUrls">log URLs</a>).</p>
+<p><code>onStart</code> then <a href="spark-rpc.adoc#asyncSetupEndpointRefByURI">takes the <code>RpcEndpointRef</code> of the driver asynchronously</a> and initializes the internal <a href="#driver">driver</a> property. <code>onStart</code> sends a blocking <a href="scheduler/CoarseGrainedSchedulerBackend.html#RegisterExecutor" class="page">RegisterExecutor</a> message immediately (with <a href="#executorId">executorId</a>, <a href="spark-RpcEndpointRef.adoc">RpcEndpointRef</a> to itself, <a href="#hostname">hostname</a>, <a href="#cores">cores</a> and <a href="#extractLogUrls">log URLs</a>).</p>
 </div>
 <div class="paragraph">
 <p>In case of failures, <code>onStart</code> <a href="#exitExecutor">terminates <code>CoarseGrainedExecutorBackend</code></a> with the error code <code>1</code> and the reason (and no notification to the driver):</p>
@@ -2505,7 +2511,7 @@ extends CoarseGrainedClusterMessage with RegisterExecutorResponse</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>RegisteredExecutor</code> is sent exclusively when <code>CoarseGrainedSchedulerBackend</code> RPC Endpoint <a href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.adoc#RegisterExecutor">receives a <code>RegisterExecutor</code></a> (that is sent right before <code>CoarseGrainedExecutorBackend</code> RPC Endpoint <a href="#onStart">starts accepting messages</a> which happens when <code>CoarseGrainedExecutorBackend</code> <a href="#run">is started</a>).
+<code>RegisteredExecutor</code> is sent exclusively when <code>CoarseGrainedSchedulerBackend</code> RPC Endpoint <a href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html#RegisterExecutor" class="page">receives a <code>RegisterExecutor</code></a> (that is sent right before <code>CoarseGrainedExecutorBackend</code> RPC Endpoint <a href="#onStart">starts accepting messages</a> which happens when <code>CoarseGrainedExecutorBackend</code> <a href="#run">is started</a>).
 </td>
 </tr>
 </table>
@@ -2570,7 +2576,7 @@ extends CoarseGrainedClusterMessage</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>StopExecutor</code> message is sent when <code>CoarseGrainedSchedulerBackend</code> RPC Endpoint (aka <code>DriverEndpoint</code>) processes <a href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.adoc#StopExecutors">StopExecutors</a> or <a href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.adoc#RemoveExecutor">RemoveExecutor</a> messages.
+<code>StopExecutor</code> message is sent when <code>CoarseGrainedSchedulerBackend</code> RPC Endpoint (aka <code>DriverEndpoint</code>) processes <a href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html#StopExecutors" class="page">StopExecutors</a> or <a href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html#RemoveExecutor" class="page">RemoveExecutor</a> messages.
 </td>
 </tr>
 </table>
@@ -2620,7 +2626,7 @@ extends CoarseGrainedClusterMessage</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If <code>notifyDriver</code> is enabled (it is by default) <code>exitExecutor</code> informs the <a href="#driver">driver</a> that the executor should be removed (by sending a <a href="spark-CoarseGrainedSchedulerBackend-DriverEndpoint.adoc#RemoveExecutor">blocking <code>RemoveExecutor</code> message</a> with <a href="#executorId">executor id</a> and a <code>ExecutorLossReason</code> with the input <code>reason</code>).</p>
+<p>If <code>notifyDriver</code> is enabled (it is by default) <code>exitExecutor</code> informs the <a href="#driver">driver</a> that the executor should be removed (by sending a <a href="scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html#RemoveExecutor" class="page">blocking <code>RemoveExecutor</code> message</a> with <a href="#executorId">executor id</a> and a <code>ExecutorLossReason</code> with the input <code>reason</code>).</p>
 </div>
 <div class="paragraph">
 <p>You may see the following WARN message in the logs when the notification fails.</p>

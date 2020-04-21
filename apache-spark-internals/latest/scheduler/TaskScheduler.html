@@ -67,12 +67,33 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Schedule System</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="SchedulerBackend.html">SchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -132,7 +153,7 @@
     <a class="nav-link" href="spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -714,7 +735,7 @@
     <span class="nav-text">High-Level Spark Stage Scheduler</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -732,7 +753,7 @@
     <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -750,21 +771,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SparkEnv.html">SparkEnv</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-SchedulerBackend.html">SchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1824,6 +1830,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
+    <li>Schedule System</li>
     <li><a href="TaskScheduler.html">TaskScheduler</a></li>
   </ul>
 </nav>
@@ -1850,7 +1857,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" class="page">DAGScheduler</a> that <a href="#submitTasks">submits sets of tasks for execution</a> (for every stage in a Spark job).
+TaskScheduler works closely with <a href="../DAGScheduler.html" class="page">DAGScheduler</a> that <a href="#submitTasks">submits sets of tasks for execution</a> (for every stage in a Spark job).
 </td>
 </tr>
 </table>
@@ -1873,7 +1880,7 @@ TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" 
 <p>Submits the tasks (of the given <a href="TaskSet.html" class="page">TaskSet</a>) for execution.</p>
 </div>
 <div class="paragraph">
-<p>Used when DAGScheduler is requested to <a href="../spark-scheduler-DAGScheduler.html#submitMissingTasks" class="page">submit missing tasks (of a stage)</a>.</p>
+<p>Used when DAGScheduler is requested to <a href="../DAGScheduler.html#submitMissingTasks" class="page">submit missing tasks (of a stage)</a>.</p>
 </div>
 </div>
 </div>
@@ -1919,7 +1926,7 @@ TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" 
 <p>Cancels all the tasks of a given <a href="../spark-scheduler-Stage.html" class="page">stage</a></p>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#failJobAndIndependentStages" class="page">failJobAndIndependentStages</a></p>
+<p>Used when <code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#failJobAndIndependentStages" class="page">failJobAndIndependentStages</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -1977,7 +1984,7 @@ TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" 
 <p><code>HeartbeatReceiver</code> RPC endpoint is requested to <a href="../spark-HeartbeatReceiver.html#expireDeadHosts" class="page">expireDeadHosts</a></p>
 </li>
 <li>
-<p><code>DriverEndpoint</code> RPC endpoint is requested to <a href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html#removeExecutor" class="page">removes</a> (<em>forgets</em>) and <a href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html#disableExecutor" class="page">disables</a> a malfunctioning executor (i.e. either lost or blacklisted for some reason)</p>
+<p><code>DriverEndpoint</code> RPC endpoint is requested to <a href="CoarseGrainedSchedulerBackend-DriverEndpoint.html#removeExecutor" class="page">removes</a> (<em>forgets</em>) and <a href="CoarseGrainedSchedulerBackend-DriverEndpoint.html#disableExecutor" class="page">disables</a> a malfunctioning executor (i.e. either lost or blacklisted for some reason)</p>
 </li>
 <li>
 <p>Spark on Mesos' <code>MesosFineGrainedSchedulerBackend</code> is requested to <code>recordSlaveLost</code></p>
@@ -2001,7 +2008,7 @@ TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" 
 <div class="ulist">
 <ul>
 <li>
-<p><code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a></p>
+<p><code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a></p>
 </li>
 <li>
 <p><code>TaskSchedulerImpl</code> is requested to <a href="TaskSchedulerImpl.html#cancelTasks" class="page">cancel all the tasks of a stage</a></p>
@@ -2020,7 +2027,7 @@ TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" 
 </div>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#killTaskAttempt" class="page">killTaskAttempt</a></p>
+<p>Used when <code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#killTaskAttempt" class="page">killTaskAttempt</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2082,10 +2089,10 @@ TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" 
 </div>
 </div>
 <div class="paragraph">
-<p>Associates a <a href="../spark-scheduler-DAGScheduler.html" class="page">DAGScheduler</a></p>
+<p>Associates a <a href="../DAGScheduler.html" class="page">DAGScheduler</a></p>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is <a href="../spark-scheduler-DAGScheduler.html#creating-instance" class="page">created</a></p>
+<p>Used when <code>DAGScheduler</code> is <a href="../DAGScheduler.html#creating-instance" class="page">created</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2113,7 +2120,7 @@ TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" 
 <p>Stops the TaskScheduler</p>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is requested to <a href="../spark-scheduler-DAGScheduler.html#stop" class="page">stop</a></p>
+<p>Used when <code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#stop" class="page">stop</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2127,7 +2134,7 @@ TaskScheduler works closely with <a href="../spark-scheduler-DAGScheduler.html" 
 </div>
 </div>
 <div class="paragraph">
-<p>Used exclusively when <code>DriverEndpoint</code> is requested to <a href="../spark-CoarseGrainedSchedulerBackend-DriverEndpoint.html#removeWorker" class="page">handle a RemoveWorker event</a></p>
+<p>Used exclusively when <code>DriverEndpoint</code> is requested to <a href="CoarseGrainedSchedulerBackend-DriverEndpoint.html#removeWorker" class="page">handle a RemoveWorker event</a></p>
 </div></div></td>
 </tr>
 </tbody>
@@ -2205,7 +2212,7 @@ FIXME The application id is described as "associated with the job." in TaskSched
 <p>The internal <code>_taskScheduler</code> is cleared (i.e. set to <code>null</code>) while <a href="../spark-SparkContext.html#stop" class="page">SparkContext is being stopped</a>.</p>
 </div>
 <div class="paragraph">
-<p><a href="#stop">TaskScheduler is stopped</a> while <a href="../spark-scheduler-DAGScheduler.html#stop" class="page">DAGScheduler is being stopped</a>.</p>
+<p><a href="#stop">TaskScheduler is stopped</a> while <a href="../DAGScheduler.html#stop" class="page">DAGScheduler is being stopped</a>.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
