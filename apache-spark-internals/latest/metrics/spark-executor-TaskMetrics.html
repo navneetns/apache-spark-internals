@@ -69,8 +69,41 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Schedule System</span>
+    <a class="nav-link" href="../scheduler/index.html">Spark Scheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/DAGScheduler.html">DAGScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/spark-scheduler-Stage.html">Stage</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/spark-scheduler-JobListener.html">JobListener</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/spark-scheduler-JobWaiter.html">JobWaiter</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
@@ -730,42 +763,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">High-Level Spark Stage Scheduler</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-Stage.html">Stage</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ResultStage.html">ResultStage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-JobListener.html">JobListener</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1850,7 +1847,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>Stage</code> is requested to <a href="#spark-scheduler-Stage.adoc#makeNewStageAttempt" class="page unresolved">create a new stage attempt</a> (when <code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#submitMissingTasks" class="page">submit the missing tasks of a stage</a>)</p>
+<p><code>Stage</code> is requested to <a href="../scheduler/spark-scheduler-Stage.html#makeNewStageAttempt" class="page">create a new stage attempt</a> (when <code>DAGScheduler</code> is requested to <a href="../scheduler/DAGScheduler.html#submitMissingTasks" class="page">submit the missing tasks of a stage</a>)</p>
 </li>
 <li>
 <p><code>TaskMetrics</code> utility is requested to <a href="#empty">empty</a>, <a href="#fromAccumulatorInfos">fromAccumulatorInfos</a>, and <a href="#fromAccumulators">fromAccumulators</a></p>
@@ -2169,7 +2166,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>fromAccumulators</code> is used exclusively when <a href="../DAGSchedulerEventProcessLoop.html#handleTaskCompletion" class="page"><code>DAGScheduler</code> gets notified that a task has finished</a> (and re-creates <code>TaskMetrics</code>).
+<code>fromAccumulators</code> is used exclusively when <a href="../scheduler/DAGSchedulerEventProcessLoop.html#handleTaskCompletion" class="page"><code>DAGScheduler</code> gets notified that a task has finished</a> (and re-creates <code>TaskMetrics</code>).
 </td>
 </tr>
 </table>
@@ -2268,7 +2265,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>register</code> is used exclusively when <a href="spark-scheduler-Stage.adoc#makeNewStageAttempt"><code>Stage</code> is requested for its new attempt</a>.
+<code>register</code> is used exclusively when <a href="../scheduler/spark-scheduler-Stage.html#makeNewStageAttempt" class="page"><code>Stage</code> is requested for its new attempt</a>.
 </td>
 </tr>
 </table>
@@ -2375,7 +2372,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>fromAccumulators</code> is used exclusively when <code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#postTaskEnd" class="page">postTaskEnd</a>.
+<code>fromAccumulators</code> is used exclusively when <code>DAGScheduler</code> is requested to <a href="../scheduler/DAGScheduler.html#postTaskEnd" class="page">postTaskEnd</a>.
 </td>
 </tr>
 </table>

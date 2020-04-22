@@ -69,8 +69,41 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Schedule System</span>
+    <a class="nav-link" href="index.html">Spark Scheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-scheduler-JobListener.html">JobListener</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
@@ -730,42 +763,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">High-Level Spark Stage Scheduler</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-Stage.html">Stage</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ResultStage.html">ResultStage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-JobListener.html">JobListener</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1830,7 +1827,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Schedule System</li>
+    <li><a href="index.html">Spark Scheduler</a></li>
     <li><a href="Task.html">Task</a></li>
   </ul>
 </nav>
@@ -1874,7 +1871,7 @@
 </tbody>
 </table>
 <div class="paragraph">
-<p><code>Task</code> is <a href="#creating-instance">created</a> when <code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#submitMissingTasks" class="page">submit missing tasks of a stage</a>.</p>
+<p><code>Task</code> is <a href="#creating-instance">created</a> when <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#submitMissingTasks" class="page">submit missing tasks of a stage</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1900,7 +1897,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a id="stageId"></a> ID of the <a href="#spark-scheduler-Stage.adoc" class="page unresolved">stage</a> (<strong>Stage ID</strong>)</p>
+<p><a id="stageId"></a> Stage ID</p>
 </li>
 <li>
 <p><a id="stageAttemptId"></a> Stage (execution) attempt ID</p>
@@ -1964,11 +1961,11 @@ In Scala <code>Task</code> is actually <code>Task[T]</code> in which <code>T</co
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ResultTask.html" class="page">ResultTask</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ResultTask"></a> Computes a <a href="#spark-scheduler-ResultStage.adoc" class="page unresolved">ResultStage</a> and gives the result back to the driver</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ResultTask"></a> Computes a <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a> and gives the result back to the driver</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ShuffleMapTask.html" class="page">ShuffleMapTask</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ShuffleMapTask"></a> Computes a <a href="#spark-scheduler-ShuffleMapStage.adoc" class="page unresolved">ShuffleMapStage</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ShuffleMapTask"></a> Computes a <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a></p></td>
 </tr>
 </tbody>
 </table>

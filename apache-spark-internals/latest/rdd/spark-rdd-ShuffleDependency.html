@@ -69,8 +69,41 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Schedule System</span>
+    <a class="nav-link" href="../scheduler/index.html">Spark Scheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/DAGScheduler.html">DAGScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/spark-scheduler-Stage.html">Stage</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/spark-scheduler-JobListener.html">JobListener</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/spark-scheduler-JobWaiter.html">JobWaiter</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
@@ -730,42 +763,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">High-Level Spark Stage Scheduler</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-Stage.html">Stage</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ResultStage.html">ResultStage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-JobListener.html">JobListener</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1843,7 +1840,7 @@
 <h2 id="shuffledependencyshuffle-dependency"><a class="anchor" href="#shuffledependencyshuffle-dependency"></a><a class="link" href="#shuffledependencyshuffle-dependency"><a id="ShuffleDependency"></a> ShuffleDependency&#8201;&#8212;&#8201;Shuffle Dependency</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>ShuffleDependency</code> is a <a href="spark-rdd-Dependency.adoc">RDD Dependency</a> on the output of a <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> for a <a href="#rdd">key-value pair RDD</a>.</p>
+<p><code>ShuffleDependency</code> is a <a href="spark-rdd-Dependency.adoc">RDD Dependency</a> on the output of a <a href="../scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> for a <a href="#rdd">key-value pair RDD</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>ShuffleDependency</code> uses the <a href="#rdd">RDD</a> to know the number of (map-side/pre-shuffle) partitions and the <a href="#partitioner"><code>Partitioner</code></a> for the number of (reduce-size/post-shuffle) partitions.</p>
@@ -2043,16 +2040,16 @@ FIXME
 <p><a href="spark-service-MapOutputTrackerMaster.adoc#getPreferredLocationsForShuffle"><code>MapOutputTrackerMaster</code> finds preferred <code>BlockManagers</code> with most map outputs</a> for a <code>ShuffleDependency</code>,</p>
 </li>
 <li>
-<p><a href="../DAGScheduler.html#getOrCreateShuffleMapStage" class="page"><code>DAGScheduler</code> finds or creates new <code>ShuffleMapStage</code> stages</a> for a <code>ShuffleDependency</code>,</p>
+<p><a href="../scheduler/DAGScheduler.html#getOrCreateShuffleMapStage" class="page"><code>DAGScheduler</code> finds or creates new <code>ShuffleMapStage</code> stages</a> for a <code>ShuffleDependency</code>,</p>
 </li>
 <li>
-<p><a href="../DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code></a> for a <code>ShuffleDependency</code> and a <code>ActiveJob</code>,</p>
+<p><a href="../scheduler/DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code></a> for a <code>ShuffleDependency</code> and a <code>ActiveJob</code>,</p>
 </li>
 <li>
-<p><a href="../DAGScheduler.html#getMissingAncestorShuffleDependencies" class="page"><code>DAGScheduler</code> finds missing ShuffleDependencies for a RDD</a>,</p>
+<p><a href="../scheduler/DAGScheduler.html#getMissingAncestorShuffleDependencies" class="page"><code>DAGScheduler</code> finds missing ShuffleDependencies for a RDD</a>,</p>
 </li>
 <li>
-<p><a href="../DAGScheduler.html#submitMapStage" class="page"><code>DAGScheduler</code> submits a <code>ShuffleDependency</code> for execution</a>.</p>
+<p><a href="../scheduler/DAGScheduler.html#submitMapStage" class="page"><code>DAGScheduler</code> submits a <code>ShuffleDependency</code> for execution</a>.</p>
 </li>
 </ol>
 </div>

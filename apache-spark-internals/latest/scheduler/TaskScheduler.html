@@ -69,8 +69,41 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Schedule System</span>
+    <a class="nav-link" href="index.html">Spark Scheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-scheduler-JobListener.html">JobListener</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item is-current-page" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
@@ -730,42 +763,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">High-Level Spark Stage Scheduler</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-Stage.html">Stage</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ResultStage.html">ResultStage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-JobListener.html">JobListener</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1830,7 +1827,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Schedule System</li>
+    <li><a href="index.html">Spark Scheduler</a></li>
     <li><a href="TaskScheduler.html">TaskScheduler</a></li>
   </ul>
 </nav>
@@ -1857,7 +1854,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-TaskScheduler works closely with <a href="../DAGScheduler.html" class="page">DAGScheduler</a> that <a href="#submitTasks">submits sets of tasks for execution</a> (for every stage in a Spark job).
+TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGScheduler</a> that <a href="#submitTasks">submits sets of tasks for execution</a> (for every stage in a Spark job).
 </td>
 </tr>
 </table>
@@ -1880,7 +1877,7 @@ TaskScheduler works closely with <a href="../DAGScheduler.html" class="page">DAG
 <p>Submits the tasks (of the given <a href="TaskSet.html" class="page">TaskSet</a>) for execution.</p>
 </div>
 <div class="paragraph">
-<p>Used when DAGScheduler is requested to <a href="../DAGScheduler.html#submitMissingTasks" class="page">submit missing tasks (of a stage)</a>.</p>
+<p>Used when DAGScheduler is requested to <a href="DAGScheduler.html#submitMissingTasks" class="page">submit missing tasks (of a stage)</a>.</p>
 </div>
 </div>
 </div>
@@ -1923,10 +1920,10 @@ TaskScheduler works closely with <a href="../DAGScheduler.html" class="page">DAG
 </div>
 </div>
 <div class="paragraph">
-<p>Cancels all the tasks of a given <a href="../spark-scheduler-Stage.html" class="page">stage</a></p>
+<p>Cancels all the tasks of a given <a href="spark-scheduler-Stage.html" class="page">stage</a></p>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#failJobAndIndependentStages" class="page">failJobAndIndependentStages</a></p>
+<p>Used when <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#failJobAndIndependentStages" class="page">failJobAndIndependentStages</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2008,7 +2005,7 @@ TaskScheduler works closely with <a href="../DAGScheduler.html" class="page">DAG
 <div class="ulist">
 <ul>
 <li>
-<p><code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a></p>
+<p><code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a></p>
 </li>
 <li>
 <p><code>TaskSchedulerImpl</code> is requested to <a href="TaskSchedulerImpl.html#cancelTasks" class="page">cancel all the tasks of a stage</a></p>
@@ -2027,7 +2024,7 @@ TaskScheduler works closely with <a href="../DAGScheduler.html" class="page">DAG
 </div>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#killTaskAttempt" class="page">killTaskAttempt</a></p>
+<p>Used when <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#killTaskAttempt" class="page">killTaskAttempt</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2089,10 +2086,10 @@ TaskScheduler works closely with <a href="../DAGScheduler.html" class="page">DAG
 </div>
 </div>
 <div class="paragraph">
-<p>Associates a <a href="../DAGScheduler.html" class="page">DAGScheduler</a></p>
+<p>Associates a <a href="DAGScheduler.html" class="page">DAGScheduler</a></p>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is <a href="../DAGScheduler.html#creating-instance" class="page">created</a></p>
+<p>Used when <code>DAGScheduler</code> is <a href="DAGScheduler.html#creating-instance" class="page">created</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2120,7 +2117,7 @@ TaskScheduler works closely with <a href="../DAGScheduler.html" class="page">DAG
 <p>Stops the TaskScheduler</p>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#stop" class="page">stop</a></p>
+<p>Used when <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#stop" class="page">stop</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2212,7 +2209,7 @@ FIXME The application id is described as "associated with the job." in TaskSched
 <p>The internal <code>_taskScheduler</code> is cleared (i.e. set to <code>null</code>) while <a href="../spark-SparkContext.html#stop" class="page">SparkContext is being stopped</a>.</p>
 </div>
 <div class="paragraph">
-<p><a href="#stop">TaskScheduler is stopped</a> while <a href="../DAGScheduler.html#stop" class="page">DAGScheduler is being stopped</a>.</p>
+<p><a href="#stop">TaskScheduler is stopped</a> while <a href="DAGScheduler.html#stop" class="page">DAGScheduler is being stopped</a>.</p>
 </div>
 <div class="admonitionblock warning">
 <table>

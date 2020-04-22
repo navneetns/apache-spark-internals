@@ -69,8 +69,41 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Schedule System</span>
+    <a class="nav-link" href="scheduler/index.html">Spark Scheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/DAGScheduler.html">DAGScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/spark-scheduler-Stage.html">Stage</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/spark-scheduler-JobListener.html">JobListener</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/spark-scheduler-JobWaiter.html">JobWaiter</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
@@ -730,42 +763,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">High-Level Spark Stage Scheduler</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-JobListener.html">JobListener</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1986,7 +1983,7 @@ Developing a custom SparkListener is an excellent introduction to low-level deta
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="onJobStart"></a> <code>onJobStart</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="SparkListenerJobStart"></a> <code>SparkListenerJobStart</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> handles <a href="DAGSchedulerEventProcessLoop.html#handleJobSubmitted" class="page">JobSubmitted</a> and <a href="DAGSchedulerEventProcessLoop.html#handleMapStageSubmitted" class="page">MapStageSubmitted</a> messages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> handles <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleJobSubmitted" class="page">JobSubmitted</a> and <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleMapStageSubmitted" class="page">MapStageSubmitted</a> messages</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="onNodeBlacklisted"></a> <code>onNodeBlacklisted</code></p></td>
@@ -2001,27 +1998,27 @@ Developing a custom SparkListener is an excellent introduction to low-level deta
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="onStageCompleted"></a> <code>onStageCompleted</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="SparkListenerStageCompleted"></a> <code>SparkListenerStageCompleted</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> <a href="DAGScheduler.html#markStageAsFinished" class="page">marks a stage as finished</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> <a href="scheduler/DAGScheduler.html#markStageAsFinished" class="page">marks a stage as finished</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="onStageSubmitted"></a> <code>onStageSubmitted</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="SparkListenerStageSubmitted"></a> <code>SparkListenerStageSubmitted</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> <a href="DAGScheduler.html#submitMissingTasks" class="page">submits the missing tasks of a stage (in a Spark job)</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> <a href="scheduler/DAGScheduler.html#submitMissingTasks" class="page">submits the missing tasks of a stage (in a Spark job)</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="onTaskEnd"></a> <code>onTaskEnd</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="SparkListenerTaskEnd"></a> <code>SparkListenerTaskEnd</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> <a href="DAGScheduler.html#handleTaskCompletion" class="page">handles a task completion</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> <a href="scheduler/DAGScheduler.html#handleTaskCompletion" class="page">handles a task completion</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>onTaskGettingResult</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="SparkListenerTaskGettingResult"></a> <code>SparkListenerTaskGettingResult</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> <a href="DAGSchedulerEventProcessLoop.html#handleGetTaskResult" class="page">handles <code>GettingResultEvent</code> event</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleGetTaskResult" class="page">handles <code>GettingResultEvent</code> event</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="onTaskStart"></a> <code>onTaskStart</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="SparkListenerTaskStart"></a> <code>SparkListenerTaskStart</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> is informed that a <a href="DAGSchedulerEventProcessLoop.html#handleBeginEvent" class="page">task is about to start</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DAGScheduler</code> is informed that a <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleBeginEvent" class="page">task is about to start</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="onUnpersistRDD"></a> <code>onUnpersistRDD</code></p></td>

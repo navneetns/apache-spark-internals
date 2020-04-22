@@ -69,8 +69,41 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Schedule System</span>
+    <a class="nav-link" href="scheduler/index.html">Spark Scheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/DAGScheduler.html">DAGScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/spark-scheduler-Stage.html">Stage</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/spark-scheduler-JobListener.html">JobListener</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/spark-scheduler-JobWaiter.html">JobWaiter</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
@@ -730,42 +763,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">High-Level Spark Stage Scheduler</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-JobListener.html">JobListener</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -2220,7 +2217,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>incrementEpoch</code> is used when <code>MapOutputTrackerMaster</code> <a href="#registerMapOutputs">registers map outputs</a> (with <code>changeEpoch</code> flag enabled&#8201;&#8212;&#8201;it is disabled by default) and <a href="#unregisterMapOutput">unregisters map outputs</a> (for a shuffle, mapper and block manager), and when <a href="DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page"><code>DAGScheduler</code> is notified that an executor got lost</a> (with <code>filesLost</code> flag enabled).
+<code>incrementEpoch</code> is used when <code>MapOutputTrackerMaster</code> <a href="#registerMapOutputs">registers map outputs</a> (with <code>changeEpoch</code> flag enabled&#8201;&#8212;&#8201;it is disabled by default) and <a href="#unregisterMapOutput">unregisters map outputs</a> (for a shuffle, mapper and block manager), and when <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page"><code>DAGScheduler</code> is notified that an executor got lost</a> (with <code>filesLost</code> flag enabled).
 </td>
 </tr>
 </table>
@@ -2317,7 +2314,7 @@ The input <code>numReducers</code> is not used.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>containsShuffle</code> is used exclusively when <a href="DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code></a> (for <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a>).
+<code>containsShuffle</code> is used exclusively when <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code></a> (for <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a>).
 </td>
 </tr>
 </table>
@@ -2363,7 +2360,7 @@ The number of <a href="spark-scheduler-MapStatus.adoc">MapStatus</a> entries in 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>registerShuffle</code> is used exclusively when <a href="DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code></a> (for <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a>).
+<code>registerShuffle</code> is used exclusively when <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code></a> (for <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a>).
 </td>
 </tr>
 </table>
@@ -2393,7 +2390,7 @@ The number of <a href="spark-scheduler-MapStatus.adoc">MapStatus</a> entries in 
 </td>
 <td class="content">
 <div class="paragraph">
-<p><code>registerMapOutputs</code> is used when <code>DAGScheduler</code> handles <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion-Success-ShuffleMapTask" class="page">successful <code>ShuffleMapTask</code> completion</a> and <a href="DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page">executor lost events</a>.</p>
+<p><code>registerMapOutputs</code> is used when <code>DAGScheduler</code> handles <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleTaskCompletion-Success-ShuffleMapTask" class="page">successful <code>ShuffleMapTask</code> completion</a> and <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page">executor lost events</a>.</p>
 </div>
 <div class="paragraph">
 <p>In both cases, the input <code>changeEpoch</code> is enabled.</p>
@@ -2457,7 +2454,7 @@ The number of <a href="spark-scheduler-MapStatus.adoc">MapStatus</a> entries in 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getSerializedMapOutputStatuses</code> is used when <a href="#MessageLoop"><code>MapOutputTrackerMaster</code> responds to <code>GetMapOutputMessage</code> requests</a> and <a href="DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates <code>ShuffleMapStage</code> for <code>ShuffleDependency</code></a> (copying the shuffle map output locations from previous jobs to avoid unnecessarily regenerating data).
+<code>getSerializedMapOutputStatuses</code> is used when <a href="#MessageLoop"><code>MapOutputTrackerMaster</code> responds to <code>GetMapOutputMessage</code> requests</a> and <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates <code>ShuffleMapStage</code> for <code>ShuffleDependency</code></a> (copying the shuffle map output locations from previous jobs to avoid unnecessarily regenerating data).
 </td>
 </tr>
 </table>

@@ -69,8 +69,41 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Schedule System</span>
+    <a class="nav-link" href="index.html">Spark Scheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-scheduler-JobListener.html">JobListener</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
@@ -730,42 +763,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">High-Level Spark Stage Scheduler</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-Stage.html">Stage</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ResultStage.html">ResultStage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-JobListener.html">JobListener</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1830,7 +1827,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Schedule System</li>
+    <li><a href="index.html">Spark Scheduler</a></li>
     <li><a href="TaskSetManager.html">TaskSetManager</a></li>
   </ul>
 </nav>
@@ -1851,7 +1848,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-A <a href="TaskSet.html" class="page">TaskSet</a> represents a set of <a href="Task.html" class="page">tasks</a> that correspond to missing <a href="spark-rdd-partitions.adoc">partitions</a> of a <a href="spark-scheduler-Stage.adoc">stage</a>.
+A <a href="TaskSet.html" class="page">TaskSet</a> represents a set of <a href="Task.html" class="page">tasks</a> that correspond to missing <a href="spark-rdd-partitions.adoc">partitions</a> of a <a href="spark-scheduler-Stage.html" class="page">stage</a>.
 </td>
 </tr>
 </table>
@@ -2101,7 +2098,7 @@ res0: Long = 3</code></pre>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="tasks"></a> <code>tasks</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Lookup table of <a href="Task.html" class="page">Tasks</a> (per partition id) to schedule execution of.</p>
-<p class="tableblock">NOTE: The tasks all belong to a single <a href="#taskSet">TaskSet</a> that was given when <a href="#creating-instance"><code>TaskSetManager</code> was created</a> (which actually represent a single <a href="spark-scheduler-Stage.adoc">Stage</a>).</p></td>
+<p class="tableblock">NOTE: The tasks all belong to a single <a href="#taskSet">TaskSet</a> that was given when <a href="#creating-instance"><code>TaskSetManager</code> was created</a> (which actually represent a single <a href="spark-scheduler-Stage.html" class="page">Stage</a>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="tasksSuccessful"></a> <code>tasksSuccessful</code></p></td>
@@ -2325,7 +2322,7 @@ res0: Long = 3</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>handleTaskGettingResult</code> finds <a href="spark-scheduler-TaskInfo.adoc">TaskInfo</a> for <code>tid</code> task in <a href="#taskInfos">taskInfos</a> internal registry and marks it as fetching indirect task result. It then <a href="../DAGScheduler.html#taskGettingResult" class="page">notifies <code>DAGScheduler</code></a>.</p>
+<p><code>handleTaskGettingResult</code> finds <a href="spark-scheduler-TaskInfo.adoc">TaskInfo</a> for <code>tid</code> task in <a href="#taskInfos">taskInfos</a> internal registry and marks it as fetching indirect task result. It then <a href="DAGScheduler.html#taskGettingResult" class="page">notifies <code>DAGScheduler</code></a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2597,7 +2594,7 @@ The size of the serializable task, i.e. <code>100</code> kB, is not configurable
 </div>
 </div>
 <div class="paragraph">
-<p><code>resourceOffer</code> <a href="../DAGScheduler.html#taskStarted" class="page">notifies <code>DAGScheduler</code> that the task has been started</a>.</p>
+<p><code>resourceOffer</code> <a href="DAGScheduler.html#taskStarted" class="page">notifies <code>DAGScheduler</code> that the task has been started</a>.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -2910,7 +2907,7 @@ FIXME What&#8217;s delay scheduling?
 <div class="sect2">
 <h3 id="events"><a class="anchor" href="#events"></a><a class="link" href="#events"><a id="events"></a> Events</a></h3>
 <div class="paragraph">
-<p>Once a task has finished, <code>TaskSetManager</code> informs <a href="../DAGScheduler.html#taskEnded" class="page">DAGScheduler</a>.</p>
+<p>Once a task has finished, <code>TaskSetManager</code> informs <a href="DAGScheduler.html#taskEnded" class="page">DAGScheduler</a>.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -2935,7 +2932,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>handleSuccessfulTask</code> records the <code>tid</code> task as finished, <a href="../DAGScheduler.html#taskEnded" class="page">notifies the <code>DAGScheduler</code> that the task has ended</a> and <a href="#maybeFinishTaskSet">attempts to mark the <code>TaskSet</code> finished</a>.</p>
+<p><code>handleSuccessfulTask</code> records the <code>tid</code> task as finished, <a href="DAGScheduler.html#taskEnded" class="page">notifies the <code>DAGScheduler</code> that the task has ended</a> and <a href="#maybeFinishTaskSet">attempts to mark the <code>TaskSet</code> finished</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2956,7 +2953,7 @@ FIXME
 <p>It then removes <code>tid</code> task from <a href="#runningTasksSet">runningTasksSet</a> internal registry.</p>
 </div>
 <div class="paragraph">
-<p><code>handleSuccessfulTask</code> <a href="../DAGScheduler.html#taskEnded" class="page">notifies <code>DAGScheduler</code> that <code>tid</code> task ended successfully</a> (with the <code>Task</code> object from <a href="#tasks">tasks</a> internal registry and the result as <code>Success</code>).</p>
+<p><code>handleSuccessfulTask</code> <a href="DAGScheduler.html#taskEnded" class="page">notifies <code>DAGScheduler</code> that <code>tid</code> task ended successfully</a> (with the <code>Task</code> object from <a href="#tasks">tasks</a> internal registry and the result as <code>Success</code>).</p>
 </div>
 <div class="paragraph">
 <p>At this point, <code>handleSuccessfulTask</code> finds the other <a href="#taskAttempts">running task attempts</a> of <code>tid</code> task and <a href="SchedulerBackend.html#killTask" class="page">requests <code>SchedulerBackend</code> to kill them</a> (since they are no longer necessary now when at least one task attempt has completed successfully). You should see the following INFO message in the logs:</p>
@@ -3121,7 +3118,7 @@ org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in sta
 </div>
 </div>
 <div class="paragraph">
-<p><code>abort</code> informs <a href="../DAGScheduler.html#taskSetFailed" class="page"><code>DAGScheduler</code> that the <code>TaskSet</code> has been aborted</a>.</p>
+<p><code>abort</code> informs <a href="DAGScheduler.html#taskSetFailed" class="page"><code>DAGScheduler</code> that the <code>TaskSet</code> has been aborted</a>.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -3363,7 +3360,7 @@ Description of how the final failure exception is "computed" was moved to respec
 </table>
 </div>
 <div class="paragraph">
-<p><code>handleFailedTask</code> <a href="../DAGScheduler.html#taskEnded" class="page">informs <code>DAGScheduler</code> that <code>tid</code> task has ended</a> (passing on the <code>Task</code> instance from <a href="#tasks">tasks</a> internal registry, the input <code>reason</code>, <code>null</code> result, calculated <code>accumUpdates</code> per failure, and the <a href="spark-scheduler-TaskInfo.adoc">TaskInfo</a>).</p>
+<p><code>handleFailedTask</code> <a href="DAGScheduler.html#taskEnded" class="page">informs <code>DAGScheduler</code> that <code>tid</code> task has ended</a> (passing on the <code>Task</code> instance from <a href="#tasks">tasks</a> internal registry, the input <code>reason</code>, <code>null</code> result, calculated <code>accumUpdates</code> per failure, and the <a href="spark-scheduler-TaskInfo.adoc">TaskInfo</a>).</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -3642,7 +3639,7 @@ Since <code>TaskSetManager</code> manages execution of the tasks in a single <a 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>executorLost</code> checks out the first task in <a href="#tasks">tasks</a> as it is assumed the other belong to the same stage. If the task is a <a href="ShuffleMapTask.html" class="page">ShuffleMapTask</a>, the entire <a href="#taskSet">TaskSet</a> is for a <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a>.
+<code>executorLost</code> checks out the first task in <a href="#tasks">tasks</a> as it is assumed the other belong to the same stage. If the task is a <a href="ShuffleMapTask.html" class="page">ShuffleMapTask</a>, the entire <a href="#taskSet">TaskSet</a> is for a <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a>.
 </td>
 </tr>
 </table>
@@ -3660,7 +3657,7 @@ Since <code>TaskSetManager</code> manages execution of the tasks in a single <a 
 </table>
 </div>
 <div class="paragraph">
-<p>If <code>executorLost</code> is indeed due to an executor lost that executed tasks for a <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> (that this <code>TaskSetManager</code> manages) and no external shuffle server is enabled, <code>executorLost</code> finds <a href="#taskInfos">all the tasks</a> that were scheduled on this lost executor and marks the <a href="#successful">ones that were already successfully completed</a> as not executed yet.</p>
+<p>If <code>executorLost</code> is indeed due to an executor lost that executed tasks for a <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> (that this <code>TaskSetManager</code> manages) and no external shuffle server is enabled, <code>executorLost</code> finds <a href="#taskInfos">all the tasks</a> that were scheduled on this lost executor and marks the <a href="#successful">ones that were already successfully completed</a> as not executed yet.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3675,7 +3672,7 @@ Since <code>TaskSetManager</code> manages execution of the tasks in a single <a 
 </table>
 </div>
 <div class="paragraph">
-<p><code>executorLost</code> <a href="#addPendingTask">registers every task as pending execution (per preferred locations)</a> and <a href="../DAGScheduler.html#taskEnded" class="page">informs <code>DAGScheduler</code> that the tasks (on the lost executor) have ended</a> (with <a href="../DAGScheduler.html#handleTaskCompletion-Resubmitted" class="page">Resubmitted</a> reason).</p>
+<p><code>executorLost</code> <a href="#addPendingTask">registers every task as pending execution (per preferred locations)</a> and <a href="DAGScheduler.html#taskEnded" class="page">informs <code>DAGScheduler</code> that the tasks (on the lost executor) have ended</a> (with <a href="DAGScheduler.html#handleTaskCompletion-Resubmitted" class="page">Resubmitted</a> reason).</p>
 </div>
 <div class="admonitionblock note">
 <table>

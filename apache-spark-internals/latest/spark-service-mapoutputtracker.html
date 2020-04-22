@@ -69,8 +69,41 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Schedule System</span>
+    <a class="nav-link" href="scheduler/index.html">Spark Scheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/DAGScheduler.html">DAGScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/spark-scheduler-Stage.html">Stage</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/spark-scheduler-JobListener.html">JobListener</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/spark-scheduler-JobWaiter.html">JobWaiter</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="scheduler/TaskScheduler.html">TaskScheduler</a>
@@ -730,42 +763,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">High-Level Spark Stage Scheduler</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-JobListener.html">JobListener</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1908,13 +1905,13 @@
 </tbody>
 </table>
 <div class="paragraph">
-<p><code>MapOutputTracker</code> is also used for <code>mapOutputTracker.containsShuffle</code> and <a href="spark-service-MapOutputTrackerMaster.adoc#registerShuffle">MapOutputTrackerMaster.registerShuffle</a> when a new <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> is created.</p>
+<p><code>MapOutputTracker</code> is also used for <code>mapOutputTracker.containsShuffle</code> and <a href="spark-service-MapOutputTrackerMaster.adoc#registerShuffle">MapOutputTrackerMaster.registerShuffle</a> when a new <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> is created.</p>
 </div>
 <div class="paragraph">
-<p><a href="spark-service-MapOutputTrackerMaster.adoc#getStatistics">MapOutputTrackerMaster.getStatistics(dependency)</a> returns <code>MapOutputStatistics</code> that becomes the result of <a href="spark-scheduler-JobWaiter.adoc">JobWaiter.taskSucceeded</a> for <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> if it&#8217;s the final stage in a job.</p>
+<p><a href="spark-service-MapOutputTrackerMaster.adoc#getStatistics">MapOutputTrackerMaster.getStatistics(dependency)</a> returns <code>MapOutputStatistics</code> that becomes the result of <a href="scheduler/spark-scheduler-JobWaiter.html" class="page">JobWaiter.taskSucceeded</a> for <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> if it&#8217;s the final stage in a job.</p>
 </div>
 <div class="paragraph">
-<p><a href="spark-service-MapOutputTrackerMaster.adoc#registerMapOutputs">MapOutputTrackerMaster.registerMapOutputs</a> for a shuffle id and a list of <code>MapStatus</code> when a <a href="spark-scheduler-ShuffleMapStage.adoc">ShuffleMapStage</a> is finished.</p>
+<p><a href="spark-service-MapOutputTrackerMaster.adoc#registerMapOutputs">MapOutputTrackerMaster.registerMapOutputs</a> for a shuffle id and a list of <code>MapStatus</code> when a <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> is finished.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2029,7 +2026,7 @@ The internal <code>totalSizes</code> array has the number of elements as specifi
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getStatistics</code> is used when <a href="DAGSchedulerEventProcessLoop.html#handleMapStageSubmitted" class="page"><code>DAGScheduler</code> accepts a <code>ShuffleDependency</code> for execution</a> (and the <a href="spark-scheduler-ShuffleMapStage.adoc#isAvailable">corresponding <code>ShuffleMapStage</code> has already been computed</a>) and <a href="#handleTaskCompletion-Success-ShuffleMapTask">gets notified that a <code>ShuffleMapTask</code> has completed</a> (and map-stage jobs waiting for the stage are then marked as finished).
+<code>getStatistics</code> is used when <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleMapStageSubmitted" class="page"><code>DAGScheduler</code> accepts a <code>ShuffleDependency</code> for execution</a> (and the <a href="scheduler/spark-scheduler-ShuffleMapStage.html#isAvailable" class="page">corresponding <code>ShuffleMapStage</code> has already been computed</a>) and <a href="#handleTaskCompletion-Success-ShuffleMapTask">gets notified that a <code>ShuffleMapTask</code> has completed</a> (and map-stage jobs waiting for the stage are then marked as finished).
 </td>
 </tr>
 </table>
@@ -2125,7 +2122,7 @@ FIXME How do the start and end partitions influence the return value?
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getEpoch</code> is used when <a href="DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page"><code>DAGScheduler</code> is notified that an executor was lost</a> and when <a href="scheduler/TaskSetManager.html#creating-instance" class="page"><code>TaskSetManager</code> is created</a> (and sets the epoch for the tasks in a <a href="scheduler/TaskSet.html" class="page">TaskSet</a>).
+<code>getEpoch</code> is used when <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page"><code>DAGScheduler</code> is notified that an executor was lost</a> and when <a href="scheduler/TaskSetManager.html#creating-instance" class="page"><code>TaskSetManager</code> is created</a> (and sets the epoch for the tasks in a <a href="scheduler/TaskSet.html" class="page">TaskSet</a>).
 </td>
 </tr>
 </table>

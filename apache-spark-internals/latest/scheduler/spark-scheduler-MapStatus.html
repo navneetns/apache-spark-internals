@@ -69,8 +69,41 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Schedule System</span>
+    <a class="nav-link" href="index.html">Spark Scheduler</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="spark-scheduler-JobListener.html">JobListener</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
@@ -730,42 +763,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">High-Level Spark Stage Scheduler</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGScheduler.html">DAGScheduler</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-Stage.html">Stage</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-ResultStage.html">ResultStage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-scheduler-StageInfo.html">StageInfo</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-scheduler-JobListener.html">JobListener</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-scheduler-JobWaiter.html">JobWaiter</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1830,7 +1827,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Schedule System</li>
+    <li><a href="index.html">Spark Scheduler</a></li>
     <li><a href="spark-scheduler-MapStatus.html">MapStatus</a></li>
   </ul>
 </nav>
@@ -1848,7 +1845,7 @@
 <p><code>MapStatus</code> is <a href="#apply">created</a> as the result of <a href="ShuffleMapTask.html#runTask" class="page">executing a ShuffleMapTask</a> (after a <a href="../shuffle/ShuffleManager.html#getWriter" class="page">ShuffleWriter</a> has <a href="../shuffle/ShuffleWriter.html#stop" class="page">finished writing partition records successfully</a>).</p>
 </div>
 <div class="paragraph">
-<p>After a <a href="ShuffleMapTask.html#runTask" class="page">ShuffleMapTask has finished execution successfully</a>, <code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a> (of the <code>ShuffleMapTask</code>) that requests the <a href="../DAGScheduler.html#mapOutputTracker" class="page">MapOutputTrackerMaster</a> to <a href="#spark-service-MapOutputTrackerMaster.adoc#registerMapOutput" class="page unresolved">register the MapStatus</a>.</p>
+<p>After a <a href="ShuffleMapTask.html#runTask" class="page">ShuffleMapTask has finished execution successfully</a>, <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a> (of the <code>ShuffleMapTask</code>) that requests the <a href="DAGScheduler.html#mapOutputTracker" class="page">MapOutputTrackerMaster</a> to <a href="#spark-service-MapOutputTrackerMaster.adoc#registerMapOutput" class="page unresolved">register the MapStatus</a>.</p>
 </div>
 <table id="contract" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. MapStatus Contract</caption>
@@ -1903,7 +1900,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>DAGScheduler</code> is requested to <a href="../DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a> (of a <code>ShuffleMapTask</code>)</p>
+<p><code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a> (of a <code>ShuffleMapTask</code>)</p>
 </li>
 <li>
 <p><code>ShuffleStatus</code> is requested to <code>removeMapOutput</code> and <code>removeOutputsByFilter</code></p>
