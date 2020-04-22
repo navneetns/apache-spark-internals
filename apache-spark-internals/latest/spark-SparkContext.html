@@ -82,7 +82,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/spark-scheduler-Stage.html">Stage</a>
+    <a class="nav-link" href="scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
@@ -205,6 +205,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -879,9 +882,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-cachemanager.html">Cache Manager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-service-outputcommitcoordinator.html">OutputCommitCoordinator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1839,7 +1839,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>SparkContext</code> (aka <strong>Spark context</strong>) is the entry point to all services of Apache Spark (execution engine) and so the heart of a Spark application. In fact, you can consider an application a Spark application only when it uses a <code>SparkContext</code> (directly or indirectly).</p>
+<p><strong>SparkContext</strong> is the entry point to all components of Apache Spark (execution engine) and so the heart of a Spark application. In fact, you can consider an application a Spark application only when it uses a SparkContext (directly or indirectly).</p>
 </div>
 <table id="methods" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. SparkContext&#8217;s Developer API (Public Methods)</caption>
@@ -1874,7 +1874,7 @@
 <p>Spark context <a href="spark-SparkContext-creating-instance-internals.adoc">sets up internal services</a> and establishes a connection to a <a href="spark-deployment-environments.adoc">Spark execution environment</a>.</p>
 </div>
 <div class="paragraph">
-<p>Once a <a href="#creating-instance"><code>SparkContext</code> is created</a> you can use it to <a href="#creating-rdds">create RDDs</a>, <a href="#creating-accumulators">accumulators</a> and <a href="#broadcast">broadcast variables</a>, access Spark services and <a href="#runJob">run jobs</a> (until <code>SparkContext</code> is <a href="#stop">stopped</a>).</p>
+<p>Once a <a href="#creating-instance">SparkContext is created</a> you can use it to <a href="#creating-rdds">create RDDs</a>, <a href="#creating-accumulators">accumulators</a> and <a href="#broadcast">broadcast variables</a>, access Spark services and <a href="#runJob">run jobs</a> (until SparkContext is <a href="#stop">stopped</a>).</p>
 </div>
 <div class="paragraph">
 <p>A Spark context is essentially a client of Spark&#8217;s execution environment and acts as the <em>master of your Spark application</em> (don&#8217;t get confused with the other meaning of <a href="spark-master.adoc">Master</a> in Spark, though).</p>
@@ -1886,7 +1886,7 @@
 <div class="title">Figure 1. Spark context acts as the master of your Spark application</div>
 </div>
 <div class="paragraph">
-<p><code>SparkContext</code> offers the following functions:</p>
+<p>SparkContext offers the following functions:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1919,7 +1919,7 @@
 <p><a href="#sparkUser">Spark user</a></p>
 </li>
 <li>
-<p><a href="#startTime">the time (in milliseconds) when <code>SparkContext</code> was created</a></p>
+<p><a href="#startTime">the time (in milliseconds) when SparkContext was created</a></p>
 </li>
 <li>
 <p><a href="#uiWebUrl">URL of web UI</a></p>
@@ -2003,74 +2003,6 @@
 </li>
 </ul>
 </div>
-<table id="internal-registries" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. SparkContext&#8217;s Internal Registries and Counters</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>persistentRdds</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="persistentRdds"></a> Lookup table of persistent/cached RDDs per their ids.</p>
-</div>
-<div class="paragraph">
-<p>Used when <code>SparkContext</code> is requested to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#persistRDD">persistRDD</a></p>
-</li>
-<li>
-<p><a href="#getRDDStorageInfo">getRDDStorageInfo</a></p>
-</li>
-<li>
-<p><a href="#getPersistentRDDs">getPersistentRDDs</a></p>
-</li>
-<li>
-<p><a href="#unpersistRDD">unpersistRDD</a></p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stopped</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="stopped"></a> Flag that says whether&#8230;&#8203;FIXME (<code>true</code>) or not (<code>false</code>)</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<table id="internal-properties" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. SparkContext&#8217;s Internal Properties</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Initial Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="_taskScheduler"></a> _taskScheduler</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(uninitialized)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a></p></td>
-</tr>
-</tbody>
-</table>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -2079,31 +2011,6 @@
 </td>
 <td class="content">
 Read the scaladoc of  <a href="http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.SparkContext">org.apache.spark.SparkContext</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Enable <code>INFO</code> logging level for <code>org.apache.spark.SparkContext</code> logger to see what happens inside.</p>
-</div>
-<div class="paragraph">
-<p>Add the following line to <code>conf/log4j.properties</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.SparkContext=INFO</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Refer to <a href="spark-logging.adoc">Logging</a>.</p>
-</div>
 </td>
 </tr>
 </table>
@@ -2143,7 +2050,7 @@ addFile(path: String, recursive: Boolean): Unit</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><code>SparkContext</code> is <a href="spark-SparkContext-creating-instance-internals.adoc#files">initialized</a> (and <code>files</code> were defined)</p>
+<p>SparkContext is <a href="spark-SparkContext-creating-instance-internals.adoc#files">initialized</a> (and <code>files</code> were defined)</p>
 </li>
 <li>
 <p>Spark SQL&#8217;s <code>AddFileCommand</code> is executed</p>
@@ -2204,7 +2111,7 @@ addFile(path: String, recursive: Boolean): Unit</code></pre>
 <p><code>ContextCleaner</code> does <a href="spark-service-contextcleaner.adoc#doCleanupRDD">doCleanupRDD</a></p>
 </li>
 <li>
-<p><code>SparkContext</code> <a href="#unpersist">unpersists an RDD</a> (i.e. marks an RDD as non-persistent)</p>
+<p>SparkContext <a href="#unpersist">unpersists an RDD</a> (i.e. marks an RDD as non-persistent)</p>
 </li>
 </ul>
 </div>
@@ -2249,7 +2156,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>postApplicationStart</code> is used exclusively while <code>SparkContext</code> is being <a href="spark-SparkContext-creating-instance-internals.html#postApplicationStart" class="page">created</a>
+<code>postApplicationStart</code> is used exclusively while SparkContext is being <a href="spark-SparkContext-creating-instance-internals.html#postApplicationStart" class="page">created</a>
 </td>
 </tr>
 </table>
@@ -2349,7 +2256,7 @@ cancelStage(stageId: Int, reason: String): Unit</code></pre>
 <h2 id="programmable-dynamic-allocation"><a class="anchor" href="#programmable-dynamic-allocation"></a><a class="link" href="#programmable-dynamic-allocation"><a id="dynamic-allocation"></a> Programmable Dynamic Allocation</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>SparkContext</code> offers the following methods as the developer API for <a href="spark-dynamic-allocation.adoc">dynamic allocation of executors</a>:</p>
+<p>SparkContext offers the following methods as the developer API for <a href="spark-dynamic-allocation.adoc">dynamic allocation of executors</a>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2473,10 +2380,10 @@ FIXME Why does SparkContext implement the method for coarse-grained scheduler ba
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-sparkcontext-instance"><a class="anchor" href="#creating-sparkcontext-instance"></a><a class="link" href="#creating-sparkcontext-instance"><a id="creating-instance"></a> Creating <code>SparkContext</code> Instance</a></h2>
+<h2 id="creating-sparkcontext-instance"><a class="anchor" href="#creating-sparkcontext-instance"></a><a class="link" href="#creating-sparkcontext-instance"><a id="creating-instance"></a> Creating SparkContext Instance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can create a <code>SparkContext</code> instance with or without creating a <a href="spark-SparkConf.adoc">SparkConf</a> object first.</p>
+<p>You can create a SparkContext instance with or without creating a <a href="spark-SparkConf.adoc">SparkConf</a> object first.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2485,7 +2392,7 @@ FIXME Why does SparkContext implement the method for coarse-grained scheduler ba
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You may want to read <a href="spark-SparkContext-creating-instance-internals.adoc">Inside Creating SparkContext</a> to learn what happens behind the scenes when <code>SparkContext</code> is created.
+You may want to read <a href="spark-SparkContext-creating-instance-internals.adoc">Inside Creating SparkContext</a> to learn what happens behind the scenes when SparkContext is created.
 </td>
 </tr>
 </table>
@@ -2499,7 +2406,7 @@ getOrCreate(conf: SparkConf): SparkContext</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>getOrCreate</code> methods allow you to get the existing <code>SparkContext</code> or create a new one.</p>
+<p><code>getOrCreate</code> methods allow you to get the existing SparkContext or create a new one.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2534,7 +2441,7 @@ SparkContext(
 </div>
 </div>
 <div class="paragraph">
-<p>You can create a <code>SparkContext</code> instance using the four constructors.</p>
+<p>You can create a SparkContext instance using the four constructors.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2677,7 +2584,7 @@ Changing the <code>SparkConf</code> object does not change the current configura
 <p><a href="scheduler/ShuffleMapTask.html#creating-instance" class="page">ShuffleMapTask</a> and <a href="scheduler/ResultTask.html#creating-instance" class="page">ResultTask</a> are created</p>
 </li>
 <li>
-<p><code>SparkContext</code> <a href="#postApplicationStart">announces that a Spark application has started</a></p>
+<p>SparkContext <a href="#postApplicationStart">announces that a Spark application has started</a></p>
 </li>
 </ul>
 </div>
@@ -2723,7 +2630,7 @@ Changing the <code>SparkConf</code> object does not change the current configura
 <div class="ulist">
 <ul>
 <li>
-<p><code>SparkContext</code> <a href="#getRDDStorageInfo">is requested for storage status of cached RDDs</a></p>
+<p>SparkContext <a href="#getRDDStorageInfo">is requested for storage status of cached RDDs</a></p>
 </li>
 <li>
 <p><code>SparkStatusTracker</code> <a href="spark-sparkcontext-SparkStatusTracker.adoc#getExecutorInfos">is requested for information about all known executors</a></p>
@@ -2919,7 +2826,7 @@ taskScheduler_=(ts: TaskScheduler): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>version</code> returns the Spark version this <code>SparkContext</code> uses.</p>
+<p><code>version</code> returns the Spark version this SparkContext uses.</p>
 </div>
 </div>
 </div>
@@ -3024,7 +2931,7 @@ FIXME
 <h2 id="creating-rddparallelize-method"><a class="anchor" href="#creating-rddparallelize-method"></a><a class="link" href="#creating-rddparallelize-method"><a id="creating-rdds"></a><a id="parallelize"></a> Creating RDD&#8201;&#8212;&#8201;<code>parallelize</code> Method</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>SparkContext</code> allows you to create many different RDDs from input sources like:</p>
+<p>SparkContext allows you to create many different RDDs from input sources like:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3117,7 +3024,7 @@ You can create built-in accumulators for longs, doubles, and collection types us
 </table>
 </div>
 <div class="paragraph">
-<p>Internally, <code>register</code> <a href="spark-accumulators.adoc#register">registers <code>acc</code> accumulator</a> (with the current <code>SparkContext</code>).</p>
+<p>Internally, <code>register</code> <a href="spark-accumulators.adoc#register">registers <code>acc</code> accumulator</a> (with the current SparkContext).</p>
 </div>
 </div>
 </div>
@@ -3301,7 +3208,7 @@ FIXME Why is HttpFileServer used for addJar?
 </table>
 </div>
 <div class="sect2">
-<h3 id="sparkcontext-as-application-wide-counter"><a class="anchor" href="#sparkcontext-as-application-wide-counter"></a><a class="link" href="#sparkcontext-as-application-wide-counter"><code>SparkContext</code> as Application-Wide Counter</a></h3>
+<h3 id="sparkcontext-as-application-wide-counter"><a class="anchor" href="#sparkcontext-as-application-wide-counter"></a><a class="link" href="#sparkcontext-as-application-wide-counter">SparkContext as Application-Wide Counter</a></h3>
 <div class="paragraph">
 <p>SparkContext keeps track of:</p>
 </div>
@@ -3349,7 +3256,7 @@ runJob[T, U: ClassTag](
 </div>
 </div>
 <div class="paragraph">
-<p><code>runJob</code> executes a function on one or many partitions of a RDD (in a <code>SparkContext</code> space) to produce a collection of values per partition.</p>
+<p><code>runJob</code> executes a function on one or many partitions of a RDD (in a SparkContext space) to produce a collection of values per partition.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3358,13 +3265,13 @@ runJob[T, U: ClassTag](
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>runJob</code> can only work when a <code>SparkContext</code> is <em>not</em> <a href="#stop">stopped</a>.
+<code>runJob</code> can only work when a SparkContext is <em>not</em> <a href="#stop">stopped</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Internally, <code>runJob</code> first makes sure that the <code>SparkContext</code> is not <a href="#stop">stopped</a>. If it is, you should see the following <code>IllegalStateException</code> exception in the logs:</p>
+<p>Internally, <code>runJob</code> first makes sure that the SparkContext is not <a href="#stop">stopped</a>. If it is, you should see the following <code>IllegalStateException</code> exception in the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3471,7 +3378,7 @@ Read <a href="spark-TaskContext.adoc">TaskContext</a>.
 </div>
 </div>
 <div class="sect1">
-<h2 id="stopping-sparkcontextstop-method"><a class="anchor" href="#stopping-sparkcontextstop-method"></a><a class="link" href="#stopping-sparkcontextstop-method"><a id="stop"></a><a id="stopping"></a> Stopping <code>SparkContext</code>&#8201;&#8212;&#8201;<code>stop</code> Method</a></h2>
+<h2 id="stopping-sparkcontextstop-method"><a class="anchor" href="#stopping-sparkcontextstop-method"></a><a class="link" href="#stopping-sparkcontextstop-method"><a id="stop"></a><a id="stopping"></a> Stopping SparkContext&#8201;&#8212;&#8201;<code>stop</code> Method</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -3479,7 +3386,7 @@ Read <a href="spark-TaskContext.adoc">TaskContext</a>.
 </div>
 </div>
 <div class="paragraph">
-<p><code>stop</code> stops the <code>SparkContext</code>.</p>
+<p><code>stop</code> stops the SparkContext.</p>
 </div>
 <div class="paragraph">
 <p>Internally, <code>stop</code> enables <code>stopped</code> internal flag. If already stopped, you should see the following INFO message in the logs:</p>
@@ -3537,7 +3444,7 @@ Read <a href="spark-TaskContext.adoc">TaskContext</a>.
 <p>Clears <a href="yarn/spark-yarn-client.adoc#SPARK_YARN_MODE"><code>SPARK_YARN_MODE</code> flag</a></p>
 </li>
 <li>
-<p><a href="#clearActiveContext">Clears an active <code>SparkContext</code></a></p>
+<p><a href="#clearActiveContext">Clears an active SparkContext</a></p>
 </li>
 </ol>
 </div>
@@ -3723,7 +3630,7 @@ FIXME an example, please.
 <h2 id="hadoop-configuration"><a class="anchor" href="#hadoop-configuration"></a><a class="link" href="#hadoop-configuration"><a id="hadoopConfiguration"></a> Hadoop Configuration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>While a <a href="#creating-instance"><code>SparkContext</code> is being created</a>, so is a Hadoop configuration (as an instance of <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/conf/Configuration.html">org.apache.hadoop.conf.Configuration</a> that is available as <code>_hadoopConfiguration</code>).</p>
+<p>While a <a href="#creating-instance">SparkContext is being created</a>, so is a Hadoop configuration (as an instance of <a href="https://hadoop.apache.org/docs/current/api/org/apache/hadoop/conf/Configuration.html">org.apache.hadoop.conf.Configuration</a> that is available as <code>_hadoopConfiguration</code>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3786,7 +3693,7 @@ It is created and started when <a href="spark-SparkContext-creating-instance-int
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>listenerBus</code> is a <code>private[spark]</code> value in <code>SparkContext</code>.
+<code>listenerBus</code> is a <code>private[spark]</code> value in SparkContext.
 </td>
 </tr>
 </table>
@@ -3794,7 +3701,7 @@ It is created and started when <a href="spark-SparkContext-creating-instance-int
 </div>
 </div>
 <div class="sect1">
-<h2 id="time-when-sparkcontext-was-createdstarttime-property"><a class="anchor" href="#time-when-sparkcontext-was-createdstarttime-property"></a><a class="link" href="#time-when-sparkcontext-was-createdstarttime-property"><a id="startTime"></a> Time when <code>SparkContext</code> was Created&#8201;&#8212;&#8201;<code>startTime</code> Property</a></h2>
+<h2 id="time-when-sparkcontext-was-createdstarttime-property"><a class="anchor" href="#time-when-sparkcontext-was-createdstarttime-property"></a><a class="link" href="#time-when-sparkcontext-was-createdstarttime-property"><a id="startTime"></a> Time when SparkContext was Created&#8201;&#8212;&#8201;<code>startTime</code> Property</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -3821,7 +3728,7 @@ res0: Long = 1464425605653</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>sparkUser</code> is the user who started the <code>SparkContext</code> instance.</p>
+<p><code>sparkUser</code> is the user who started the SparkContext instance.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4020,7 +3927,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="spark-service-contextcleaner.adoc#creating-instance"><code>ContextCleaner</code> is created</a> when <a href="spark-SparkContext-creating-instance-internals.adoc#_cleaner"><code>SparkContext</code> is created with <code>spark.cleaner.referenceTracking</code> Spark property enabled</a> (which it is by default).
+<a href="spark-service-contextcleaner.adoc#creating-instance"><code>ContextCleaner</code> is created</a> when <a href="spark-SparkContext-creating-instance-internals.adoc#_cleaner">SparkContext is created with <code>spark.cleaner.referenceTracking</code> Spark property enabled</a> (which it is by default).
 </td>
 </tr>
 </table>
@@ -4168,7 +4075,7 @@ getRDDStorageInfo(filter: RDD[_] =&gt; Boolean): Array[RDDInfo]  <i class="conum
 </div>
 </div>
 <div class="paragraph">
-<p>When creating an instance of <code>SparkContext</code>, Spark marks the current thread as having it being created (very early in the instantiation process).</p>
+<p>When creating an instance of SparkContext, Spark marks the current thread as having it being created (very early in the instantiation process).</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -4326,7 +4233,7 @@ FIXME
 <h2 id="environment-variables"><a class="anchor" href="#environment-variables"></a><a class="link" href="#environment-variables"><a id="environment-variables"></a> Environment Variables</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Environment Variables</caption>
+<caption class="title">Table 2. Environment Variables</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -4349,7 +4256,7 @@ FIXME
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="SPARK_USER"></a> <code>SPARK_USER</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The user who is running <code>SparkContext</code>. Available later as <a href="#sparkUser">sparkUser</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user who is running SparkContext. Available later as <a href="#sparkUser">sparkUser</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -4373,7 +4280,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>postEnvironmentUpdate</code> is used when <code>SparkContext</code> is <a href="spark-SparkContext-creating-instance-internals.html#postEnvironmentUpdate" class="page">created</a>, and requested to <a href="#addFile">addFile</a> and <a href="#addJar">addJar</a>.
+<code>postEnvironmentUpdate</code> is used when SparkContext is <a href="spark-SparkContext-creating-instance-internals.html#postEnvironmentUpdate" class="page">created</a>, and requested to <a href="#addFile">addFile</a> and <a href="#addJar">addJar</a>.
 </td>
 </tr>
 </table>
@@ -4433,6 +4340,95 @@ FIXME
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="killing-task"><a class="anchor" href="#killing-task"></a><a class="link" href="#killing-task"><a id="killTaskAttempt"></a> Killing Task</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">killTaskAttempt(
+  taskId: Long,
+  interruptThread: Boolean = true,
+  reason: String = "killed via SparkContext.killTaskAttempt"): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>killTaskAttempt requests the <a href="#dagScheduler">DAGScheduler</a> to <a href="scheduler/DAGScheduler.html#killTaskAttempt" class="page">kill a task</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.SparkContext</code> logger to see what happens inside.</p>
+</div>
+<div class="paragraph">
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.SparkContext=ALL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="spark-logging.html" class="page">Logging</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>persistentRdds</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="persistentRdds"></a> Lookup table of persistent/cached RDDs per their ids.</p>
+</div>
+<div class="paragraph">
+<p>Used when SparkContext is requested to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#persistRDD">persistRDD</a></p>
+</li>
+<li>
+<p><a href="#getRDDStorageInfo">getRDDStorageInfo</a></p>
+</li>
+<li>
+<p><a href="#getPersistentRDDs">getPersistentRDDs</a></p>
+</li>
+<li>
+<p><a href="#unpersistRDD">unpersistRDD</a></p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stopped</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="stopped"></a> Flag that says whether&#8230;&#8203;FIXME (<code>true</code>) or not (<code>false</code>)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_taskScheduler</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="_taskScheduler"></a> <a href="scheduler/TaskScheduler.html" class="page">TaskScheduler</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </article>

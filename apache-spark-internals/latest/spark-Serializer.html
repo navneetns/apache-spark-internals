@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> Serializer :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-Serializer.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -82,7 +82,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/spark-scheduler-Stage.html">Stage</a>
+    <a class="nav-link" href="scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
@@ -205,6 +205,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -879,9 +882,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-cachemanager.html">Cache Manager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-service-outputcommitcoordinator.html">OutputCommitCoordinator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1836,11 +1836,10 @@
   </div>
   <div class="content">
 <article class="doc">
+<h1 class="page"><a id="Serializer"></a> Serializer</h1>
 <div class="sect1">
-<h2 id="serializertask-serialization-and-deserialization"><a class="anchor" href="#serializertask-serialization-and-deserialization"></a><a class="link" href="#serializertask-serialization-and-deserialization"><a id="Serializer"></a> Serializer&#8201;&#8212;&#8201;Task Serialization and Deserialization</a></h2>
+<h2 id="newinstance-method"><a class="anchor" href="#newinstance-method"></a><a class="link" href="#newinstance-method"><a id="newInstance"></a> newInstance Method</a></h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="newinstance-method"><a class="anchor" href="#newinstance-method"></a><a class="link" href="#newinstance-method"><a id="newInstance"></a> <code>newInstance</code> Method</a></h3>
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -1854,8 +1853,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deserialize-method"><a class="anchor" href="#deserialize-method"></a><a class="link" href="#deserialize-method"><a id="deserialize"></a> <code>deserialize</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="serialize-method"><a class="anchor" href="#serialize-method"></a><a class="link" href="#serialize-method"><a id="serialize"></a> serialize Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -1869,8 +1870,27 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="supportsrelocationofserializedobjects-property"><a class="anchor" href="#supportsrelocationofserializedobjects-property"></a><a class="link" href="#supportsrelocationofserializedobjects-property"><a id="supportsRelocationOfSerializedObjects"></a> <code>supportsRelocationOfSerializedObjects</code> Property</a></h3>
+</div>
+<div class="sect1">
+<h2 id="deserialize-method"><a class="anchor" href="#deserialize-method"></a><a class="link" href="#deserialize-method"><a id="deserialize"></a> deserialize Method</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="supportsrelocationofserializedobjects-property"><a class="anchor" href="#supportsrelocationofserializedobjects-property"></a><a class="link" href="#supportsrelocationofserializedobjects-property"><a id="supportsRelocationOfSerializedObjects"></a> <code>supportsRelocationOfSerializedObjects</code> Property</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><code>supportsRelocationOfSerializedObjects</code> should be enabled (i.e. true) only when reordering the bytes of serialized objects in serialization stream output is equivalent to having re-ordered those elements prior to serializing them.</p>
 </div>
@@ -1900,7 +1920,6 @@ FIXME
 </td>
 </tr>
 </table>
-</div>
 </div>
 </div>
 </div>

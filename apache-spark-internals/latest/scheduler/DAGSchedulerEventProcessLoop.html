@@ -82,7 +82,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
+    <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
@@ -205,6 +205,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -879,9 +882,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-cachemanager.html">Cache Manager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-service-outputcommitcoordinator.html">OutputCommitCoordinator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1840,10 +1840,10 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>DAGSchedulerEventProcessLoop</strong> is a event processing thread to handle <a href="#DAGSchedulerEvent">DAGScheduler events</a> asynchronously and serially, i.e. one by one.</p>
+<p><strong>DAGSchedulerEventProcessLoop</strong> is an event processing thread to handle <a href="#DAGSchedulerEvent">DAGScheduler events</a> asynchronously and serially, i.e. one by one.</p>
 </div>
 <div class="paragraph">
-<p>DAGSchedulerEventProcessLoop is registered with the name of <strong>dag-scheduler-event-loop</strong>.</p>
+<p>DAGSchedulerEventProcessLoop is registered under the name of <strong>dag-scheduler-event-loop</strong>.</p>
 </div>
 <div class="paragraph">
 <p>The purpose of the DAGSchedulerEventProcessLoop is to have a separate thread to process events asynchronously alongside <a href="DAGScheduler.html" class="page">DAGScheduler</a>.</p>
@@ -2178,7 +2178,7 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p><code>handleMapStageSubmitted</code> <a href="DAGScheduler.html#jobIdToStageIds" class="page">finds all the registered stages for the input <code>jobId</code></a> and collects <a href="spark-scheduler-Stage.html#latestInfo" class="page">their latest <code>StageInfo</code></a>.</p>
+<p><code>handleMapStageSubmitted</code> <a href="DAGScheduler.html#jobIdToStageIds" class="page">finds all the registered stages for the input <code>jobId</code></a> and collects <a href="Stage.html#latestInfo" class="page">their latest <code>StageInfo</code></a>.</p>
 </div>
 <div class="paragraph">
 <p>Ultimately, <code>handleMapStageSubmitted</code> posts <a href="spark-scheduler-SparkListener.adoc#SparkListenerJobStart">SparkListenerJobStart</a> message to <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> and <a href="DAGScheduler.html#submitStage" class="page">submits the <code>ShuffleMapStage</code></a>.</p>
@@ -2643,7 +2643,7 @@ FIXME Review what&#8217;s <code>filesLost</code>.
 </tbody>
 </table>
 <div class="paragraph">
-<p><code>handleTaskCompletion</code> starts by <a href="spark-service-outputcommitcoordinator.adoc#taskCompleted">notifying <code>OutputCommitCoordinator</code> that a task completed</a>.</p>
+<p><code>handleTaskCompletion</code> starts by <a href="OutputCommitCoordinator.html#taskCompleted" class="page">notifying <code>OutputCommitCoordinator</code> that a task completed</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>handleTaskCompletion</code> <a href="spark-executor-TaskMetrics.adoc#fromAccumulators">re-creates <code>TaskMetrics</code></a> (using <a href="#CompletionEvent-accumUpdates"><code>accumUpdates</code> accumulators of the input <code>event</code></a>).</p>
@@ -2732,7 +2732,7 @@ FIXME Review what&#8217;s <code>filesLost</code>.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-A <code>Stage</code> tracks its own pending partitions using <a href="spark-scheduler-Stage.html#pendingPartitions" class="page"><code>pendingPartitions</code> property</a>.
+A <code>Stage</code> tracks its own pending partitions using <a href="Stage.html#pendingPartitions" class="page"><code>pendingPartitions</code> property</a>.
 </td>
 </tr>
 </table>
@@ -2882,7 +2882,7 @@ A task succeeded notification holds the output index and the result.
 <p>Otherwise, <code>handleTaskCompletion</code> <a href="spark-scheduler-ShuffleMapStage.html#addOutputLoc" class="page">registers the <code>MapStatus</code> result for the partition with the stage</a> (of the completed task).</p>
 </div>
 <div class="paragraph">
-<p><code>handleTaskCompletion</code> does more processing only if the <code>ShuffleMapStage</code> is registered as still running (in <a href="DAGScheduler.html#runningStages" class="page"><code>runningStages</code> internal registry</a>) and the <a href="spark-scheduler-Stage.html#pendingPartitions" class="page"><code>ShuffleMapStage</code> stage has no pending partitions to compute</a>.</p>
+<p><code>handleTaskCompletion</code> does more processing only if the <code>ShuffleMapStage</code> is registered as still running (in <a href="DAGScheduler.html#runningStages" class="page"><code>runningStages</code> internal registry</a>) and the <a href="Stage.html#pendingPartitions" class="page"><code>ShuffleMapStage</code> stage has no pending partitions to compute</a>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>ShuffleMapStage</code> is <a href="#markStageAsFinished">marked as finished</a>.</p>
@@ -3103,7 +3103,7 @@ FIXME Describe <code>disallowStageRetryForTest</code> and <code>abortStage</code
 </table>
 </div>
 <div class="paragraph">
-<p>If the <a href="spark-scheduler-Stage.html#failedOnFetchAndShouldAbort" class="page">number of fetch failed attempts for the stage exceeds the allowed number</a>, the <a href="DAGScheduler.html#abortStage" class="page">failed stage is aborted</a> with the reason:</p>
+<p>If the <a href="Stage.html#failedOnFetchAndShouldAbort" class="page">number of fetch failed attempts for the stage exceeds the allowed number</a>, the <a href="DAGScheduler.html#abortStage" class="page">failed stage is aborted</a> with the reason:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3290,7 +3290,7 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p><code>handleJobSubmitted</code> <a href="DAGScheduler.html#jobIdToStageIds" class="page">finds all the registered stages for the input <code>jobId</code></a> and collects <a href="spark-scheduler-Stage.html#latestInfo" class="page">their latest <code>StageInfo</code></a>.</p>
+<p><code>handleJobSubmitted</code> <a href="DAGScheduler.html#jobIdToStageIds" class="page">finds all the registered stages for the input <code>jobId</code></a> and collects <a href="Stage.html#latestInfo" class="page">their latest <code>StageInfo</code></a>.</p>
 </div>
 <div class="paragraph">
 <p>Ultimately, <code>handleJobSubmitted</code> posts  <a href="spark-scheduler-SparkListener.adoc#SparkListenerJobStart">SparkListenerJobStart</a> message to <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> and <a href="DAGScheduler.html#submitStage" class="page">submits the stage</a>.</p>

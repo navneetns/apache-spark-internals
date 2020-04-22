@@ -82,7 +82,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
+    <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
@@ -205,6 +205,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -879,9 +882,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-cachemanager.html">Cache Manager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-service-outputcommitcoordinator.html">OutputCommitCoordinator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1848,7 +1848,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-A <a href="TaskSet.html" class="page">TaskSet</a> represents a set of <a href="Task.html" class="page">tasks</a> that correspond to missing <a href="spark-rdd-partitions.adoc">partitions</a> of a <a href="spark-scheduler-Stage.html" class="page">stage</a>.
+A <a href="TaskSet.html" class="page">TaskSet</a> represents a set of <a href="Task.html" class="page">tasks</a> that correspond to missing <a href="spark-rdd-partitions.adoc">partitions</a> of a <a href="Stage.html" class="page">stage</a>.
 </td>
 </tr>
 </table>
@@ -2098,7 +2098,7 @@ res0: Long = 3</code></pre>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="tasks"></a> <code>tasks</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Lookup table of <a href="Task.html" class="page">Tasks</a> (per partition id) to schedule execution of.</p>
-<p class="tableblock">NOTE: The tasks all belong to a single <a href="#taskSet">TaskSet</a> that was given when <a href="#creating-instance"><code>TaskSetManager</code> was created</a> (which actually represent a single <a href="spark-scheduler-Stage.html" class="page">Stage</a>).</p></td>
+<p class="tableblock">NOTE: The tasks all belong to a single <a href="#taskSet">TaskSet</a> that was given when <a href="#creating-instance"><code>TaskSetManager</code> was created</a> (which actually represent a single <a href="Stage.html" class="page">Stage</a>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="tasksSuccessful"></a> <code>tasksSuccessful</code></p></td>

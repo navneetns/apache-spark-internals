@@ -1956,22 +1956,18 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="findmissingpartitions-method"><a class="anchor" href="#findmissingpartitions-method"></a><a class="link" href="#findmissingpartitions-method"><a id="findMissingPartitions"></a> <code>findMissingPartitions</code> Method</a></h2>
+<h2 id="finding-missing-partitions"><a class="anchor" href="#finding-missing-partitions"></a><a class="link" href="#finding-missing-partitions"><a id="findMissingPartitions"></a> Finding Missing Partitions</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><code>Stage.findMissingPartitions()</code> calculates the ids of the missing partitions, i.e. partitions for which the ActiveJob knows they are not finished (and so they are missing).</p>
-</div>
-<div class="paragraph">
-<p>A <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a> stage knows it by querying the active job about partition ids (<code>numPartitions</code>) that are not finished (using <code>ActiveJob.finished</code> array of booleans).</p>
-</div>
-<div class="imageblock text-center">
+<div class="listingblock">
 <div class="content">
-<img src="_images/resultstage-findMissingPartitions.png" alt="resultstage findMissingPartitions">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">findMissingPartitions(): Seq[Int]</code></pre>
 </div>
-<div class="title">Figure 6. ResultStage.findMissingPartitions and ActiveJob</div>
 </div>
 <div class="paragraph">
-<p>In the above figure, partitions 1 and 2 are not finished (<code>F</code> is false while <code>T</code> is true).</p>
+<p>findMissingPartitions gives the partition ids that are missing and need to be computed.</p>
+</div>
+<div class="paragraph">
+<p>findMissingPartitions is used when DAGScheduler is requested to <a href="DAGScheduler.html#submitMissingTasks" class="page">submitMissingTasks</a> and <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a>.</p>
 </div>
 </div>
 </div>

@@ -82,7 +82,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
+    <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
@@ -205,6 +205,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -879,9 +882,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-cachemanager.html">Cache Manager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-service-outputcommitcoordinator.html">OutputCommitCoordinator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1828,7 +1828,7 @@
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
     <li><a href="index.html">Spark Scheduler</a></li>
-    <li><a href="spark-scheduler-Stage.html">Stage</a></li>
+    <li><a href="Stage.html">Stage</a></li>
     <li><a href="spark-scheduler-ResultStage.html">ResultStage</a></li>
   </ul>
 </nav>
@@ -1868,6 +1868,40 @@ Read about <code>TaskContext</code> in <a href="spark-TaskContext.html" class="p
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="finding-missing-partitions"><a class="anchor" href="#finding-missing-partitions"></a><a class="link" href="#finding-missing-partitions"><a id="findMissingPartitions"></a> Finding Missing Partitions</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">findMissingPartitions(): Seq[Int]</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+findMissingPartitions is part of the <a href="Stage.html#findMissingPartitions" class="page">Stage</a> abstraction.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>findMissingPartitions&#8230;&#8203;FIXME</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/resultstage-findMissingPartitions.png" alt="resultstage findMissingPartitions">
+</div>
+<div class="title">Figure 3. ResultStage.findMissingPartitions and ActiveJob</div>
+</div>
+<div class="paragraph">
+<p>In the above figure, partitions 1 and 2 are not finished (<code>F</code> is false while <code>T</code> is true).</p>
 </div>
 </div>
 </div>

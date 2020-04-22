@@ -82,7 +82,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
+    <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
@@ -205,6 +205,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -879,9 +882,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-cachemanager.html">Cache Manager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-service-outputcommitcoordinator.html">OutputCommitCoordinator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1882,6 +1882,25 @@ TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGSch
 </div>
 </div>
 <div class="sect1">
+<h2 id="killing-task"><a class="anchor" href="#killing-task"></a><a class="link" href="#killing-task"><a id="killTaskAttempt"></a> Killing Task</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">killTaskAttempt(
+  taskId: Long,
+  interruptThread: Boolean,
+  reason: String): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kills a task (attempt)</p>
+</div>
+<div class="paragraph">
+<p>Used when DAGScheduler is requested to <a href="DAGScheduler.html#killTaskAttempt" class="page">kill a task</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="contract"><a class="anchor" href="#contract"></a><a class="link" href="#contract"><a id="contract"></a> Contract</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
@@ -1920,10 +1939,10 @@ TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGSch
 </div>
 </div>
 <div class="paragraph">
-<p>Cancels all the tasks of a given <a href="spark-scheduler-Stage.html" class="page">stage</a></p>
+<p>Cancels all the tasks of a given <a href="Stage.html" class="page">stage</a></p>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#failJobAndIndependentStages" class="page">failJobAndIndependentStages</a></p>
+<p>Used when DAGScheduler is requested to <a href="DAGScheduler.html#failJobAndIndependentStages" class="page">failJobAndIndependentStages</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2005,26 +2024,12 @@ TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGSch
 <div class="ulist">
 <ul>
 <li>
-<p><code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a></p>
+<p>DAGScheduler is requested to <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a></p>
 </li>
 <li>
 <p><code>TaskSchedulerImpl</code> is requested to <a href="TaskSchedulerImpl.html#cancelTasks" class="page">cancel all the tasks of a stage</a></p>
 </li>
 </ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>killTaskAttempt</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div id="killTaskAttempt" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">killTaskAttempt(
-  taskId: Long,
-  interruptThread: Boolean,
-  reason: String): Boolean</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#killTaskAttempt" class="page">killTaskAttempt</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2089,7 +2094,7 @@ TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGSch
 <p>Associates a <a href="DAGScheduler.html" class="page">DAGScheduler</a></p>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is <a href="DAGScheduler.html#creating-instance" class="page">created</a></p>
+<p>Used when DAGScheduler is <a href="DAGScheduler.html#creating-instance" class="page">created</a></p>
 </div></div></td>
 </tr>
 <tr>
@@ -2117,7 +2122,7 @@ TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGSch
 <p>Stops the TaskScheduler</p>
 </div>
 <div class="paragraph">
-<p>Used when <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#stop" class="page">stop</a></p>
+<p>Used when DAGScheduler is requested to <a href="DAGScheduler.html#stop" class="page">stop</a></p>
 </div></div></td>
 </tr>
 <tr>

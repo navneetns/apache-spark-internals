@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-on-yarn/spark-yarn-cluster-yarnclusterschedulerbackend.html">
+    <title> OutputCommitCoordinator :: The Internals Of Apache Spark</title>
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/scheduler/OutputCommitCoordinator.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -69,58 +69,58 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/index.html">Spark Scheduler</a>
+    <a class="nav-link" href="index.html">Spark Scheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/Stage.html">Stage</a>
+    <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
+    <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-scheduler-JobListener.html">JobListener</a>
+    <a class="nav-link" href="spark-scheduler-JobListener.html">JobListener</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-JobWaiter.html">JobWaiter</a>
+    <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+    <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/SchedulerBackend.html">SchedulerBackend</a>
+    <a class="nav-link" href="SchedulerBackend.html">SchedulerBackend</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+    <a class="nav-link" href="CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+    <a class="nav-link" href="CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
   </li>
 </ul>
   </li>
@@ -130,84 +130,84 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/Task.html">Task</a>
+    <a class="nav-link" href="Task.html">Task</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/ShuffleMapTask.html">ShuffleMapTask</a>
+    <a class="nav-link" href="ShuffleMapTask.html">ShuffleMapTask</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/ResultTask.html">ResultTask</a>
+    <a class="nav-link" href="ResultTask.html">ResultTask</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/TaskSet.html">TaskSet</a>
+    <a class="nav-link" href="TaskSet.html">TaskSet</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/TaskSetManager.html">TaskSetManager</a>
+    <a class="nav-link" href="TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ActiveJob.html">Jobs</a>
+    <a class="nav-link" href="spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-scheduler-SchedulableBuilder.html">SchedulableBuilder</a>
+    <a class="nav-link" href="spark-scheduler-SchedulableBuilder.html">SchedulableBuilder</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-FIFOSchedulableBuilder.html">FIFOSchedulableBuilder</a>
+    <a class="nav-link" href="spark-scheduler-FIFOSchedulableBuilder.html">FIFOSchedulableBuilder</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
+    <a class="nav-link" href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-scheduler-Schedulable.html">Schedulable Entities</a>
+    <a class="nav-link" href="spark-scheduler-Schedulable.html">Schedulable Entities</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-Pool.html">Schedulable Pool</a>
+    <a class="nav-link" href="spark-scheduler-Pool.html">Schedulable Pool</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-SchedulingMode.html">Scheduling Mode</a>
+    <a class="nav-link" href="spark-scheduler-SchedulingMode.html">Scheduling Mode</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskInfo.html">TaskInfo</a>
+    <a class="nav-link" href="spark-scheduler-TaskInfo.html">TaskInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-MapStatus.html">MapStatus</a>
+    <a class="nav-link" href="spark-scheduler-MapStatus.html">MapStatus</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskDescription.html">TaskDescription</a>
+    <a class="nav-link" href="spark-scheduler-TaskDescription.html">TaskDescription</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
+    <a class="nav-link" href="spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-TaskContext.html">TaskContext</a>
+    <a class="nav-link" href="spark-TaskContext.html">TaskContext</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-BarrierTaskContext.html">BarrierTaskContext</a>
+    <a class="nav-link" href="spark-BarrierTaskContext.html">BarrierTaskContext</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-TaskContextImpl.html">TaskContextImpl</a>
+    <a class="nav-link" href="spark-TaskContextImpl.html">TaskContextImpl</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskResult.html">TaskResults</a>
+    <a class="nav-link" href="spark-scheduler-TaskResult.html">TaskResults</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+    <a class="nav-link" href="spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/OutputCommitCoordinator.html">OutputCommitCoordinator</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -1548,88 +1548,88 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Spark on YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/index.html">Spark on YARN</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnShuffleService.html">YarnShuffleService&#8201;&#8212;&#8201;ExternalShuffleService on YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnShuffleService.html">YarnShuffleService&#8201;&#8212;&#8201;ExternalShuffleService on YARN</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-ExecutorRunnable.html">ExecutorRunnable</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-ExecutorRunnable.html">ExecutorRunnable</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-client.html">Client</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-client.html">Client</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-yarnrmclient.html">YarnRMClient</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnrmclient.html">YarnRMClient</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-applicationmaster.html">ApplicationMaster</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-applicationmaster.html">ApplicationMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-AMEndpoint.html">AMEndpoint&#8201;&#8212;&#8201;ApplicationMaster RPC Endpoint</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-AMEndpoint.html">AMEndpoint&#8201;&#8212;&#8201;ApplicationMaster RPC Endpoint</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnClusterManager.html">YarnClusterManager&#8201;&#8212;&#8201;ExternalClusterManager for YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnClusterManager.html">YarnClusterManager&#8201;&#8212;&#8201;ExternalClusterManager for YARN</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-taskschedulers.html">TaskSchedulers for YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-taskschedulers.html">TaskSchedulers for YARN</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-yarnscheduler.html">YarnScheduler</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnscheduler.html">YarnScheduler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-yarnclusterscheduler.html">YarnClusterScheduler</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnclusterscheduler.html">YarnClusterScheduler</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-schedulerbackends.html">SchedulerBackends for YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-schedulerbackends.html">SchedulerBackends for YARN</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-yarnschedulerbackend.html">YarnSchedulerBackend</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-yarnschedulerbackend.html">YarnSchedulerBackend</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-client-yarnclientschedulerbackend.html">YarnClientSchedulerBackend</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="spark-yarn-cluster-yarnclusterschedulerbackend.html">YarnClusterSchedulerBackend</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-client-yarnclientschedulerbackend.html">YarnClientSchedulerBackend</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-cluster-YarnSchedulerEndpoint.html">YarnSchedulerEndpoint RPC Endpoint</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-cluster-yarnclusterschedulerbackend.html">YarnClusterSchedulerBackend</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-cluster-YarnSchedulerEndpoint.html">YarnSchedulerEndpoint RPC Endpoint</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnAllocator.html">YarnAllocator</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnAllocator.html">YarnAllocator</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-introduction.html">Introduction to Hadoop YARN</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-introduction.html">Introduction to Hadoop YARN</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-cluster-setup.html">Setting up YARN Cluster</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-cluster-setup.html">Setting up YARN Cluster</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-yarn-kerberos.html">Kerberos</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-kerberos.html">Kerberos</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-yarn-ConfigurableCredentialManager.html">ConfigurableCredentialManager</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-ConfigurableCredentialManager.html">ConfigurableCredentialManager</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-ClientDistributedCacheManager.html">ClientDistributedCacheManager</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-ClientDistributedCacheManager.html">ClientDistributedCacheManager</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-YarnSparkHadoopUtil.html">YarnSparkHadoopUtil</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-YarnSparkHadoopUtil.html">YarnSparkHadoopUtil</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-yarn-settings.html">Settings</a>
+    <a class="nav-link" href="../spark-on-yarn/spark-yarn-settings.html">Settings</a>
   </li>
 </ul>
   </li>
@@ -1827,38 +1827,22 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li><a href="index.html">Spark on YARN</a></li>
-    <li><a href="spark-yarn-schedulerbackends.html">SchedulerBackends for YARN</a></li>
-    <li><a href="spark-yarn-cluster-yarnclusterschedulerbackend.html">YarnClusterSchedulerBackend</a></li>
+    <li><a href="index.html">Spark Scheduler</a></li>
+    <li><a href="OutputCommitCoordinator.html">OutputCommitCoordinator</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/spark-on-yarn/pages/spark-yarn-cluster-yarnclusterschedulerbackend.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/scheduler/pages/OutputCommitCoordinator.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="yarnclusterschedulerbackend-schedulerbackend-for-yarn-in-cluster-deploy-mode"><a class="anchor" href="#yarnclusterschedulerbackend-schedulerbackend-for-yarn-in-cluster-deploy-mode"></a><a class="link" href="#yarnclusterschedulerbackend-schedulerbackend-for-yarn-in-cluster-deploy-mode"><a id="YarnClusterSchedulerBackend"></a> YarnClusterSchedulerBackend - SchedulerBackend for YARN in Cluster Deploy Mode</a></h2>
+<h1 class="page"><a id="OutputCommitCoordinator"></a> OutputCommitCoordinator</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>YarnClusterSchedulerBackend</code> is a custom <a href="spark-yarn-yarnschedulerbackend.adoc">YarnSchedulerBackend</a> for Spark on YARN in <a href="#cluster-mode">cluster deploy mode</a>.</p>
+<p><strong>OutputCommitCoordinator</strong> is used to coordinate <a href="#result-commits">result commits</a> by means of <strong>commit locks</strong> (using the internal <a href="#authorizedCommittersByStage">authorizedCommittersByStage</a> registry).</p>
 </div>
-<div class="paragraph">
-<p>This is a scheduler backend that supports <a href="#multiple-application-attempts">multiple application attempts</a> and <a href="../scheduler/SchedulerBackend.html#getDriverLogUrls" class="page">URLs for driver&#8217;s logs</a> to display as links in the web UI in the Executors tab for the driver.</p>
-</div>
-<div class="paragraph">
-<p>It uses <code>spark.yarn.app.attemptId</code> under the covers (that the YARN resource manager sets?).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>YarnClusterSchedulerBackend</code> is a <code>private[spark]</code> Scala class. You can find the sources in <a href="https://github.com/apache/spark/blob/master/yarn/src/main/scala/org/apache/spark/scheduler/cluster/YarnClusterSchedulerBackend.scala">org.apache.spark.scheduler.cluster.YarnClusterSchedulerBackend</a>.
-</td>
-</tr>
-</table>
+<div id="result-commits" class="paragraph">
+<p><strong>Result commits</strong> are the outputs of running tasks (and a running task is described by a task attempt for a partition in a stage).</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1867,83 +1851,198 @@
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
+A partition (of a stage) is <strong>unlocked</strong> when it is marked as <code>-1</code> in <a href="#authorizedCommittersByStage"><code>authorizedCommittersByStage</code> internal registry</a>.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>Enable <code>DEBUG</code> logging level for <code>org.apache.spark.scheduler.cluster.YarnClusterSchedulerBackend</code> logger to see what happens inside.</p>
+<p>From the scaladoc (it&#8217;s a <code>private[spark]</code> class so no way to find it <a href="https://github.com/apache/spark/blob/master/core/src/main/scala/org/apache/spark/scheduler/OutputCommitCoordinator.scala">outside the code</a>):</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Authority that decides whether tasks can commit output to HDFS. Uses a "first committer wins" policy.
+OutputCommitCoordinator is instantiated in both the drivers and executors. On executors, it is configured with a reference to the driver&#8217;s OutputCommitCoordinatorEndpoint, so requests to commit output will be forwarded to the driver&#8217;s OutputCommitCoordinator.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>The most interesting piece is in&#8230;&#8203;</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>This class was introduced in <a href="https://issues.apache.org/jira/browse/SPARK-4879">SPARK-4879</a>; see that JIRA issue (and the associated pull requests) for an extensive design discussion.</p>
+</div>
+</blockquote>
+</div>
+<div id="authorized-committers" class="paragraph">
+<p><strong>Authorized committers</strong> are task attempts (per partition and stage) that can&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="stop-method"><a class="anchor" href="#stop-method"></a><a class="link" href="#stop-method"><a id="stop"></a> <code>stop</code> Method</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="stage-execution-started-notification"><a class="anchor" href="#stage-execution-started-notification"></a><a class="link" href="#stage-execution-started-notification"><a id="stageStart"></a> Stage Execution Started Notification</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="taskcompleted-method"><a class="anchor" href="#taskcompleted-method"></a><a class="link" href="#taskcompleted-method"><a id="taskCompleted"></a> <code>taskCompleted</code> Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">taskCompleted(
+  stage: StageId,
+  partition: PartitionId,
+  attemptNumber: TaskAttemptNumber,
+  reason: TaskEndReason): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>taskCompleted</code> marks the <code>partition</code> (in the <code>stage</code>) completed (and hence a result committed), but only when the <code>attemptNumber</code> is amongst <a href="#authorized-committers">authorized committers</a> per stage (for the <code>partition</code>).</p>
+</div>
+<div class="paragraph">
+<p>Internally, <code>taskCompleted</code> first finds <a href="#authorized-committers">authorized committers</a> for the <code>stage</code>.</p>
+</div>
+<div class="paragraph">
+<p>For task completions with no stage registered in <a href="#authorizedCommittersByStage"><code>authorizedCommittersByStage</code> internal registry</a>, you should see the following DEBUG message in the logs and <code>taskCompleted</code> simply exits.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>DEBUG OutputCommitCoordinator: Ignoring task completion for completed stage</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the <code>reason</code> being <code>Success</code> <code>taskCompleted</code> does nothing and exits.</p>
+</div>
+<div class="paragraph">
+<p>For the <code>reason</code> being <code>TaskCommitDenied</code>, you should see the following INFO message in the logs and <code>taskCompleted</code> exits.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>INFO OutputCommitCoordinator: Task was denied committing, stage: [stage], partition: [partition], attempt: [attemptNumber]</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For no <code>stage</code> registered or <code>reason</code> being <code>Success</code> or <code>TaskCommitDenied</code>, <code>taskCompleted</code> does nothing (important).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For task completion reasons other than <code>Success</code> or <code>TaskCommitDenied</code> and <code>attemptNumber</code> amongst <a href="#authorized-committers">authorized committers</a>, <code>taskCompleted</code> <a href="#authorizedCommittersByStage">marks <code>partition</code> unlocked</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A task attempt can never be <code>-1</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When the lock for <code>partition</code> is cleared, You should see the following DEBUG message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>DEBUG OutputCommitCoordinator: Authorized committer (attemptNumber=[attemptNumber], stage=[stage], partition=[partition]) failed; clearing lock</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>taskCompleted</code> is executed only when <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion" class="page"><code>DAGScheduler</code> informs that a task has completed</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.scheduler.OutputCommitCoordinator</code> logger to see what happens inside.</p>
 </div>
 <div class="paragraph">
 <p>Add the following line to <code>conf/log4j.properties</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.scheduler.cluster.YarnClusterSchedulerBackend=DEBUG</code></pre>
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.scheduler.OutputCommitCoordinator=ALL</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Refer to <a href="../spark-logging.adoc">Logging</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="creating-yarnclusterschedulerbackend"><a class="anchor" href="#creating-yarnclusterschedulerbackend"></a><a class="link" href="#creating-yarnclusterschedulerbackend"><a id="creating-instance"></a> Creating YarnClusterSchedulerBackend</a></h3>
-<div class="paragraph">
-<p>Creating a <code>YarnClusterSchedulerBackend</code> object requires a <a href="../scheduler/TaskSchedulerImpl.html" class="page">TaskSchedulerImpl</a> and <a href="spark-SparkContext.adoc">SparkContext</a> objects.</p>
+<p>Refer to <a href="../spark-logging.html" class="page">Logging</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="starting-yarnclusterschedulerbackend-start-method"><a class="anchor" href="#starting-yarnclusterschedulerbackend-start-method"></a><a class="link" href="#starting-yarnclusterschedulerbackend-start-method"><a id="start"></a> Starting YarnClusterSchedulerBackend (start method)</a></h3>
-<div class="paragraph">
-<p><code>YarnClusterSchedulerBackend</code> comes with a custom <code>start</code> method.</p>
 </div>
-<div class="admonitionblock note">
-<table>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>start</code> is part of the <a href="../scheduler/SchedulerBackend.html#contract" class="page">SchedulerBackend Contract</a>.
-</td>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Internally, it first <a href="spark-yarn-applicationmaster.adoc#getAttemptId">queries ApplicationMaster for attemptId</a> and <a href="spark-yarn-yarnschedulerbackend.adoc#bindToYarn">records the application and attempt ids</a>.</p>
-</div>
-<div id="totalExpectedExecutors" class="paragraph">
-<p>It then calls the <a href="spark-yarn-yarnschedulerbackend.adoc#start">parent&#8217;s start</a> and sets the parent&#8217;s <a href="spark-yarn-yarnschedulerbackend.adoc#totalExpectedExecutors">totalExpectedExecutors</a> to <a href="spark-yarn-YarnSparkHadoopUtil.adoc#getInitialTargetExecutorNumber">the initial number of executors</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="calculating-driver-log-urls-getdriverlogurls-method"><a class="anchor" href="#calculating-driver-log-urls-getdriverlogurls-method"></a><a class="link" href="#calculating-driver-log-urls-getdriverlogurls-method"><a id="getDriverLogUrls"></a> Calculating Driver Log URLs (getDriverLogUrls method)</a></h3>
-<div class="paragraph">
-<p><code>getDriverLogUrls</code> in <code>YarnClusterSchedulerBackend</code> calculates the URLs for the driver&#8217;s logs - standard output (stdout) and standard error (stderr).</p>
-</div>
-<div class="admonitionblock note">
-<table>
+</thead>
+<tbody>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>getDriverLogUrls</code> is part of the <a href="../scheduler/SchedulerBackend.html#contract" class="page">SchedulerBackend Contract</a>.
-</td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="authorizedCommittersByStage"></a> <code>authorizedCommittersByStage</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tracks commit locks for task attempts for a partition in a stage.</p>
+<p class="tableblock">Used in <a href="#taskCompleted">taskCompleted</a> to authorize task completions to&#8230;&#8203;FIXME</p></td>
 </tr>
+</tbody>
 </table>
-</div>
-<div class="paragraph">
-<p>Internally, it retrieves the <a href="README.adoc#getContainerId">container id</a> and through environment variables computes the base URL.</p>
-</div>
-<div class="paragraph">
-<p>You should see the following DEBUG in the logs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>DEBUG Base URL for logs: [baseUrl]</code></pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 </article>

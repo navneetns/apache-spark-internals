@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> LiveListenerBus :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-scheduler-LiveListenerBus.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -82,7 +82,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="scheduler/spark-scheduler-Stage.html">Stage</a>
+    <a class="nav-link" href="scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
@@ -205,6 +205,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scheduler/OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -879,9 +882,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-cachemanager.html">Cache Manager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-service-outputcommitcoordinator.html">OutputCommitCoordinator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1835,11 +1835,11 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="livelistenerbus"><a class="anchor" href="#livelistenerbus"></a><a class="link" href="#livelistenerbus"><a id="LiveListenerBus"></a> LiveListenerBus</a></h2>
+<h1 class="page"><a id="LiveListenerBus"></a> LiveListenerBus</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>LiveListenerBus</code> is used to announce application-wide events in a Spark application. It asynchronously passes <a href="#events">listener events</a> to <a href="#spark_extraListeners">registered Spark listeners</a>.</p>
+<p><strong>LiveListenerBus</strong> is an event bus to announce application-wide events in a Spark application. It asynchronously passes <a href="#events">listener events</a> to <a href="#spark_extraListeners">registered Spark listeners</a>.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1848,7 +1848,7 @@
 <div class="title">Figure 1. LiveListenerBus, SparkListenerEvents, and Senders</div>
 </div>
 <div class="paragraph">
-<p><code>LiveListenerBus</code> is a single-JVM <a href="spark-SparkListenerBus.adoc">SparkListenerBus</a> that uses <a href="#listenerThread">listenerThread to poll events</a>. Emitters are supposed to use <a href="#post"><code>post</code> method to post <code>SparkListenerEvent</code> events</a>.</p>
+<p>LiveListenerBus is a single-JVM <a href="spark-SparkListenerBus.adoc">SparkListenerBus</a> that uses <a href="#listenerThread">listenerThread to poll events</a>. Emitters are supposed to use <a href="#post"><code>post</code> method to post <code>SparkListenerEvent</code> events</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1863,13 +1863,16 @@ The event queue is <a href="http://docs.oracle.com/javase/8/docs/api/java/util/c
 </table>
 </div>
 <div id="conf" class="paragraph">
-<p><code>LiveListenerBus</code> takes a <a href="spark-SparkConf.adoc">SparkConf</a> when created.</p>
+<p>LiveListenerBus takes a <a href="spark-SparkConf.adoc">SparkConf</a> when created.</p>
 </div>
 <div class="paragraph">
-<p><code>LiveListenerBus</code> is <a href="#creating-instance">created</a> and started when <code>SparkContext</code> is <a href="spark-SparkContext.adoc#listenerBus">initialized</a>.</p>
+<p>LiveListenerBus is <a href="#creating-instance">created</a> and started when <code>SparkContext</code> is <a href="spark-SparkContext.adoc#listenerBus">initialized</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="starting-livelistenerbusstart-method"><a class="anchor" href="#starting-livelistenerbusstart-method"></a><a class="link" href="#starting-livelistenerbusstart-method"><a id="start"></a> Starting <code>LiveListenerBus</code>&#8201;&#8212;&#8201;<code>start</code> method</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="starting-livelistenerbusstart-method"><a class="anchor" href="#starting-livelistenerbusstart-method"></a><a class="link" href="#starting-livelistenerbusstart-method"><a id="start"></a> Starting LiveListenerBus&#8201;&#8212;&#8201;<code>start</code> method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">start(sc: SparkContext): Unit</code></pre>
@@ -1879,10 +1882,10 @@ The event queue is <a href="http://docs.oracle.com/javase/8/docs/api/java/util/c
 <p><code>start</code> starts <a href="#listenerThread">processing events</a>.</p>
 </div>
 <div class="paragraph">
-<p>Internally, it saves the input <code>SparkContext</code> for later use and starts <a href="#listenerThread">listenerThread</a>. It makes sure that it only happens when <code>LiveListenerBus</code> has not been started before (i.e. <code>started</code> is disabled).</p>
+<p>Internally, it saves the input <code>SparkContext</code> for later use and starts <a href="#listenerThread">listenerThread</a>. It makes sure that it only happens when LiveListenerBus has not been started before (i.e. <code>started</code> is disabled).</p>
 </div>
 <div class="paragraph">
-<p>If however <code>LiveListenerBus</code> has already been started, a <code>IllegalStateException</code> is thrown:</p>
+<p>If however LiveListenerBus has already been started, a <code>IllegalStateException</code> is thrown:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1890,11 +1893,14 @@ The event queue is <a href="http://docs.oracle.com/javase/8/docs/api/java/util/c
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="posting-sparklistenerevent-eventspost-method"><a class="anchor" href="#posting-sparklistenerevent-eventspost-method"></a><a class="link" href="#posting-sparklistenerevent-eventspost-method"><a id="post"></a> Posting SparkListenerEvent Events&#8201;&#8212;&#8201;<code>post</code> method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="posting-sparklistenerevent-event"><a class="anchor" href="#posting-sparklistenerevent-event"></a><a class="link" href="#posting-sparklistenerevent-event"><a id="post"></a> Posting SparkListenerEvent Event</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">post(event: SparkListenerEvent): Unit</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">post(
+  event: SparkListenerEvent): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1916,7 +1922,7 @@ FIXME Who&#8217;s enabling the <code>stopped</code> flag and when/why?
 </table>
 </div>
 <div class="paragraph">
-<p>If <code>LiveListenerBus</code> has been stopped, the following ERROR appears in the logs:</p>
+<p>If LiveListenerBus has been stopped, the following ERROR appears in the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1924,8 +1930,10 @@ FIXME Who&#8217;s enabling the <code>stopped</code> flag and when/why?
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="event-dropped-callbackondropevent-method"><a class="anchor" href="#event-dropped-callbackondropevent-method"></a><a class="link" href="#event-dropped-callbackondropevent-method"><a id="onDropEvent"></a> Event Dropped Callback&#8201;&#8212;&#8201;<code>onDropEvent</code> method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="event-dropped-callbackondropevent-method"><a class="anchor" href="#event-dropped-callbackondropevent-method"></a><a class="link" href="#event-dropped-callbackondropevent-method"><a id="onDropEvent"></a> Event Dropped Callback&#8201;&#8212;&#8201;<code>onDropEvent</code> method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">onDropEvent(event: SparkListenerEvent): Unit</code></pre>
@@ -1955,8 +1963,10 @@ It uses the internal <code>logDroppedEvent</code> atomic variable to track the s
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="stopping-livelistenerbusstop-method"><a class="anchor" href="#stopping-livelistenerbusstop-method"></a><a class="link" href="#stopping-livelistenerbusstop-method"><a id="stop"></a> Stopping <code>LiveListenerBus</code>&#8201;&#8212;&#8201;<code>stop</code> method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="stopping-livelistenerbusstop-method"><a class="anchor" href="#stopping-livelistenerbusstop-method"></a><a class="link" href="#stopping-livelistenerbusstop-method"><a id="stop"></a> Stopping LiveListenerBus&#8201;&#8212;&#8201;<code>stop</code> method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(): Unit</code></pre>
@@ -1977,10 +1987,12 @@ It uses the internal <code>logDroppedEvent</code> atomic variable to track the s
 <p><code>stopped</code> flag is enabled.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="listenerthread-for-event-polling"><a class="anchor" href="#listenerthread-for-event-polling"></a><a class="link" href="#listenerthread-for-event-polling"><a id="listenerThread"></a> <code>listenerThread</code> for Event Polling</a></h3>
+</div>
+<div class="sect1">
+<h2 id="listenerthread-for-event-polling"><a class="anchor" href="#listenerthread-for-event-polling"></a><a class="link" href="#listenerthread-for-event-polling"><a id="listenerThread"></a> <code>listenerThread</code> for Event Polling</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><code>LiveListenerBus</code> uses <a href="spark-SparkListenerBus.adoc">SparkListenerBus</a> single-daemon thread that ensures that the polling events from the event queue is only after <a href="#start">the listener was started</a> and only one event at a time.</p>
+<p>LiveListenerBus uses <a href="spark-SparkListenerBus.adoc">SparkListenerBus</a> single-daemon thread that ensures that the polling events from the event queue is only after <a href="#start">the listener was started</a> and only one event at a time.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -1995,8 +2007,10 @@ FIXME There is some logic around no events in the queue.
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h3>
+</div>
+<div class="sect1">
+<h2 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h2>
+<div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Spark Properties</caption>
 <colgroup>
@@ -2020,8 +2034,10 @@ FIXME There is some logic around no events in the queue.
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="registering-sparklistenerinterface-with-application-status-queueaddtostatusqueue-method"><a class="anchor" href="#registering-sparklistenerinterface-with-application-status-queueaddtostatusqueue-method"></a><a class="link" href="#registering-sparklistenerinterface-with-application-status-queueaddtostatusqueue-method"><a id="addToStatusQueue"></a> Registering SparkListenerInterface with Application Status Queue&#8201;&#8212;&#8201;<code>addToStatusQueue</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="registering-sparklistenerinterface-with-application-status-queueaddtostatusqueue-method"><a class="anchor" href="#registering-sparklistenerinterface-with-application-status-queueaddtostatusqueue-method"></a><a class="link" href="#registering-sparklistenerinterface-with-application-status-queueaddtostatusqueue-method"><a id="addToStatusQueue"></a> Registering SparkListenerInterface with Application Status Queue&#8201;&#8212;&#8201;<code>addToStatusQueue</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">addToStatusQueue(listener: SparkListenerInterface): Unit</code></pre>
@@ -2043,8 +2059,10 @@ FIXME There is some logic around no events in the queue.
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="registering-sparklistenerinterface-with-queueaddtoqueue-method"><a class="anchor" href="#registering-sparklistenerinterface-with-queueaddtoqueue-method"></a><a class="link" href="#registering-sparklistenerinterface-with-queueaddtoqueue-method"><a id="addToQueue"></a> Registering SparkListenerInterface with Queue&#8201;&#8212;&#8201;<code>addToQueue</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="registering-sparklistenerinterface-with-queueaddtoqueue-method"><a class="anchor" href="#registering-sparklistenerinterface-with-queueaddtoqueue-method"></a><a class="link" href="#registering-sparklistenerinterface-with-queueaddtoqueue-method"><a id="addToQueue"></a> Registering SparkListenerInterface with Queue&#8201;&#8212;&#8201;<code>addToQueue</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">addToQueue(listener: SparkListenerInterface, queue: String): Unit</code></pre>
@@ -2064,7 +2082,6 @@ FIXME There is some logic around no events in the queue.
 </td>
 </tr>
 </table>
-</div>
 </div>
 </div>
 </div>

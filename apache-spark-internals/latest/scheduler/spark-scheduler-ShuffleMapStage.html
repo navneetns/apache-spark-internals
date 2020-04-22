@@ -82,7 +82,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-scheduler-Stage.html">Stage</a>
+    <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
@@ -205,6 +205,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -879,9 +882,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-cachemanager.html">Cache Manager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-service-outputcommitcoordinator.html">OutputCommitCoordinator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1828,7 +1828,7 @@
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
     <li><a href="index.html">Spark Scheduler</a></li>
-    <li><a href="spark-scheduler-Stage.html">Stage</a></li>
+    <li><a href="Stage.html">Stage</a></li>
     <li><a href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a></li>
   </ul>
 </nav>
@@ -1840,7 +1840,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>ShuffleMapStage</code> (aka <strong>shuffle map stage</strong> or simply <strong>map stage</strong>) is an <a href="spark-scheduler-Stage.html" class="page">intermediate stage</a> in the <strong>physical execution DAG</strong> that corresponds to a <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>.</p>
+<p><code>ShuffleMapStage</code> (aka <strong>shuffle map stage</strong> or simply <strong>map stage</strong>) is an <a href="Stage.html" class="page">intermediate stage</a> in the <strong>physical execution DAG</strong> that corresponds to a <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1904,7 +1904,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <p><code>numTasks</code>&#8201;&#8212;&#8201;the number of tasks (that is exactly the <a href="../rdd/index.html#partitions" class="page">number of partitions in the <code>rdd</code></a>)</p>
 </li>
 <li>
-<p><code>parents</code>&#8201;&#8212;&#8201;the collection of parent <a href="spark-scheduler-Stage.html" class="page">Stages</a></p>
+<p><code>parents</code>&#8201;&#8212;&#8201;the collection of parent <a href="Stage.html" class="page">Stages</a></p>
 </li>
 <li>
 <p><code>firstJobId</code>&#8201;&#8212;&#8201;the <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a> that created it</p>
@@ -2017,7 +2017,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>findMissingPartitions</code> is part of <a href="spark-scheduler-Stage.html#contract" class="page"><code>Stage</code> contract</a> that returns the partitions that are missing, i.e. are yet to be computed.
+<code>findMissingPartitions</code> is part of <a href="Stage.html#contract" class="page"><code>Stage</code> contract</a> that returns the partitions that are missing, i.e. are yet to be computed.
 </td>
 </tr>
 </table>
@@ -2270,7 +2270,7 @@ The <code>ActiveJob</code> is added as the first element in <code>_mapStageJobs<
 <td class="tableblock halign-left valign-top"><p class="tableblock">Tracks <a href="spark-scheduler-MapStatus.adoc">MapStatuses</a> for each partition.</p>
 <p class="tableblock">There could be many <code>MapStatus</code> entries per partition due to <a href="spark-taskschedulerimpl-speculative-execution.adoc">Speculative Execution of Tasks</a>.</p>
 <p class="tableblock">When <a href="#creating-instance"><code>ShuffleMapStage</code> is created</a>, <code>outputLocs</code> is empty, i.e. all elements are empty lists.</p>
-<p class="tableblock">The size of <code>outputLocs</code> is exactly the number of partitions of the <a href="spark-scheduler-Stage.html#rdd" class="page">RDD the stage runs on</a>.</p></td>
+<p class="tableblock">The size of <code>outputLocs</code> is exactly the number of partitions of the <a href="Stage.html#rdd" class="page">RDD the stage runs on</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="_numAvailableOutputs"></a> <code>_numAvailableOutputs</code></code></p></td>

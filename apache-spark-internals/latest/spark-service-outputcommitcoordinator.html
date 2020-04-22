@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
+    <title> OutputCommitCoordinator :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-service-outputcommitcoordinator.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -1835,11 +1835,11 @@
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="outputcommitcoordinator"><a class="anchor" href="#outputcommitcoordinator"></a><a class="link" href="#outputcommitcoordinator"><a id="OutputCommitCoordinator"></a> OutputCommitCoordinator</a></h2>
+<h1 class="page"><a id="OutputCommitCoordinator"></a> OutputCommitCoordinator</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>OutputCommitCoordinator</code> service is authority that coordinates <a href="#result-commits">result commits</a> by means of <strong>commit locks</strong> (using the internal <a href="#authorizedCommittersByStage">authorizedCommittersByStage</a> registry).</p>
+<p><strong>OutputCommitCoordinator</strong> service is authority that coordinates <a href="#result-commits">result commits</a> by means of <strong>commit locks</strong> (using the internal <a href="#authorizedCommittersByStage">authorizedCommittersByStage</a> registry).</p>
 </div>
 <div id="result-commits" class="paragraph">
 <p><strong>Result commits</strong> are the outputs of running tasks (and a running task is described by a task attempt for a partition in a stage).</p>
@@ -1880,53 +1880,11 @@ OutputCommitCoordinator is instantiated in both the drivers and executors. On ex
 <div id="authorized-committers" class="paragraph">
 <p><strong>Authorized committers</strong> are task attempts (per partition and stage) that can&#8230;&#8203;FIXME</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. <code>OutputCommitCoordinator</code> Internal Registries and Counters</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="authorizedCommittersByStage"></a> <code>authorizedCommittersByStage</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tracks commit locks for task attempts for a partition in a stage.</p>
-<p class="tableblock">Used in <a href="#taskCompleted">taskCompleted</a> to authorize task completions to&#8230;&#8203;FIXME</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Enable <code>INFO</code> or <code>DEBUG</code> logging level for <code>org.apache.spark.scheduler.OutputCommitCoordinator</code> logger to see what happens in <code>OutputCommitCoordinator</code>.</p>
-</div>
-<div class="paragraph">
-<p>Add the following line to <code>conf/log4j.properties</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.scheduler.OutputCommitCoordinator=DEBUG</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Refer to <a href="spark-logging.adoc">Logging</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="stop-method"><a class="anchor" href="#stop-method"></a><a class="link" href="#stop-method"><a id="stop"></a> <code>stop</code> Method</a></h3>
+<div class="sect1">
+<h2 id="stop-method"><a class="anchor" href="#stop-method"></a><a class="link" href="#stop-method"><a id="stop"></a> <code>stop</code> Method</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -1940,8 +1898,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="stagestart-method"><a class="anchor" href="#stagestart-method"></a><a class="link" href="#stagestart-method"><a id="stageStart"></a> <code>stageStart</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="stage-execution-started-notification"><a class="anchor" href="#stage-execution-started-notification"></a><a class="link" href="#stage-execution-started-notification"><a id="stageStart"></a> Stage Execution Started Notification</a></h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -1955,8 +1915,10 @@ FIXME
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="taskcompleted-method"><a class="anchor" href="#taskcompleted-method"></a><a class="link" href="#taskcompleted-method"><a id="taskCompleted"></a> <code>taskCompleted</code> Method</a></h3>
+</div>
+<div class="sect1">
+<h2 id="taskcompleted-method"><a class="anchor" href="#taskcompleted-method"></a><a class="link" href="#taskcompleted-method"><a id="taskCompleted"></a> <code>taskCompleted</code> Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">taskCompleted(
@@ -2039,6 +2001,41 @@ A task attempt can never be <code>-1</code>.
 </table>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.scheduler.OutputCommitCoordinator</code> logger to see what happens inside.</p>
+</div>
+<div class="paragraph">
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.scheduler.OutputCommitCoordinator=ALL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="spark-logging.html" class="page">Logging</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>| Name | Description</p>
+</div>
+<div class="paragraph">
+<p>| <a id="authorizedCommittersByStage"></a> <code>authorizedCommittersByStage</code>
+| Tracks commit locks for task attempts for a partition in a stage.</p>
+</div>
+<div class="paragraph">
+<p>Used in <a href="#taskCompleted">taskCompleted</a> to authorize task completions to&#8230;&#8203;FIXME</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+</table>
 </div>
 </div>
 </article>
