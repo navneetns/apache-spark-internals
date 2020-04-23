@@ -177,7 +177,7 @@
     <a class="nav-link" href="spark-scheduler-TaskInfo.html">TaskInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-MapStatus.html">MapStatus</a>
+    <a class="nav-link" href="MapStatus.html">MapStatus</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-TaskDescription.html">TaskDescription</a>
@@ -2270,7 +2270,7 @@ The <code>ActiveJob</code> is added as the first element in <code>_mapStageJobs<
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="outputLocs"></a> <code>outputLocs</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tracks <a href="spark-scheduler-MapStatus.adoc">MapStatuses</a> for each partition.</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tracks <a href="MapStatus.html" class="page">MapStatuses</a> for each partition.</p>
 <p class="tableblock">There could be many <code>MapStatus</code> entries per partition due to <a href="spark-taskschedulerimpl-speculative-execution.adoc">Speculative Execution of Tasks</a>.</p>
 <p class="tableblock">When <a href="#creating-instance"><code>ShuffleMapStage</code> is created</a>, <code>outputLocs</code> is empty, i.e. all elements are empty lists.</p>
 <p class="tableblock">The size of <code>outputLocs</code> is exactly the number of partitions of the <a href="Stage.html#rdd" class="page">RDD the stage runs on</a>.</p></td>

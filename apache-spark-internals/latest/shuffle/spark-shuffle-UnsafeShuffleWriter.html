@@ -177,7 +177,7 @@
     <a class="nav-link" href="../scheduler/spark-scheduler-TaskInfo.html">TaskInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-MapStatus.html">MapStatus</a>
+    <a class="nav-link" href="../scheduler/MapStatus.html">MapStatus</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../scheduler/spark-scheduler-TaskDescription.html">TaskDescription</a>
@@ -2249,7 +2249,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <p><code>closeAndWriteOutput</code> creates a temporary file to <a href="#mergeSpills">merge spill files</a>, deletes them afterwards, and requests <code>IndexShuffleBlockResolver</code> to write index file and commit.</p>
 </div>
 <div class="paragraph">
-<p><code>closeAndWriteOutput</code> creates a <a href="spark-scheduler-MapStatus.adoc">MapStatus</a> with the <a href="#ROOT:BlockManager.adoc#shuffleServerId" class="page unresolved">location of the executor&#8217;s <code>BlockManager</code></a> and partition lengths in the merged file.</p>
+<p><code>closeAndWriteOutput</code> creates a <a href="../scheduler/MapStatus.html" class="page">MapStatus</a> with the <a href="#ROOT:BlockManager.adoc#shuffleServerId" class="page unresolved">location of the executor&#8217;s <code>BlockManager</code></a> and partition lengths in the merged file.</p>
 </div>
 <div class="paragraph">
 <p>If there is an issue with deleting spill files, you should see the following ERROR message in the logs:</p>
@@ -2372,7 +2372,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mapStatus</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="mapStatus"></a> <a href="#spark-scheduler-MapStatus.adoc" class="page unresolved">MapStatus</a></p>
+<p><a id="mapStatus"></a> <a href="../scheduler/MapStatus.html" class="page">MapStatus</a></p>
 </div>
 <div class="paragraph">
 <p>Created when <code>UnsafeShuffleWriter</code> is requested to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a> (with the <a href="#ROOT:BlockManager.adoc#shuffleServerId" class="page unresolved">BlockManagerId</a> of the <a href="#blockManager">BlockManager</a> and <code>partitionLengths</code>)</p>

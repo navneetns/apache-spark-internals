@@ -177,7 +177,7 @@
     <a class="nav-link" href="scheduler/spark-scheduler-TaskInfo.html">TaskInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-MapStatus.html">MapStatus</a>
+    <a class="nav-link" href="scheduler/MapStatus.html">MapStatus</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-TaskDescription.html">TaskDescription</a>
@@ -1845,7 +1845,7 @@
 <p><strong>MapOutputTracker</strong> is a base abstraction of <a href="#extensions">MapOutput trackers</a> that can <a href="#getMapSizesByExecutorId">getMapSizesByExecutorId</a> and <a href="#unregisterShuffle">unregisterShuffle</a>.</p>
 </div>
 <div class="paragraph">
-<p>MapOutputTracker is a core component of Apache Spark that runs on the driver and executors to <a href="#mapStatuses">track the shuffle map outputs</a> (with <a href="scheduler/spark-scheduler-MapStatus.html" class="page">information about the <code>BlockManager</code> and estimated size of the reduce blocks per shuffle</a>).</p>
+<p>MapOutputTracker is a core component of Apache Spark that runs on the driver and executors to <a href="#mapStatuses">track the shuffle map outputs</a> (with <a href="scheduler/MapStatus.html" class="page">information about the <code>BlockManager</code> and estimated size of the reduce blocks per shuffle</a>).</p>
 </div>
 <div class="paragraph">
 <p>Accessing the current MapOutputTracker is possible using <a href="spark-SparkEnv.html#get" class="page">SparkEnv</a>.</p>
@@ -1994,7 +1994,7 @@ FIXME
 <p><code>getStatistics</code> returns a <code>MapOutputStatistics</code> which is simply a pair of the <a href="rdd/spark-rdd-ShuffleDependency.html#shuffleId" class="page">shuffle id</a> (of the input <code>ShuffleDependency</code>) and the total sums of estimated sizes of the reduce shuffle blocks from all the <a href="storage/BlockManager.html" class="page">BlockManager</a>s.</p>
 </div>
 <div class="paragraph">
-<p>Internally, <code>getStatistics</code> <a href="#getStatuses">finds map outputs</a> for the input <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and calculates the total sizes for the <a href="scheduler/spark-scheduler-MapStatus.html#getSizeForBlock" class="page">estimated sizes of the reduce block (in bytes)</a> for every <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatus</a> and partition.</p>
+<p>Internally, <code>getStatistics</code> <a href="#getStatuses">finds map outputs</a> for the input <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and calculates the total sizes for the <a href="scheduler/MapStatus.html#getSizeForBlock" class="page">estimated sizes of the reduce block (in bytes)</a> for every <a href="scheduler/MapStatus.html" class="page">MapStatus</a> and partition.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2179,7 +2179,7 @@ getMapSizesByExecutorId gets the map outputs for all the partitions (despite the
 </div>
 </div>
 <div class="paragraph">
-<p><code>convertMapStatuses</code> iterates over the input <code>statuses</code> array (of <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatus</a> entries indexed by map id) and creates a collection of <a href="storage/BlockManager.html#BlockManagerId" class="page">BlockManagerId</a> (for each <code>MapStatus</code> entry) with a <a href="storage/spark-BlockDataManager.html#ShuffleBlockId" class="page">ShuffleBlockId</a> (with the input <code>shuffleId</code>, a <code>mapId</code>, and <code>partition</code> ranging from the input <code>startPartition</code> and <code>endPartition</code>) and <a href="scheduler/spark-scheduler-MapStatus.html#getSizeForBlock" class="page">estimated size for the reduce block</a> for every status and partitions.</p>
+<p><code>convertMapStatuses</code> iterates over the input <code>statuses</code> array (of <a href="scheduler/MapStatus.html" class="page">MapStatus</a> entries indexed by map id) and creates a collection of <a href="storage/BlockManager.html#BlockManagerId" class="page">BlockManagerId</a> (for each <code>MapStatus</code> entry) with a <a href="storage/spark-BlockDataManager.html#ShuffleBlockId" class="page">ShuffleBlockId</a> (with the input <code>shuffleId</code>, a <code>mapId</code>, and <code>partition</code> ranging from the input <code>startPartition</code> and <code>endPartition</code>) and <a href="scheduler/MapStatus.html#getSizeForBlock" class="page">estimated size for the reduce block</a> for every status and partitions.</p>
 </div>
 <div class="paragraph">
 <p>For any empty <code>MapStatus</code>, you should see the following ERROR message in the logs:</p>
@@ -2256,7 +2256,7 @@ getMapSizesByExecutorId gets the map outputs for all the partitions (despite the
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="mapStatuses"></a> <code>mapStatuses</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internal cache with <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatus</a> array (indexed by partition id) per <a href="rdd/spark-rdd-ShuffleDependency.html#shuffleId" class="page">shuffle id</a>.</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal cache with <a href="scheduler/MapStatus.html" class="page">MapStatus</a> array (indexed by partition id) per <a href="rdd/spark-rdd-ShuffleDependency.html#shuffleId" class="page">shuffle id</a>.</p>
 <p class="tableblock">Used when MapOutputTracker <a href="#getStatuses">finds map outputs for a <code>ShuffleDependency</code></a>, <a href="#updateEpoch">updates epoch</a> and <a href="#unregisterShuffle">unregisters a shuffle</a>.</p></td>
 </tr>
 <tr>

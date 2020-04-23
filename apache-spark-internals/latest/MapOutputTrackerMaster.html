@@ -177,7 +177,7 @@
     <a class="nav-link" href="scheduler/spark-scheduler-TaskInfo.html">TaskInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-MapStatus.html">MapStatus</a>
+    <a class="nav-link" href="scheduler/MapStatus.html">MapStatus</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-TaskDescription.html">TaskDescription</a>
@@ -1846,7 +1846,7 @@
 <p><strong>MapOutputTrackerMaster</strong> is the <a href="MapOutputTracker.html" class="page">MapOutputTracker</a> for the driver.</p>
 </div>
 <div class="paragraph">
-<p>A MapOutputTrackerMaster is the source of truth for <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatus</a> objects (map output locations) per shuffle id (as recorded from <a href="scheduler/ShuffleMapTask.html" class="page">ShuffleMapTasks</a>).</p>
+<p>A MapOutputTrackerMaster is the source of truth for <a href="scheduler/MapStatus.html" class="page">MapStatus</a> objects (map output locations) per shuffle id (as recorded from <a href="scheduler/ShuffleMapTask.html" class="page">ShuffleMapTasks</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2281,10 +2281,10 @@ The input <code>numReducers</code> is not used.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>One entry in <code>mapStatuses</code> internal cache is a <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatus</a> array indexed by partition id.</p>
+<p>One entry in <code>mapStatuses</code> internal cache is a <a href="scheduler/MapStatus.html" class="page">MapStatus</a> array indexed by partition id.</p>
 </div>
 <div class="paragraph">
-<p><code>MapStatus</code> includes <a href="scheduler/spark-scheduler-MapStatus.html#contract" class="page">information about the <code>BlockManager</code> (as <code>BlockManagerId</code>) and estimated size of the reduce blocks</a>.</p>
+<p><code>MapStatus</code> includes <a href="scheduler/MapStatus.html#contract" class="page">information about the <code>BlockManager</code> (as <code>BlockManagerId</code>) and estimated size of the reduce blocks</a>.</p>
 </div>
 </td>
 </tr>
@@ -2686,7 +2686,7 @@ getMapSizesByExecutorId is part of the <a href="MapOutputTracker.html#getMapSize
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="cachedSerializedStatuses"></a> <code>cachedSerializedStatuses</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internal registry of serialized <a href="scheduler/spark-scheduler-MapStatus.html" class="page">shuffle map output statuses</a> (as <code>Array[Byte]</code>) per&#8230;&#8203;FIXME</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal registry of serialized <a href="scheduler/MapStatus.html" class="page">shuffle map output statuses</a> (as <code>Array[Byte]</code>) per&#8230;&#8203;FIXME</p>
 <p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
 </tr>
 <tr>

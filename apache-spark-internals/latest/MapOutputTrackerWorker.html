@@ -177,7 +177,7 @@
     <a class="nav-link" href="scheduler/spark-scheduler-TaskInfo.html">TaskInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scheduler/spark-scheduler-MapStatus.html">MapStatus</a>
+    <a class="nav-link" href="scheduler/MapStatus.html">MapStatus</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-TaskDescription.html">TaskDescription</a>
@@ -1860,7 +1860,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p><code>getStatuses</code> finds <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatuses</a> for the input <code>shuffleId</code> in the <a href="#mapStatuses">mapStatuses</a> internal cache and, when not available, fetches them from a remote <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> (using RPC).</p>
+<p><code>getStatuses</code> finds <a href="scheduler/MapStatus.html" class="page">MapStatuses</a> for the input <code>shuffleId</code> in the <a href="#mapStatuses">mapStatuses</a> internal cache and, when not available, fetches them from a remote <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> (using RPC).</p>
 </div>
 <div class="paragraph">
 <p>Internally, <code>getStatuses</code> first queries the <a href="#mapStatuses"><code>mapStatuses</code> internal cache</a> and returns the map outputs if found.</p>

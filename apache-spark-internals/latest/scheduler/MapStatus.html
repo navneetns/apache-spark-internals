@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-history-server/ApplicationCache.html">
+    <title> MapStatus :: The Internals Of Apache Spark</title>
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/scheduler/MapStatus.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -69,58 +69,58 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/index.html">Spark Scheduler</a>
+    <a class="nav-link" href="index.html">Spark Scheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/Stage.html">Stage</a>
+    <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
+    <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-scheduler-JobListener.html">JobListener</a>
+    <a class="nav-link" href="spark-scheduler-JobListener.html">JobListener</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-JobWaiter.html">JobWaiter</a>
+    <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+    <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/SchedulerBackend.html">SchedulerBackend</a>
+    <a class="nav-link" href="SchedulerBackend.html">SchedulerBackend</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+    <a class="nav-link" href="CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+    <a class="nav-link" href="CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
   </li>
 </ul>
   </li>
@@ -130,84 +130,84 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/Task.html">Task</a>
+    <a class="nav-link" href="Task.html">Task</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/ShuffleMapTask.html">ShuffleMapTask</a>
+    <a class="nav-link" href="ShuffleMapTask.html">ShuffleMapTask</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/ResultTask.html">ResultTask</a>
+    <a class="nav-link" href="ResultTask.html">ResultTask</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/TaskSet.html">TaskSet</a>
+    <a class="nav-link" href="TaskSet.html">TaskSet</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/TaskSetManager.html">TaskSetManager</a>
+    <a class="nav-link" href="TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ActiveJob.html">Jobs</a>
+    <a class="nav-link" href="spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-scheduler-SchedulableBuilder.html">SchedulableBuilder</a>
+    <a class="nav-link" href="spark-scheduler-SchedulableBuilder.html">SchedulableBuilder</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-FIFOSchedulableBuilder.html">FIFOSchedulableBuilder</a>
+    <a class="nav-link" href="spark-scheduler-FIFOSchedulableBuilder.html">FIFOSchedulableBuilder</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
+    <a class="nav-link" href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-scheduler-Schedulable.html">Schedulable Entities</a>
+    <a class="nav-link" href="spark-scheduler-Schedulable.html">Schedulable Entities</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-Pool.html">Schedulable Pool</a>
+    <a class="nav-link" href="spark-scheduler-Pool.html">Schedulable Pool</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-SchedulingMode.html">Scheduling Mode</a>
+    <a class="nav-link" href="spark-scheduler-SchedulingMode.html">Scheduling Mode</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskInfo.html">TaskInfo</a>
+    <a class="nav-link" href="spark-scheduler-TaskInfo.html">TaskInfo</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="MapStatus.html">MapStatus</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/MapStatus.html">MapStatus</a>
+    <a class="nav-link" href="spark-scheduler-TaskDescription.html">TaskDescription</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskDescription.html">TaskDescription</a>
+    <a class="nav-link" href="spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-TaskContext.html">TaskContext</a>
+    <a class="nav-link" href="spark-TaskContext.html">TaskContext</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-BarrierTaskContext.html">BarrierTaskContext</a>
+    <a class="nav-link" href="spark-BarrierTaskContext.html">BarrierTaskContext</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-TaskContextImpl.html">TaskContextImpl</a>
+    <a class="nav-link" href="spark-TaskContextImpl.html">TaskContextImpl</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskResult.html">TaskResults</a>
+    <a class="nav-link" href="spark-scheduler-TaskResult.html">TaskResults</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+    <a class="nav-link" href="spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/OutputCommitCoordinator.html">OutputCommitCoordinator</a>
+    <a class="nav-link" href="OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -1492,37 +1492,37 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Spark History Server</a>
+    <a class="nav-link" href="../spark-history-server/index.html">Spark History Server</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="configuration-properties.html">Configuration Properties</a>
+    <a class="nav-link" href="../spark-history-server/configuration-properties.html">Configuration Properties</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="HistoryServer.html">HistoryServer</a>
+    <a class="nav-link" href="../spark-history-server/HistoryServer.html">HistoryServer</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="EventLoggingListener.html">EventLoggingListener</a>
+    <a class="nav-link" href="../spark-history-server/EventLoggingListener.html">EventLoggingListener</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="SQLHistoryListener.html">SQLHistoryListener</a>
+    <a class="nav-link" href="../spark-history-server/SQLHistoryListener.html">SQLHistoryListener</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
+    <a class="nav-link" href="../spark-history-server/ApplicationHistoryProvider.html">ApplicationHistoryProvider</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="FsHistoryProvider.html">FsHistoryProvider</a>
+    <a class="nav-link" href="../spark-history-server/FsHistoryProvider.html">FsHistoryProvider</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="HistoryServerArguments.html">HistoryServerArguments</a>
+    <a class="nav-link" href="../spark-history-server/HistoryServerArguments.html">HistoryServerArguments</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="ApplicationCacheOperations.html">ApplicationCacheOperations</a>
+    <a class="nav-link" href="../spark-history-server/ApplicationCacheOperations.html">ApplicationCacheOperations</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="ApplicationCache.html">ApplicationCache</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../spark-history-server/ApplicationCache.html">ApplicationCache</a>
   </li>
 </ul>
   </li>
@@ -1830,186 +1830,174 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li><a href="index.html">Spark History Server</a></li>
-    <li><a href="ApplicationCache.html">ApplicationCache</a></li>
+    <li><a href="index.html">Spark Scheduler</a></li>
+    <li><a href="MapStatus.html">MapStatus</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/spark-history-server/pages/ApplicationCache.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/scheduler/pages/MapStatus.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="applicationcache"><a class="anchor" href="#applicationcache"></a><a class="link" href="#applicationcache"><a id="ApplicationCache"></a> ApplicationCache</a></h2>
+<h1 class="page"><a id="MapStatus"></a> MapStatus</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>ApplicationCache</code> is&#8230;&#8203;FIXME</p>
+<p><strong>MapStatus</strong> is an <a href="#contract">abstraction</a> of <a href="#implementations">shuffle map output statuses</a> that are metadata of shuffle map outputs with <a href="#getSizeForBlock">estimated size for the reduce block</a> and <a href="#location">block location</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>ApplicationCache</code> is <a href="#creating-instance">created</a> exclusively when <code>HistoryServer</code> is <a href="HistoryServer.html#appCache" class="page">created</a>.</p>
+<p>MapStatus is <a href="#apply">created</a> as the result of <a href="ShuffleMapTask.html#runTask" class="page">executing a ShuffleMapTask</a> (after a <a href="../shuffle/ShuffleManager.html#getWriter" class="page">ShuffleWriter</a> has <a href="../shuffle/ShuffleWriter.html#stop" class="page">finished writing partition records successfully</a>).</p>
 </div>
 <div class="paragraph">
-<p><code>ApplicationCache</code> uses <a href="https://github.com/google/guava/wiki/Release14">Google Guava 14.0.1</a> library for the internal <a href="#appLoader">appLoader</a>.</p>
+<p>After a <a href="ShuffleMapTask.html#runTask" class="page">ShuffleMapTask has finished execution successfully</a>, <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a> (of the <code>ShuffleMapTask</code>) that requests the <a href="DAGScheduler.html#mapOutputTracker" class="page">MapOutputTrackerMaster</a> to <a href="../MapOutputTrackerMaster.html#registerMapOutput" class="page">register the MapStatus</a>.</p>
 </div>
-<table id="internal-registries" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. ApplicationCache&#8217;s Internal Properties (e.g. Registries, Counters and Flags)</caption>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contract"><a class="anchor" href="#contract"></a><a class="link" href="#contract"><a id="contract"></a> Contract</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
+<col style="width: 30%;">
+<col style="width: 70%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Method</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>appLoader</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="appLoader"></a> Google Guava&#8217;s <a href="https://google.github.io/guava/releases/14.0/api/docs/com/google/common/cache/CacheLoader.html">CacheLoader</a> with a custom <a href="https://google.github.io/guava/releases/14.0/api/docs/com/google/common/cache/CacheLoader.html#load(K)">load</a> which is simply <a href="#loadApplicationEntry">loadApplicationEntry</a>.</p>
-<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>removalListener</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="removalListener"></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>appCache</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="appCache"></a> Google Guava&#8217;s <a href="https://google.github.io/guava/releases/14.0/api/docs/com/google/common/cache/LoadingCache.html">LoadingCache</a> of <code>CacheKey</code> keys and <code>CacheEntry</code> entries</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getSizeForBlock</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="getSizeForBlock" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getSizeForBlock(reduceId: Int): Long</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Used when <code>ApplicationCache</code> is requested for the following:</p>
+<p>Estimated size for the reduce block (in bytes)</p>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#get">Cached UI of a Spark application</a> given <code>appId</code> and <code>attemptId</code> IDs</p>
+<p><code>MapOutputTrackerMaster</code> is requested for a <a href="../MapOutputTrackerMaster.html#getStatistics" class="page">MapOutputStatistics</a> and <a href="../MapOutputTrackerMaster.html#getLocationsWithLargestOutputs" class="page">locations with largest number of shuffle map outputs</a></p>
 </li>
 <li>
-<p>FIXME (other uses)</p>
+<p><code>MapOutputTracker</code> object is requested to <a href="../MapOutputTracker.html#convertMapStatuses" class="page">convert MapStatuses To BlockManagerIds with ShuffleBlockIds and Their Sizes</a></p>
 </li>
 </ul>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>metrics</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="metrics"></a></p></td>
-</tr>
-</tbody>
-</table>
-<div class="sect2">
-<h3 id="creating-applicationcache-instance"><a class="anchor" href="#creating-applicationcache-instance"></a><a class="link" href="#creating-applicationcache-instance"><a id="creating-instance"></a> Creating ApplicationCache Instance</a></h3>
+<td class="tableblock halign-left valign-top"><p class="tableblock">location</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="location" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">location: BlockManagerId</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p><code>ApplicationCache</code> takes the following when created:</p>
+<p>Block location, i.e. the <a href="#BlockManager.adoc" class="page unresolved">BlockManager</a> where a <code>ShuffleMapTask</code> ran and the result is stored.</p>
+</div>
+<div class="paragraph">
+<p>Used when:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="operations"></a> <a href="ApplicationCacheOperations.html" class="page">ApplicationCacheOperations</a></p>
+<p><code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a> (of a <code>ShuffleMapTask</code>)</p>
 </li>
 <li>
-<p><a id="retainedApplications"></a> <code>retainedApplications</code></p>
+<p><code>ShuffleStatus</code> is requested to <code>removeMapOutput</code> and <code>removeOutputsByFilter</code></p>
 </li>
 <li>
-<p><a id="clock"></a> <code>Clock</code></p>
+<p><code>MapOutputTrackerMaster</code> is requested for <a href="../MapOutputTrackerMaster.html#getLocationsWithLargestOutputs" class="page">locations with largest number of shuffle map outputs</a></p>
+</li>
+<li>
+<p><code>MapOutputTracker</code> object is requested to <a href="../MapOutputTracker.html#convertMapStatuses" class="page">convert MapStatuses To BlockManagerIds with ShuffleBlockIds and Their Sizes</a></p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mapstatuses"><a class="anchor" href="#mapstatuses"></a><a class="link" href="#mapstatuses"><a id="implementations"></a> MapStatuses</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">MapStatus</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CompressedMapStatus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CompressedMapStatus"></a> Default MapStatus that compresses the <a href="#getSizeForBlock">estimated map output size</a> to 8 bits (<code>Byte</code>) for efficient reporting</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HighlyCompressedMapStatus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="HighlyCompressedMapStatus"></a> Stores the average size of non-empty blocks, and a compressed bitmap for tracking which blocks are empty. Used when the number of partitions is above the <a href="#minPartitionsToUseHighlyCompressMapStatus">spark.shuffle.minNumPartitionsToHighlyCompress</a> threshold</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="minimum-number-of-partitions-threshold"><a class="anchor" href="#minimum-number-of-partitions-threshold"></a><a class="link" href="#minimum-number-of-partitions-threshold"><a id="minPartitionsToUseHighlyCompressMapStatus"></a> Minimum Number of Partitions Threshold</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MapStatus object uses <a href="../spark-configuration-properties.html#spark.shuffle.minNumPartitionsToHighlyCompress" class="page">spark.shuffle.minNumPartitionsToHighlyCompress</a> internal configuration property for the <strong>minimum number of partitions</strong> threshold to create a <a href="#HighlyCompressedMapStatus">HighlyCompressedMapStatus</a> when requested to <a href="#apply">create a MapStatus</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-mapstatus"><a class="anchor" href="#creating-mapstatus"></a><a class="link" href="#creating-mapstatus"><a id="apply"></a> Creating MapStatus</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">apply(
+  loc: BlockManagerId,
+  uncompressedSizes: Array[Long]): MapStatus</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>apply creates a concrete <a href="#MapStatus">MapStatus</a> per the size of the given <code>uncompressedSizes</code> array:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#HighlyCompressedMapStatus">HighlyCompressedMapStatus</a> when above the <a href="#minPartitionsToUseHighlyCompressMapStatus">minPartitionsToUseHighlyCompressMapStatus</a> threshold</p>
+</li>
+<li>
+<p><a href="#CompressedMapStatus">CompressedMapStatus</a> otherwise</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><code>ApplicationCache</code> initializes the <a href="#internal-registries">internal registries and counters</a>.</p>
+<p>apply is used when:</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="loadapplicationentry-internal-method"><a class="anchor" href="#loadapplicationentry-internal-method"></a><a class="link" href="#loadapplicationentry-internal-method"><a id="loadApplicationEntry"></a> <code>loadApplicationEntry</code> Internal Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">loadApplicationEntry(appId: String, attemptId: Option[String]): CacheEntry</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>loadApplicationEntry</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>loadApplicationEntry</code> is used exclusively when <code>ApplicationCache</code> is requested to <a href="#load">load a cached entry</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="loading-cached-spark-application-uiload-method"><a class="anchor" href="#loading-cached-spark-application-uiload-method"></a><a class="link" href="#loading-cached-spark-application-uiload-method"><a id="load"></a> Loading Cached Spark Application UI&#8201;&#8212;&#8201;<code>load</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">load(key: CacheKey): CacheEntry</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>load</code> is part of Google Guava&#8217;s <a href="https://google.github.io/guava/releases/14.0/api/docs/com/google/common/cache/CacheLoader.html">CacheLoader</a> to retrieve a <code>CacheEntry</code>, based on a <code>CacheKey</code>, for <a href="#appCache">LoadingCache</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>load</code> simply relays to <a href="#loadApplicationEntry">loadApplicationEntry</a> with the <code>appId</code> and <code>attemptId</code> of the input <code>CacheKey</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="requesting-cached-ui-of-spark-application-cacheentryget-method"><a class="anchor" href="#requesting-cached-ui-of-spark-application-cacheentryget-method"></a><a class="link" href="#requesting-cached-ui-of-spark-application-cacheentryget-method"><a id="get"></a> Requesting Cached UI of Spark Application (CacheEntry)&#8201;&#8212;&#8201;<code>get</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">get(appId: String, attemptId: Option[String] = None): CacheEntry</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>get</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>get</code> is used exclusively when <code>ApplicationCache</code> is requested to <a href="#withSparkUI">execute a closure while holding an application&#8217;s UI read lock</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="executing-closure-while-holding-applications-ui-read-lockwithsparkui-method"><a class="anchor" href="#executing-closure-while-holding-applications-ui-read-lockwithsparkui-method"></a><a class="link" href="#executing-closure-while-holding-applications-ui-read-lockwithsparkui-method"><a id="withSparkUI"></a> Executing Closure While Holding Application&#8217;s UI Read Lock&#8201;&#8212;&#8201;<code>withSparkUI</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">withSparkUI[T](appId: String, attemptId: Option[String])(fn: SparkUI =&gt; T): T</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>withSparkUI</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>withSparkUI</code> is used when <code>HistoryServer</code> is requested to <a href="HistoryServer.html#withSparkUI" class="page">withSparkUI</a> and <a href="HistoryServer.html#loadAppUi" class="page">loadAppUi</a>.
-</td>
-</tr>
-</table>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>SortShuffleWriter is requested to <a href="../shuffle/spark-shuffle-SortShuffleWriter.html#write" class="page">write records (into shuffle partitioned file in disk store)</a></p>
+</li>
+<li>
+<p>BypassMergeSortShuffleWriter is requested to <a href="../shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html#write" class="page">write records (into one single shuffle block data file)</a></p>
+</li>
+<li>
+<p>UnsafeShuffleWriter is requested to <a href="../shuffle/spark-shuffle-UnsafeShuffleWriter.html#closeAndWriteOutput" class="page">close the internal resources and write out merged spill files</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>

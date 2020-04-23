@@ -177,7 +177,7 @@
     <a class="nav-link" href="spark-scheduler-TaskInfo.html">TaskInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-scheduler-MapStatus.html">MapStatus</a>
+    <a class="nav-link" href="MapStatus.html">MapStatus</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-TaskDescription.html">TaskDescription</a>
@@ -1971,7 +1971,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p><code>runTask</code> writes the result (<em>records</em>) of executing the <a href="#taskBinary">serialized task code</a> over the records (in the <a href="#partition">RDD partition</a>) to the <a href="../shuffle/ShuffleManager.html" class="page">shuffle system</a> and returns a <a href="spark-scheduler-MapStatus.adoc">MapStatus</a> (with the <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> and an estimated size of the result shuffle blocks).</p>
+<p><code>runTask</code> writes the result (<em>records</em>) of executing the <a href="#taskBinary">serialized task code</a> over the records (in the <a href="#partition">RDD partition</a>) to the <a href="../shuffle/ShuffleManager.html" class="page">shuffle system</a> and returns a <a href="MapStatus.html" class="page">MapStatus</a> (with the <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> and an estimated size of the result shuffle blocks).</p>
 </div>
 <div class="paragraph">
 <p>Internally, <code>runTask</code> requests the <a href="#spark-SparkEnv.adoc" class="page unresolved">SparkEnv</a> for the new instance of <a href="#spark-SparkEnv.adoc#closureSerializer" class="page unresolved">closure serializer</a> and requests it to <a href="#spark-Serializer.adoc#deserialize" class="page unresolved">deserialize</a> the <a href="#taskBinary">taskBinary</a> (into a tuple of a <a href="#spark-rdd-RDD.adoc" class="page unresolved">RDD</a> and a <a href="#spark-rdd-ShuffleDependency.adoc" class="page unresolved">ShuffleDependency</a>).</p>
@@ -1986,7 +1986,7 @@
 <p><code>runTask</code> then requests the <a href="#rdd">RDD</a> for the <a href="#spark-rdd-RDD.adoc#iterator" class="page unresolved">records</a> (of the <a href="#partition">partition</a>) that the <code>ShuffleWriter</code> is requested to <a href="../shuffle/ShuffleWriter.html#write" class="page">write out</a> (to the shuffle system).</p>
 </div>
 <div class="paragraph">
-<p>In the end, <code>runTask</code> requests the <code>ShuffleWriter</code> to <a href="../shuffle/ShuffleWriter.html#stop" class="page">stop</a> (with the <code>success</code> flag on) and returns the <a href="spark-scheduler-MapStatus.html" class="page">shuffle map output status</a>.</p>
+<p>In the end, <code>runTask</code> requests the <code>ShuffleWriter</code> to <a href="../shuffle/ShuffleWriter.html#stop" class="page">stop</a> (with the <code>success</code> flag on) and returns the <a href="MapStatus.html" class="page">shuffle map output status</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
