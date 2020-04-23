@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-service-ExecutorAllocationManagerSource.html">
+    <title> MapOutputTracker :: The Internals Of Apache Spark</title>
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/MapOutputTracker.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -562,7 +562,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-ExternalSorter.html">ExternalSorter</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="MapOutputTracker.html">MapOutputTracker</a>
 <ul class="nav-list">
@@ -641,7 +641,7 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-service-ExecutorAllocationClient.html">ExecutorAllocationClient</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-service-ExecutorAllocationManagerSource.html">ExecutorAllocationManagerSource</a>
   </li>
 </ul>
@@ -1828,38 +1828,38 @@
   <ul>
     <li><a href="index.html">Apache Spark</a></li>
     <li>Core Services</li>
-    <li><a href="spark-dynamic-allocation.html">Dynamic Allocation (of Executors)</a></li>
-    <li><a href="spark-service-ExecutorAllocationManagerSource.html">ExecutorAllocationManagerSource</a></li>
+    <li><a href="MapOutputTracker.html">MapOutputTracker</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/ROOT/pages/spark-service-ExecutorAllocationManagerSource.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/ROOT/pages/MapOutputTracker.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="executorallocationmanagersourcemetric-source-for-dynamic-allocation"><a class="anchor" href="#executorallocationmanagersourcemetric-source-for-dynamic-allocation"></a><a class="link" href="#executorallocationmanagersourcemetric-source-for-dynamic-allocation"><a id="ExecutorAllocationManagerSource"></a> ExecutorAllocationManagerSource&#8201;&#8212;&#8201;Metric Source for Dynamic Allocation</a></h2>
+<h1 class="page"><a id="MapOutputTracker"></a> MapOutputTracker</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>ExecutorAllocationManagerSource</code> is a <a href="spark-metrics-MetricsSystem.adoc">metric source</a> for <a href="spark-dynamic-allocation.adoc">dynamic allocation</a> with name <code>ExecutorAllocationManager</code> and the following gauges:</p>
+<p><strong>MapOutputTracker</strong> is a base abstraction of <a href="#extensions">MapOutput trackers</a> that can <a href="#getMapSizesByExecutorId">getMapSizesByExecutorId</a> and <a href="#unregisterShuffle">unregisterShuffle</a>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>executors/numberExecutorsToAdd</code> which exposes <a href="spark-ExecutorAllocationManager.adoc#numExecutorsToAdd">numExecutorsToAdd</a>.</p>
-</li>
-<li>
-<p><code>executors/numberExecutorsPendingToRemove</code> which corresponds to the number of elements in <a href="spark-ExecutorAllocationManager.adoc#executorsPendingToRemove">executorsPendingToRemove</a>.</p>
-</li>
-<li>
-<p><code>executors/numberAllExecutors</code> which corresponds to the number of elements in <a href="spark-ExecutorAllocationManager.adoc#executorIds">executorIds</a>.</p>
-</li>
-<li>
-<p><code>executors/numberTargetExecutors</code> which is <a href="spark-ExecutorAllocationManager.adoc#numExecutorsTarget">numExecutorsTarget</a>.</p>
-</li>
-<li>
-<p><code>executors/numberMaxNeededExecutors</code> which simply calls <a href="spark-ExecutorAllocationManager.adoc#maxNumExecutorsNeeded">maxNumExecutorsNeeded</a>.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>MapOutputTracker is a core component of Apache Spark that runs on the driver and executors to <a href="#mapStatuses">track the shuffle map outputs</a> (with <a href="scheduler/spark-scheduler-MapStatus.html" class="page">information about the <code>BlockManager</code> and estimated size of the reduce blocks per shuffle</a>).</p>
+</div>
+<div class="paragraph">
+<p>Accessing the current MapOutputTracker is possible using <a href="spark-SparkEnv.html#get" class="page">SparkEnv</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">SparkEnv.get.mapOutputTracker</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>MapOutputTracker is also used for <code>mapOutputTracker.containsShuffle</code> and <a href="spark-service-MapOutputTrackerMaster.html#registerShuffle" class="page">MapOutputTrackerMaster.registerShuffle</a> when a new <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> is created.</p>
+</div>
+<div class="paragraph">
+<p><a href="spark-service-MapOutputTrackerMaster.html#getStatistics" class="page">MapOutputTrackerMaster.getStatistics(dependency)</a> returns <code>MapOutputStatistics</code> that becomes the result of <a href="scheduler/spark-scheduler-JobWaiter.html" class="page">JobWaiter.taskSucceeded</a> for <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> if it&#8217;s the final stage in a job.</p>
+</div>
+<div class="paragraph">
+<p><a href="spark-service-MapOutputTrackerMaster.html#registerMapOutputs" class="page">MapOutputTrackerMaster.registerMapOutputs</a> for a shuffle id and a list of <code>MapStatus</code> when a <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> is finished.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1868,11 +1868,501 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Spark uses <a href="http://metrics.dropwizard.io/">Metrics</a> Java library to expose internal state of its services to measure.
+MapOutputTracker is used in <a href="shuffle/spark-shuffle-BlockStoreShuffleReader.html" class="page">BlockStoreShuffleReader</a> and when creating <a href="storage/BlockManager.html" class="page">BlockManager</a> and <a href="storage/spark-blockmanager-BlockManagerSlaveEndpoint.html" class="page">BlockManagerSlaveEndpoint</a>.
 </td>
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mapoutputtrackers"><a class="anchor" href="#mapoutputtrackers"></a><a class="link" href="#mapoutputtrackers"><a id="extensions"></a> MapOutputTrackers</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">MapOutputTracker</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-service-MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="MapOutputTrackerMaster"></a> Runs on the driver</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-service-MapOutputTrackerWorker.html" class="page">MapOutputTrackerWorker</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="MapOutputTrackerWorker"></a> Runs on executors</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a><a id="conf"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MapOutputTracker takes a single <a href="spark-SparkConf.html" class="page">SparkConf</a> to be created.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mapoutputtracker-rpc-endpoint"><a class="anchor" href="#mapoutputtracker-rpc-endpoint"></a><a class="link" href="#mapoutputtracker-rpc-endpoint"><a id="trackerEndpoint"></a><a id="ENDPOINT_NAME"></a> MapOutputTracker RPC Endpoint</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>trackerEndpoint is a <a href="spark-RpcEndpointRef.html" class="page">RpcEndpointRef</a> of the <strong>MapOutputTracker</strong> RPC endpoint.</p>
+</div>
+<div class="paragraph">
+<p>trackerEndpoint is initialized (registered or looked up) when SparkEnv is <a href="spark-SparkEnv.html#create" class="page">created</a> for the driver and executors.</p>
+</div>
+<div class="paragraph">
+<p>trackerEndpoint is used to <a href="#askTracker">communicate (synchronously)</a>.</p>
+</div>
+<div class="paragraph">
+<p>trackerEndpoint is cleared (<code>null</code>) when MapOutputTrackerMaster is requested to <a href="spark-service-MapOutputTrackerMaster.html#stop" class="page">stop</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deserializemapstatuses-method"><a class="anchor" href="#deserializemapstatuses-method"></a><a class="link" href="#deserializemapstatuses-method"><a id="deserializeMapStatuses"></a> <code>deserializeMapStatuses</code> Method</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sendtracker-method"><a class="anchor" href="#sendtracker-method"></a><a class="link" href="#sendtracker-method"><a id="sendTracker"></a> <code>sendTracker</code> Method</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="serializemapstatuses-method"><a class="anchor" href="#serializemapstatuses-method"></a><a class="link" href="#serializemapstatuses-method"><a id="serializeMapStatuses"></a> <code>serializeMapStatuses</code> Method</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="computing-statistics-for-shuffledependency"><a class="anchor" href="#computing-statistics-for-shuffledependency"></a><a class="link" href="#computing-statistics-for-shuffledependency"><a id="getStatistics"></a> Computing Statistics for ShuffleDependency</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getStatistics(
+  dep: ShuffleDependency[_, _, _]): MapOutputStatistics</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>getStatistics</code> returns a <code>MapOutputStatistics</code> which is simply a pair of the <a href="rdd/spark-rdd-ShuffleDependency.html#shuffleId" class="page">shuffle id</a> (of the input <code>ShuffleDependency</code>) and the total sums of estimated sizes of the reduce shuffle blocks from all the <a href="storage/BlockManager.html" class="page">BlockManager</a>s.</p>
+</div>
+<div class="paragraph">
+<p>Internally, <code>getStatistics</code> <a href="#getStatuses">finds map outputs</a> for the input <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and calculates the total sizes for the <a href="scheduler/spark-scheduler-MapStatus.html#getSizeForBlock" class="page">estimated sizes of the reduce block (in bytes)</a> for every <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatus</a> and partition.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The internal <code>totalSizes</code> array has the number of elements as specified by the <a href="rdd/spark-rdd-Partitioner.html#numPartitions" class="page">number of partitions of the <code>Partitioner</code></a> of the input <code>ShuffleDependency</code>. <code>totalSizes</code> contains elements as a sum of the estimated size of the block for partition in a <a href="storage/BlockManager.html" class="page">BlockManager</a> (for a <code>MapStatus</code>).
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>getStatistics</code> is used when <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleMapStageSubmitted" class="page"><code>DAGScheduler</code> accepts a <code>ShuffleDependency</code> for execution</a> (and the <a href="scheduler/spark-scheduler-ShuffleMapStage.html#isAvailable" class="page">corresponding <code>ShuffleMapStage</code> has already been computed</a>) and <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleTaskCompletion-Success-ShuffleMapTask" class="page">gets notified that a <code>ShuffleMapTask</code> has completed</a> (and map-stage jobs waiting for the stage are then marked as finished).
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="computing-blockmanagerids-with-their-blocks-and-sizes"><a class="anchor" href="#computing-blockmanagerids-with-their-blocks-and-sizes"></a><a class="link" href="#computing-blockmanagerids-with-their-blocks-and-sizes"><a id="getMapSizesByExecutorId"></a> Computing BlockManagerIds with Their Blocks and Sizes</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getMapSizesByExecutorId(
+  shuffleId: Int,
+  startPartition: Int,
+  endPartition: Int): Seq[(BlockManagerId, Seq[(BlockId, Long)])]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>getMapSizesByExecutorId returns a collection of <a href="storage/BlockManager.html#BlockManagerId" class="page">BlockManagerId</a>s with their blocks and sizes.</p>
+</div>
+<div class="paragraph">
+<p>When executed, you should see the following DEBUG message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Fetching outputs for shuffle [id], partitions [startPartition]-[endPartition]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>getMapSizesByExecutorId <a href="#getStatuses">finds map outputs</a> for the input <code>shuffleId</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+getMapSizesByExecutorId gets the map outputs for all the partitions (despite the method&#8217;s signature).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In the end, getMapSizesByExecutorId <a href="#convertMapStatuses">converts shuffle map outputs</a> (as <code>MapStatuses</code>) into the collection of <a href="storage/BlockManager.html#BlockManagerId" class="page">BlockManagerId</a>s with their blocks and sizes.</p>
+</div>
+<div class="paragraph">
+<p>getMapSizesByExecutorId is used when BlockStoreShuffleReader is requested to <a href="shuffle/spark-shuffle-BlockStoreShuffleReader.html#read" class="page">read combined records for a reduce task</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="finding-current-epoch"><a class="anchor" href="#finding-current-epoch"></a><a class="link" href="#finding-current-epoch"><a id="getEpoch"></a> Finding Current Epoch</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getEpoch: Long</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>getEpoch</code> returns the current <a href="#epoch">epoch</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>getEpoch</code> is used when <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page"><code>DAGScheduler</code> is notified that an executor was lost</a> and when <a href="scheduler/TaskSetManager.html#creating-instance" class="page"><code>TaskSetManager</code> is created</a> (and sets the epoch for the tasks in a <a href="scheduler/TaskSet.html" class="page">TaskSet</a>).
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="updating-epoch"><a class="anchor" href="#updating-epoch"></a><a class="link" href="#updating-epoch"><a id="updateEpoch"></a> Updating Epoch</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">updateEpoch(newEpoch: Long): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>updateEpoch</code> updates <a href="#epoch">epoch</a> when the input <code>newEpoch</code> is greater (and hence more recent) and clears the <a href="#mapStatuses"><code>mapStatuses</code> internal cache</a>.</p>
+</div>
+<div class="paragraph">
+<p>You should see the following INFO message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>INFO MapOutputTrackerWorker: Updating epoch to [newEpoch] and clearing cache</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>updateEpoch</code> is exclusively used when <a href="spark-Executor-TaskRunner.html#run" class="page"><code>TaskRunner</code> runs</a> (for a task).
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="unregistering-shuffle"><a class="anchor" href="#unregistering-shuffle"></a><a class="link" href="#unregistering-shuffle"><a id="unregisterShuffle"></a> Unregistering Shuffle</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">unregisterShuffle(shuffleId: Int): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>unregisterShuffle</code> unregisters <code>shuffleId</code>, i.e. removes <code>shuffleId</code> entry from the <a href="#mapStatuses">mapStatuses</a> internal cache.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>unregisterShuffle</code> is used when <a href="spark-service-contextcleaner.html#doCleanupShuffle" class="page"><code>ContextCleaner</code> removes a shuffle (blocks) from <code>MapOutputTrackerMaster</code> and <code>BlockManagerMaster</code></a> (aka <em>shuffle cleanup</em>) and when <code>BlockManagerSlaveEndpoint</code> <a href="storage/spark-blockmanager-BlockManagerSlaveEndpoint.html#RemoveShuffle" class="page">handles <code>RemoveShuffle</code> message</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="stopping-mapoutputtracker"><a class="anchor" href="#stopping-mapoutputtracker"></a><a class="link" href="#stopping-mapoutputtracker"><a id="stop"></a> Stopping MapOutputTracker</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>stop does nothing at all.</p>
+</div>
+<div class="paragraph">
+<p>stop is used when SparkEnv is requested to <a href="spark-SparkEnv.html#stop" class="page">stop</a> (and stops all the services, incl. MapOutputTracker).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="finding-map-outputs-for-shuffledependency-in-cache-or-fetching-remotely"><a class="anchor" href="#finding-map-outputs-for-shuffledependency-in-cache-or-fetching-remotely"></a><a class="link" href="#finding-map-outputs-for-shuffledependency-in-cache-or-fetching-remotely"><a id="getStatuses"></a> Finding Map Outputs For <code>ShuffleDependency</code> in Cache or Fetching Remotely</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getStatuses(shuffleId: Int): Array[MapStatus]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>getStatuses</code> finds <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatuses</a> for the input <code>shuffleId</code> in the <a href="#mapStatuses">mapStatuses</a> internal cache and, when not available, fetches them from a remote <a href="spark-service-MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> (using RPC).</p>
+</div>
+<div class="paragraph">
+<p>Internally, <code>getStatuses</code> first queries the <a href="#mapStatuses"><code>mapStatuses</code> internal cache</a> and returns the map outputs if found.</p>
+</div>
+<div class="paragraph">
+<p>If not found (in the <code>mapStatuses</code> internal cache), you should see the following INFO message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Don't have map outputs for shuffle [id], fetching them</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If some other process fetches the map outputs for the <code>shuffleId</code> (as recorded in <code>fetching</code> internal registry), <code>getStatuses</code> waits until it is done.</p>
+</div>
+<div class="paragraph">
+<p>When no other process fetches the map outputs, <code>getStatuses</code> registers the input <code>shuffleId</code> in <code>fetching</code> internal registry (of shuffle map outputs being fetched).</p>
+</div>
+<div class="paragraph">
+<p>You should see the following INFO message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Doing the fetch; tracker endpoint = [trackerEndpoint]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>getStatuses</code> sends a <code>GetMapOutputStatuses</code> RPC remote message for the input <code>shuffleId</code> to the trackerEndpoint expecting a <code>Array[Byte]</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>getStatuses</code> requests shuffle map outputs remotely within a timeout and with retries. Refer to <a href="spark-RpcEndpointRef.html" class="page">RpcEndpointRef</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>getStatuses</code> <a href="#deserializeMapStatuses">deserializes the map output statuses</a> and records the result in the <a href="#mapStatuses"><code>mapStatuses</code> internal cache</a>.</p>
+</div>
+<div class="paragraph">
+<p>You should see the following INFO message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Got the output locations</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>getStatuses</code> removes the input <code>shuffleId</code> from <code>fetching</code> internal registry.</p>
+</div>
+<div class="paragraph">
+<p>You should see the following DEBUG message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Fetching map output statuses for shuffle [id] took [time] ms</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>getStatuses</code> could not find the map output locations for the input <code>shuffleId</code> (locally and remotely), you should see the following ERROR message in the logs and throws a <code>MetadataFetchFailedException</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Missing all output locations for shuffle [id]</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>getStatuses</code> is used when MapOutputTracker <a href="#getMapSizesByExecutorId">getMapSizesByExecutorId</a> and <a href="#getStatistics">computes statistics for <code>ShuffleDependency</code></a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="converting-mapstatuses-to-blockmanagerids-with-shuffleblockids-and-their-sizes"><a class="anchor" href="#converting-mapstatuses-to-blockmanagerids-with-shuffleblockids-and-their-sizes"></a><a class="link" href="#converting-mapstatuses-to-blockmanagerids-with-shuffleblockids-and-their-sizes"><a id="convertMapStatuses"></a> Converting MapStatuses To BlockManagerIds with ShuffleBlockIds and Their Sizes</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">convertMapStatuses(
+  shuffleId: Int,
+  startPartition: Int,
+  endPartition: Int,
+  statuses: Array[MapStatus]): Seq[(BlockManagerId, Seq[(BlockId, Long)])]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>convertMapStatuses</code> iterates over the input <code>statuses</code> array (of <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatus</a> entries indexed by map id) and creates a collection of <a href="storage/BlockManager.html#BlockManagerId" class="page">BlockManagerId</a> (for each <code>MapStatus</code> entry) with a <a href="storage/spark-BlockDataManager.html#ShuffleBlockId" class="page">ShuffleBlockId</a> (with the input <code>shuffleId</code>, a <code>mapId</code>, and <code>partition</code> ranging from the input <code>startPartition</code> and <code>endPartition</code>) and <a href="scheduler/spark-scheduler-MapStatus.html#getSizeForBlock" class="page">estimated size for the reduce block</a> for every status and partitions.</p>
+</div>
+<div class="paragraph">
+<p>For any empty <code>MapStatus</code>, you should see the following ERROR message in the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Missing an output location for shuffle [id]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And <code>convertMapStatuses</code> throws a <code>MetadataFetchFailedException</code> (with <code>shuffleId</code>, <code>startPartition</code>, and the above error message).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>convertMapStatuses</code> is exclusively used when <a href="#getMapSizesByExecutorId">MapOutputTracker computes <code>BlockManagerId</code>s with their <code>ShuffleBlockId</code>s and sizes</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sending-blocking-messages-to-trackerendpoint-rpcendpointref"><a class="anchor" href="#sending-blocking-messages-to-trackerendpoint-rpcendpointref"></a><a class="link" href="#sending-blocking-messages-to-trackerendpoint-rpcendpointref"><a id="askTracker"></a> Sending Blocking Messages To trackerEndpoint RpcEndpointRef</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">askTracker[T](message: Any): T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>askTracker</code> <a href="spark-RpcEndpointRef.html#askWithRetry" class="page">sends the <code>message</code></a> to <a href="#trackerEndpoint">trackerEndpoint RpcEndpointRef</a> and waits for a result.</p>
+</div>
+<div class="paragraph">
+<p>When an exception happens, you should see the following ERROR message in the logs and <code>askTracker</code> throws a <code>SparkException</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Error communicating with MapOutputTracker</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>askTracker</code> is used when MapOutputTracker <a href="#getStatuses">fetches map outputs for <code>ShuffleDependency</code> remotely</a> and <a href="#sendTracker">sends a one-way message</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="mapStatuses"></a> <code>mapStatuses</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal cache with <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatus</a> array (indexed by partition id) per <a href="rdd/spark-rdd-ShuffleDependency.html#shuffleId" class="page">shuffle id</a>.</p>
+<p class="tableblock">Used when MapOutputTracker <a href="#getStatuses">finds map outputs for a <code>ShuffleDependency</code></a>, <a href="#updateEpoch">updates epoch</a> and <a href="#unregisterShuffle">unregisters a shuffle</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="epoch"></a> <code>epoch</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tracks the epoch in a Spark application.</p>
+<p class="tableblock">Starts from <code>0</code> when <a href="#creating-instance">MapOutputTracker is created</a>.</p>
+<p class="tableblock">Can be <a href="#updateEpoch">updated</a> (on <code>MapOutputTrackerWorkers</code>) or <a href="spark-service-MapOutputTrackerMaster.html#incrementEpoch" class="page">incremented</a> (on the driver&#8217;s <code>MapOutputTrackerMaster</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="epochLock"></a> <code>epochLock</code></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FIXME</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </article>
