@@ -549,6 +549,9 @@
   <li class="nav-item is-current-page" data-depth="4">
     <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
@@ -1841,10 +1844,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>MapOutputTrackerMasterEndpoint</strong> is a <a href="spark-rpc-RpcEndpoint.html" class="page">RpcEndpoint</a> for <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a>.</p>
-</div>
-<div class="paragraph">
-<p>MapOutputTrackerMasterEndpoint handles the following <a href="#messages">messages</a>:</p>
+<p><strong>MapOutputTrackerMasterEndpoint</strong> is a <a href="spark-rpc-RpcEndpoint.html" class="page">RpcEndpoint</a> for <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> to <a href="#receiveAndReply">handle</a> the following messages:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1888,7 +1888,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="messages"><a class="anchor" href="#messages"></a><a class="link" href="#messages"><a id="messages"></a> Messages</a></h2>
+<h2 id="messages"><a class="anchor" href="#messages"></a><a class="link" href="#messages"><a id="messages"></a><a id="receiveAndReply"></a> Messages</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="getmapoutputstatuses"><a class="anchor" href="#getmapoutputstatuses"></a><a class="link" href="#getmapoutputstatuses"><a id="GetMapOutputStatuses"></a> GetMapOutputStatuses</a></h3>
@@ -1898,21 +1898,18 @@
 </div>
 </div>
 <div class="paragraph">
-<p>When GetMapOutputStatuses arrives, MapOutputTrackerMasterEndpoint reads the host and the port of the sender.</p>
-</div>
-<div class="paragraph">
-<p>You should see the following INFO message in the logs:</p>
+<p>When received, MapOutputTrackerMasterEndpoint prints out the following INFO message to the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>Asked to send map output locations for shuffle [shuffleId] to [hostPort]</code></pre>
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Asked to send map output locations for shuffle [shuffleId] to [hostPort]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>MapOutputTrackerMasterEndpoint <a href="MapOutputTrackerMaster.html#post" class="page">posts a <code>GetMapOutputMessage</code> to <code>MapOutputTrackerMaster</code></a> (with <code>shuffleId</code> and the current <code>RpcCallContext</code>).</p>
+<p>MapOutputTrackerMasterEndpoint requests the <a href="#tracker">MapOutputTrackerMaster</a> to <a href="MapOutputTrackerMaster.html#post" class="page">post a GetMapOutputMessage</a>.</p>
 </div>
 <div class="paragraph">
-<p>GetMapOutputStatuses is posted when MapOutputTracker is requested to <a href="MapOutputTracker.html#getStatuses" class="page">fetch shuffle map outputs remotely</a>.</p>
+<p>GetMapOutputStatuses is posted when MapOutputTrackerWorker is requested for <a href="MapOutputTrackerWorker.html#getStatuses" class="page">shuffle map outputs for a given shuffle ID</a>.</p>
 </div>
 </div>
 <div class="sect2">

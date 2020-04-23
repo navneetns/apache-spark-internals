@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-TransportRequestHandler.html">
+    <title> ShuffleStatus :: The Internals Of Apache Spark</title>
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/ShuffleStatus.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -549,7 +549,7 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
-  <li class="nav-item" data-depth="4">
+  <li class="nav-item is-current-page" data-depth="4">
     <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
   </li>
 </ul>
@@ -733,7 +733,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-RpcResponseCallback.html">RpcResponseCallback</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-TransportRequestHandler.html">TransportRequestHandler</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -1830,211 +1830,66 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Apache Spark</a></li>
-    <li>Transferring Data Blocks (between Nodes in Spark Application)</li>
-    <li><a href="spark-TransportRequestHandler.html">TransportRequestHandler</a></li>
+    <li>Core Services</li>
+    <li><a href="MapOutputTracker.html">MapOutputTracker</a></li>
+    <li><a href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a></li>
+    <li><a href="ShuffleStatus.html">ShuffleStatus</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/ROOT/pages/spark-TransportRequestHandler.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/ROOT/pages/ShuffleStatus.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="transportrequesthandler"><a class="anchor" href="#transportrequesthandler"></a><a class="link" href="#transportrequesthandler"><a id="TransportRequestHandler"></a> TransportRequestHandler</a></h2>
+<h1 class="page"><a id="ShuffleStatus"></a> ShuffleStatus</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>TransportRequestHandler</code> is a <a href="spark-MessageHandler.adoc">MessageHandler</a> of <a href="#handle">RequestMessage messages</a> from Netty&#8217;s <a href="#channel">Channel</a>.</p>
+<p><strong>ShuffleStatus</strong> is used by <a href="MapOutputTrackerMaster.html#shuffleStatuses" class="page">MapOutputTrackerMaster</a> to keep track of shuffles and their status.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a><a id="numPartitions"></a> Creating Instance</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><code>TransportRequestHandler</code> is <a href="#creating-instance">created</a> exclusively when <code>TransportContext</code> is requested to <a href="spark-TransportContext.adoc#createChannelHandler">createChannelHandler</a>.</p>
+<p>ShuffleStatus takes a single number of partitions to be created.</p>
 </div>
-<div id="logging" class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Enable <code>ERROR</code>, <code>WARN</code>, <code>TRACE</code> logging level for <code>org.apache.spark.network.server.TransportRequestHandler</code> logger to see what happens inside.</p>
 </div>
-<div class="paragraph">
-<p>Add the following line to <code>conf/log4j.properties</code>:</p>
 </div>
+<div class="sect1">
+<h2 id="registering-shuffle-map-output"><a class="anchor" href="#registering-shuffle-map-output"></a><a class="link" href="#registering-shuffle-map-output"><a id="addMapOutput"></a> Registering Shuffle Map Output</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.network.server.TransportRequestHandler=TRACE</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">addMapOutput(
+  mapId: Int,
+  status: MapStatus): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Refer to <a href="spark-logging.adoc">Logging</a>.</p>
+<p>addMapOutput&#8230;&#8203;FIXME</p>
 </div>
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>addMapOutput is used when MapOutputTrackerMaster is requested to <a href="MapOutputTrackerMaster.html#registerMapOutput" class="page">register a shuffle map output</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="processrpcrequest-internal-method"><a class="anchor" href="#processrpcrequest-internal-method"></a><a class="link" href="#processrpcrequest-internal-method"><a id="processRpcRequest"></a> <code>processRpcRequest</code> Internal Method</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="serializedmapstatus-method"><a class="anchor" href="#serializedmapstatus-method"></a><a class="link" href="#serializedmapstatus-method"><a id="serializedMapStatus"></a> serializedMapStatus Method</a></h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void processRpcRequest(final RpcRequest req)</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">serializedMapStatus(
+  broadcastManager: BroadcastManager,
+  isLocal: Boolean,
+  minBroadcastSize: Int): Array[Byte]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>processRpcRequest</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>processRpcRequest</code> is used exclusively when <code>TransportRequestHandler</code> is requested to <a href="#handle">handle</a> a <code>RpcRequest</code> request.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="processfetchrequest-internal-method"><a class="anchor" href="#processfetchrequest-internal-method"></a><a class="link" href="#processfetchrequest-internal-method"><a id="processFetchRequest"></a> <code>processFetchRequest</code> Internal Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void processFetchRequest(final ChunkFetchRequest req)</code></pre>
-</div>
+<p>serializedMapStatus&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p><code>processFetchRequest</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>processFetchRequest</code> is used exclusively when <code>TransportRequestHandler</code> is requested to <a href="#handle">handle</a> a <code>ChunkFetchRequest</code> request.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="processonewaymessage-internal-method"><a class="anchor" href="#processonewaymessage-internal-method"></a><a class="link" href="#processonewaymessage-internal-method"><a id="processOneWayMessage"></a> <code>processOneWayMessage</code> Internal Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void processOneWayMessage(OneWayMessage req)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>processOneWayMessage</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>processOneWayMessage</code> is used exclusively when <code>TransportRequestHandler</code> is requested to <a href="#handle">handle</a> a <code>OneWayMessage</code> request.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="processstreamrequest-internal-method"><a class="anchor" href="#processstreamrequest-internal-method"></a><a class="link" href="#processstreamrequest-internal-method"><a id="processStreamRequest"></a> <code>processStreamRequest</code> Internal Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void processStreamRequest(final StreamRequest req)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>processStreamRequest</code>&#8230;&#8203;FIXME</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>processStreamRequest</code> is used exclusively when <code>TransportRequestHandler</code> is requested to <a href="#handle">handle</a> a <code>StreamRequest</code> request.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="handling-requestmessageshandle-method"><a class="anchor" href="#handling-requestmessageshandle-method"></a><a class="link" href="#handling-requestmessageshandle-method"><a id="handle"></a> Handling RequestMessages&#8201;&#8212;&#8201;<code>handle</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">void handle(RequestMessage request)</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>handle</code> is part of <a href="spark-MessageHandler.adoc#handle">MessageHandler Contract</a> to handle messages (aka <em>requests</em>).
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>handle</code> branches off per the type of the input <code>RequestMessage</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>For <code>ChunkFetchRequest</code> requests, <code>handle</code> <a href="#processFetchRequest">processFetchRequest</a></p>
-</li>
-<li>
-<p>For <code>RpcRequest</code> requests, <code>handle</code> <a href="#processRpcRequest">processRpcRequest</a></p>
-</li>
-<li>
-<p>For <code>OneWayMessage</code> requests, <code>handle</code> <a href="#processOneWayMessage">processOneWayMessage</a></p>
-</li>
-<li>
-<p>For <code>StreamRequest</code> requests, <code>handle</code> <a href="#processStreamRequest">processStreamRequest</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>For unknown requests, <code>handle</code> simply throws a <code>IllegalArgumentException</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>Unknown request type: [request]</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="creating-transportrequesthandler-instance"><a class="anchor" href="#creating-transportrequesthandler-instance"></a><a class="link" href="#creating-transportrequesthandler-instance"><a id="creating-instance"></a> Creating TransportRequestHandler Instance</a></h3>
-<div class="paragraph">
-<p><code>TransportRequestHandler</code> takes the following when created:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a id="channel"></a> Netty&#8217;s <a href="https://netty.io/4.1/api/io/netty/channel/Channel.html">Channel</a></p>
-</li>
-<li>
-<p><a id="reverseClient"></a> <code>TransportClient</code></p>
-</li>
-<li>
-<p><a id="rpcHandler"></a> <a href="spark-RpcHandler.adoc">RpcHandler</a></p>
-</li>
-<li>
-<p><a id="maxChunksBeingTransferred"></a> Maximum number of chunks allowed to be transferred at the same time</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>TransportRequestHandler</code> initializes the <a href="#internal-registries">internal registries and counters</a>.</p>
-</div>
+<p>serializedMapStatus is used when&#8230;&#8203;FIXME</p>
 </div>
 </div>
 </div>

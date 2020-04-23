@@ -549,6 +549,9 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../ShuffleStatus.html">ShuffleStatus</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
@@ -2061,7 +2064,7 @@ FIXME
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-shufflemapstage-for-shuffledependency"><a class="anchor" href="#creating-shufflemapstage-for-shuffledependency"></a><a class="link" href="#creating-shufflemapstage-for-shuffledependency"><a id="createShuffleMapStage"></a> Creating ShuffleMapStage for ShuffleDependency</a></h2>
+<h2 id="creating-shufflemapstage-for-shuffledependency"><a class="anchor" href="#creating-shufflemapstage-for-shuffledependency"></a><a class="link" href="#creating-shufflemapstage-for-shuffledependency"><a id="createShuffleMapStage"></a> Creating ShuffleMapStage (for ShuffleDependency)</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2071,7 +2074,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>createShuffleMapStage</code> creates a <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> for the input <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <code>jobId</code> (of a <a href="spark-scheduler-ActiveJob.html" class="page">ActiveJob</a>) possibly copying shuffle map output locations from previous jobs to avoid recomputing records.</p>
+<p>createShuffleMapStage creates a <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> for the input <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <code>jobId</code> (of a <a href="spark-scheduler-ActiveJob.html" class="page">ActiveJob</a>) possibly copying shuffle map output locations from previous jobs to avoid recomputing records.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2086,7 +2089,7 @@ When a <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapSta
 </table>
 </div>
 <div class="paragraph">
-<p>Internally, <code>createShuffleMapStage</code> first <a href="#getOrCreateParentStages">finds or creates missing parent <code>ShuffleMapStage</code> stages of the associated RDD</a>.</p>
+<p>Internally, createShuffleMapStage first <a href="#getOrCreateParentStages">finds or creates missing parent <code>ShuffleMapStage</code> stages of the associated RDD</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2101,7 +2104,7 @@ When a <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapSta
 </table>
 </div>
 <div class="paragraph">
-<p><code>createShuffleMapStage</code> <a href="spark-scheduler-ShuffleMapStage.html#creating-instance" class="page">creates a <code>ShuffleMapStage</code></a> (with the stage id from <a href="#nextStageId"><code>nextStageId</code> internal counter</a>).</p>
+<p>createShuffleMapStage <a href="spark-scheduler-ShuffleMapStage.html#creating-instance" class="page">creates a <code>ShuffleMapStage</code></a> (with the stage id from <a href="#nextStageId"><code>nextStageId</code> internal counter</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2116,13 +2119,13 @@ The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="../rd
 </table>
 </div>
 <div class="paragraph">
-<p><code>createShuffleMapStage</code> registers the <code>ShuffleMapStage</code> in <a href="#stageIdToStage">stageIdToStage</a> and <a href="#shuffleIdToMapStage">shuffleIdToMapStage</a> internal registries.</p>
+<p>createShuffleMapStage registers the <code>ShuffleMapStage</code> in <a href="#stageIdToStage">stageIdToStage</a> and <a href="#shuffleIdToMapStage">shuffleIdToMapStage</a> internal registries.</p>
 </div>
 <div class="paragraph">
-<p><code>createShuffleMapStage</code> calls <a href="#updateJobIdStageIdMaps">updateJobIdStageIdMaps</a>.</p>
+<p>createShuffleMapStage calls <a href="#updateJobIdStageIdMaps">updateJobIdStageIdMaps</a>.</p>
 </div>
 <div class="paragraph">
-<p>If <a href="../MapOutputTrackerMaster.html#containsShuffle" class="page"><code>MapOutputTrackerMaster</code> tracks the input <code>ShuffleDependency</code></a> (because other jobs have already computed it), <code>createShuffleMapStage</code> <a href="../MapOutputTrackerMaster.html#getSerializedMapOutputStatuses" class="page">requests the serialized <code>ShuffleMapStage</code> outputs</a>, <a href="../MapOutputTracker.html#deserializeMapStatuses" class="page">deserializes them</a> and <a href="spark-scheduler-ShuffleMapStage.html#addOutputLoc" class="page">registers with the new <code>ShuffleMapStage</code></a>.</p>
+<p>If <a href="../MapOutputTrackerMaster.html#containsShuffle" class="page"><code>MapOutputTrackerMaster</code> tracks the input <code>ShuffleDependency</code></a> (because other jobs have already computed it), createShuffleMapStage <a href="../MapOutputTrackerMaster.html#getSerializedMapOutputStatuses" class="page">requests the serialized <code>ShuffleMapStage</code> outputs</a>, <a href="../MapOutputTracker.html#deserializeMapStatuses" class="page">deserializes them</a> and <a href="spark-scheduler-ShuffleMapStage.html#addOutputLoc" class="page">registers with the new <code>ShuffleMapStage</code></a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2143,7 +2146,7 @@ The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="../rd
 <div class="title">Figure 4. DAGScheduler Asks <code>MapOutputTrackerMaster</code> Whether Shuffle Map Output Is Already Tracked</div>
 </div>
 <div class="paragraph">
-<p>If however <code>MapOutputTrackerMaster</code> does not track the input <code>ShuffleDependency</code>, you should see the following INFO message in the logs and <code>createShuffleMapStage</code> <a href="../MapOutputTrackerMaster.html#registerShuffle" class="page">registers the <code>ShuffleDependency</code> with <code>MapOutputTrackerMaster</code></a>.</p>
+<p>If however <code>MapOutputTrackerMaster</code> does not track the input <code>ShuffleDependency</code>, you should see the following INFO message in the logs and createShuffleMapStage <a href="../MapOutputTrackerMaster.html#registerShuffle" class="page">registers the <code>ShuffleDependency</code> with <code>MapOutputTrackerMaster</code></a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2151,19 +2154,10 @@ The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="../rd
 </div>
 </div>
 <div class="paragraph">
-<p><code>createShuffleMapStage</code> returns the new <code>ShuffleMapStage</code>.</p>
+<p>createShuffleMapStage returns the new <code>ShuffleMapStage</code>.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>createShuffleMapStage</code> is executed only when DAGScheduler <a href="#getOrCreateShuffleMapStage">finds or creates parent <code>ShuffleMapStage</code> stages for a <code>ShuffleDependency</code></a>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>createShuffleMapStage is used when DAGScheduler <a href="#getOrCreateShuffleMapStage">finds or creates parent ShuffleMapStage stages for a ShuffleDependency</a>.</p>
 </div>
 </div>
 </div>

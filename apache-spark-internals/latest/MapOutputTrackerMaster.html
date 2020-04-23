@@ -549,6 +549,9 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
@@ -1852,18 +1855,6 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-MapOutputTrackerMaster uses Java&#8217;s thread-safe <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html">java.util.concurrent.ConcurrentHashMap</a> for <a href="MapOutputTracker.html#mapStatuses" class="page"><code>mapStatuses</code> internal cache</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
 There is currently a hardcoded limit of map and reduce tasks above which Spark does not assign preferred locations aka locality preferences based on map output sizes&#8201;&#8212;&#8201;<code>1000</code> for map and reduce each.
 </td>
 </tr>
@@ -1899,6 +1890,50 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </div>
 </div>
 <div class="sect1">
+<h2 id="getmapoutputmessage-queue"><a class="anchor" href="#getmapoutputmessage-queue"></a><a class="link" href="#getmapoutputmessage-queue"><a id="mapOutputRequests"></a><a id="GetMapOutputMessage"></a> GetMapOutputMessage Queue</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MapOutputTrackerMaster uses a blocking queue (a Java <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/LinkedBlockingQueue.html">LinkedBlockingQueue</a>) for requests for map output statuses.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">GetMapOutputMessage(shuffleId: Int, context: RpcCallContext)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>GetMapOutputMessage holds the shuffle ID and the RpcCallContext of the caller.</p>
+</div>
+<div class="paragraph">
+<p>A new GetMapOutputMessage is added to the queue when MapOutputTrackerMaster is requested to <a href="#post">post one</a>.</p>
+</div>
+<div class="paragraph">
+<p>MapOutputTrackerMaster uses <a href="#MessageLoop">MessageLoop Dispatcher Threads</a> to process GetMapOutputMessages.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="messageloop-dispatcher-thread"><a class="anchor" href="#messageloop-dispatcher-thread"></a><a class="link" href="#messageloop-dispatcher-thread"><a id="MessageLoop"></a><a id="run"></a> MessageLoop Dispatcher Thread</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MessageLoop is a thread of execution to handle <a href="#GetMapOutputMessage">GetMapOutputMessages</a> until <a href="#PoisonPill">PoisonPill</a> arrives.</p>
+</div>
+<div class="paragraph">
+<p>MessageLoop takes a GetMapOutputMessage and prints out the following DEBUG message to the logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Handling request to send map output locations for shuffle [shuffleId] to [hostPort]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>MessageLoop then finds the <a href="ShuffleStatus.html" class="page">ShuffleStatus</a> by the shuffle ID in the <a href="#shuffleStatuses">shuffleStatuses</a> internal registry and replies back (to the RPC client) with a <a href="ShuffleStatus.html#serializedMapStatus" class="page">serialized map output status</a> (with the <a href="#broadcastManager">BroadcastManager</a> and <a href="#spark.shuffle.mapOutput.minSizeForBroadcast">spark.shuffle.mapOutput.minSizeForBroadcast</a> configuration property).</p>
+</div>
+<div class="paragraph">
+<p>MessageLoop threads run on the <a href="#threadpool">map-output-dispatcher Thread Pool</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="map-output-dispatcher-thread-pool"><a class="anchor" href="#map-output-dispatcher-thread-pool"></a><a class="link" href="#map-output-dispatcher-thread-pool"><a id="threadpool"></a> map-output-dispatcher Thread Pool</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -1910,7 +1945,7 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 <p>threadpool is a daemon fixed thread pool registered with <strong>map-output-dispatcher</strong> thread name prefix.</p>
 </div>
 <div class="paragraph">
-<p>threadpool uses <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.dispatcher.numThreads" class="page">spark.shuffle.mapOutput.dispatcher.numThreads</a> configuration property for the number of <a href="#MessageLoop"><code>MessageLoop</code> dispatcher threads</a> to process received <code>GetMapOutputMessage</code> messages.</p>
+<p>threadpool uses <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.dispatcher.numThreads" class="page">spark.shuffle.mapOutput.dispatcher.numThreads</a> configuration property for the number of <a href="#MessageLoop">MessageLoop dispatcher threads</a> to process received <code>GetMapOutputMessage</code> messages.</p>
 </div>
 <div class="paragraph">
 <p>The dispatcher threads are started immediately when <a href="#creating-instance">MapOutputTrackerMaster is created</a>.</p>
@@ -1921,10 +1956,78 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </div>
 </div>
 <div class="sect1">
+<h2 id="configuration-properties"><a class="anchor" href="#configuration-properties"></a><a class="link" href="#configuration-properties"><a id="configuration-properties"></a> Configuration Properties</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MapOutputTrackerMaster uses the following configuration properties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="spark.shuffle.mapOutput.minSizeForBroadcast"></a> <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.minSizeForBroadcast" class="page">spark.shuffle.mapOutput.minSizeForBroadcast</a></p>
+</li>
+<li>
+<p><a id="spark.shuffle.mapOutput.dispatcher.numThreads"></a> <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.dispatcher.numThreads" class="page">spark.shuffle.mapOutput.dispatcher.numThreads</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="shuffle-status-registry"><a class="anchor" href="#shuffle-status-registry"></a><a class="link" href="#shuffle-status-registry"><a id="shuffleStatuses"></a> Shuffle Status Registry</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MapOutputTrackerMaster uses an internal registry for <a href="ShuffleStatus.html" class="page">ShuffleStatuses</a> by shuffle ID.</p>
+</div>
+<div class="paragraph">
+<p>MapOutputTrackerMaster adds a new shuffle when requested to <a href="#registerShuffle">register one</a>.</p>
+</div>
+<div class="paragraph">
+<p>MapOutputTrackerMaster uses the registry when requested for the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#registerMapOutput">registerMapOutput</a></p>
+</li>
+<li>
+<p><a href="#getStatistics">getStatistics</a></p>
+</li>
+<li>
+<p><a href="#MessageLoop">MessageLoop</a></p>
+</li>
+<li>
+<p><a href="#unregisterMapOutput">unregisterMapOutput</a>, <a href="#unregisterAllMapOutput">unregisterAllMapOutput</a>, <a href="#unregisterShuffle">unregisterShuffle</a>, <a href="#removeOutputsOnHost">removeOutputsOnHost</a>, <a href="#removeOutputsOnExecutor">removeOutputsOnExecutor</a>, <a href="#containsShuffle">containsShuffle</a>, <a href="#getNumAvailableOutputs">getNumAvailableOutputs</a>, <a href="#findMissingPartitions">findMissingPartitions</a>, <a href="#getLocationsWithLargestOutputs">getLocationsWithLargestOutputs</a>, <a href="#getMapSizesByExecutorId">getMapSizesByExecutorId</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>MapOutputTrackerMaster removes (<em>clears</em>) all shuffles when requested to <a href="#stop">stop</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="epoch-number"><a class="anchor" href="#epoch-number"></a><a class="link" href="#epoch-number"><a id="epoch"></a><a id="getEpoch"></a> Epoch Number</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>MapOutputTrackerMaster uses an <strong>epoch number</strong> to&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enqueueing-getmapoutputmessage"><a class="anchor" href="#enqueueing-getmapoutputmessage"></a><a class="link" href="#enqueueing-getmapoutputmessage"><a id="post"></a> Enqueueing GetMapOutputMessage</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">post(
+  message: GetMapOutputMessage): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>post simply adds the input GetMapOutputMessage to the <a href="#mapOutputRequests">mapOutputRequests</a> internal queue.</p>
+</div>
+<div class="paragraph">
+<p>post is used when MapOutputTrackerMasterEndpoint is requested to <a href="MapOutputTrackerMasterEndpoint.html#GetMapOutputStatuses" class="page">handle a GetMapOutputStatuses message</a>.</p>
 </div>
 </div>
 </div>
@@ -1947,23 +2050,6 @@ FIXME
 </div>
 <div class="sect1">
 <h2 id="clearcachedbroadcast-method"><a class="anchor" href="#clearcachedbroadcast-method"></a><a class="link" href="#clearcachedbroadcast-method"><a id="clearCachedBroadcast"></a> <code>clearCachedBroadcast</code> Method</a></h2>
-<div class="sectionbody">
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="post-method"><a class="anchor" href="#post-method"></a><a class="link" href="#post-method"><a id="post"></a> <code>post</code> Method</a></h2>
 <div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
@@ -2229,7 +2315,7 @@ The input <code>numReducers</code> is not used.
 </div>
 </div>
 <div class="sect1">
-<h2 id="registering-shuffledependency"><a class="anchor" href="#registering-shuffledependency"></a><a class="link" href="#registering-shuffledependency"><a id="registerShuffle"></a> Registering ShuffleDependency</a></h2>
+<h2 id="registering-shuffle"><a class="anchor" href="#registering-shuffle"></a><a class="link" href="#registering-shuffle"><a id="registerShuffle"></a> Registering Shuffle</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2239,33 +2325,18 @@ The input <code>numReducers</code> is not used.
 </div>
 </div>
 <div class="paragraph">
-<p>registerShuffle registers the input <code>shuffleId</code> in the <a href="MapOutputTracker.html#mapStatuses" class="page">mapStatuses</a> internal cache.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The number of <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatus</a> entries in the new array in <code>mapStatuses</code> internal cache is exactly the input <code>numMaps</code>.
-</td>
-</tr>
-</table>
+<p>registerShuffle adds the input shuffle ID and the number of partitions (as a <a href="ShuffleStatus.html" class="page">ShuffleStatus</a>) to <a href="#shuffleStatuses">shuffleStatuses</a> internal registry.</p>
 </div>
 <div class="paragraph">
-<p>registerShuffle adds a lock in the <a href="#shuffleIdLocks"><code>shuffleIdLocks</code> internal registry</a> (without using it).</p>
-</div>
-<div class="paragraph">
-<p>If the <code>shuffleId</code> has already been registered, registerShuffle throws a <code>IllegalArgumentException</code> with the following message:</p>
+<p>If the shuffle ID has already been registered, registerShuffle throws an IllegalArgumentException:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>Shuffle ID [id] registered twice</code></pre>
+<pre class="highlightjs highlight"><code>Shuffle ID [shuffleId] registered twice</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>registerShuffle is used when <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code></a> (for <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <a href="scheduler/spark-scheduler-ActiveJob.html" class="page">ActiveJob</a>).</p>
+<p>registerShuffle is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a ShuffleMapStage</a> (for a <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <a href="scheduler/spark-scheduler-ActiveJob.html" class="page">ActiveJob</a>).</p>
 </div>
 </div>
 </div>
@@ -2380,40 +2451,6 @@ The number of <a href="scheduler/spark-scheduler-MapStatus.html" class="page">Ma
 </div>
 </div>
 <div class="sect1">
-<h2 id="messageloop-dispatcher-thread"><a class="anchor" href="#messageloop-dispatcher-thread"></a><a class="link" href="#messageloop-dispatcher-thread"><a id="MessageLoop"></a><a id="run"></a> <code>MessageLoop</code> Dispatcher Thread</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>MessageLoop</code> is a dispatcher thread that, once started, runs indefinitely until <a href="#PoisonPill">PoisonPill</a> arrives.</p>
-</div>
-<div class="paragraph">
-<p><code>MessageLoop</code> takes <code>GetMapOutputMessage</code> messages off <a href="#mapOutputRequests">mapOutputRequests</a> internal queue (waiting if necessary until a message becomes available).</p>
-</div>
-<div class="paragraph">
-<p>Unless <code>PoisonPill</code> is processed, you should see the following DEBUG message in the logs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>DEBUG Handling request to send map output locations for shuffle [shuffleId] to [hostPort]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>MessageLoop</code> replies back with <a href="#getSerializedMapOutputStatuses">serialized map output statuses for the <code>shuffleId</code></a> (from the incoming <code>GetMapOutputMessage</code> message).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>MessageLoop</code> is created and executed immediately when <a href="#creating-instance">MapOutputTrackerMaster is created</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="poisonpill-message"><a class="anchor" href="#poisonpill-message"></a><a class="link" href="#poisonpill-message"><a id="PoisonPill"></a> PoisonPill Message</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2425,7 +2462,7 @@ The number of <a href="scheduler/spark-scheduler-MapStatus.html" class="page">Ma
 </div>
 </div>
 <div class="sect1">
-<h2 id="registermapoutput-method"><a class="anchor" href="#registermapoutput-method"></a><a class="link" href="#registermapoutput-method"><a id="registerMapOutput"></a> <code>registerMapOutput</code> Method</a></h2>
+<h2 id="registering-shuffle-map-output"><a class="anchor" href="#registering-shuffle-map-output"></a><a class="link" href="#registering-shuffle-map-output"><a id="registerMapOutput"></a> Registering Shuffle Map Output</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2436,19 +2473,20 @@ The number of <a href="scheduler/spark-scheduler-MapStatus.html" class="page">Ma
 </div>
 </div>
 <div class="paragraph">
-<p><code>registerMapOutput</code>&#8230;&#8203;FIXME</p>
+<p>registerMapOutput finds the <a href="ShuffleStatus.html" class="page">ShuffleStatus</a> by the given shuffle ID and <a href="ShuffleStatus.html#addMapOutput" class="page">adds the given MapStatus</a>:</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>registerMapOutput</code> is used when&#8230;&#8203;FIXME
-</td>
-</tr>
-</table>
+<div class="ulist">
+<ul>
+<li>
+<p>The given mapId is the <a href="scheduler/Task.html#partitionId" class="page">partitionId</a> of the <a href="scheduler/ShuffleMapTask.html" class="page">ShuffleMapTask</a> that finished.</p>
+</li>
+<li>
+<p>The given shuffleId is the <a href="rdd/spark-rdd-ShuffleDependency.html#shuffleId" class="page">shuffleId</a> of the <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> of the <a href="scheduler/spark-scheduler-ShuffleMapStage.html#shuffleDep" class="page">ShuffleMapStage</a> (for which the ShuffleMapTask completed)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>registerMapOutput is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#handleTaskCompletion" class="page">handle a ShuffleMapTask completion</a>.</p>
 </div>
 </div>
 </div>
@@ -2474,6 +2512,136 @@ The number of <a href="scheduler/spark-scheduler-MapStatus.html" class="page">Ma
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="unregisterallmapoutput-method"><a class="anchor" href="#unregisterallmapoutput-method"></a><a class="link" href="#unregisterallmapoutput-method"><a id="unregisterAllMapOutput"></a> unregisterAllMapOutput Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">unregisterAllMapOutput(
+  shuffleId: Int): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>unregisterAllMapOutput&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>unregisterAllMapOutput is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="unregistershuffle-method"><a class="anchor" href="#unregistershuffle-method"></a><a class="link" href="#unregistershuffle-method"><a id="unregisterShuffle"></a> unregisterShuffle Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">unregisterShuffle(
+  shuffleId: Int): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>unregisterShuffle&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>unregisterShuffle is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="removeoutputsonhost-method"><a class="anchor" href="#removeoutputsonhost-method"></a><a class="link" href="#removeoutputsonhost-method"><a id="removeOutputsOnHost"></a> removeOutputsOnHost Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">removeOutputsOnHost(
+  host: String): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>removeOutputsOnHost&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>removeOutputsOnHost is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="removeoutputsonexecutor-method"><a class="anchor" href="#removeoutputsonexecutor-method"></a><a class="link" href="#removeoutputsonexecutor-method"><a id="removeOutputsOnExecutor"></a> removeOutputsOnExecutor Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">removeOutputsOnExecutor(
+  execId: String): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>removeOutputsOnExecutor&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>removeOutputsOnExecutor is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getnumavailableoutputs-method"><a class="anchor" href="#getnumavailableoutputs-method"></a><a class="link" href="#getnumavailableoutputs-method"><a id="getNumAvailableOutputs"></a> getNumAvailableOutputs Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getNumAvailableOutputs(
+  shuffleId: Int): Int</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>getNumAvailableOutputs&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>getNumAvailableOutputs is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="findmissingpartitions-method"><a class="anchor" href="#findmissingpartitions-method"></a><a class="link" href="#findmissingpartitions-method"><a id="findMissingPartitions"></a> findMissingPartitions Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">findMissingPartitions(
+  shuffleId: Int): Option[Seq[Int]]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>findMissingPartitions&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>findMissingPartitions is used when&#8230;&#8203;FIXME</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getmapsizesbyexecutorid-method"><a class="anchor" href="#getmapsizesbyexecutorid-method"></a><a class="link" href="#getmapsizesbyexecutorid-method"><a id="getMapSizesByExecutorId"></a> getMapSizesByExecutorId Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getMapSizesByExecutorId(
+  shuffleId: Int,
+  startPartition: Int,
+  endPartition: Int): Iterator[(BlockManagerId, Seq[(BlockId, Long)])]</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+getMapSizesByExecutorId is part of the <a href="MapOutputTracker.html#getMapSizesByExecutorId" class="page">MapOutputTracker</a> abstraction.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>getMapSizesByExecutorId&#8230;&#8203;FIXME</p>
 </div>
 </div>
 </div>
@@ -2530,12 +2698,6 @@ The number of <a href="scheduler/spark-scheduler-MapStatus.html" class="page">Ma
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="shuffleIdLocks"></a> <code>shuffleIdLocks</code></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Internal registry of locks for shuffle ids.</p>
 <p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="mapOutputRequests"></a> <code>mapOutputRequests</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internal queue with <code>GetMapOutputMessage</code> requests for map output statuses.</p>
-<p class="tableblock">Used when MapOutputTrackerMaster <a href="#post">posts <code>GetMapOutputMessage</code> messages to</a> and <a href="#run">take one head element off this queue</a>.</p>
-<p class="tableblock">NOTE: <code>mapOutputRequests</code> uses Java&#8217;s <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/LinkedBlockingQueue.html">java.util.concurrent.LinkedBlockingQueue</a>.</p></td>
 </tr>
 </tbody>
 </table>
