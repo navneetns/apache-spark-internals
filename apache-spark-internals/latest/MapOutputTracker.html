@@ -538,6 +538,24 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -561,24 +579,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-ExternalSorter.html">ExternalSorter</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-service-MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1853,13 +1853,13 @@
 </div>
 </div>
 <div class="paragraph">
-<p>MapOutputTracker is also used for <code>mapOutputTracker.containsShuffle</code> and <a href="spark-service-MapOutputTrackerMaster.html#registerShuffle" class="page">MapOutputTrackerMaster.registerShuffle</a> when a new <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> is created.</p>
+<p>MapOutputTracker is also used for <code>mapOutputTracker.containsShuffle</code> and <a href="MapOutputTrackerMaster.html#registerShuffle" class="page">MapOutputTrackerMaster.registerShuffle</a> when a new <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> is created.</p>
 </div>
 <div class="paragraph">
-<p><a href="spark-service-MapOutputTrackerMaster.html#getStatistics" class="page">MapOutputTrackerMaster.getStatistics(dependency)</a> returns <code>MapOutputStatistics</code> that becomes the result of <a href="scheduler/spark-scheduler-JobWaiter.html" class="page">JobWaiter.taskSucceeded</a> for <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> if it&#8217;s the final stage in a job.</p>
+<p><a href="MapOutputTrackerMaster.html#getStatistics" class="page">MapOutputTrackerMaster.getStatistics(dependency)</a> returns <code>MapOutputStatistics</code> that becomes the result of <a href="scheduler/spark-scheduler-JobWaiter.html" class="page">JobWaiter.taskSucceeded</a> for <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> if it&#8217;s the final stage in a job.</p>
 </div>
 <div class="paragraph">
-<p><a href="spark-service-MapOutputTrackerMaster.html#registerMapOutputs" class="page">MapOutputTrackerMaster.registerMapOutputs</a> for a shuffle id and a list of <code>MapStatus</code> when a <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> is finished.</p>
+<p><a href="MapOutputTrackerMaster.html#registerMapOutputs" class="page">MapOutputTrackerMaster.registerMapOutputs</a> for a shuffle id and a list of <code>MapStatus</code> when a <a href="scheduler/spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> is finished.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1891,7 +1891,7 @@ MapOutputTracker is used in <a href="shuffle/spark-shuffle-BlockStoreShuffleRead
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-service-MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="MapOutputTrackerMaster"></a> Runs on the driver</p></td>
 </tr>
 <tr>
@@ -1923,7 +1923,7 @@ MapOutputTracker is used in <a href="shuffle/spark-shuffle-BlockStoreShuffleRead
 <p>trackerEndpoint is used to <a href="#askTracker">communicate (synchronously)</a>.</p>
 </div>
 <div class="paragraph">
-<p>trackerEndpoint is cleared (<code>null</code>) when MapOutputTrackerMaster is requested to <a href="spark-service-MapOutputTrackerMaster.html#stop" class="page">stop</a>.</p>
+<p>trackerEndpoint is cleared (<code>null</code>) when MapOutputTrackerMaster is requested to <a href="MapOutputTrackerMaster.html#stop" class="page">stop</a>.</p>
 </div>
 </div>
 </div>
@@ -2172,7 +2172,7 @@ getMapSizesByExecutorId gets the map outputs for all the partitions (despite the
 </div>
 </div>
 <div class="paragraph">
-<p><code>getStatuses</code> finds <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatuses</a> for the input <code>shuffleId</code> in the <a href="#mapStatuses">mapStatuses</a> internal cache and, when not available, fetches them from a remote <a href="spark-service-MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> (using RPC).</p>
+<p><code>getStatuses</code> finds <a href="scheduler/spark-scheduler-MapStatus.html" class="page">MapStatuses</a> for the input <code>shuffleId</code> in the <a href="#mapStatuses">mapStatuses</a> internal cache and, when not available, fetches them from a remote <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> (using RPC).</p>
 </div>
 <div class="paragraph">
 <p>Internally, <code>getStatuses</code> first queries the <a href="#mapStatuses"><code>mapStatuses</code> internal cache</a> and returns the map outputs if found.</p>
@@ -2355,7 +2355,7 @@ getMapSizesByExecutorId gets the map outputs for all the partitions (despite the
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="epoch"></a> <code>epoch</code></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Tracks the epoch in a Spark application.</p>
 <p class="tableblock">Starts from <code>0</code> when <a href="#creating-instance">MapOutputTracker is created</a>.</p>
-<p class="tableblock">Can be <a href="#updateEpoch">updated</a> (on <code>MapOutputTrackerWorkers</code>) or <a href="spark-service-MapOutputTrackerMaster.html#incrementEpoch" class="page">incremented</a> (on the driver&#8217;s <code>MapOutputTrackerMaster</code>).</p></td>
+<p class="tableblock">Can be <a href="#updateEpoch">updated</a> (on <code>MapOutputTrackerWorkers</code>) or <a href="MapOutputTrackerMaster.html#incrementEpoch" class="page">incremented</a> (on the driver&#8217;s <code>MapOutputTrackerMaster</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="epochLock"></a> <code>epochLock</code></code></p></td>

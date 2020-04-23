@@ -539,6 +539,24 @@
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SerializerManager.html">SerializerManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -561,24 +579,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-ExternalSorter.html">ExternalSorter</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="spark-service-MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -2217,100 +2217,6 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.shuffle.file.buffer</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="spark.shuffle.file.buffer"></a> Size of the in-memory buffer for each shuffle file output stream, in KiB unless otherwise specified. These buffers reduce the number of disk seeks and system calls made in creating intermediate shuffle files.</p>
-</div>
-<div class="paragraph">
-<p>Default: <code>32k</code></p>
-</div>
-<div class="paragraph">
-<p>Must be greater than <code>0</code> and less than or equal to <code>2097151</code> (<code>(Integer.MAX_VALUE - 15) / 1024</code>)</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.shuffle.manager</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="spark.shuffle.manager"></a> Specifies the fully-qualified class name or the <a href="#spark.shuffle.manager-aliases">alias</a> of the <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a> in a Spark application</p>
-</div>
-<div class="paragraph">
-<p>Default: <code>sort</code></p>
-</div>
-<div id="spark.shuffle.manager-aliases" class="paragraph">
-<p>The supported aliases:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a id="spark.shuffle.manager-sort"></a> <code>sort</code></p>
-</li>
-<li>
-<p><a id="spark.shuffle.manager-tungsten-sort"></a> <code>tungsten-sort</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Used exclusively when <code>SparkEnv</code> object is requested to <a href="spark-SparkEnv.html#create" class="page">create a "base" SparkEnv for a driver or an executor</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.shuffle.minNumPartitionsToHighlyCompress</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="spark.shuffle.minNumPartitionsToHighlyCompress"></a> <strong>(internal)</strong> Minimum number of partitions (threshold) when <code>MapStatus</code> object creates a <a href="#spark-scheduler-MapStatus.adoc#HighlyCompressedMapStatus" class="page unresolved">HighlyCompressedMapStatus</a> (over <a href="#spark-scheduler-MapStatus.adoc#CompressedMapStatus" class="page unresolved">CompressedMapStatus</a>) when requested to <a href="#spark-scheduler-MapStatus.adoc#apply" class="page unresolved">create one</a> (for <a href="shuffle/ShuffleWriter.html" class="page">ShuffleWriters</a>).</p>
-</div>
-<div class="paragraph">
-<p>Default: <code>2000</code></p>
-</div>
-<div class="paragraph">
-<p>Must be a positive integer (above <code>0</code>)</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.shuffle.sort.bypassMergeThreshold</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="spark.shuffle.sort.bypassMergeThreshold"></a> Maximum number of reduce partitions below which <a href="shuffle/SortShuffleManager.html" class="page">SortShuffleManager</a> avoids merge-sorting data for no map-side aggregation</p>
-</div>
-<div class="paragraph">
-<p>Default: <code>200</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.shuffle.sort.initialBufferSize</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="spark.shuffle.sort.initialBufferSize"></a> Initial buffer size for sorting</p>
-</div>
-<div class="paragraph">
-<p>Default: <a href="shuffle/spark-shuffle-UnsafeShuffleWriter.html#DEFAULT_INITIAL_SORT_BUFFER_SIZE" class="page">4096</a></p>
-</div>
-<div class="paragraph">
-<p>Used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="shuffle/spark-shuffle-UnsafeShuffleWriter.html#open" class="page">open</a> (and creates a <a href="shuffle/ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a>)</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.shuffle.sync</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="spark.shuffle.sync"></a> Controls whether <a href="spark-blockmanager-DiskBlockObjectWriter.adoc#commitAndGet"><code>DiskBlockObjectWriter</code> should force outstanding writes to disk when committing a single atomic block</a>, i.e. all operating system buffers should synchronize with the disk to ensure that all changes to a file are in fact recorded in the storage.</p>
-</div>
-<div class="paragraph">
-<p>Default: <code>false</code></p>
-</div>
-<div class="paragraph">
-<p>Used exclusively when <code>BlockManager</code> is requested to <a href="#BlockManager.adoc#getDiskWriter" class="page unresolved">get a DiskBlockObjectWriter</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.shuffle.unsafe.file.output.buffer</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="spark.shuffle.unsafe.file.output.buffer"></a> The file system for this buffer size after each partition is written in unsafe shuffle writer. In KiB unless otherwise specified.</p>
-</div>
-<div class="paragraph">
-<p>Default: <code>32k</code></p>
-</div>
-<div class="paragraph">
-<p>Must be greater than <code>0</code> and less than or equal to <code>2097151</code> (<code>(Integer.MAX_VALUE - 15) / 1024</code>)</p>
-</div></div></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>spark.starvation.timeout</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="spark.starvation.timeout"></a> Threshold above which Spark warns a user that an initial TaskSet may be starved</p>
@@ -2448,6 +2354,144 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 </div>
 <div class="paragraph">
 <p>Used when MemoryManager is requested for <a href="memory/MemoryManager.html#tungstenMemoryMode" class="page">tungstenMemoryMode</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-shuffle-file-buffer"><a class="anchor" href="#spark-shuffle-file-buffer"></a><a class="link" href="#spark-shuffle-file-buffer"><a id="spark.shuffle.file.buffer"></a> spark.shuffle.file.buffer</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Size of the in-memory buffer for each shuffle file output stream, in KiB unless otherwise specified. These buffers reduce the number of disk seeks and system calls made in creating intermediate shuffle files.</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>32k</code></p>
+</div>
+<div class="paragraph">
+<p>Must be greater than <code>0</code> and less than or equal to <code>2097151</code> (<code>(Integer.MAX_VALUE - 15) / 1024</code>)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-shuffle-manager"><a class="anchor" href="#spark-shuffle-manager"></a><a class="link" href="#spark-shuffle-manager"><a id="spark.shuffle.manager"></a> spark.shuffle.manager</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Specifies the fully-qualified class name or the <a href="#spark.shuffle.manager-aliases">alias</a> of the <a href="shuffle/ShuffleManager.html" class="page">ShuffleManager</a> in a Spark application</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>sort</code></p>
+</div>
+<div id="spark.shuffle.manager-aliases" class="paragraph">
+<p>The supported aliases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="spark.shuffle.manager-sort"></a> <code>sort</code></p>
+</li>
+<li>
+<p><a id="spark.shuffle.manager-tungsten-sort"></a> <code>tungsten-sort</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Used when <code>SparkEnv</code> object is requested to <a href="spark-SparkEnv.html#create" class="page">create a "base" SparkEnv for a driver or an executor</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-shuffle-mapoutput-dispatcher-numthreads"><a class="anchor" href="#spark-shuffle-mapoutput-dispatcher-numthreads"></a><a class="link" href="#spark-shuffle-mapoutput-dispatcher-numthreads"><a id="spark.shuffle.mapOutput.dispatcher.numThreads"></a> spark.shuffle.mapOutput.dispatcher.numThreads</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Default: <code>8</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-shuffle-mapoutput-minsizeforbroadcast"><a class="anchor" href="#spark-shuffle-mapoutput-minsizeforbroadcast"></a><a class="link" href="#spark-shuffle-mapoutput-minsizeforbroadcast"><a id="spark.shuffle.mapOutput.minSizeForBroadcast"></a> spark.shuffle.mapOutput.minSizeForBroadcast</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Default: <code>512k</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-shuffle-minnumpartitionstohighlycompress"><a class="anchor" href="#spark-shuffle-minnumpartitionstohighlycompress"></a><a class="link" href="#spark-shuffle-minnumpartitionstohighlycompress"><a id="spark.shuffle.minNumPartitionsToHighlyCompress"></a> spark.shuffle.minNumPartitionsToHighlyCompress</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>(internal)</strong> Minimum number of partitions (threshold) when <code>MapStatus</code> object creates a <a href="scheduler/spark-scheduler-MapStatus.html#HighlyCompressedMapStatus" class="page">HighlyCompressedMapStatus</a> (over <a href="scheduler/spark-scheduler-MapStatus.html#CompressedMapStatus" class="page">CompressedMapStatus</a>) when requested for <a href="scheduler/spark-scheduler-MapStatus.html#apply" class="page">one</a> (for <a href="shuffle/ShuffleWriter.html" class="page">ShuffleWriters</a>).</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>2000</code></p>
+</div>
+<div class="paragraph">
+<p>Must be a positive integer (above <code>0</code>)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-shuffle-reducelocality-enabled"><a class="anchor" href="#spark-shuffle-reducelocality-enabled"></a><a class="link" href="#spark-shuffle-reducelocality-enabled"><a id="spark.shuffle.reduceLocality.enabled"></a> spark.shuffle.reduceLocality.enabled</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Controls whether to compute locality preferences for reduce tasks</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>true</code></p>
+</div>
+<div class="paragraph">
+<p>When enabled (i.e. <code>true</code>), MapOutputTrackerMaster computes the preferred hosts on which to run a given map output partition in a given shuffle, i.e. the nodes that the most outputs for that partition are on.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-shuffle-sort-bypassmergethreshold"><a class="anchor" href="#spark-shuffle-sort-bypassmergethreshold"></a><a class="link" href="#spark-shuffle-sort-bypassmergethreshold"><a id="spark.shuffle.sort.bypassMergeThreshold"></a> spark.shuffle.sort.bypassMergeThreshold</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Maximum number of reduce partitions below which <a href="shuffle/SortShuffleManager.html" class="page">SortShuffleManager</a> avoids merge-sorting data for no map-side aggregation</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>200</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-shuffle-sort-initialbuffersize"><a class="anchor" href="#spark-shuffle-sort-initialbuffersize"></a><a class="link" href="#spark-shuffle-sort-initialbuffersize"><a id="spark.shuffle.sort.initialBufferSize"></a> spark.shuffle.sort.initialBufferSize</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Initial buffer size for sorting</p>
+</div>
+<div class="paragraph">
+<p>Default: <a href="shuffle/spark-shuffle-UnsafeShuffleWriter.html#DEFAULT_INITIAL_SORT_BUFFER_SIZE" class="page">4096</a></p>
+</div>
+<div class="paragraph">
+<p>Used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="shuffle/spark-shuffle-UnsafeShuffleWriter.html#open" class="page">open</a> (and creates a <a href="shuffle/ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a>)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-shuffle-sync"><a class="anchor" href="#spark-shuffle-sync"></a><a class="link" href="#spark-shuffle-sync"><a id="spark.shuffle.sync"></a> spark.shuffle.sync</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Controls whether <a href="storage/spark-blockmanager-DiskBlockObjectWriter.html#commitAndGet" class="page"><code>DiskBlockObjectWriter</code> should force outstanding writes to disk when committing a single atomic block</a>, i.e. all operating system buffers should synchronize with the disk to ensure that all changes to a file are in fact recorded in the storage.</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>false</code></p>
+</div>
+<div class="paragraph">
+<p>Used exclusively when <code>BlockManager</code> is requested to <a href="storage/BlockManager.html#getDiskWriter" class="page">get a DiskBlockObjectWriter</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spark-shuffle-unsafe-file-output-buffer"><a class="anchor" href="#spark-shuffle-unsafe-file-output-buffer"></a><a class="link" href="#spark-shuffle-unsafe-file-output-buffer"><a id="spark.shuffle.unsafe.file.output.buffer"></a> spark.shuffle.unsafe.file.output.buffer</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The file system for this buffer size after each partition is written in unsafe shuffle writer. In KiB unless otherwise specified.</p>
+</div>
+<div class="paragraph">
+<p>Default: <code>32k</code></p>
+</div>
+<div class="paragraph">
+<p>Must be greater than <code>0</code> and less than or equal to <code>2097151</code> (<code>(Integer.MAX_VALUE - 15) / 1024</code>)</p>
 </div>
 </div>
 </div>

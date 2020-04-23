@@ -539,6 +539,24 @@
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -561,24 +579,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-ExternalSorter.html">ExternalSorter</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-service-MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1953,7 +1953,7 @@
 <p><a id="listenerBus"></a> <a href="../spark-scheduler-LiveListenerBus.html" class="page">LiveListenerBus</a></p>
 </li>
 <li>
-<p><a id="mapOutputTracker"></a> <a href="../spark-service-MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a></p>
+<p><a id="mapOutputTracker"></a> <a href="../MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a></p>
 </li>
 <li>
 <p><a id="blockManagerMaster"></a> <a href="../storage/BlockManagerMaster.html" class="page">BlockManagerMaster</a></p>
@@ -2122,7 +2122,7 @@ The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="../rd
 <p><code>createShuffleMapStage</code> calls <a href="#updateJobIdStageIdMaps">updateJobIdStageIdMaps</a>.</p>
 </div>
 <div class="paragraph">
-<p>If <a href="../spark-service-MapOutputTrackerMaster.html#containsShuffle" class="page"><code>MapOutputTrackerMaster</code> tracks the input <code>ShuffleDependency</code></a> (because other jobs have already computed it), <code>createShuffleMapStage</code> <a href="../spark-service-MapOutputTrackerMaster.html#getSerializedMapOutputStatuses" class="page">requests the serialized <code>ShuffleMapStage</code> outputs</a>, <a href="../MapOutputTracker.html#deserializeMapStatuses" class="page">deserializes them</a> and <a href="spark-scheduler-ShuffleMapStage.html#addOutputLoc" class="page">registers with the new <code>ShuffleMapStage</code></a>.</p>
+<p>If <a href="../MapOutputTrackerMaster.html#containsShuffle" class="page"><code>MapOutputTrackerMaster</code> tracks the input <code>ShuffleDependency</code></a> (because other jobs have already computed it), <code>createShuffleMapStage</code> <a href="../MapOutputTrackerMaster.html#getSerializedMapOutputStatuses" class="page">requests the serialized <code>ShuffleMapStage</code> outputs</a>, <a href="../MapOutputTracker.html#deserializeMapStatuses" class="page">deserializes them</a> and <a href="spark-scheduler-ShuffleMapStage.html#addOutputLoc" class="page">registers with the new <code>ShuffleMapStage</code></a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2131,7 +2131,7 @@ The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="../rd
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="../spark-service-MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> was defined when <a href="#creating-instance">DAGScheduler was created</a>.
+<a href="../MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> was defined when <a href="#creating-instance">DAGScheduler was created</a>.
 </td>
 </tr>
 </table>
@@ -2143,7 +2143,7 @@ The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="../rd
 <div class="title">Figure 4. DAGScheduler Asks <code>MapOutputTrackerMaster</code> Whether Shuffle Map Output Is Already Tracked</div>
 </div>
 <div class="paragraph">
-<p>If however <code>MapOutputTrackerMaster</code> does not track the input <code>ShuffleDependency</code>, you should see the following INFO message in the logs and <code>createShuffleMapStage</code> <a href="../spark-service-MapOutputTrackerMaster.html#registerShuffle" class="page">registers the <code>ShuffleDependency</code> with <code>MapOutputTrackerMaster</code></a>.</p>
+<p>If however <code>MapOutputTrackerMaster</code> does not track the input <code>ShuffleDependency</code>, you should see the following INFO message in the logs and <code>createShuffleMapStage</code> <a href="../MapOutputTrackerMaster.html#registerShuffle" class="page">registers the <code>ShuffleDependency</code> with <code>MapOutputTrackerMaster</code></a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">

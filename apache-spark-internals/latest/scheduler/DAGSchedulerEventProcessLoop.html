@@ -539,6 +539,24 @@
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -561,24 +579,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-ExternalSorter.html">ExternalSorter</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-service-MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -2517,12 +2517,12 @@ FIXME Review what&#8217;s <code>filesLost</code>.
 <p><code>ShuffleMapStage.removeOutputsOnExecutor(execId)</code> is called</p>
 </li>
 <li>
-<p><a href="spark-service-MapOutputTrackerMaster.adoc#registerMapOutputs">MapOutputTrackerMaster.registerMapOutputs(shuffleId</a> is called.</p>
+<p><a href="../MapOutputTrackerMaster.html#registerMapOutputs" class="page">MapOutputTrackerMaster.registerMapOutputs(shuffleId</a> is called.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>In case <a href="DAGScheduler.html#shuffleToMapStage" class="page">DAGScheduler&#8217;s <code>shuffleToMapStage</code> internal registry</a> has no shuffles registered,  <a href="spark-service-MapOutputTrackerMaster.adoc#incrementEpoch"><code>MapOutputTrackerMaster</code> is requested to increment epoch</a>.</p>
+<p>In case <a href="DAGScheduler.html#shuffleToMapStage" class="page">DAGScheduler&#8217;s <code>shuffleToMapStage</code> internal registry</a> has no shuffles registered,  <a href="../MapOutputTrackerMaster.html#incrementEpoch" class="page"><code>MapOutputTrackerMaster</code> is requested to increment epoch</a>.</p>
 </div>
 <div class="paragraph">
 <p>Ultimatelly, DAGScheduler <a href="DAGScheduler.html#clearCacheLocs" class="page">clears the internal cache of RDD partition locations</a>.</p>
@@ -2899,7 +2899,7 @@ INFO DAGScheduler: failed: [failedStages]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>handleTaskCompletion</code> <a href="spark-service-MapOutputTrackerMaster.adoc#registerMapOutputs">registers the shuffle map outputs of the <code>ShuffleDependency</code> with <code>MapOutputTrackerMaster</code></a> (with the epoch incremented) and <a href="DAGScheduler.html#clearCacheLocs" class="page">clears internal cache of the stage&#8217;s RDD block locations</a>.</p>
+<p><code>handleTaskCompletion</code> <a href="../MapOutputTrackerMaster.html#registerMapOutputs" class="page">registers the shuffle map outputs of the <code>ShuffleDependency</code> with <code>MapOutputTrackerMaster</code></a> (with the epoch incremented) and <a href="DAGScheduler.html#clearCacheLocs" class="page">clears internal cache of the stage&#8217;s RDD block locations</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2908,13 +2908,13 @@ INFO DAGScheduler: failed: [failedStages]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="spark-service-MapOutputTrackerMaster.adoc">MapOutputTrackerMaster</a> is given when <a href="DAGScheduler.html#creating-instance" class="page">DAGScheduler is created</a>.
+<a href="../MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> is given when <a href="DAGScheduler.html#creating-instance" class="page">DAGScheduler is created</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>If the <a href="spark-scheduler-ShuffleMapStage.html#isAvailable" class="page"><code>ShuffleMapStage</code> stage is ready</a>, all <a href="spark-scheduler-ShuffleMapStage.html#mapStageJobs" class="page">active jobs of the stage</a> (aka <em>map-stage jobs</em>) are <a href="DAGScheduler.html#markMapStageJobAsFinished" class="page">marked as finished</a> (with <a href="spark-service-MapOutputTrackerMaster.adoc#getStatistics"><code>MapOutputStatistics</code> from <code>MapOutputTrackerMaster</code> for the <code>ShuffleDependency</code></a>).</p>
+<p>If the <a href="spark-scheduler-ShuffleMapStage.html#isAvailable" class="page"><code>ShuffleMapStage</code> stage is ready</a>, all <a href="spark-scheduler-ShuffleMapStage.html#mapStageJobs" class="page">active jobs of the stage</a> (aka <em>map-stage jobs</em>) are <a href="DAGScheduler.html#markMapStageJobAsFinished" class="page">marked as finished</a> (with <a href="../MapOutputTrackerMaster.html#getStatistics" class="page"><code>MapOutputStatistics</code> from <code>MapOutputTrackerMaster</code> for the <code>ShuffleDependency</code></a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>

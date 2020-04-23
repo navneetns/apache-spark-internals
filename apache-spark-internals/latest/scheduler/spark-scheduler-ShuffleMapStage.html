@@ -539,6 +539,24 @@
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -561,24 +579,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-ExternalSorter.html">ExternalSorter</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-service-MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1967,7 +1967,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>addOutputLoc</code> is used when <a href="DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code> for a <code>ShuffleDependency</code> and a <code>ActiveJob</code></a> (and <a href="spark-service-MapOutputTrackerMaster.adoc#containsShuffle"><code>MapOutputTrackerMaster</code> tracks some output locations of the <code>ShuffleDependency</code></a>) and when <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion-Success-ShuffleMapTask" class="page"><code>ShuffleMapTask</code> has finished</a>.
+<code>addOutputLoc</code> is used when <a href="DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code> for a <code>ShuffleDependency</code> and a <code>ActiveJob</code></a> (and <a href="../MapOutputTrackerMaster.html#containsShuffle" class="page"><code>MapOutputTrackerMaster</code> tracks some output locations of the <code>ShuffleDependency</code></a>) and when <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion-Success-ShuffleMapTask" class="page"><code>ShuffleMapTask</code> has finished</a>.
 </td>
 </tr>
 </table>
@@ -2236,7 +2236,7 @@ The <code>ActiveJob</code> is added as the first element in <code>_mapStageJobs<
 <p><code>outputLocInMapOutputTrackerFormat</code> is used when <code>DAGScheduler</code> is <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion" class="page">notified that a <code>ShuffleMapTask</code> has finished successfully</a> (and the corresponding <code>ShuffleMapStage</code> is complete) and <a href="DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page">cleans up after a lost executor</a>.</p>
 </div>
 <div class="paragraph">
-<p>In both cases, <code>outputLocInMapOutputTrackerFormat</code> is used to <a href="../spark-service-MapOutputTrackerMaster.html#registerMapOutputs" class="page">register the shuffle map outputs (of the <code>ShuffleDependency</code>) with <code>MapOutputTrackerMaster</code></a>.</p>
+<p>In both cases, <code>outputLocInMapOutputTrackerFormat</code> is used to <a href="../MapOutputTrackerMaster.html#registerMapOutputs" class="page">register the shuffle map outputs (of the <code>ShuffleDependency</code>) with <code>MapOutputTrackerMaster</code></a>.</p>
 </div>
 </td>
 </tr>

@@ -539,6 +539,24 @@
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -561,24 +579,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-ExternalSorter.html">ExternalSorter</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../spark-service-MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1845,7 +1845,7 @@
 <p><code>MapStatus</code> is <a href="#apply">created</a> as the result of <a href="ShuffleMapTask.html#runTask" class="page">executing a ShuffleMapTask</a> (after a <a href="../shuffle/ShuffleManager.html#getWriter" class="page">ShuffleWriter</a> has <a href="../shuffle/ShuffleWriter.html#stop" class="page">finished writing partition records successfully</a>).</p>
 </div>
 <div class="paragraph">
-<p>After a <a href="ShuffleMapTask.html#runTask" class="page">ShuffleMapTask has finished execution successfully</a>, <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a> (of the <code>ShuffleMapTask</code>) that requests the <a href="DAGScheduler.html#mapOutputTracker" class="page">MapOutputTrackerMaster</a> to <a href="#spark-service-MapOutputTrackerMaster.adoc#registerMapOutput" class="page unresolved">register the MapStatus</a>.</p>
+<p>After a <a href="ShuffleMapTask.html#runTask" class="page">ShuffleMapTask has finished execution successfully</a>, <code>DAGScheduler</code> is requested to <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a> (of the <code>ShuffleMapTask</code>) that requests the <a href="DAGScheduler.html#mapOutputTracker" class="page">MapOutputTrackerMaster</a> to <a href="../MapOutputTrackerMaster.html#registerMapOutput" class="page">register the MapStatus</a>.</p>
 </div>
 <table id="contract" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. MapStatus Contract</caption>
@@ -1876,7 +1876,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>MapOutputTrackerMaster</code> is requested for a <a href="#spark-service-MapOutputTrackerMaster.adoc#getStatistics" class="page unresolved">MapOutputStatistics</a> and <a href="#spark-service-MapOutputTrackerMaster.adoc#getLocationsWithLargestOutputs" class="page unresolved">locations with largest number of shuffle map outputs</a></p>
+<p><code>MapOutputTrackerMaster</code> is requested for a <a href="../MapOutputTrackerMaster.html#getStatistics" class="page">MapOutputStatistics</a> and <a href="../MapOutputTrackerMaster.html#getLocationsWithLargestOutputs" class="page">locations with largest number of shuffle map outputs</a></p>
 </li>
 <li>
 <p><code>MapOutputTracker</code> object is requested to <a href="../MapOutputTracker.html#convertMapStatuses" class="page">convert MapStatuses To BlockManagerIds with ShuffleBlockIds and Their Sizes</a></p>
@@ -1906,7 +1906,7 @@
 <p><code>ShuffleStatus</code> is requested to <code>removeMapOutput</code> and <code>removeOutputsByFilter</code></p>
 </li>
 <li>
-<p><code>MapOutputTrackerMaster</code> is requested for <a href="#spark-service-MapOutputTrackerMaster.adoc#getLocationsWithLargestOutputs" class="page unresolved">locations with largest number of shuffle map outputs</a></p>
+<p><code>MapOutputTrackerMaster</code> is requested for <a href="../MapOutputTrackerMaster.html#getLocationsWithLargestOutputs" class="page">locations with largest number of shuffle map outputs</a></p>
 </li>
 <li>
 <p><code>MapOutputTracker</code> object is requested to <a href="../MapOutputTracker.html#convertMapStatuses" class="page">convert MapStatuses To BlockManagerIds with ShuffleBlockIds and Their Sizes</a></p>
