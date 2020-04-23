@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/spark-service-broadcastmanager.html">
+    <title> MapOutputTrackerWorker :: The Internals Of Apache Spark</title>
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/MapOutputTrackerWorker.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -551,7 +551,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="3">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
   </li>
 </ul>
@@ -601,7 +601,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-ExternalClusterManager.html">ExternalClusterManager</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="spark-service-broadcastmanager.html">BroadcastManager</a>
 <ul class="nav-list">
@@ -1828,148 +1828,53 @@
   <ul>
     <li><a href="index.html">Apache Spark</a></li>
     <li>Core Services</li>
-    <li><a href="spark-service-broadcastmanager.html">BroadcastManager</a></li>
+    <li><a href="MapOutputTracker.html">MapOutputTracker</a></li>
+    <li><a href="MapOutputTrackerWorker.html">MapOutputTrackerWorker</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/ROOT/pages/spark-service-broadcastmanager.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/ROOT/pages/MapOutputTrackerWorker.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="broadcastmanager"><a class="anchor" href="#broadcastmanager"></a><a class="link" href="#broadcastmanager"><a id="BroadcastManager"></a> BroadcastManager</a></h2>
+<h1 class="page"><a id="MapOutputTrackerWorker"></a> MapOutputTrackerWorker</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Broadcast Manager</strong> (<code>BroadcastManager</code>) is a Spark service to manage <a href="spark-broadcast.adoc">broadcast variables</a> in Spark. It is created for a Spark application when <a href="spark-SparkContext.adoc#creating-instance">SparkContext is initialized</a> and is a simple wrapper around <a href="spark-BroadcastFactory.adoc">BroadcastFactory</a>.</p>
+<p><strong>MapOutputTrackerWorker</strong> is the <a href="MapOutputTracker.html" class="page">MapOutputTracker</a> for executors.</p>
 </div>
 <div class="paragraph">
-<p><code>BroadcastManager</code> tracks the number of broadcast variables in a Spark application (using the internal field <code>nextBroadcastId</code>).</p>
+<p><code>MapOutputTrackerWorker</code> uses Java&#8217;s thread-safe <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html">java.util.concurrent.ConcurrentHashMap</a> for <a href="MapOutputTracker.html#mapStatuses" class="page"><code>mapStatuses</code> internal cache</a> and any lookup cache miss triggers a fetch from the driver&#8217;s <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a>.</p>
 </div>
-<div class="paragraph">
-<p>The idea is to transfer values used in transformations from a driver to executors in a most effective way so they are copied once and used many times by tasks (rather than being copied every time a task is launched).</p>
-</div>
-<div class="paragraph">
-<p>When <a href="#initialize">initialized</a>, <code>BroadcastManager</code> creates an instance of <a href="spark-TorrentBroadcastFactory.adoc">TorrentBroadcastFactory</a>.</p>
-</div>
-<div class="sect2">
-<h3 id="stop-method"><a class="anchor" href="#stop-method"></a><a class="link" href="#stop-method"><a id="stop"></a> <code>stop</code> Method</a></h3>
-<div class="admonitionblock caution">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-FIXME
+The only difference between <code>MapOutputTrackerWorker</code> and the base abstract class <code>MapOutputTracker</code> is that the <a href="MapOutputTracker.html#mapStatuses" class="page"><code>mapStatuses</code> internal registry</a> is an instance of the thread-safe <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html">java.util.concurrent.ConcurrentHashMap</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="creating-broadcastmanager-instance"><a class="anchor" href="#creating-broadcastmanager-instance"></a><a class="link" href="#creating-broadcastmanager-instance"><a id="creating-instance"></a> Creating <code>BroadcastManager</code> Instance</a></h3>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
 </div>
+<div class="sect1">
+<h2 id="logging"><a class="anchor" href="#logging"></a><a class="link" href="#logging"><a id="logging"></a> Logging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable <code>ALL</code> logging level for <code>org.apache.spark.MapOutputTrackerWorker</code> logger to see what happens inside.</p>
 </div>
-<div class="sect2">
-<h3 id="initializing-broadcastmanagerinitialize-internal-method"><a class="anchor" href="#initializing-broadcastmanagerinitialize-internal-method"></a><a class="link" href="#initializing-broadcastmanagerinitialize-internal-method"><a id="initialize"></a> Initializing BroadcastManager&#8201;&#8212;&#8201;<code>initialize</code> Internal Method</a></h3>
+<div class="paragraph">
+<p>Add the following line to <code>conf/log4j.properties</code>:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">initialize(): Unit</code></pre>
+<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.MapOutputTrackerWorker=ALL</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>initialize</code> <a href="spark-TorrentBroadcastFactory.adoc#initialize">creates and initializes a <code>TorrentBroadcastFactory</code></a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>initialize</code> is executed only once (when <a href="#creating-instance"><code>BroadcastManager</code> is created</a>) and controlled by the internal <code>initialized</code> flag.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="newbroadcast-method"><a class="anchor" href="#newbroadcast-method"></a><a class="link" href="#newbroadcast-method"><a id="newBroadcast"></a> <code>newBroadcast</code> Method</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">newBroadcast[T](value_ : T, isLocal: Boolean): Broadcast[T]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>newBroadcast</code> simply requests the <a href="spark-BroadcastFactory.adoc">current <code>BroadcastFactory</code> for a new broadcast variable</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The <code>BroadcastFactory</code> is created when <a href="#initialize"><code>BroadcastManager</code> is initialized</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>newBroadcast</code> is executed for <a href="spark-SparkContext.adoc#broadcast"><code>SparkContext.broadcast</code> method</a> and when <a href="MapOutputTracker.html#serializeMapStatuses" class="page"><code>MapOutputTracker</code> serializes <code>MapStatuses</code></a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Settings</caption>
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 60%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Default value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark_broadcast_blockSize"></a> <code>spark.broadcast.blockSize</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>4m</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The size of a block (in kB when unit not specified).</p>
-<p class="tableblock">Used when <a href="spark-TorrentBroadcast.adoc#writeBlocks"><code>TorrentBroadcast</code> stores brodcast blocks to <code>BlockManager</code></a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.broadcast.compress"></a> <code>spark.broadcast.compress</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The flag to enable compression.</p>
-<p class="tableblock">Refer to <a href="spark-CompressionCodec.adoc">CompressionCodec</a>.</p>
-<p class="tableblock">Used when <a href="spark-TorrentBroadcast.adoc#creating-instance"><code>TorrentBroadcast</code> is created</a> and later when <a href="spark-TorrentBroadcast.adoc#writeBlocks">it stores broadcast blocks to <code>BlockManager</code></a>. Also in <a href="spark-SerializerManager.adoc#settings">SerializerManager</a>.</p></td>
-</tr>
-</tbody>
-</table>
+<p>Refer to <a href="spark-logging.html" class="page">Logging</a>.</p>
 </div>
 </div>
 </div>

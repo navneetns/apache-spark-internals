@@ -547,12 +547,12 @@
     <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="spark-service-MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-service-MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+    <a class="nav-link" href="MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
   </li>
 </ul>
   </li>
@@ -2079,7 +2079,7 @@ FIXME A picture with SparkEnv, <code>NettyBlockTransferService</code> and the po
 </div>
 <div class="paragraph">
 <p><a id="MapOutputTracker"></a><a id="create-MapOutputTracker"></a>
-<code>create</code> creates a <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> or <a href="spark-service-MapOutputTrackerWorker.adoc">MapOutputTrackerWorker</a> for the driver and executors, respectively.</p>
+<code>create</code> creates a <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> or <a href="MapOutputTrackerWorker.html" class="page">MapOutputTrackerWorker</a> for the driver and executors, respectively.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2095,7 +2095,7 @@ The choice of the real implementation of <a href="MapOutputTracker.html" class="
 </div>
 <div class="paragraph">
 <p><a id="MapOutputTrackerMasterEndpoint"></a><a id="create-MapOutputTrackerMasterEndpoint"></a>
-<code>create</code> <a href="#registerOrLookupEndpoint">registers or looks up <code>RpcEndpoint</code></a> as <strong>MapOutputTracker</strong>. It registers <a href="spark-service-MapOutputTrackerMasterEndpoint.adoc">MapOutputTrackerMasterEndpoint</a> on the driver and creates a RPC endpoint reference on executors. The RPC endpoint reference gets assigned as the <a href="MapOutputTracker.html#trackerEndpoint" class="page">MapOutputTracker RPC endpoint</a>.</p>
+<code>create</code> <a href="#registerOrLookupEndpoint">registers or looks up <code>RpcEndpoint</code></a> as <strong>MapOutputTracker</strong>. It registers <a href="MapOutputTrackerMasterEndpoint.html" class="page">MapOutputTrackerMasterEndpoint</a> on the driver and creates a RPC endpoint reference on executors. The RPC endpoint reference gets assigned as the <a href="MapOutputTracker.html#trackerEndpoint" class="page">MapOutputTracker RPC endpoint</a>.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
