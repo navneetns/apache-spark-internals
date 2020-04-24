@@ -2899,52 +2899,6 @@ The purpose of <code>createDriverEndpoint</code> is to allow YARN to use the cus
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="settings"><a class="anchor" href="#settings"></a><a class="link" href="#settings"><a id="settings"></a> Settings</a></h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Spark Properties</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.scheduler.revive.interval"></a> <code>spark.scheduler.revive.interval</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1s</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Time (in milliseconds) between resource offers revives.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.rpc.message.maxSize"></a> <code>spark.rpc.message.maxSize</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>128</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum message size to allow in RPC communication. In <code>MB</code> when the unit is not given.</p>
-<p class="tableblock">Generally only applies to map output size (serialized) information sent between executors and the driver.</p>
-<p class="tableblock">Increase this if you are running jobs with many thousands of map and reduce tasks and see messages about the RPC message size.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.scheduler.minRegisteredResourcesRatio"></a> <code>spark.scheduler.minRegisteredResourcesRatio</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Double number between 0 and 1 (including) that controls the minimum ratio of (registered resources / total expected resources) before submitting tasks.</p>
-<p class="tableblock">See <a href="#isReady">isReady</a> in this document.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spark.scheduler.maxRegisteredResourcesWaitingTime"></a> <code>spark.scheduler.maxRegisteredResourcesWaitingTime</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>30s</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Time to wait for sufficient resources available.</p>
-<p class="tableblock">See <a href="#isReady">isReady</a> in this document.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

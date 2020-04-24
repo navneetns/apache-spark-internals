@@ -1860,9 +1860,6 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>MapOutputTrackerMaster uses <code>MetadataCleaner</code> with <code>MetadataCleanerType.MAP_OUTPUT_TRACKER</code> as <code>cleanerType</code> and <a href="#cleanup">cleanup</a> function to drop entries in <code>mapStatuses</code>.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1886,6 +1883,20 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </div>
 <div class="paragraph">
 <p>MapOutputTrackerMaster starts <a href="#MessageLoop">dispatcher threads</a> on the <a href="#threadpool">map-output-dispatcher thread pool</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="map-output-threshold-for-preferred-location-of-reduce-task"><a class="anchor" href="#map-output-threshold-for-preferred-location-of-reduce-task"></a><a class="link" href="#map-output-threshold-for-preferred-location-of-reduce-task"><a id="REDUCER_PREF_LOCS_FRACTION"></a> Map Output Threshold for Preferred Location of Reduce Task</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MapOutputTrackerMaster defines <code>0.2</code> as the fraction of total map output that must be at a location for it to considered as a preferred location for a reduce task.</p>
+</div>
+<div class="paragraph">
+<p>Making this larger will focus on fewer locations where most data can be read locally, but may lead to more delay in scheduling if those locations are busy.</p>
+</div>
+<div class="paragraph">
+<p>MapOutputTrackerMaster uses the fraction when requested for the <a href="#getPreferredLocationsForShuffle">preferred locations of shuffle RDDs</a>.</p>
 </div>
 </div>
 </div>
@@ -1915,7 +1926,7 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 <h2 id="messageloop-dispatcher-thread"><a class="anchor" href="#messageloop-dispatcher-thread"></a><a class="link" href="#messageloop-dispatcher-thread"><a id="MessageLoop"></a><a id="run"></a> MessageLoop Dispatcher Thread</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>MessageLoop is a thread of execution to handle <a href="#GetMapOutputMessage">GetMapOutputMessages</a> until <a href="#PoisonPill">PoisonPill</a> arrives.</p>
+<p>MessageLoop is a thread of execution to handle <a href="#GetMapOutputMessage">GetMapOutputMessages</a> until a PoisonPill marker message arrives (posted when <a href="#stop">MapOutputTrackerMaster stops</a>).</p>
 </div>
 <div class="paragraph">
 <p>MessageLoop takes a GetMapOutputMessage and prints out the following DEBUG message to the logs:</p>
@@ -1964,10 +1975,13 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 <div class="ulist">
 <ul>
 <li>
-<p><a id="spark.shuffle.mapOutput.minSizeForBroadcast"></a> <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.minSizeForBroadcast" class="page">spark.shuffle.mapOutput.minSizeForBroadcast</a></p>
+<p><a id="spark.shuffle.mapOutput.minSizeForBroadcast"></a><a id="minSizeForBroadcast"></a> <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.minSizeForBroadcast" class="page">spark.shuffle.mapOutput.minSizeForBroadcast</a></p>
 </li>
 <li>
 <p><a id="spark.shuffle.mapOutput.dispatcher.numThreads"></a> <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.dispatcher.numThreads" class="page">spark.shuffle.mapOutput.dispatcher.numThreads</a></p>
+</li>
+<li>
+<p><a id="spark.shuffle.reduceLocality.enabled"></a> <a href="spark-configuration-properties.html#spark.shuffle.reduceLocality.enabled" class="page">spark.shuffle.reduceLocality.enabled</a></p>
 </li>
 </ul>
 </div>
@@ -2012,6 +2026,19 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 <div class="paragraph">
 <p>MapOutputTrackerMaster uses an <strong>epoch number</strong> to&#8230;&#8203;FIXME</p>
 </div>
+<div class="paragraph">
+<p>getEpoch is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#removeExecutorAndUnregisterOutputs" class="page">removeExecutorAndUnregisterOutputs</a></p>
+</li>
+<li>
+<p><a href="scheduler/TaskSetManager.html" class="page">TaskSetManager</a> is created (and sets the epoch to tasks)</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2032,53 +2059,18 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </div>
 </div>
 <div class="sect1">
-<h2 id="removebroadcast-method"><a class="anchor" href="#removebroadcast-method"></a><a class="link" href="#removebroadcast-method"><a id="removeBroadcast"></a> <code>removeBroadcast</code> Method</a></h2>
+<h2 id="stopping-mapoutputtrackermaster"><a class="anchor" href="#stopping-mapoutputtrackermaster"></a><a class="link" href="#stopping-mapoutputtrackermaster"><a id="stop"></a> Stopping MapOutputTrackerMaster</a></h2>
 <div class="sectionbody">
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">stop(): Unit</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>stop&#8230;&#8203;FIXME</p>
 </div>
-<div class="sect1">
-<h2 id="clearcachedbroadcast-method"><a class="anchor" href="#clearcachedbroadcast-method"></a><a class="link" href="#clearcachedbroadcast-method"><a id="clearCachedBroadcast"></a> <code>clearCachedBroadcast</code> Method</a></h2>
-<div class="sectionbody">
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="stop-method"><a class="anchor" href="#stop-method"></a><a class="link" href="#stop-method"><a id="stop"></a> <code>stop</code> Method</a></h2>
-<div class="sectionbody">
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>stop is part of the <a href="MapOutputTracker.html#stop" class="page">MapOutputTracker</a> abstraction.</p>
 </div>
 </div>
 </div>
@@ -2102,48 +2094,7 @@ FIXME
 </div>
 </div>
 <div class="sect1">
-<h2 id="cleanup-function-for-metadatacleaner"><a class="anchor" href="#cleanup-function-for-metadatacleaner"></a><a class="link" href="#cleanup-function-for-metadatacleaner"><a id="cleanup"></a> cleanup Function for MetadataCleaner</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>cleanup(cleanupTime: Long)</code> method removes old entries in <code>mapStatuses</code> and <code>cachedSerializedStatuses</code> that have timestamp earlier than <code>cleanupTime</code>.</p>
-</div>
-<div class="paragraph">
-<p>It uses <code>org.apache.spark.util.TimeStampedHashMap.clearOldValues</code> method.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Enable <code>DEBUG</code> logging level for <code>org.apache.spark.util.TimeStampedHashMap</code> logger to see what happens in TimeStampedHashMap.</p>
-</div>
-<div class="paragraph">
-<p>Add the following line to <code>conf/log4j.properties</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>log4j.logger.org.apache.spark.util.TimeStampedHashMap=DEBUG</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>You should see the following DEBUG message in the logs for entries being removed:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>DEBUG Removing key [entry.getKey]</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="finding-preferred-blockmanagers-with-most-shuffle-map-outputs"><a class="anchor" href="#finding-preferred-blockmanagers-with-most-shuffle-map-outputs"></a><a class="link" href="#finding-preferred-blockmanagers-with-most-shuffle-map-outputs"><a id="getPreferredLocationsForShuffle"></a> Finding Preferred BlockManagers with Most Shuffle Map Outputs</a></h2>
+<h2 id="finding-preferred-locations-with-most-shuffle-map-outputs"><a class="anchor" href="#finding-preferred-locations-with-most-shuffle-map-outputs"></a><a class="link" href="#finding-preferred-locations-with-most-shuffle-map-outputs"><a id="getPreferredLocationsForShuffle"></a> Finding Preferred Locations (with Most Shuffle Map Outputs)</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2198,7 +2149,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 </table>
 </div>
 <div class="paragraph">
-<p>getPreferredLocationsForShuffle is used when <a href="rdd/ShuffledRDD.html#getPreferredLocations" class="page">ShuffledRDD</a> and Spark SQL&#8217;s ShuffledRowRDD ask for preferred locations for a partition.</p>
+<p>getPreferredLocationsForShuffle is used when <a href="rdd/ShuffledRDD.html#getPreferredLocations" class="page">ShuffledRDD</a> and Spark SQL&#8217;s ShuffledRowRDD are requested for preferred locations of a partition.</p>
 </div>
 </div>
 </div>
@@ -2211,110 +2162,45 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 </div>
 </div>
 <div class="paragraph">
-<p><code>incrementEpoch</code> increments the internal <a href="MapOutputTracker.html#epoch" class="page">epoch</a>.</p>
+<p>incrementEpoch increments the internal <a href="MapOutputTracker.html#epoch" class="page">epoch</a>.</p>
 </div>
 <div class="paragraph">
-<p>You should see the following DEBUG message in the logs:</p>
+<p>incrementEpoch prints out the following DEBUG message to the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>DEBUG MapOutputTrackerMaster: Increasing epoch to [epoch]</code></pre>
+<pre class="highlightjs highlight"><code>Increasing epoch to [epoch]</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>incrementEpoch</code> is used when MapOutputTrackerMaster <a href="#registerMapOutputs">registers map outputs</a> (with <code>changeEpoch</code> flag enabled&#8201;&#8212;&#8201;it is disabled by default) and <a href="#unregisterMapOutput">unregisters map outputs</a> (for a shuffle, mapper and block manager), and when <a href="scheduler/DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page"><code>DAGScheduler</code> is notified that an executor got lost</a> (with <code>filesLost</code> flag enabled).
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>incrementEpoch is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>MapOutputTrackerMaster is requested to <a href="#unregisterMapOutput">unregisterMapOutput</a>, <a href="#unregisterAllMapOutput">unregisterAllMapOutput</a>, <a href="#removeOutputsOnHost">removeOutputsOnHost</a> and <a href="#removeOutputsOnExecutor">removeOutputsOnExecutor</a></p>
+</li>
+<li>
+<p>DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#handleTaskCompletion" class="page">handle a ShuffleMapTask completion</a> (of a ShuffleMapStage)</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="finding-locations-with-largest-number-of-shuffle-map-outputs"><a class="anchor" href="#finding-locations-with-largest-number-of-shuffle-map-outputs"></a><a class="link" href="#finding-locations-with-largest-number-of-shuffle-map-outputs"><a id="getLocationsWithLargestOutputs"></a> Finding Locations with Largest Number of Shuffle Map Outputs</a></h2>
+<h2 id="checking-availability-of-shuffle-map-output-status"><a class="anchor" href="#checking-availability-of-shuffle-map-output-status"></a><a class="link" href="#checking-availability-of-shuffle-map-output-status"><a id="containsShuffle"></a> Checking Availability of Shuffle Map Output Status</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getLocationsWithLargestOutputs(
-  shuffleId: Int,
-  reducerId: Int,
-  numReducers: Int,
-  fractionThreshold: Double): Option[Array[BlockManagerId]]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>getLocationsWithLargestOutputs returns <a href="storage/BlockManager.html#BlockManagerId" class="page">BlockManagerId</a>s with the largest size (of all the shuffle blocks they manage) above the input <code>fractionThreshold</code> (given the total size of all the shuffle blocks for the shuffle across all <a href="storage/BlockManager.html" class="page">BlockManagers</a>).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-getLocationsWithLargestOutputs may return no <code>BlockManagerId</code> if their shuffle blocks do not total up above the input <code>fractionThreshold</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The input <code>numReducers</code> is not used.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Internally, getLocationsWithLargestOutputs queries the <a href="#mapStatuses">mapStatuses</a> internal cache for the input <code>shuffleId</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>One entry in <code>mapStatuses</code> internal cache is a <a href="scheduler/MapStatus.html" class="page">MapStatus</a> array indexed by partition id.</p>
-</div>
-<div class="paragraph">
-<p><code>MapStatus</code> includes <a href="scheduler/MapStatus.html#contract" class="page">information about the <code>BlockManager</code> (as <code>BlockManagerId</code>) and estimated size of the reduce blocks</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>getLocationsWithLargestOutputs iterates over the <code>MapStatus</code> array and builds an interim mapping between <a href="storage/BlockManager.html#BlockManagerId" class="page">BlockManagerId</a> and the cumulative sum of shuffle blocks across <a href="storage/BlockManager.html" class="page">BlockManagers</a>.</p>
-</div>
-<div class="paragraph">
-<p>getLocationsWithLargestOutputs is used when MapOutputTrackerMaster is requested for the <a href="#getPreferredLocationsForShuffle">preferred locations (BlockManagers and hence executors) for a shuffle</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="requesting-tracking-status-of-shuffle-map-output"><a class="anchor" href="#requesting-tracking-status-of-shuffle-map-output"></a><a class="link" href="#requesting-tracking-status-of-shuffle-map-output"><a id="containsShuffle"></a> Requesting Tracking Status of Shuffle Map Output</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">containsShuffle(shuffleId: Int): Boolean</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">containsShuffle(
+  shuffleId: Int): Boolean</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>containsShuffle checks if the input <code>shuffleId</code> is registered in the <a href="#cachedSerializedStatuses">cachedSerializedStatuses</a> or <a href="MapOutputTracker.html#mapStatuses" class="page">mapStatuses</a> internal caches.</p>
 </div>
 <div class="paragraph">
-<p>containsShuffle is used when <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code></a> (for <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <a href="scheduler/spark-scheduler-ActiveJob.html" class="page">ActiveJob</a>).</p>
+<p>containsShuffle is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a createShuffleMapStage</a> (for a <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
 </div>
 </div>
 </div>
@@ -2340,7 +2226,7 @@ The input <code>numReducers</code> is not used.
 </div>
 </div>
 <div class="paragraph">
-<p>registerShuffle is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a ShuffleMapStage</a> (for a <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <a href="scheduler/spark-scheduler-ActiveJob.html" class="page">ActiveJob</a>).</p>
+<p>registerShuffle is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a ShuffleMapStage</a> (for a <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
 </div>
 </div>
 </div>
@@ -2455,17 +2341,6 @@ The input <code>numReducers</code> is not used.
 </div>
 </div>
 <div class="sect1">
-<h2 id="poisonpill-message"><a class="anchor" href="#poisonpill-message"></a><a class="link" href="#poisonpill-message"><a id="PoisonPill"></a> PoisonPill Message</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>PoisonPill</code> is a <code>GetMapOutputMessage</code> (with <code>-99</code> as <code>shuffleId</code>) that indicates that <a href="#MessageLoop">MessageLoop</a> should exit its message loop.</p>
-</div>
-<div class="paragraph">
-<p><code>PoisonPill</code> is posted when <a href="#stop">MapOutputTrackerMaster stops</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="registering-shuffle-map-output"><a class="anchor" href="#registering-shuffle-map-output"></a><a class="link" href="#registering-shuffle-map-output"><a id="registerMapOutput"></a> Registering Shuffle Map Output</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -2495,7 +2370,7 @@ The input <code>numReducers</code> is not used.
 </div>
 </div>
 <div class="sect1">
-<h2 id="getstatistics-method"><a class="anchor" href="#getstatistics-method"></a><a class="link" href="#getstatistics-method"><a id="getStatistics"></a> getStatistics Method</a></h2>
+<h2 id="calculating-shuffle-map-output-statistics"><a class="anchor" href="#calculating-shuffle-map-output-statistics"></a><a class="link" href="#calculating-shuffle-map-output-statistics"><a id="getStatistics"></a> Calculating Shuffle Map Output Statistics</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2507,12 +2382,12 @@ The input <code>numReducers</code> is not used.
 <p>getStatistics&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p>getStatistics is used when&#8230;&#8203;FIXME</p>
+<p>getStatistics is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#handleMapStageSubmitted" class="page">handle a ShuffleMapStage submission</a> (and the stage has finished) and <a href="scheduler/DAGScheduler.html#markMapStageJobsAsFinished" class="page">markMapStageJobsAsFinished</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="unregistering-all-map-outputs-of-shuffle-stage"><a class="anchor" href="#unregistering-all-map-outputs-of-shuffle-stage"></a><a class="link" href="#unregistering-all-map-outputs-of-shuffle-stage"><a id="unregisterAllMapOutput"></a> Unregistering All Map Outputs of Shuffle Stage</a></h2>
+<h2 id="deregistering-all-map-outputs-of-shuffle-stage"><a class="anchor" href="#deregistering-all-map-outputs-of-shuffle-stage"></a><a class="link" href="#deregistering-all-map-outputs-of-shuffle-stage"><a id="unregisterAllMapOutput"></a> Deregistering All Map Outputs of Shuffle Stage</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2580,7 +2455,7 @@ The input <code>numReducers</code> is not used.
 </div>
 </div>
 <div class="sect1">
-<h2 id="getnumavailableoutputs-method"><a class="anchor" href="#getnumavailableoutputs-method"></a><a class="link" href="#getnumavailableoutputs-method"><a id="getNumAvailableOutputs"></a> getNumAvailableOutputs Method</a></h2>
+<h2 id="number-of-partitions-with-shuffle-map-outputs-available"><a class="anchor" href="#number-of-partitions-with-shuffle-map-outputs-available"></a><a class="link" href="#number-of-partitions-with-shuffle-map-outputs-available"><a id="getNumAvailableOutputs"></a> Number of Partitions with Shuffle Map Outputs Available</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2592,7 +2467,7 @@ The input <code>numReducers</code> is not used.
 <p>getNumAvailableOutputs&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p>getNumAvailableOutputs is used when&#8230;&#8203;FIXME</p>
+<p>getNumAvailableOutputs is used when ShuffleMapStage is requested for the <a href="scheduler/spark-scheduler-ShuffleMapStage.html#numAvailableOutputs" class="page">number of partitions with shuffle outputs available</a>.</p>
 </div>
 </div>
 </div>
@@ -2614,7 +2489,7 @@ The input <code>numReducers</code> is not used.
 </div>
 </div>
 <div class="sect1">
-<h2 id="getmapsizesbyexecutorid-method"><a class="anchor" href="#getmapsizesbyexecutorid-method"></a><a class="link" href="#getmapsizesbyexecutorid-method"><a id="getMapSizesByExecutorId"></a> getMapSizesByExecutorId Method</a></h2>
+<h2 id="finding-locations-with-blocks-and-sizes"><a class="anchor" href="#finding-locations-with-blocks-and-sizes"></a><a class="link" href="#finding-locations-with-blocks-and-sizes"><a id="getMapSizesByExecutorId"></a> Finding Locations with Blocks and Sizes</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2624,6 +2499,29 @@ The input <code>numReducers</code> is not used.
   endPartition: Int): Iterator[(BlockManagerId, Seq[(BlockId, Long)])]</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>getMapSizesByExecutorId&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>getMapSizesByExecutorId is part of the <a href="MapOutputTracker.html#getMapSizesByExecutorId" class="page">MapOutputTracker</a> abstraction.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="finding-locations-with-largest-number-of-shuffle-map-outputs"><a class="anchor" href="#finding-locations-with-largest-number-of-shuffle-map-outputs"></a><a class="link" href="#finding-locations-with-largest-number-of-shuffle-map-outputs"><a id="getLocationsWithLargestOutputs"></a> Finding Locations with Largest Number of Shuffle Map Outputs</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getLocationsWithLargestOutputs(
+  shuffleId: Int,
+  reducerId: Int,
+  numReducers: Int,
+  fractionThreshold: Double): Option[Array[BlockManagerId]]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>getLocationsWithLargestOutputs returns <a href="storage/BlockManager.html#BlockManagerId" class="page">BlockManagerId</a>s with the largest size (of all the shuffle blocks they manage) above the input <code>fractionThreshold</code> (given the total size of all the shuffle blocks for the shuffle across all <a href="storage/BlockManager.html" class="page">BlockManagers</a>).</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2631,13 +2529,48 @@ The input <code>numReducers</code> is not used.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-getMapSizesByExecutorId is part of the <a href="MapOutputTracker.html#getMapSizesByExecutorId" class="page">MapOutputTracker</a> abstraction.
+getLocationsWithLargestOutputs may return no <code>BlockManagerId</code> if their shuffle blocks do not total up above the input <code>fractionThreshold</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The input <code>numReducers</code> is not used.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>getMapSizesByExecutorId&#8230;&#8203;FIXME</p>
+<p>Internally, getLocationsWithLargestOutputs queries the <a href="#mapStatuses">mapStatuses</a> internal cache for the input <code>shuffleId</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>One entry in <code>mapStatuses</code> internal cache is a <a href="scheduler/MapStatus.html" class="page">MapStatus</a> array indexed by partition id.</p>
+</div>
+<div class="paragraph">
+<p><code>MapStatus</code> includes <a href="scheduler/MapStatus.html#contract" class="page">information about the <code>BlockManager</code> (as <code>BlockManagerId</code>) and estimated size of the reduce blocks</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>getLocationsWithLargestOutputs iterates over the <code>MapStatus</code> array and builds an interim mapping between <a href="storage/BlockManager.html#BlockManagerId" class="page">BlockManagerId</a> and the cumulative sum of shuffle blocks across <a href="storage/BlockManager.html" class="page">BlockManagers</a>.</p>
+</div>
+<div class="paragraph">
+<p>getLocationsWithLargestOutputs is used when MapOutputTrackerMaster is requested for the <a href="#getPreferredLocationsForShuffle">preferred locations of a shuffle</a>.</p>
 </div>
 </div>
 </div>

@@ -3364,7 +3364,7 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 </div>
 </div>
 <div class="sect1">
-<h2 id="handlemapstagesubmitted-method"><a class="anchor" href="#handlemapstagesubmitted-method"></a><a class="link" href="#handlemapstagesubmitted-method"><a id="handleMapStageSubmitted"></a> <code>handleMapStageSubmitted</code> Method</a></h2>
+<h2 id="handling-shufflemapstage-submission"><a class="anchor" href="#handling-shufflemapstage-submission"></a><a class="link" href="#handling-shufflemapstage-submission"><a id="handleMapStageSubmitted"></a> Handling ShuffleMapStage Submission</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -4138,6 +4138,23 @@ FIXME Where are <code>Stage.latestInfo.accumulables</code> and <code>CompletionE
 </div>
 <div class="paragraph">
 <p>handleWorkerRemoved is used when DAGSchedulerEventProcessLoop is requested to <a href="DAGSchedulerEventProcessLoop.html#WorkerRemoved" class="page">WorkerRemoved</a> event.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="markmapstagejobsasfinished-method"><a class="anchor" href="#markmapstagejobsasfinished-method"></a><a class="link" href="#markmapstagejobsasfinished-method"><a id="markMapStageJobsAsFinished"></a> markMapStageJobsAsFinished Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">markMapStageJobsAsFinished(
+  shuffleStage: ShuffleMapStage): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>markMapStageJobsAsFinished&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>markMapStageJobsAsFinished is used when DAGScheduler is requested to <a href="#submitMissingTasks">submitMissingTasks</a> (of a ShuffleMapStage that has just been computed) and <a href="#handleTaskCompletion">handle a task completion</a> (of a ShuffleMapStage).</p>
 </div>
 </div>
 </div>
