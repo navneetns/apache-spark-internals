@@ -547,10 +547,10 @@
     <a class="nav-link" href="../MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+    <a class="nav-link" href="../ShuffleStatus.html">ShuffleStatus</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../ShuffleStatus.html">ShuffleStatus</a>
+    <a class="nav-link" href="../MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
 </ul>
   </li>
@@ -1904,6 +1904,22 @@ TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGSch
 </div>
 </div>
 <div class="sect1">
+<h2 id="workerremoved-notification"><a class="anchor" href="#workerremoved-notification"></a><a class="link" href="#workerremoved-notification"><a id="workerRemoved"></a> workerRemoved Notification</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">workerRemoved(
+  workerId: String,
+  host: String,
+  message: String): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Used when DriverEndpoint is requested to <a href="CoarseGrainedSchedulerBackend-DriverEndpoint.html#removeWorker" class="page">handle a RemoveWorker event</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="contract"><a class="anchor" href="#contract"></a><a class="link" href="#contract"><a id="contract"></a> Contract</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
@@ -2003,7 +2019,7 @@ TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGSch
 <p><code>HeartbeatReceiver</code> RPC endpoint is requested to <a href="../spark-HeartbeatReceiver.html#expireDeadHosts" class="page">expireDeadHosts</a></p>
 </li>
 <li>
-<p><code>DriverEndpoint</code> RPC endpoint is requested to <a href="CoarseGrainedSchedulerBackend-DriverEndpoint.html#removeExecutor" class="page">removes</a> (<em>forgets</em>) and <a href="CoarseGrainedSchedulerBackend-DriverEndpoint.html#disableExecutor" class="page">disables</a> a malfunctioning executor (i.e. either lost or blacklisted for some reason)</p>
+<p>DriverEndpoint RPC endpoint is requested to <a href="CoarseGrainedSchedulerBackend-DriverEndpoint.html#removeExecutor" class="page">removes</a> (<em>forgets</em>) and <a href="CoarseGrainedSchedulerBackend-DriverEndpoint.html#disableExecutor" class="page">disables</a> a malfunctioning executor (i.e. either lost or blacklisted for some reason)</p>
 </li>
 <li>
 <p>Spark on Mesos' <code>MesosFineGrainedSchedulerBackend</code> is requested to <code>recordSlaveLost</code></p>
@@ -2126,20 +2142,6 @@ TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGSch
 </div>
 <div class="paragraph">
 <p>Used when DAGScheduler is requested to <a href="DAGScheduler.html#stop" class="page">stop</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>workerRemoved</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div id="workerRemoved" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">workerRemoved(
-  workerId: String,
-  host: String,
-  message: String): Unit</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Used exclusively when <code>DriverEndpoint</code> is requested to <a href="CoarseGrainedSchedulerBackend-DriverEndpoint.html#removeWorker" class="page">handle a RemoveWorker event</a></p>
 </div></div></td>
 </tr>
 </tbody>

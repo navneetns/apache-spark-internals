@@ -547,10 +547,10 @@
     <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
+    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
 </ul>
   </li>
@@ -2167,10 +2167,12 @@ Despite the widest-possible <code>AnyRef</code> type of the input <code>objectFo
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-shuffle-blocks-from-mapoutputtrackermaster-and-blockmanagermasterdocleanupshuffle-method"><a class="anchor" href="#removing-shuffle-blocks-from-mapoutputtrackermaster-and-blockmanagermasterdocleanupshuffle-method"></a><a class="link" href="#removing-shuffle-blocks-from-mapoutputtrackermaster-and-blockmanagermasterdocleanupshuffle-method"><a id="doCleanupShuffle"></a> Removing Shuffle Blocks From <code>MapOutputTrackerMaster</code> and <code>BlockManagerMaster</code>&#8201;&#8212;&#8201;<code>doCleanupShuffle</code> Method</a></h3>
+<h3 id="shuffle-cleanup"><a class="anchor" href="#shuffle-cleanup"></a><a class="link" href="#shuffle-cleanup"><a id="doCleanupShuffle"></a> Shuffle Cleanup</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">doCleanupShuffle(shuffleId: Int, blocking: Boolean): Unit</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">doCleanupShuffle(
+  shuffleId: Int,
+  blocking: Boolean): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">

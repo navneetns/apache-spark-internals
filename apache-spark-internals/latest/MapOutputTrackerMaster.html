@@ -547,10 +547,10 @@
     <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
+    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
 </ul>
   </li>
@@ -1885,7 +1885,7 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </ul>
 </div>
 <div class="paragraph">
-<p>MapOutputTrackerMaster initializes the <a href="#internal-properties">internal properties</a> and <a href="#threadpool">starts map-output-dispatcher threads</a>.</p>
+<p>MapOutputTrackerMaster starts <a href="#MessageLoop">dispatcher threads</a> on the <a href="#threadpool">map-output-dispatcher thread pool</a>.</p>
 </div>
 </div>
 </div>
@@ -1974,10 +1974,10 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </div>
 </div>
 <div class="sect1">
-<h2 id="shuffle-status-registry"><a class="anchor" href="#shuffle-status-registry"></a><a class="link" href="#shuffle-status-registry"><a id="shuffleStatuses"></a> Shuffle Status Registry</a></h2>
+<h2 id="shuffle-map-output-status-registry"><a class="anchor" href="#shuffle-map-output-status-registry"></a><a class="link" href="#shuffle-map-output-status-registry"><a id="shuffleStatuses"></a> Shuffle Map Output Status Registry</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>MapOutputTrackerMaster uses an internal registry for <a href="ShuffleStatus.html" class="page">ShuffleStatuses</a> by shuffle ID.</p>
+<p>MapOutputTrackerMaster uses an internal registry of <a href="ShuffleStatus.html" class="page">ShuffleStatuses</a> by shuffle stages.</p>
 </div>
 <div class="paragraph">
 <p>MapOutputTrackerMaster adds a new shuffle when requested to <a href="#registerShuffle">register one</a>.</p>
@@ -2083,19 +2083,21 @@ FIXME
 </div>
 </div>
 <div class="sect1">
-<h2 id="unregistermapoutput-method"><a class="anchor" href="#unregistermapoutput-method"></a><a class="link" href="#unregistermapoutput-method"><a id="unregisterMapOutput"></a> <code>unregisterMapOutput</code> Method</a></h2>
+<h2 id="unregistering-shuffle-map-output"><a class="anchor" href="#unregistering-shuffle-map-output"></a><a class="link" href="#unregistering-shuffle-map-output"><a id="unregisterMapOutput"></a> Unregistering Shuffle Map Output</a></h2>
 <div class="sectionbody">
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-FIXME
-</td>
-</tr>
-</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">unregisterMapOutput(
+  shuffleId: Int,
+  mapId: Int,
+  bmAddress: BlockManagerId): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>unregisterMapOutput&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>unregisterMapOutput is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#handleTaskCompletion" class="page">handle a task completion (due to a fetch failure)</a>.</p>
 </div>
 </div>
 </div>
@@ -2141,11 +2143,13 @@ FIXME
 </div>
 </div>
 <div class="sect1">
-<h2 id="finding-preferred-blockmanagers-with-most-shuffle-map-outputs-for-shuffledependency-and-partitiongetpreferredlocationsforshuffle-method"><a class="anchor" href="#finding-preferred-blockmanagers-with-most-shuffle-map-outputs-for-shuffledependency-and-partitiongetpreferredlocationsforshuffle-method"></a><a class="link" href="#finding-preferred-blockmanagers-with-most-shuffle-map-outputs-for-shuffledependency-and-partitiongetpreferredlocationsforshuffle-method"><a id="getPreferredLocationsForShuffle"></a> Finding Preferred BlockManagers with Most Shuffle Map Outputs (For ShuffleDependency and Partition)&#8201;&#8212;&#8201;getPreferredLocationsForShuffle Method</a></h2>
+<h2 id="finding-preferred-blockmanagers-with-most-shuffle-map-outputs"><a class="anchor" href="#finding-preferred-blockmanagers-with-most-shuffle-map-outputs"></a><a class="link" href="#finding-preferred-blockmanagers-with-most-shuffle-map-outputs"><a id="getPreferredLocationsForShuffle"></a> Finding Preferred BlockManagers with Most Shuffle Map Outputs</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getPreferredLocationsForShuffle(dep: ShuffleDependency[_, _, _], partitionId: Int): Seq[String]</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getPreferredLocationsForShuffle(
+  dep: ShuffleDependency[_, _, _],
+  partitionId: Int): Seq[String]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2199,7 +2203,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 </div>
 </div>
 <div class="sect1">
-<h2 id="incrementing-epochincrementepoch-method"><a class="anchor" href="#incrementing-epochincrementepoch-method"></a><a class="link" href="#incrementing-epochincrementepoch-method"><a id="incrementEpoch"></a> Incrementing Epoch&#8201;&#8212;&#8201;<code>incrementEpoch</code> Method</a></h2>
+<h2 id="incrementing-epoch"><a class="anchor" href="#incrementing-epoch"></a><a class="link" href="#incrementing-epoch"><a id="incrementEpoch"></a> Incrementing Epoch</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2232,7 +2236,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 </div>
 </div>
 <div class="sect1">
-<h2 id="finding-locations-with-largest-number-of-shuffle-map-outputsgetlocationswithlargestoutputs-method"><a class="anchor" href="#finding-locations-with-largest-number-of-shuffle-map-outputsgetlocationswithlargestoutputs-method"></a><a class="link" href="#finding-locations-with-largest-number-of-shuffle-map-outputsgetlocationswithlargestoutputs-method"><a id="getLocationsWithLargestOutputs"></a> Finding Locations with Largest Number of Shuffle Map Outputs&#8201;&#8212;&#8201;getLocationsWithLargestOutputs Method</a></h2>
+<h2 id="finding-locations-with-largest-number-of-shuffle-map-outputs"><a class="anchor" href="#finding-locations-with-largest-number-of-shuffle-map-outputs"></a><a class="link" href="#finding-locations-with-largest-number-of-shuffle-map-outputs"><a id="getLocationsWithLargestOutputs"></a> Finding Locations with Largest Number of Shuffle Map Outputs</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2491,32 +2495,24 @@ The input <code>numReducers</code> is not used.
 </div>
 </div>
 <div class="sect1">
-<h2 id="getstatistics-method"><a class="anchor" href="#getstatistics-method"></a><a class="link" href="#getstatistics-method"><a id="getStatistics"></a> <code>getStatistics</code> Method</a></h2>
+<h2 id="getstatistics-method"><a class="anchor" href="#getstatistics-method"></a><a class="link" href="#getstatistics-method"><a id="getStatistics"></a> getStatistics Method</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getStatistics(dep: ShuffleDependency[_, _, _]): MapOutputStatistics</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">getStatistics(
+  dep: ShuffleDependency[_, _, _]): MapOutputStatistics</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>getStatistics</code>&#8230;&#8203;FIXME</p>
+<p>getStatistics&#8230;&#8203;FIXME</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>getStatistics</code> is used when&#8230;&#8203;FIXME
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>getStatistics is used when&#8230;&#8203;FIXME</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="unregisterallmapoutput-method"><a class="anchor" href="#unregisterallmapoutput-method"></a><a class="link" href="#unregisterallmapoutput-method"><a id="unregisterAllMapOutput"></a> unregisterAllMapOutput Method</a></h2>
+<h2 id="unregistering-all-map-outputs-of-shuffle-stage"><a class="anchor" href="#unregistering-all-map-outputs-of-shuffle-stage"></a><a class="link" href="#unregistering-all-map-outputs-of-shuffle-stage"><a id="unregisterAllMapOutput"></a> Unregistering All Map Outputs of Shuffle Stage</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2528,12 +2524,12 @@ The input <code>numReducers</code> is not used.
 <p>unregisterAllMapOutput&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p>unregisterAllMapOutput is used when&#8230;&#8203;FIXME</p>
+<p>unregisterAllMapOutput is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#handleTaskCompletion" class="page">handle a task completion (due to a fetch failure)</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="unregistershuffle-method"><a class="anchor" href="#unregistershuffle-method"></a><a class="link" href="#unregistershuffle-method"><a id="unregisterShuffle"></a> unregisterShuffle Method</a></h2>
+<h2 id="deregistering-shuffle"><a class="anchor" href="#deregistering-shuffle"></a><a class="link" href="#deregistering-shuffle"><a id="unregisterShuffle"></a> Deregistering Shuffle</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2545,12 +2541,12 @@ The input <code>numReducers</code> is not used.
 <p>unregisterShuffle&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p>unregisterShuffle is used when&#8230;&#8203;FIXME</p>
+<p>unregisterShuffle is part of the <a href="MapOutputTracker.html#unregisterShuffle" class="page">MapOutputTracker</a> abstraction.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="removeoutputsonhost-method"><a class="anchor" href="#removeoutputsonhost-method"></a><a class="link" href="#removeoutputsonhost-method"><a id="removeOutputsOnHost"></a> removeOutputsOnHost Method</a></h2>
+<h2 id="deregistering-shuffle-outputs-associated-with-host"><a class="anchor" href="#deregistering-shuffle-outputs-associated-with-host"></a><a class="link" href="#deregistering-shuffle-outputs-associated-with-host"><a id="removeOutputsOnHost"></a> Deregistering Shuffle Outputs Associated with Host</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2562,12 +2558,12 @@ The input <code>numReducers</code> is not used.
 <p>removeOutputsOnHost&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p>removeOutputsOnHost is used when&#8230;&#8203;FIXME</p>
+<p>removeOutputsOnHost is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#removeExecutorAndUnregisterOutputs" class="page">removeExecutorAndUnregisterOutputs</a> and <a href="scheduler/DAGScheduler.html#handleWorkerRemoved" class="page">handle a worker removal</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="removeoutputsonexecutor-method"><a class="anchor" href="#removeoutputsonexecutor-method"></a><a class="link" href="#removeoutputsonexecutor-method"><a id="removeOutputsOnExecutor"></a> removeOutputsOnExecutor Method</a></h2>
+<h2 id="deregistering-shuffle-outputs-associated-with-executor"><a class="anchor" href="#deregistering-shuffle-outputs-associated-with-executor"></a><a class="link" href="#deregistering-shuffle-outputs-associated-with-executor"><a id="removeOutputsOnExecutor"></a> Deregistering Shuffle Outputs Associated with Executor</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2579,7 +2575,7 @@ The input <code>numReducers</code> is not used.
 <p>removeOutputsOnExecutor&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p>removeOutputsOnExecutor is used when&#8230;&#8203;FIXME</p>
+<p>removeOutputsOnExecutor is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#removeExecutorAndUnregisterOutputs" class="page">removeExecutorAndUnregisterOutputs</a>.</p>
 </div>
 </div>
 </div>
@@ -2601,7 +2597,7 @@ The input <code>numReducers</code> is not used.
 </div>
 </div>
 <div class="sect1">
-<h2 id="findmissingpartitions-method"><a class="anchor" href="#findmissingpartitions-method"></a><a class="link" href="#findmissingpartitions-method"><a id="findMissingPartitions"></a> findMissingPartitions Method</a></h2>
+<h2 id="finding-missing-partitions"><a class="anchor" href="#finding-missing-partitions"></a><a class="link" href="#finding-missing-partitions"><a id="findMissingPartitions"></a> Finding Missing Partitions</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2613,7 +2609,7 @@ The input <code>numReducers</code> is not used.
 <p>findMissingPartitions&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p>findMissingPartitions is used when&#8230;&#8203;FIXME</p>
+<p>findMissingPartitions is used when ShuffleMapStage is requested for <a href="scheduler/spark-scheduler-ShuffleMapStage.html#findMissingPartitions" class="page">missing partitions</a>.</p>
 </div>
 </div>
 </div>
@@ -2662,45 +2658,6 @@ getMapSizesByExecutorId is part of the <a href="MapOutputTracker.html#getMapSize
 <div class="paragraph">
 <p>Refer to <a href="spark-logging.html" class="page">Logging</a>.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="cachedSerializedBroadcast"></a> <code>cachedSerializedBroadcast</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internal registry of&#8230;&#8203;FIXME</p>
-<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="cachedSerializedStatuses"></a> <code>cachedSerializedStatuses</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internal registry of serialized <a href="scheduler/MapStatus.html" class="page">shuffle map output statuses</a> (as <code>Array[Byte]</code>) per&#8230;&#8203;FIXME</p>
-<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="cacheEpoch"></a> <code>cacheEpoch</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internal registry with&#8230;&#8203;FIXME</p>
-<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="shuffleIdLocks"></a> <code>shuffleIdLocks</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internal registry of locks for shuffle ids.</p>
-<p class="tableblock">Used when&#8230;&#8203;FIXME</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </article>

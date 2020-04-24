@@ -547,10 +547,10 @@
     <a class="nav-link" href="../MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+    <a class="nav-link" href="../ShuffleStatus.html">ShuffleStatus</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../ShuffleStatus.html">ShuffleStatus</a>
+    <a class="nav-link" href="../MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
 </ul>
   </li>
@@ -3375,27 +3375,18 @@ A <code>TaskSetManager</code> <a href="TaskSetManager.html##computeValidLocality
 </div>
 </div>
 <div class="sect1">
-<h2 id="workerremoved-method"><a class="anchor" href="#workerremoved-method"></a><a class="link" href="#workerremoved-method"><a id="workerRemoved"></a> <code>workerRemoved</code> Method</a></h2>
+<h2 id="workerremoved-method"><a class="anchor" href="#workerremoved-method"></a><a class="link" href="#workerremoved-method"><a id="workerRemoved"></a> workerRemoved Method</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">workerRemoved(workerId: String, host: String, message: String): Unit</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">workerRemoved(
+  workerId: String,
+  host: String,
+  message: String): Unit</code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>workerRemoved</code> is part of the <a href="TaskScheduler.html#workerRemoved" class="page">TaskScheduler Contract</a>.
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p><code>workerRemoved</code> prints out the following INFO message to the logs:</p>
+<p>workerRemoved prints out the following INFO message to the logs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3403,7 +3394,10 @@ A <code>TaskSetManager</code> <a href="TaskSetManager.html##computeValidLocality
 </div>
 </div>
 <div class="paragraph">
-<p>In the end, <code>workerRemoved</code> simply requests the <a href="#dagScheduler">DAGScheduler</a> to <a href="DAGScheduler.html#workerRemoved" class="page">handle the worker removed</a>.</p>
+<p>workerRemoved then requests the <a href="#dagScheduler">DAGScheduler</a> to <a href="DAGScheduler.html#workerRemoved" class="page">handle it</a>.</p>
+</div>
+<div class="paragraph">
+<p>workerRemoved is part of the <a href="TaskScheduler.html#workerRemoved" class="page">TaskScheduler</a> abstraction.</p>
 </div>
 </div>
 </div>

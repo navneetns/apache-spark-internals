@@ -546,11 +546,11 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
   <li class="nav-item is-current-page" data-depth="4">
     <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
 </ul>
   </li>
@@ -1844,7 +1844,10 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>ShuffleStatus</strong> is used by <a href="MapOutputTrackerMaster.html#shuffleStatuses" class="page">MapOutputTrackerMaster</a> to keep track of shuffle map outputs and their <a href="scheduler/MapStatus.html" class="page">status</a>.</p>
+<p><strong>ShuffleStatus</strong> is a registry of shuffle map outputs (of a shuffle stage).</p>
+</div>
+<div class="paragraph">
+<p>ShuffleStatus is managed by <a href="MapOutputTrackerMaster.html#shuffleStatuses" class="page">MapOutputTrackerMaster</a> to keep track of shuffle map outputs across shuffle stages.</p>
 </div>
 </div>
 </div>
@@ -1875,7 +1878,25 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="serializedmapstatus-method"><a class="anchor" href="#serializedmapstatus-method"></a><a class="link" href="#serializedmapstatus-method"><a id="serializedMapStatus"></a> serializedMapStatus Method</a></h2>
+<h2 id="deregistering-shuffle-map-output"><a class="anchor" href="#deregistering-shuffle-map-output"></a><a class="link" href="#deregistering-shuffle-map-output"><a id="removeMapOutput"></a> Deregistering Shuffle Map Output</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">removeMapOutput(
+  mapId: Int,
+  bmAddress: BlockManagerId): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>removeMapOutput&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>removeMapOutput is used when MapOutputTrackerMaster is requested to <a href="MapOutputTrackerMaster.html#unregisterMapOutput" class="page">unregister a shuffle map output</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="serializing-all-registered-shuffle-map-statuses"><a class="anchor" href="#serializing-all-registered-shuffle-map-statuses"></a><a class="link" href="#serializing-all-registered-shuffle-map-statuses"><a id="serializedMapStatus"></a> Serializing All Registered Shuffle Map Statuses</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -1889,7 +1910,110 @@
 <p>serializedMapStatus&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p>serializedMapStatus is used when&#8230;&#8203;FIXME</p>
+<p>serializedMapStatus is used when MapOutputTrackerMaster is requested to <a href="MapOutputTrackerMaster.html#run" class="page">send the map output locations of a shuffle</a> (on the MessageLoop dispatcher thread).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="finding-missing-partitions"><a class="anchor" href="#finding-missing-partitions"></a><a class="link" href="#finding-missing-partitions"><a id="findMissingPartitions"></a> Finding Missing Partitions</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">findMissingPartitions(): Seq[Int]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>findMissingPartitions&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>findMissingPartitions is used when MapOutputTrackerMaster is requested for <a href="MapOutputTrackerMaster.html#findMissingPartitions" class="page">missing partitions (that need to be computed)</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="invalidating-serialized-map-output-status-cache"><a class="anchor" href="#invalidating-serialized-map-output-status-cache"></a><a class="link" href="#invalidating-serialized-map-output-status-cache"><a id="invalidateSerializedMapOutputStatusCache"></a> Invalidating Serialized Map Output Status Cache</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">invalidateSerializedMapOutputStatusCache(): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>invalidateSerializedMapOutputStatusCache&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>invalidateSerializedMapOutputStatusCache is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ShuffleStatus is requested to <a href="#addMapOutput">addMapOutput</a>, <a href="#removeMapOutput">removeMapOutput</a>, <a href="#removeOutputsByFilter">removeOutputsByFilter</a></p>
+</li>
+<li>
+<p>MapOutputTrackerMaster is requested to <a href="MapOutputTrackerMaster.html#unregisterShuffle" class="page">unregister a shuffle</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deregistering-shuffle-map-outputs-by-filter"><a class="anchor" href="#deregistering-shuffle-map-outputs-by-filter"></a><a class="link" href="#deregistering-shuffle-map-outputs-by-filter"><a id="removeOutputsByFilter"></a> Deregistering Shuffle Map Outputs by Filter</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">removeOutputsByFilter(
+  f: (BlockManagerId) =&gt; Boolean): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>removeOutputsByFilter&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>removeOutputsByFilter is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ShuffleStatus is requested to <a href="#removeOutputsOnExecutor">removeOutputsOnExecutor</a>, <a href="#removeOutputsOnHost">removeOutputsOnHost</a></p>
+</li>
+<li>
+<p>MapOutputTrackerMaster is requested to <a href="MapOutputTrackerMaster.html#unregisterAllMapOutput" class="page">unregister all map outputs of a given shuffle stage</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deregistering-shuffle-map-outputs-associated-with-executor"><a class="anchor" href="#deregistering-shuffle-map-outputs-associated-with-executor"></a><a class="link" href="#deregistering-shuffle-map-outputs-associated-with-executor"><a id="removeOutputsOnExecutor"></a> Deregistering Shuffle Map Outputs Associated with Executor</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">removeOutputsOnExecutor(
+  execId: String): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>removeOutputsOnExecutor&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>removeOutputsOnExecutor is used when MapOutputTrackerMaster is requested to <a href="MapOutputTrackerMaster.html#removeOutputsOnExecutor" class="page">delete shuffle outputs associated with an executor</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deregistering-shuffle-map-outputs-associated-with-host"><a class="anchor" href="#deregistering-shuffle-map-outputs-associated-with-host"></a><a class="link" href="#deregistering-shuffle-map-outputs-associated-with-host"><a id="removeOutputsOnHost"></a> Deregistering Shuffle Map Outputs Associated with Host</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">removeOutputsOnHost(
+  host: String): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>removeOutputsOnHost&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>removeOutputsOnHost is used when MapOutputTrackerMaster is requested to <a href="MapOutputTrackerMaster.html#removeOutputsOnHost" class="page">delete shuffle outputs associated with a host</a>.</p>
 </div>
 </div>
 </div>

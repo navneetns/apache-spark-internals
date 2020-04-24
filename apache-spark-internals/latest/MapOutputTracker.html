@@ -547,10 +547,10 @@
     <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
+    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
   </li>
 </ul>
   </li>
@@ -2130,23 +2130,25 @@ getMapSizesByExecutorId gets the map outputs for all the partitions (despite the
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">unregisterShuffle(shuffleId: Int): Unit</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">unregisterShuffle(
+  shuffleId: Int): Unit</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>unregisterShuffle</code> unregisters <code>shuffleId</code>, i.e. removes <code>shuffleId</code> entry from the <a href="#mapStatuses">mapStatuses</a> internal cache.</p>
+<p>Deletes map output status information for the given shuffle stage</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>unregisterShuffle</code> is used when <a href="spark-service-contextcleaner.html#doCleanupShuffle" class="page"><code>ContextCleaner</code> removes a shuffle (blocks) from <code>MapOutputTrackerMaster</code> and <code>BlockManagerMaster</code></a> (aka <em>shuffle cleanup</em>) and when <code>BlockManagerSlaveEndpoint</code> <a href="storage/spark-blockmanager-BlockManagerSlaveEndpoint.html#RemoveShuffle" class="page">handles <code>RemoveShuffle</code> message</a>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ContextCleaner is requested for <a href="spark-service-contextcleaner.html#doCleanupShuffle" class="page">shuffle cleanup</a></p>
+</li>
+<li>
+<p>BlockManagerSlaveEndpoint is requested to <a href="storage/spark-blockmanager-BlockManagerSlaveEndpoint.html#RemoveShuffle" class="page">remove a shuffle</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
