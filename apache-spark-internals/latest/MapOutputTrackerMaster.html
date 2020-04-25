@@ -1887,7 +1887,69 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </div>
 </div>
 <div class="sect1">
-<h2 id="map-output-threshold-for-preferred-location-of-reduce-task"><a class="anchor" href="#map-output-threshold-for-preferred-location-of-reduce-task"></a><a class="link" href="#map-output-threshold-for-preferred-location-of-reduce-task"><a id="REDUCER_PREF_LOCS_FRACTION"></a> Map Output Threshold for Preferred Location of Reduce Task</a></h2>
+<h2 id="shuffle-map-output-status-registry"><a class="anchor" href="#shuffle-map-output-status-registry"></a><a class="link" href="#shuffle-map-output-status-registry"><a id="shuffleStatuses"></a> Shuffle Map Output Status Registry</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MapOutputTrackerMaster uses an internal registry of <a href="ShuffleStatus.html" class="page">ShuffleStatuses</a> by shuffle stages.</p>
+</div>
+<div class="paragraph">
+<p>MapOutputTrackerMaster adds a new shuffle when requested to <a href="#registerShuffle">register one</a> (when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a ShuffleMapStage</a> for a <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
+</div>
+<div class="paragraph">
+<p>MapOutputTrackerMaster uses the registry when requested for the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#registerMapOutput">registerMapOutput</a></p>
+</li>
+<li>
+<p><a href="#getStatistics">getStatistics</a></p>
+</li>
+<li>
+<p><a href="#MessageLoop">MessageLoop</a></p>
+</li>
+<li>
+<p><a href="#unregisterMapOutput">unregisterMapOutput</a>, <a href="#unregisterAllMapOutput">unregisterAllMapOutput</a>, <a href="#unregisterShuffle">unregisterShuffle</a>, <a href="#removeOutputsOnHost">removeOutputsOnHost</a>, <a href="#removeOutputsOnExecutor">removeOutputsOnExecutor</a>, <a href="#containsShuffle">containsShuffle</a>, <a href="#getNumAvailableOutputs">getNumAvailableOutputs</a>, <a href="#findMissingPartitions">findMissingPartitions</a>, <a href="#getLocationsWithLargestOutputs">getLocationsWithLargestOutputs</a>, <a href="#getMapSizesByExecutorId">getMapSizesByExecutorId</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>MapOutputTrackerMaster removes (<em>clears</em>) all shuffles when requested to <a href="#stop">stop</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration-properties"><a class="anchor" href="#configuration-properties"></a><a class="link" href="#configuration-properties"><a id="configuration-properties"></a> Configuration Properties</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MapOutputTrackerMaster uses the following configuration properties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="spark.shuffle.mapOutput.minSizeForBroadcast"></a><a id="minSizeForBroadcast"></a> <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.minSizeForBroadcast" class="page">spark.shuffle.mapOutput.minSizeForBroadcast</a></p>
+</li>
+<li>
+<p><a id="spark.shuffle.mapOutput.dispatcher.numThreads"></a> <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.dispatcher.numThreads" class="page">spark.shuffle.mapOutput.dispatcher.numThreads</a></p>
+</li>
+<li>
+<p><a id="spark.shuffle.reduceLocality.enabled"></a><a id="shuffleLocalityEnabled"></a> <a href="spark-configuration-properties.html#spark.shuffle.reduceLocality.enabled" class="page">spark.shuffle.reduceLocality.enabled</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="map-and-reduce-task-thresholds-for-preferred-locations"><a class="anchor" href="#map-and-reduce-task-thresholds-for-preferred-locations"></a><a class="link" href="#map-and-reduce-task-thresholds-for-preferred-locations"><a id="SHUFFLE_PREF_MAP_THRESHOLD"></a><a id="SHUFFLE_PREF_REDUCE_THRESHOLD"></a> Map and Reduce Task Thresholds for Preferred Locations</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MapOutputTrackerMaster defines 1000 tasks as the threshold of the number of map and reduce tasks to <a href="#getPreferredLocationsForShuffle">compute preferred locations</a> with <a href="#shuffleLocalityEnabled">spark.shuffle.reduceLocality.enabled</a> as computing the top locations is expensive.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="map-output-threshold-for-preferred-location-of-reduce-tasks"><a class="anchor" href="#map-output-threshold-for-preferred-location-of-reduce-tasks"></a><a class="link" href="#map-output-threshold-for-preferred-location-of-reduce-tasks"><a id="REDUCER_PREF_LOCS_FRACTION"></a> Map Output Threshold for Preferred Location of Reduce Tasks</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>MapOutputTrackerMaster defines <code>0.2</code> as the fraction of total map output that must be at a location for it to considered as a preferred location for a reduce task.</p>
@@ -1967,60 +2029,6 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </div>
 </div>
 <div class="sect1">
-<h2 id="configuration-properties"><a class="anchor" href="#configuration-properties"></a><a class="link" href="#configuration-properties"><a id="configuration-properties"></a> Configuration Properties</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>MapOutputTrackerMaster uses the following configuration properties:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a id="spark.shuffle.mapOutput.minSizeForBroadcast"></a><a id="minSizeForBroadcast"></a> <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.minSizeForBroadcast" class="page">spark.shuffle.mapOutput.minSizeForBroadcast</a></p>
-</li>
-<li>
-<p><a id="spark.shuffle.mapOutput.dispatcher.numThreads"></a> <a href="spark-configuration-properties.html#spark.shuffle.mapOutput.dispatcher.numThreads" class="page">spark.shuffle.mapOutput.dispatcher.numThreads</a></p>
-</li>
-<li>
-<p><a id="spark.shuffle.reduceLocality.enabled"></a> <a href="spark-configuration-properties.html#spark.shuffle.reduceLocality.enabled" class="page">spark.shuffle.reduceLocality.enabled</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="shuffle-map-output-status-registry"><a class="anchor" href="#shuffle-map-output-status-registry"></a><a class="link" href="#shuffle-map-output-status-registry"><a id="shuffleStatuses"></a> Shuffle Map Output Status Registry</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>MapOutputTrackerMaster uses an internal registry of <a href="ShuffleStatus.html" class="page">ShuffleStatuses</a> by shuffle stages.</p>
-</div>
-<div class="paragraph">
-<p>MapOutputTrackerMaster adds a new shuffle when requested to <a href="#registerShuffle">register one</a>.</p>
-</div>
-<div class="paragraph">
-<p>MapOutputTrackerMaster uses the registry when requested for the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#registerMapOutput">registerMapOutput</a></p>
-</li>
-<li>
-<p><a href="#getStatistics">getStatistics</a></p>
-</li>
-<li>
-<p><a href="#MessageLoop">MessageLoop</a></p>
-</li>
-<li>
-<p><a href="#unregisterMapOutput">unregisterMapOutput</a>, <a href="#unregisterAllMapOutput">unregisterAllMapOutput</a>, <a href="#unregisterShuffle">unregisterShuffle</a>, <a href="#removeOutputsOnHost">removeOutputsOnHost</a>, <a href="#removeOutputsOnExecutor">removeOutputsOnExecutor</a>, <a href="#containsShuffle">containsShuffle</a>, <a href="#getNumAvailableOutputs">getNumAvailableOutputs</a>, <a href="#findMissingPartitions">findMissingPartitions</a>, <a href="#getLocationsWithLargestOutputs">getLocationsWithLargestOutputs</a>, <a href="#getMapSizesByExecutorId">getMapSizesByExecutorId</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>MapOutputTrackerMaster removes (<em>clears</em>) all shuffles when requested to <a href="#stop">stop</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="epoch-number"><a class="anchor" href="#epoch-number"></a><a class="link" href="#epoch-number"><a id="epoch"></a><a id="getEpoch"></a> Epoch Number</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2094,7 +2102,7 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </div>
 </div>
 <div class="sect1">
-<h2 id="finding-preferred-locations-with-most-shuffle-map-outputs"><a class="anchor" href="#finding-preferred-locations-with-most-shuffle-map-outputs"></a><a class="link" href="#finding-preferred-locations-with-most-shuffle-map-outputs"><a id="getPreferredLocationsForShuffle"></a> Finding Preferred Locations (with Most Shuffle Map Outputs)</a></h2>
+<h2 id="computing-preferred-locations-with-most-shuffle-map-outputs"><a class="anchor" href="#computing-preferred-locations-with-most-shuffle-map-outputs"></a><a class="link" href="#computing-preferred-locations-with-most-shuffle-map-outputs"><a id="getPreferredLocationsForShuffle"></a> Computing Preferred Locations (with Most Shuffle Map Outputs)</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2104,7 +2112,23 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 </div>
 </div>
 <div class="paragraph">
-<p>getPreferredLocationsForShuffle finds the locations (i.e. <a href="storage/BlockManager.html" class="page">BlockManagers</a>) with the most map outputs for the input <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <a href="rdd/spark-rdd-Partition.html" class="page">Partition</a>.</p>
+<p>getPreferredLocationsForShuffle computes the locations (<a href="storage/BlockManager.html" class="page">BlockManagers</a>) with the most shuffle map outputs for the input <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <a href="rdd/spark-rdd-Partition.html" class="page">Partition</a>.</p>
+</div>
+<div class="paragraph">
+<p>getPreferredLocationsForShuffle computes the locations when all of the following are met:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#spark.shuffle.reduceLocality.enabled">spark.shuffle.reduceLocality.enabled</a> configuration property is enabled</p>
+</li>
+<li>
+<p>The number of "map" partitions (of the <a href="rdd/spark-rdd-ShuffleDependency.html#rdd" class="page">RDD</a> of the input <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>) is below <a href="#SHUFFLE_PREF_MAP_THRESHOLD">SHUFFLE_PREF_MAP_THRESHOLD</a></p>
+</li>
+<li>
+<p>The number of "reduce" partitions (of the <a href="rdd/spark-rdd-ShuffleDependency.html#partitioner" class="page">Partitioner</a> of the input <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>) is below <a href="#SHUFFLE_PREF_REDUCE_THRESHOLD">SHUFFLE_PREF_REDUCE_THRESHOLD</a></p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock note">
 <table>

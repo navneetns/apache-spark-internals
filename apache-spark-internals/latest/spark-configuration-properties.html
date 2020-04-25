@@ -2413,7 +2413,7 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 <h2 id="spark-shuffle-mapoutput-minsizeforbroadcast"><a class="anchor" href="#spark-shuffle-mapoutput-minsizeforbroadcast"></a><a class="link" href="#spark-shuffle-mapoutput-minsizeforbroadcast"><a id="spark.shuffle.mapOutput.minSizeForBroadcast"></a> spark.shuffle.mapOutput.minSizeForBroadcast</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Minimum size of a serialized shuffle map output locations to be sent out by <a href="MapOutputTrackerMaster.html#MessageLoop" class="page">MapOutputTrackerMaster</a></p>
+<p>Size of serialized shuffle map output statuses when <a href="MapOutputTrackerMaster.html#MessageLoop" class="page">MapOutputTrackerMaster</a> uses to determine whether to use a broadcast variable to send them to executors</p>
 </div>
 <div class="paragraph">
 <p>Default: <code>512k</code></p>
@@ -2458,13 +2458,13 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 <h2 id="spark-shuffle-reducelocality-enabled"><a class="anchor" href="#spark-shuffle-reducelocality-enabled"></a><a class="link" href="#spark-shuffle-reducelocality-enabled"><a id="spark.shuffle.reduceLocality.enabled"></a> spark.shuffle.reduceLocality.enabled</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Controls whether to compute locality preferences for reduce tasks</p>
+<p>Enables locality preferences for reduce tasks</p>
 </div>
 <div class="paragraph">
 <p>Default: <code>true</code></p>
 </div>
 <div class="paragraph">
-<p>When enabled (i.e. <code>true</code>), MapOutputTrackerMaster computes the preferred hosts on which to run a given map output partition in a given shuffle, i.e. the nodes that the most outputs for that partition are on.</p>
+<p>When enabled (<code>true</code>), MapOutputTrackerMaster will <a href="MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page">compute the preferred hosts</a> on which to run a given map output partition in a given shuffle, i.e. the nodes that the most outputs for that partition are on.</p>
 </div>
 </div>
 </div>
