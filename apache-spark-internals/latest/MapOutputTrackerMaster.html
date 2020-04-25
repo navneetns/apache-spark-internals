@@ -1846,19 +1846,7 @@
 <p><strong>MapOutputTrackerMaster</strong> is the <a href="MapOutputTracker.html" class="page">MapOutputTracker</a> for the driver.</p>
 </div>
 <div class="paragraph">
-<p>A MapOutputTrackerMaster is the source of truth for <a href="scheduler/MapStatus.html" class="page">MapStatus</a> objects (map output locations) per shuffle id (as recorded from <a href="scheduler/ShuffleMapTask.html" class="page">ShuffleMapTasks</a>).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-There is currently a hardcoded limit of map and reduce tasks above which Spark does not assign preferred locations aka locality preferences based on map output sizes&#8201;&#8212;&#8201;<code>1000</code> for map and reduce each.
-</td>
-</tr>
-</table>
+<p>A MapOutputTrackerMaster is the source of truth of <a href="#shuffleStatuses">shuffle map output locations</a>.</p>
 </div>
 </div>
 </div>
@@ -1944,7 +1932,7 @@ There is currently a hardcoded limit of map and reduce tasks above which Spark d
 <h2 id="map-and-reduce-task-thresholds-for-preferred-locations"><a class="anchor" href="#map-and-reduce-task-thresholds-for-preferred-locations"></a><a class="link" href="#map-and-reduce-task-thresholds-for-preferred-locations"><a id="SHUFFLE_PREF_MAP_THRESHOLD"></a><a id="SHUFFLE_PREF_REDUCE_THRESHOLD"></a> Map and Reduce Task Thresholds for Preferred Locations</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>MapOutputTrackerMaster defines 1000 tasks as the threshold of the number of map and reduce tasks to <a href="#getPreferredLocationsForShuffle">compute preferred locations</a> with <a href="#shuffleLocalityEnabled">spark.shuffle.reduceLocality.enabled</a> as computing the top locations is expensive.</p>
+<p>MapOutputTrackerMaster defines 1000 (tasks) as the hardcoded threshold of the number of map and reduce tasks when requested to <a href="#getPreferredLocationsForShuffle">compute preferred locations</a> with <a href="#shuffleLocalityEnabled">spark.shuffle.reduceLocality.enabled</a>.</p>
 </div>
 </div>
 </div>
