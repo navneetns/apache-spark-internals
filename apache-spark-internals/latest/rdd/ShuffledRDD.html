@@ -85,7 +85,7 @@
     <a class="nav-link" href="../scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="../scheduler/ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../scheduler/ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -1938,13 +1938,13 @@ scala&gt; println(sorted.toDebugString)
 </table>
 </div>
 <div class="paragraph">
-<p><code>compute</code> takes the only <a href="spark-rdd-RDD.html#dependencies" class="page">dependency</a> that is assumed a <a href="spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> (<code>ShuffleDependency[K, V, C]</code>).</p>
+<p><code>compute</code> takes the only <a href="spark-rdd-RDD.html#dependencies" class="page">dependency</a> that is assumed a <a href="ShuffleDependency.html" class="page">ShuffleDependency</a> (<code>ShuffleDependency[K, V, C]</code>).</p>
 </div>
 <div class="paragraph">
 <p><code>compute</code> uses the <a href="../spark-SparkEnv.html" class="page">SparkEnv</a> to access the <a href="../shuffle/ShuffleManager.html#shuffleManager" class="page">ShuffleManager</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>compute</code> requests <code>ShuffleManager</code> for a <a href="../shuffle/ShuffleManager.html#getReader" class="page">ShuffleReader</a> to <a href="#ROOT:spark-shuffle-ShuffleReader.adoc#read" class="page unresolved">read</a> the key-value pairs from the <a href="spark-rdd-ShuffleDependency.html#shuffleHandle" class="page">ShuffleHandle</a> for the input <code>split</code> partition.</p>
+<p><code>compute</code> requests <code>ShuffleManager</code> for a <a href="../shuffle/ShuffleManager.html#getReader" class="page">ShuffleReader</a> to <a href="#ROOT:spark-shuffle-ShuffleReader.adoc#read" class="page unresolved">read</a> the key-value pairs from the <a href="ShuffleDependency.html#shuffleHandle" class="page">ShuffleHandle</a> for the input <code>split</code> partition.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1968,7 +1968,7 @@ scala&gt; println(sorted.toDebugString)
 </table>
 </div>
 <div class="paragraph">
-<p>Internally, <code>getPreferredLocations</code> requests <code>MapOutputTrackerMaster</code> for the <a href="../MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page">preferred locations</a>, i.e. <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManagers</a> with the most map outputs, for the input <code>partition</code> (of the one and only <a href="spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
+<p>Internally, <code>getPreferredLocations</code> requests <code>MapOutputTrackerMaster</code> for the <a href="../MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page">preferred locations</a>, i.e. <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManagers</a> with the most map outputs, for the input <code>partition</code> (of the one and only <a href="ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2009,7 +2009,7 @@ scala&gt; println(sorted.toDebugString)
 <p><code>getDependencies</code> uses the <a href="#mapSideCombine">mapSideCombine</a> internal flag for the types of the keys and values (i.e. <code>K</code> and <code>C</code> or <code>K</code> and <code>V</code> when the flag is enabled or not, respectively).</p>
 </div>
 <div class="paragraph">
-<p>In the end, <code>getDependencies</code> returns a single <a href="spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> (with the <a href="#prev">previous RDD</a>, the <a href="#part">Partitioner</a>, and the Serializer).</p>
+<p>In the end, <code>getDependencies</code> returns a single <a href="ShuffleDependency.html" class="page">ShuffleDependency</a> (with the <a href="#prev">previous RDD</a>, the <a href="#part">Partitioner</a>, and the Serializer).</p>
 </div>
 </div>
 <div class="sect2">
@@ -2035,7 +2035,7 @@ scala&gt; println(sorted.toDebugString)
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mapSideCombine</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="mapSideCombine"></a> <strong>Map-Side Combine</strong> flag to select the <a href="../spark-Serializer.html" class="page">Serializer</a> when ShuffledRDD is requested for the <a href="#getDependencies">dependencies</a> (i.e. a single <a href="spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> with the <a href="#prev">previous RDD</a>).</p>
+<p><a id="mapSideCombine"></a> <strong>Map-Side Combine</strong> flag to select the <a href="../spark-Serializer.html" class="page">Serializer</a> when ShuffledRDD is requested for the <a href="#getDependencies">dependencies</a> (i.e. a single <a href="ShuffleDependency.html" class="page">ShuffleDependency</a> with the <a href="#prev">previous RDD</a>).</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2049,7 +2049,7 @@ scala&gt; println(sorted.toDebugString)
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>userSpecifiedSerializer</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="userSpecifiedSerializer"></a> User-specified <a href="../spark-Serializer.html" class="page">Serializer</a> for the single <a href="spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> dependency</p>
+<p><a id="userSpecifiedSerializer"></a> User-specified <a href="../spark-Serializer.html" class="page">Serializer</a> for the single <a href="ShuffleDependency.html" class="page">ShuffleDependency</a> dependency</p>
 </div>
 <div class="listingblock">
 <div class="content">

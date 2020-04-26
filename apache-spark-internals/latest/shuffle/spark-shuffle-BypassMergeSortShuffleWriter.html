@@ -85,7 +85,7 @@
     <a class="nav-link" href="../scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="../scheduler/ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../scheduler/ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="../rdd/ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -2009,7 +2009,7 @@ Review the <a href="SortShuffleManager.html#shouldBypassMergeSort" class="page">
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="spark-Serializer.adoc">Serializer</a> was specified when <a href="#creating-instance"><code>BypassMergeSortShuffleWriter</code> was created</a> and is exactly the <code>Serializer</code> of the <a href="spark-rdd-ShuffleDependency.adoc#serializer">ShuffleDependency</a>.
+<a href="spark-Serializer.adoc">Serializer</a> was specified when <a href="#creating-instance"><code>BypassMergeSortShuffleWriter</code> was created</a> and is exactly the <code>Serializer</code> of the <a href="../rdd/ShuffleDependency.html#serializer" class="page">ShuffleDependency</a>.
 </td>
 </tr>
 </table>
@@ -2063,7 +2063,7 @@ Review the <a href="SortShuffleManager.html#shouldBypassMergeSort" class="page">
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>write</code> uses the <a href="spark-rdd-ShuffleDependency.adoc#partitioner"><code>Partitioner</code> from the <code>ShuffleDependency</code></a> for which <a href="#creating-instance"><code>BypassMergeSortShuffleWriter</code> was created</a>.
+<code>write</code> uses the <a href="../rdd/ShuffleDependency.html#partitioner" class="page"><code>Partitioner</code> from the <code>ShuffleDependency</code></a> for which <a href="#creating-instance"><code>BypassMergeSortShuffleWriter</code> was created</a>.
 </td>
 </tr>
 </table>

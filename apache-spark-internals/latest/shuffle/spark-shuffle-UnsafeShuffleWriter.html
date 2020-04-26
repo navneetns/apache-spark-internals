@@ -85,7 +85,7 @@
     <a class="nav-link" href="../scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="../scheduler/ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../scheduler/ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="../rdd/ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -2088,7 +2088,7 @@ FIXME
 </ul>
 </div>
 <div class="paragraph">
-<p><code>UnsafeShuffleWriter</code> requests the <a href="#handle">SerializedShuffleHandle</a> for the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> that is then requested for the <a href="#spark-rdd-ShuffleDependency.adoc#partitioner" class="page unresolved">Partitioner</a> and, in the end, for the <a href="#spark-rdd-Partitioner.adoc#numPartitions" class="page unresolved">number of partitions</a>. <code>UnsafeShuffleWriter</code> makes sure that the number of shuffle output partitions is below <a href="SortShuffleManager.html#MAX_SHUFFLE_OUTPUT_PARTITIONS_FOR_SERIALIZED_MODE" class="page"><code>(1 &lt;&lt; 24)</code> partition identifiers that can be encoded</a> and throws an <code>IllegalArgumentException</code> if not met:</p>
+<p><code>UnsafeShuffleWriter</code> requests the <a href="#handle">SerializedShuffleHandle</a> for the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> that is then requested for the <a href="../rdd/ShuffleDependency.html#partitioner" class="page">Partitioner</a> and, in the end, for the <a href="#spark-rdd-Partitioner.adoc#numPartitions" class="page unresolved">number of partitions</a>. <code>UnsafeShuffleWriter</code> makes sure that the number of shuffle output partitions is below <a href="SortShuffleManager.html#MAX_SHUFFLE_OUTPUT_PARTITIONS_FOR_SERIALIZED_MODE" class="page"><code>(1 &lt;&lt; 24)</code> partition identifiers that can be encoded</a> and throws an <code>IllegalArgumentException</code> if not met:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2136,7 +2136,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>SerializerInstance</code> was defined when <a href="#creating-instance"><code>UnsafeShuffleWriter</code> was created</a> (and is exactly the one used to <a href="spark-rdd-ShuffleDependency.adoc#creating-instance">create the <code>ShuffleDependency</code></a>).
+<code>SerializerInstance</code> was defined when <a href="#creating-instance"><code>UnsafeShuffleWriter</code> was created</a> (and is exactly the one used to <a href="../rdd/ShuffleDependency.html#creating-instance" class="page">create the <code>ShuffleDependency</code></a>).
 </td>
 </tr>
 </table>
@@ -2437,7 +2437,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>serializer</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="serializer"></a> <a href="#spark-SerializerInstance.adoc" class="page unresolved">SerializerInstance</a> (that is a new instance of the <a href="#spark-rdd-ShuffleDependency.adoc#serializer" class="page unresolved">Serializer</a> of the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> of the <a href="#handle">SerializedShuffleHandle</a>)</p>
+<p><a id="serializer"></a> <a href="#spark-SerializerInstance.adoc" class="page unresolved">SerializerInstance</a> (that is a new instance of the <a href="../rdd/ShuffleDependency.html#serializer" class="page">Serializer</a> of the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> of the <a href="#handle">SerializedShuffleHandle</a>)</p>
 </div>
 <div class="paragraph">
 <p>Used exclusively when <code>UnsafeShuffleWriter</code> is requested to <a href="#open">open</a> (and creates the <a href="#serOutputStream">SerializationStream</a>)</p>
@@ -2458,7 +2458,7 @@ The number of shuffle output partitions is first enforced when <a href="SortShuf
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>shuffleId</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="shuffleId"></a> <a href="#spark-rdd-ShuffleDependency.adoc#shuffleId" class="page unresolved">Shuffle ID</a> (of the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> of the <a href="#handle">SerializedShuffleHandle</a>)</p>
+<p><a id="shuffleId"></a> <a href="../rdd/ShuffleDependency.html#shuffleId" class="page">Shuffle ID</a> (of the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> of the <a href="#handle">SerializedShuffleHandle</a>)</p>
 </div>
 <div class="paragraph">
 <p>Used exclusively when requested to <a href="#closeAndWriteOutput">close internal resources and write out merged spill files</a></p>

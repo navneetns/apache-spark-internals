@@ -85,7 +85,7 @@
     <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="../rdd/ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -1944,7 +1944,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Posted to inform DAGScheduler that <a href="spark-SparkContext.adoc#submitMapStage"><code>SparkContext</code> submitted a <code>MapStage</code> for execution</a> (through <a href="DAGScheduler.html#submitMapStage" class="page">submitMapStage</a>).</p>
 <p class="tableblock"><code>MapStageSubmitted</code> conveys the following information:</p>
 <p class="tableblock">1. A job identifier (as <code>jobId</code>)</p>
-<p class="tableblock">2. The <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a></p>
+<p class="tableblock">2. The <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a></p>
 <p class="tableblock">3. A <code>CallSite</code> (as <code>callSite</code>)</p>
 <p class="tableblock">4. The <a href="spark-scheduler-JobListener.html" class="page">JobListener</a> to inform about the status of the stage.</p>
 <p class="tableblock">5. <code>Properties</code> of the execution</p></td>
@@ -2134,7 +2134,7 @@ FIXME
 <div class="title">Figure 1. <code>MapStageSubmitted</code> Event Handling</div>
 </div>
 <div class="paragraph">
-<p><code>handleMapStageSubmitted</code> <a href="DAGScheduler.html#getOrCreateShuffleMapStage" class="page">finds or creates a new <code>ShuffleMapStage</code></a> for the input <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <code>jobId</code>.</p>
+<p><code>handleMapStageSubmitted</code> <a href="DAGScheduler.html#getOrCreateShuffleMapStage" class="page">finds or creates a new <code>ShuffleMapStage</code></a> for the input <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> and <code>jobId</code>.</p>
 </div>
 <div class="paragraph">
 <p><code>handleMapStageSubmitted</code> creates an <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a> (with the input <code>jobId</code>, <code>callSite</code>, <code>listener</code> and <code>properties</code>, and the <code>ShuffleMapStage</code>).</p>
@@ -2249,7 +2249,7 @@ DAGScheduler <a href="../MapOutputTracker.html#getStatistics" class="page">reque
 <div class="ulist">
 <ul>
 <li>
-<p><code>handleMapStageSubmitted</code> has a <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> among the input parameters while <code>handleJobSubmitted</code> has <code>finalRDD</code>, <code>func</code>, and <code>partitions</code>.</p>
+<p><code>handleMapStageSubmitted</code> has a <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> among the input parameters while <code>handleJobSubmitted</code> has <code>finalRDD</code>, <code>func</code>, and <code>partitions</code>.</p>
 </li>
 <li>
 <p><code>handleMapStageSubmitted</code> initializes <code>finalStage</code> as <code>getShuffleMapStage(dependency, jobId)</code> while <code>handleJobSubmitted</code> as <code>finalStage = newResultStage(finalRDD, func, partitions, jobId, callSite)</code></p>
@@ -2746,7 +2746,7 @@ A <code>Stage</code> tracks its own pending partitions using <a href="Stage.html
 <div class="sect3">
 <h4 id="handling-successful-resulttask-completion"><a class="anchor" href="#handling-successful-resulttask-completion"></a><a class="link" href="#handling-successful-resulttask-completion"><a id="handleTaskCompletion-Success-ResultTask"></a> Handling Successful <code>ResultTask</code> Completion</a></h4>
 <div class="paragraph">
-<p>For <a href="ResultTask.html" class="page">ResultTask</a>, the stage is assumed a <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a>.</p>
+<p>For <a href="ResultTask.html" class="page">ResultTask</a>, the stage is assumed a <a href="ResultStage.html" class="page">ResultStage</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>handleTaskCompletion</code> finds the <code>ActiveJob</code> associated with the <code>ResultStage</code>.</p>
@@ -2758,7 +2758,7 @@ A <code>Stage</code> tracks its own pending partitions using <a href="Stage.html
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a> tracks the optional <code>ActiveJob</code> as <a href="spark-scheduler-ResultStage.html#activeJob" class="page"><code>activeJob</code> property</a>. There could only be one active job for a <code>ResultStage</code>.
+<a href="ResultStage.html" class="page">ResultStage</a> tracks the optional <code>ActiveJob</code> as <a href="ResultStage.html#activeJob" class="page"><code>activeJob</code> property</a>. There could only be one active job for a <code>ResultStage</code>.
 </td>
 </tr>
 </table>
@@ -3249,7 +3249,7 @@ A stage tracks the jobs it belongs to using <code>jobIds</code> property.
 <div class="title">Figure 4. <code>DAGScheduler.handleJobSubmitted</code> Method</div>
 </div>
 <div class="paragraph">
-<p><code>handleJobSubmitted</code> creates an <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a> (with the input <code>jobId</code>, <code>callSite</code>, <code>listener</code>, <code>properties</code>, and the <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a>).</p>
+<p><code>handleJobSubmitted</code> creates an <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a> (with the input <code>jobId</code>, <code>callSite</code>, <code>listener</code>, <code>properties</code>, and the <a href="ResultStage.html" class="page">ResultStage</a>).</p>
 </div>
 <div class="paragraph">
 <p><code>handleJobSubmitted</code> <a href="DAGScheduler.html#clearCacheLocs" class="page">clears the internal cache of RDD partition locations</a>.</p>
@@ -3278,7 +3278,7 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>handleJobSubmitted</code> then registers the new job in <a href="DAGScheduler.html#jobIdToActiveJob" class="page">jobIdToActiveJob</a> and <a href="DAGScheduler.html#activeJobs" class="page">activeJobs</a> internal registries, and <a href="spark-scheduler-ResultStage.html#setActiveJob" class="page">with the final <code>ResultStage</code></a>.</p>
+<p><code>handleJobSubmitted</code> then registers the new job in <a href="DAGScheduler.html#jobIdToActiveJob" class="page">jobIdToActiveJob</a> and <a href="DAGScheduler.html#activeJobs" class="page">activeJobs</a> internal registries, and <a href="ResultStage.html#setActiveJob" class="page">with the final <code>ResultStage</code></a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>

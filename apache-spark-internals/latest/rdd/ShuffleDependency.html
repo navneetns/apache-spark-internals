@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/exercises/spark-exercise-custom-rdd.html">
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/rdd/ShuffleDependency.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -421,109 +421,109 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../rdd/index.html">RDD</a>
+    <a class="nav-link" href="index.html">RDD</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rdd/spark-rdd-RDD.html">RDD API</a>
+    <a class="nav-link" href="spark-rdd-RDD.html">RDD API</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../rdd/spark-rdd-operations.html">Operators</a>
+    <a class="nav-link" href="spark-rdd-operations.html">Operators</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../rdd/spark-rdd-transformations.html">Transformations</a>
+    <a class="nav-link" href="spark-rdd-transformations.html">Transformations</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../rdd/spark-rdd-PairRDDFunctions.html">PairRDDFunctions</a>
+    <a class="nav-link" href="spark-rdd-PairRDDFunctions.html">PairRDDFunctions</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-actions.html">Actions</a>
+    <a class="nav-link" href="spark-rdd-actions.html">Actions</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rdd/spark-rdd-lineage.html">RDD Lineage</a>
+    <a class="nav-link" href="spark-rdd-lineage.html">RDD Lineage</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rdd/spark-rdd-caching.html">Caching and Persistence</a>
+    <a class="nav-link" href="spark-rdd-caching.html">Caching and Persistence</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../rdd/spark-rdd-checkpointing.html">Checkpointing</a>
+    <a class="nav-link" href="spark-rdd-checkpointing.html">Checkpointing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-CheckpointRDD.html">CheckpointRDD</a>
+    <a class="nav-link" href="spark-rdd-CheckpointRDD.html">CheckpointRDD</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../rdd/spark-rdd-partitions.html">Partitions and Partitioning</a>
+    <a class="nav-link" href="spark-rdd-partitions.html">Partitions and Partitioning</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-Partition.html">Partition</a>
+    <a class="nav-link" href="spark-rdd-Partition.html">Partition</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-Partitioner.html">Partitioner</a>
+    <a class="nav-link" href="spark-rdd-Partitioner.html">Partitioner</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-HashPartitioner.html">HashPartitioner</a>
+    <a class="nav-link" href="spark-rdd-HashPartitioner.html">HashPartitioner</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rdd/spark-rdd-shuffle.html">Shuffling</a>
+    <a class="nav-link" href="spark-rdd-shuffle.html">Shuffling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../rdd/spark-rdd-Dependency.html">RDD Dependencies</a>
+    <a class="nav-link" href="spark-rdd-Dependency.html">RDD Dependencies</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
+    <a class="nav-link" href="spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/ShuffleDependency.html">ShuffleDependency</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rdd/spark-Aggregator.html">Map/Reduce-side Aggregator</a>
+    <a class="nav-link" href="spark-Aggregator.html">Map/Reduce-side Aggregator</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Specialized RDDs</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ParallelCollectionRDD.html">ParallelCollectionRDD</a>
+    <a class="nav-link" href="spark-rdd-ParallelCollectionRDD.html">ParallelCollectionRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-MapPartitionsRDD.html">MapPartitionsRDD</a>
+    <a class="nav-link" href="spark-rdd-MapPartitionsRDD.html">MapPartitionsRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-OrderedRDDFunctions.html">OrderedRDDFunctions</a>
+    <a class="nav-link" href="spark-rdd-OrderedRDDFunctions.html">OrderedRDDFunctions</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-CoGroupedRDD.html">CoGroupedRDD</a>
+    <a class="nav-link" href="spark-rdd-CoGroupedRDD.html">CoGroupedRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-SubtractedRDD.html">SubtractedRDD</a>
+    <a class="nav-link" href="spark-rdd-SubtractedRDD.html">SubtractedRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-HadoopRDD.html">HadoopRDD</a>
+    <a class="nav-link" href="spark-rdd-HadoopRDD.html">HadoopRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-NewHadoopRDD.html">NewHadoopRDD</a>
+    <a class="nav-link" href="spark-rdd-NewHadoopRDD.html">NewHadoopRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/ShuffledRDD.html">ShuffledRDD</a>
+    <a class="nav-link" href="ShuffledRDD.html">ShuffledRDD</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rdd/spark-TaskLocation.html">TaskLocation</a>
+    <a class="nav-link" href="spark-TaskLocation.html">TaskLocation</a>
   </li>
 </ul>
   </li>
@@ -1759,43 +1759,43 @@
     <span class="nav-text">Exercises</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-pairrddfunctions-oneliners.html">One-liners using PairRDDFunctions</a>
+    <a class="nav-link" href="../exercises/spark-exercise-pairrddfunctions-oneliners.html">One-liners using PairRDDFunctions</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-take-multiple-jobs.html">Learning Jobs and Partitions Using take Action</a>
+    <a class="nav-link" href="../exercises/spark-exercise-take-multiple-jobs.html">Learning Jobs and Partitions Using take Action</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-standalone-master-ha.html">Spark Standalone - Using ZooKeeper for High-Availability of Master</a>
+    <a class="nav-link" href="../exercises/spark-exercise-standalone-master-ha.html">Spark Standalone - Using ZooKeeper for High-Availability of Master</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-hello-world-using-spark-shell.html">Spark&#8217;s Hello World using Spark shell and Scala</a>
+    <a class="nav-link" href="../exercises/spark-hello-world-using-spark-shell.html">Spark&#8217;s Hello World using Spark shell and Scala</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-examples-wordcount-spark-shell.html">WordCount using Spark shell</a>
+    <a class="nav-link" href="../exercises/spark-examples-wordcount-spark-shell.html">WordCount using Spark shell</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-first-app.html">Your first complete Spark application (using Scala and sbt)</a>
+    <a class="nav-link" href="../exercises/spark-first-app.html">Your first complete Spark application (using Scala and sbt)</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-notable-use-cases.html">Spark (notable) use cases</a>
+    <a class="nav-link" href="../exercises/spark-notable-use-cases.html">Spark (notable) use cases</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-sql-hive-orc-example.html">Using Spark SQL to update data in Hive using ORC files</a>
+    <a class="nav-link" href="../exercises/spark-sql-hive-orc-example.html">Using Spark SQL to update data in Hive using ORC files</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-custom-scheduler-listener.html">Developing Custom SparkListener to monitor DAGScheduler in Scala</a>
+    <a class="nav-link" href="../exercises/spark-exercise-custom-scheduler-listener.html">Developing Custom SparkListener to monitor DAGScheduler in Scala</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-custom-rpc-environment.html">Developing RPC Environment</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="spark-exercise-custom-rdd.html">Developing Custom RDD</a>
+    <a class="nav-link" href="../exercises/spark-exercise-custom-rpc-environment.html">Developing RPC Environment</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-dataframe-jdbc-postgresql.html">Working with Datasets from JDBC Data Sources (and PostgreSQL)</a>
+    <a class="nav-link" href="../exercises/spark-exercise-custom-rdd.html">Developing Custom RDD</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-failing-stage.html">Causing Stage to Fail</a>
+    <a class="nav-link" href="../exercises/spark-exercise-dataframe-jdbc-postgresql.html">Working with Datasets from JDBC Data Sources (and PostgreSQL)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../exercises/spark-exercise-failing-stage.html">Causing Stage to Fail</a>
   </li>
 </ul>
   </li>
@@ -1830,17 +1830,68 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Exercises</li>
-    <li><a href="spark-exercise-custom-rdd.html">Developing Custom RDD</a></li>
+    <li><a href="index.html">RDD</a></li>
+    <li><a href="spark-rdd-Dependency.html">RDD Dependencies</a></li>
+    <li><a href="ShuffleDependency.html">ShuffleDependency</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/exercises/pages/spark-exercise-custom-rdd.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/rdd/pages/ShuffleDependency.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
 <div class="sect1">
-<h2 id="developing-custom-rdd"><a class="anchor" href="#developing-custom-rdd"></a><a class="link" href="#developing-custom-rdd">Developing Custom RDD</a></h2>
+<h2 id="shuffledependencyshuffle-dependency"><a class="anchor" href="#shuffledependencyshuffle-dependency"></a><a class="link" href="#shuffledependencyshuffle-dependency"><a id="ShuffleDependency"></a> ShuffleDependency&#8201;&#8212;&#8201;Shuffle Dependency</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><code>ShuffleDependency</code> is a <a href="spark-rdd-Dependency.adoc">RDD Dependency</a> on the output of a <a href="../scheduler/ShuffleMapStage.html" class="page">ShuffleMapStage</a> for a <a href="#rdd">key-value pair RDD</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>ShuffleDependency</code> uses the <a href="#rdd">RDD</a> to know the number of (map-side/pre-shuffle) partitions and the <a href="#partitioner"><code>Partitioner</code></a> for the number of (reduce-size/post-shuffle) partitions.</p>
+</div>
+<div class="paragraph">
+<p><code>ShuffleDependency</code> is a dependency of <a href="ShuffledRDD.html" class="page">ShuffledRDD</a> as well as <a href="spark-rdd-CoGroupedRDD.adoc">CoGroupedRDD</a> and <a href="spark-rdd-SubtractedRDD.adoc">SubtractedRDD</a> but only when <a href="spark-rdd-Partitioner.adoc">partitioners</a> (of the RDD&#8217;s and after transformations) are different.</p>
+</div>
+<div class="paragraph">
+<p>A <code>ShuffleDependency</code> is <a href="#creating-instance">created</a> for a key-value pair RDD, i.e. <code>RDD[Product2[K, V]]</code> with <code>K</code> and <code>V</code> being the types of keys and values, respectively.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Use <a href="index.html#dependencies" class="page"><code>dependencies</code> method</a> on an RDD to know the dependencies.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>scala&gt; val rdd = sc.parallelize(0 to 8).groupBy(_ % 3)
+rdd: org.apache.spark.rdd.RDD[(Int, Iterable[Int])] = ShuffledRDD[2] at groupBy at &lt;console&gt;:24
+
+scala&gt; rdd.dependencies
+res0: Seq[org.apache.spark.Dependency[_]] = List(org.apache.spark.ShuffleDependency@454f6cc5)</code></pre>
+</div>
+</div>
+<div id="shuffleId" class="paragraph">
+<p>Every <code>ShuffleDependency</code> has a unique application-wide <strong>shuffleId</strong> number that is assigned when <a href="#creating-instance"><code>ShuffleDependency</code> is created</a> (and is used throughout Spark&#8217;s code to reference a <code>ShuffleDependency</code>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Shuffle ids are <a href="spark-SparkContext.adoc#nextShuffleId">tracked by <code>SparkContext</code></a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="keyordering-property"><a class="anchor" href="#keyordering-property"></a><a class="link" href="#keyordering-property"><a id="keyOrdering"></a> <code>keyOrdering</code> Property</a></h3>
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -1852,6 +1903,381 @@ FIXME
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="serializer-property"><a class="anchor" href="#serializer-property"></a><a class="link" href="#serializer-property"><a id="serializer"></a> <code>serializer</code> Property</a></h3>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-shuffledependency-instance"><a class="anchor" href="#creating-shuffledependency-instance"></a><a class="link" href="#creating-shuffledependency-instance"><a id="creating-instance"></a> Creating ShuffleDependency Instance</a></h3>
+<div class="paragraph">
+<p><code>ShuffleDependency</code> takes the following when created:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A single key-value pair RDD, i.e. <code>RDD[Product2[K, V]]</code>,</p>
+</li>
+<li>
+<p><a href="spark-rdd-Partitioner.adoc">Partitioner</a> (available as <a href="#partitioner"><code>partitioner</code> property</a>),</p>
+</li>
+<li>
+<p><a href="spark-SparkEnv.adoc#serializer">Serializer</a>,</p>
+</li>
+<li>
+<p>Optional key ordering (of Scala&#8217;s <a href="http://www.scala-lang.org/api/current/scala/math/Ordering.html">scala.math.Ordering</a> type),</p>
+</li>
+<li>
+<p>Optional <a href="#aggregator">Aggregator</a>,</p>
+</li>
+<li>
+<p><a href="#mapSideCombine">mapSideCombine</a> flag which is disabled (i.e. <code>false</code>) by default.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>ShuffleDependency</code> uses <a href="spark-SparkEnv.adoc#serializer"><code>SparkEnv</code> to access the current <code>Serializer</code></a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When created, <code>ShuffleDependency</code> gets <a href="spark-SparkContext.adoc#nextShuffleId">shuffle id</a> (as <code>shuffleId</code>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>ShuffleDependency</code> uses the <a href="index.html#context" class="page">input RDD to access <code>SparkContext</code></a> and so the <code>shuffleId</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>ShuffleDependency</code> <a href="../shuffle/ShuffleManager.html#registerShuffle" class="page">registers itself with <code>ShuffleManager</code></a> and gets a <code>ShuffleHandle</code> (available as <a href="#shuffleHandle">shuffleHandle</a> property).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>ShuffleDependency</code> accesses <a href="spark-SparkEnv.adoc#shuffleManager"><code>ShuffleManager</code> using <code>SparkEnv</code></a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In the end, <code>ShuffleDependency</code> <a href="spark-service-contextcleaner.adoc#registerShuffleForCleanup">registers itself for cleanup with <code>ContextCleaner</code></a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>ShuffleDependency</code> accesses the <a href="spark-SparkContext.adoc#cleaner">optional <code>ContextCleaner</code> through <code>SparkContext</code></a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>ShuffleDependency</code> is created when <a href="ShuffledRDD.html#getDependencies" class="page">ShuffledRDD</a>, <a href="spark-rdd-CoGroupedRDD.adoc#getDependencies">CoGroupedRDD</a>, and <a href="spark-rdd-SubtractedRDD.adoc#getDependencies">SubtractedRDD</a> return their RDD dependencies.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rdd-property"><a class="anchor" href="#rdd-property"></a><a class="link" href="#rdd-property"><a id="rdd"></a> <code>rdd</code> Property</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">rdd: RDD[Product2[K, V]]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>rdd</code> returns a key-value pair RDD this <a href="#creating-instance"><code>ShuffleDependency</code> was created for</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>rdd</code> is used when:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page"><code>MapOutputTrackerMaster</code> finds preferred <code>BlockManagers</code> with most map outputs</a> for a <code>ShuffleDependency</code>,</p>
+</li>
+<li>
+<p><a href="../scheduler/DAGScheduler.html#getOrCreateShuffleMapStage" class="page"><code>DAGScheduler</code> finds or creates new <code>ShuffleMapStage</code> stages</a> for a <code>ShuffleDependency</code>,</p>
+</li>
+<li>
+<p><a href="../scheduler/DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a <code>ShuffleMapStage</code></a> for a <code>ShuffleDependency</code> and a <code>ActiveJob</code>,</p>
+</li>
+<li>
+<p><a href="../scheduler/DAGScheduler.html#getMissingAncestorShuffleDependencies" class="page"><code>DAGScheduler</code> finds missing ShuffleDependencies for a RDD</a>,</p>
+</li>
+<li>
+<p><a href="../scheduler/DAGScheduler.html#submitMapStage" class="page"><code>DAGScheduler</code> submits a <code>ShuffleDependency</code> for execution</a>.</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="partitioner-property"><a class="anchor" href="#partitioner-property"></a><a class="link" href="#partitioner-property"><a id="partitioner"></a> <code>partitioner</code> Property</a></h3>
+<div class="paragraph">
+<p><code>partitioner</code> property is a <a href="spark-rdd-Partitioner.adoc">Partitioner</a> that is used to partition the shuffle output.</p>
+</div>
+<div class="paragraph">
+<p><code>partitioner</code> is specified when <a href="#creating-instance"><code>ShuffleDependency</code> is created</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>partitioner</code> is used when:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../MapOutputTracker.html#getStatistics" class="page"><code>MapOutputTracker</code> computes the statistics for a <code>ShuffleDependency</code></a> (and is the size of the array with the total sizes of shuffle blocks),</p>
+</li>
+<li>
+<p><a href="../MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page"><code>MapOutputTrackerMaster</code> finds preferred <code>BlockManagers</code> with most map outputs</a> for a <code>ShuffleDependency</code>,</p>
+</li>
+<li>
+<p><a href="spark-sql-ShuffledRowRDD.adoc#numPreShufflePartitions">ShuffledRowRDD.adoc#numPreShufflePartitions</a>,</p>
+</li>
+<li>
+<p><a href="../shuffle/SortShuffleManager.html#canUseSerializedShuffle" class="page"><code>SortShuffleManager</code> checks if <code>SerializedShuffleHandle</code> can be used</a> (for a <code>ShuffleHandle</code>).</p>
+</li>
+<li>
+<p>FIXME</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="shufflehandle-property"><a class="anchor" href="#shufflehandle-property"></a><a class="link" href="#shufflehandle-property"><a id="shuffleHandle"></a> <code>shuffleHandle</code> Property</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">shuffleHandle: ShuffleHandle</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>shuffleHandle</code> is the <code>ShuffleHandle</code> of a <code>ShuffleDependency</code> as assigned eagerly when <a href="#creating-instance"><code>ShuffleDependency</code> was created</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>shuffleHandle</code> is used to compute <a href="spark-rdd-CoGroupedRDD.adoc#compute">CoGroupedRDDs</a>, <a href="ShuffledRDD.html#compute" class="page">ShuffledRDD</a>, <a href="spark-rdd-SubtractedRDD.adoc#compute">SubtractedRDD</a>, and <a href="spark-sql-ShuffledRowRDD.adoc">ShuffledRowRDD</a> (to get a <a href="spark-shuffle-ShuffleReader.adoc">ShuffleReader</a> for a <code>ShuffleDependency</code>) and when a <a href="../scheduler/ShuffleMapTask.html#runTask" class="page"><code>ShuffleMapTask</code> runs</a> (to get a <code>ShuffleWriter</code> for a <code>ShuffleDependency</code>).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="map-size-aggregation-flagmapsidecombine-attribute"><a class="anchor" href="#map-size-aggregation-flagmapsidecombine-attribute"></a><a class="link" href="#map-size-aggregation-flagmapsidecombine-attribute"><a id="mapSideCombine"></a> Map-Size Aggregation Flag&#8201;&#8212;&#8201;<code>mapSideCombine</code> Attribute</a></h3>
+<div class="paragraph">
+<p><code>mapSideCombine</code> is a flag to control whether to use <strong>partial aggregation</strong> (<em>map-side combine</em>).</p>
+</div>
+<div class="paragraph">
+<p><code>mapSideCombine</code> is by default disabled (i.e. <code>false</code>) when <a href="#creating-instance">creating a <code>ShuffleDependency</code></a>.</p>
+</div>
+<div class="paragraph">
+<p>When enabled, <a href="../shuffle/spark-shuffle-SortShuffleWriter.html" class="page">SortShuffleWriter</a> and <a href="spark-shuffle-BlockStoreShuffleReader.adoc">BlockStoreShuffleReader</a> assume that an <a href="spark-Aggregator.adoc">Aggregator</a> is also defined.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>mapSideCombine</code> is exclusively set (and hence can be enabled) when <code>ShuffledRDD</code> is requested for <a href="ShuffledRDD.html#getDependencies" class="page">dependencies</a> (which is a single <code>ShuffleDependency</code>).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aggregator-property"><a class="anchor" href="#aggregator-property"></a><a class="link" href="#aggregator-property"><a id="aggregator"></a> <code>aggregator</code> Property</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">aggregator: Option[Aggregator[K, V, C]] = None</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>aggregator</code> is a <a href="spark-Aggregator.adoc">map/reduce-side Aggregator</a> (for a RDD&#8217;s shuffle).</p>
+</div>
+<div class="paragraph">
+<p><code>aggregator</code> is by default undefined (i.e. <code>None</code>) when <a href="#creating-instance"><code>ShuffleDependency</code> is created</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>aggregator</code> is used when <a href="../shuffle/spark-shuffle-SortShuffleWriter.html#write" class="page"><code>SortShuffleWriter</code> writes records</a> and <a href="../shuffle/spark-shuffle-BlockStoreShuffleReader.html#read" class="page"><code>BlockStoreShuffleReader</code> reads combined key-values for a reduce task</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="usage"><a class="anchor" href="#usage"></a><a class="link" href="#usage">Usage</a></h3>
+<div class="paragraph">
+<p>The places where <code>ShuffleDependency</code> is used:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="ShuffledRDD.html" class="page">ShuffledRDD</a> and <a href="spark-sql-ShuffledRowRDD.adoc">ShuffledRowRDD</a> that are RDDs from a shuffle</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The RDD operations that may or may not use the above RDDs and hence shuffling:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="spark-rdd-partitions.adoc#coalesce">coalesce</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="spark-rdd-partitions.adoc#repartition">repartition</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>cogroup</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>intersection</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>subtractByKey</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>subtract</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>sortByKey</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sortBy</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>repartitionAndSortWithinPartitions</code></p>
+</li>
+<li>
+<p><a href="spark-rdd-PairRDDFunctions.adoc#combineByKeyWithClassTag">combineByKeyWithClassTag</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>combineByKey</code></p>
+</li>
+<li>
+<p><code>aggregateByKey</code></p>
+</li>
+<li>
+<p><code>foldByKey</code></p>
+</li>
+<li>
+<p><code>reduceByKey</code></p>
+</li>
+<li>
+<p><code>countApproxDistinctByKey</code></p>
+</li>
+<li>
+<p><code>groupByKey</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>partitionBy</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There may be other dependent methods that use the above.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>

@@ -85,7 +85,7 @@
     <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="../rdd/ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -1843,25 +1843,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>ShuffleMapStage</strong> (<em>shuffle map stage</em> or simply <em>map stage</em>) is one of the two types of <a href="Stage.html" class="page">stages</a> in a physical execution DAG (beside a <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a>).</p>
-</div>
-<div class="paragraph">
-<p>ShuffleMapStage corresponds to (and is associated with) a <a href="#shuffleDep">ShuffleDependency</a>.</p>
-</div>
-<div class="paragraph">
-<p>ShuffleMapStage is created when DAGScheduler is requested to <a href="DAGScheduler.html#createShuffleMapStage" class="page">plan a ShuffleDependency for execution</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-ShuffleMapStage <a href="DAGScheduler.html#submitMapStage" class="page">can also be submitted independently as a Spark job</a> for <a href="DAGScheduler.html#adaptive-query-planning" class="page">Adaptive Query Planning / Adaptive Scheduling</a>.
-</td>
-</tr>
-</table>
+<p><strong>ShuffleMapStage</strong> (<em>shuffle map stage</em> or simply <em>map stage</em>) is one of the two types of <a href="Stage.html" class="page">stages</a> in a physical execution DAG (beside a <a href="ResultStage.html" class="page">ResultStage</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1875,23 +1857,17 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 </tr>
 </table>
 </div>
-<div id="isAvailable" class="paragraph">
-<p>When executed, a ShuffleMapStage saves <strong>map output files</strong> that can later be fetched by reduce tasks. When all map outputs are available, the ShuffleMapStage is considered <strong>available</strong> (or <strong>ready</strong>).</p>
+<div class="paragraph">
+<p>ShuffleMapStage corresponds to (and is associated with) a <a href="#shuffleDep">ShuffleDependency</a>.</p>
 </div>
 <div class="paragraph">
-<p>Output locations can be missing, i.e. partitions have not been calculated or are lost.</p>
+<p>ShuffleMapStage is created when DAGScheduler is requested to <a href="DAGScheduler.html#createShuffleMapStage" class="page">plan a ShuffleDependency for execution</a>.</p>
 </div>
 <div class="paragraph">
-<p>ShuffleMapStage uses <a href="#outputLocs">outputLocs</a> and <a href="#_numAvailableOutputs">_numAvailableOutputs</a> internal registries to track how many shuffle map outputs are available.</p>
+<p>ShuffleMapStage can also be <a href="DAGScheduler.html#submitMapStage" class="page">submitted independently as a Spark job</a> for <a href="DAGScheduler.html#adaptive-query-planning" class="page">Adaptive Query Planning / Adaptive Scheduling</a>.</p>
 </div>
 <div class="paragraph">
 <p>ShuffleMapStage is an input for the other following stages in the DAG of stages and is also called a <strong>shuffle dependency&#8217;s map side</strong>.</p>
-</div>
-<div class="paragraph">
-<p>A ShuffleMapStage may contain multiple <strong>pipelined operations</strong>, e.g. <code>map</code> and <code>filter</code>, before shuffle operation.</p>
-</div>
-<div class="paragraph">
-<p>A single ShuffleMapStage <a href="#stage-sharing">can be shared across different jobs</a>.</p>
 </div>
 </div>
 </div>
@@ -1907,7 +1883,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <p><a id="id"></a> Stage ID</p>
 </li>
 <li>
-<p><a id="rdd"></a> <a href="../rdd/spark-rdd-ShuffleDependency.html#rdd" class="page">RDD</a> of the <a href="#shuffleDep">ShuffleDependency</a></p>
+<p><a id="rdd"></a> <a href="../rdd/ShuffleDependency.html#rdd" class="page">RDD</a> of the <a href="#shuffleDep">ShuffleDependency</a></p>
 </li>
 <li>
 <p><a id="numTasks"></a> Number of tasks</p>
@@ -1922,7 +1898,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <p><a id="callSite"></a> CallSite</p>
 </li>
 <li>
-<p><a id="shuffleDep"></a> <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a></p>
+<p><a id="shuffleDep"></a> <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a></p>
 </li>
 <li>
 <p><a id="mapOutputTrackerMaster"></a> <a href="../MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a></p>
@@ -1935,58 +1911,36 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 </div>
 </div>
 <div class="sect1">
-<h2 id="registering-mapstatus-for-partition"><a class="anchor" href="#registering-mapstatus-for-partition"></a><a class="link" href="#registering-mapstatus-for-partition"><a id="addOutputLoc"></a> Registering MapStatus For Partition</a></h2>
+<h2 id="jobs-registry"><a class="anchor" href="#jobs-registry"></a><a class="link" href="#jobs-registry"><a id="_mapStageJobs"></a><a id="mapStageJobs"></a><a id="addActiveJob"></a><a id="removeActiveJob"></a> Jobs Registry</a></h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">addOutputLoc(partition: Int, status: MapStatus): Unit</code></pre>
-</div>
+<div class="paragraph">
+<p>ShuffleMapStage keeps track of <a href="spark-scheduler-ActiveJob.html" class="page">jobs</a> that were submitted to execute it independently (if any).</p>
 </div>
 <div class="paragraph">
-<p><code>addOutputLoc</code> adds the input <code>status</code> to the <a href="#outputLocs">output locations</a> for the input <code>partition</code>.</p>
+<p>The registry is used when DAGScheduler is requested to <a href="DAGScheduler.html#markMapStageJobsAsFinished" class="page">markMapStageJobsAsFinished</a> (FIXME: when <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion" class="page"><code>DAGScheduler</code> is notified that a <code>ShuffleMapTask</code> has finished successfully</a> and the task made ShuffleMapStage completed and so marks any map-stage jobs waiting on this stage as finished).</p>
 </div>
 <div class="paragraph">
-<p><code>addOutputLoc</code> increments <a href="#_numAvailableOutputs"><code>_numAvailableOutputs</code> internal counter</a> if the input <code>MapStatus</code> is the first result for the <code>partition</code>.</p>
+<p>A new job is registered (<em>added</em>) when DAGScheduler is <a href="DAGScheduler.html#handleMapStageSubmitted" class="page">notified that a ShuffleDependency was submitted for execution (as a MapStageSubmitted event)</a>.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>addOutputLoc</code> is used when <a href="DAGScheduler.html#createShuffleMapStage" class="page"><code>DAGScheduler</code> creates a ShuffleMapStage for a <code>ShuffleDependency</code> and a <code>ActiveJob</code></a> (and <a href="../MapOutputTrackerMaster.html#containsShuffle" class="page"><code>MapOutputTrackerMaster</code> tracks some output locations of the <code>ShuffleDependency</code></a>) and when <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion-Success-ShuffleMapTask" class="page"><code>ShuffleMapTask</code> has finished</a>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>An active job is deregistered (<em>removed</em>) when DAGScheduler is requested to <a href="DAGScheduler.html#cleanupStateForJobAndIndependentStages" class="page">clean up after a job and independent stages</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="removing-mapstatus-for-partition-and-blockmanager"><a class="anchor" href="#removing-mapstatus-for-partition-and-blockmanager"></a><a class="link" href="#removing-mapstatus-for-partition-and-blockmanager"><a id="removeOutputLoc"></a> Removing MapStatus For Partition And BlockManager</a></h2>
+<h2 id="shufflemapstage-is-available-fully-computed"><a class="anchor" href="#shufflemapstage-is-available-fully-computed"></a><a class="link" href="#shufflemapstage-is-available-fully-computed"><a id="isAvailable"></a><a id="numAvailableOutputs"></a> ShuffleMapStage is Available (Fully Computed)</a></h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">removeOutputLoc(partition: Int, bmAddress: BlockManagerId): Unit</code></pre>
-</div>
+<div class="paragraph">
+<p>When executed, a ShuffleMapStage saves <strong>map output files</strong> (for reduce tasks).</p>
 </div>
 <div class="paragraph">
-<p><code>removeOutputLoc</code> removes the <code>MapStatus</code> for the input <code>partition</code> and <code>bmAddress</code> <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> from the <a href="#outputLocs">output locations</a>.</p>
+<p>When all <a href="#numPartitions">partitions</a> have shuffle map outputs available, ShuffleMapStage is considered <strong>available</strong> (<em>done</em> or <em>ready</em>).</p>
 </div>
 <div class="paragraph">
-<p><code>removeOutputLoc</code> decrements <a href="#_numAvailableOutputs"><code>_numAvailableOutputs</code> internal counter</a> if the the removed <code>MapStatus</code> was the last result for the <code>partition</code>.</p>
+<p>ShuffleMapStage is asked about its availability when DAGScheduler is requested for <a href="DAGScheduler.html#getMissingParentStages" class="page">missing parent map stages for a stage</a>, <a href="DAGScheduler.html#handleMapStageSubmitted" class="page">handleMapStageSubmitted</a>, <a href="DAGScheduler.html#submitMissingTasks" class="page">submitMissingTasks</a>, <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a>, <a href="DAGScheduler.html#markMapStageJobsAsFinished" class="page">markMapStageJobsAsFinished</a>, <a href="DAGScheduler.html#stageDependsOn" class="page">stageDependsOn</a>.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>removeOutputLoc</code> is exclusively used when a <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion-FetchFailed" class="page"><code>Task</code> has failed with <code>FetchFailed</code> exception</a>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>ShuffleMapStage uses the <a href="#mapOutputTrackerMaster">MapOutputTrackerMaster</a> for the <a href="../MapOutputTrackerMaster.html#getNumAvailableOutputs" class="page">number of partitions with shuffle map outputs available</a> (of the <a href="#shuffleDep">ShuffleDependency</a> by the shuffle ID).</p>
 </div>
 </div>
 </div>
@@ -1998,20 +1952,14 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">findMissingPartitions(): Seq[Int]</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>findMissingPartitions</code> is part of <a href="Stage.html#contract" class="page"><code>Stage</code> contract</a> that returns the partitions that are missing, i.e. are yet to be computed.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>findMissingPartitions requests the <a href="#mapOutputTrackerMaster">MapOutputTrackerMaster</a> for the <a href="../MapOutputTrackerMaster.html#findMissingPartitions" class="page">missing partitions</a> (of the <a href="#shuffleDep">ShuffleDependency</a> by the shuffle ID) and returns them.</p>
 </div>
 <div class="paragraph">
-<p>Internally, <code>findMissingPartitions</code> uses <a href="#outputLocs"><code>outputLocs</code> internal registry</a> to find indices with empty lists of <code>MapStatus</code>.</p>
+<p>If MapOutputTrackerMaster does not track the ShuffleDependency yet, findMissingPartitions simply returns all the <a href="Stage.html#numPartitions" class="page">partitions</a> as missing.</p>
+</div>
+<div class="paragraph">
+<p>findMissingPartitions is part of the <a href="Stage.html#findMissingPartitions" class="page">Stage</a> abstraction.</p>
 </div>
 </div>
 </div>
@@ -2021,16 +1969,17 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <div class="paragraph">
 <p>A ShuffleMapStage can be shared across multiple jobs, if these jobs reuse the same RDDs.</p>
 </div>
-<div class="paragraph">
-<p>When a ShuffleMapStage is submitted to DAGScheduler to execute, <code>getShuffleMapStage</code> is called.</p>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/dagscheduler-webui-skipped-stages.png" alt="dagscheduler webui skipped stages">
+</div>
+<div class="title">Figure 1. Skipped Stages are already-computed ShuffleMapStages</div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">scala&gt; val rdd = sc.parallelize(0 to 5).map((_,1)).sortByKey()  <i class="conum" data-value="1"></i><b>(1)</b>
-
-scala&gt; rdd.count  <i class="conum" data-value="2"></i><b>(2)</b>
-
-scala&gt; rdd.count  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">val rdd = sc.parallelize(0 to 5).map((_,1)).sortByKey()  <i class="conum" data-value="1"></i><b>(1)</b>
+rdd.count  <i class="conum" data-value="2"></i><b>(2)</b>
+rdd.count  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -2049,225 +1998,6 @@ scala&gt; rdd.count  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </tr>
 </table>
 </div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/dagscheduler-webui-skipped-stages.png" alt="dagscheduler webui skipped stages">
-</div>
-<div class="title">Figure 1. Skipped Stages are already-computed ShuffleMapStages</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="number-of-partitions-with-shuffle-map-outputs-available"><a class="anchor" href="#number-of-partitions-with-shuffle-map-outputs-available"></a><a class="link" href="#number-of-partitions-with-shuffle-map-outputs-available"><a id="numAvailableOutputs"></a> Number of Partitions with Shuffle Map Outputs Available</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">numAvailableOutputs: Int</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>numAvailableOutputs</code> returns <a href="#_numAvailableOutputs">_numAvailableOutputs</a> internal registry.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>numAvailableOutputs</code> is used exclusively when <a href="DAGScheduler.html#submitMissingTasks" class="page"><code>DAGScheduler</code> submits missing tasks for ShuffleMapStage</a> (and only to print a DEBUG message when the ShuffleMapStage is finished).
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="returning-collection-of-active-jobs"><a class="anchor" href="#returning-collection-of-active-jobs"></a><a class="link" href="#returning-collection-of-active-jobs"><a id="mapStageJobs"></a> Returning Collection of Active Jobs</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">mapStageJobs: Seq[ActiveJob]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>mapStageJobs</code> returns <a href="#_mapStageJobs">_mapStageJobs</a> internal registry.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>mapStageJobs</code> is used exclusively when <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion" class="page"><code>DAGScheduler</code> is notified that a <code>ShuffleMapTask</code> has finished successfully</a> (and the task made ShuffleMapStage completed and so marks any map-stage jobs waiting on this stage as finished).
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="registering-job-that-computes-shuffledependency"><a class="anchor" href="#registering-job-that-computes-shuffledependency"></a><a class="link" href="#registering-job-that-computes-shuffledependency"><a id="addActiveJob"></a> Registering Job (that Computes ShuffleDependency)</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">addActiveJob(job: ActiveJob): Unit</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>addActiveJob</code> registers the input <a href="spark-scheduler-ActiveJob.adoc">ActiveJob</a> in <a href="#_mapStageJobs">_mapStageJobs</a> internal registry.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The <code>ActiveJob</code> is added as the first element in <code>_mapStageJobs</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>addActiveJob</code> is used exclusively when <a href="DAGSchedulerEventProcessLoop.html#handleMapStageSubmitted" class="page"><code>DAGScheduler</code> is notified that a <code>ShuffleDependency</code> was submitted</a> (and so a new <code>ActiveJob</code> is created to compute it).
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="deregistering-job"><a class="anchor" href="#deregistering-job"></a><a class="link" href="#deregistering-job"><a id="removeActiveJob"></a> Deregistering Job</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">removeActiveJob(job: ActiveJob): Unit</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>removeActiveJob</code> removes a <code>ActiveJob</code> from <a href="#_mapStageJobs">_mapStageJobs</a> internal registry.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>removeActiveJob</code> is used exclusively when <a href="DAGScheduler.html#cleanupStateForJobAndIndependentStages" class="page"><code>DAGScheduler</code> cleans up after <code>ActiveJob</code> has finished</a> (regardless of the outcome).
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="removing-all-shuffle-outputs-registered-for-lost-executor"><a class="anchor" href="#removing-all-shuffle-outputs-registered-for-lost-executor"></a><a class="link" href="#removing-all-shuffle-outputs-registered-for-lost-executor"><a id="removeOutputsOnExecutor"></a> Removing All Shuffle Outputs Registered for Lost Executor</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">removeOutputsOnExecutor(execId: String): Unit</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>removeOutputsOnExecutor</code> removes all <code>MapStatuses</code> with the input <code>execId</code> executor from the <a href="#outputLocs">outputLocs</a> internal registry (of <code>MapStatuses</code> per partition).</p>
-</div>
-<div class="paragraph">
-<p>If the input <code>execId</code> had the last registered <code>MapStatus</code> for a partition, <code>removeOutputsOnExecutor</code> decrements <a href="#_numAvailableOutputs">_numAvailableOutputs</a> counter and you should see the following INFO message in the logs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>INFO [stage] is now unavailable on executor [execId] ([_numAvailableOutputs]/[numPartitions], [isAvailable])</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>removeOutputsOnExecutor</code> is used exclusively when <a href="DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page"><code>DAGScheduler</code> cleans up after a lost executor</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="preparing-shuffle-map-outputs-in-mapoutputtracker-format"><a class="anchor" href="#preparing-shuffle-map-outputs-in-mapoutputtracker-format"></a><a class="link" href="#preparing-shuffle-map-outputs-in-mapoutputtracker-format"><a id="outputLocInMapOutputTrackerFormat"></a> Preparing Shuffle Map Outputs in MapOutputTracker Format</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">outputLocInMapOutputTrackerFormat(): Array[MapStatus]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>outputLocInMapOutputTrackerFormat</code> returns the first (if available) element for every partition from <a href="#outputLocs">outputLocs</a> internal registry. If there is no entry for a partition, that position is filled with <code>null</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p><code>outputLocInMapOutputTrackerFormat</code> is used when <code>DAGScheduler</code> is <a href="DAGSchedulerEventProcessLoop.html#handleTaskCompletion" class="page">notified that a <code>ShuffleMapTask</code> has finished successfully</a> (and the corresponding ShuffleMapStage is complete) and <a href="DAGSchedulerEventProcessLoop.html#handleExecutorLost" class="page">cleans up after a lost executor</a>.</p>
-</div>
-<div class="paragraph">
-<p>In both cases, <code>outputLocInMapOutputTrackerFormat</code> is used to <a href="../MapOutputTrackerMaster.html#registerMapOutputs" class="page">register the shuffle map outputs (of the <code>ShuffleDependency</code>) with <code>MapOutputTrackerMaster</code></a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="internal-properties"><a class="anchor" href="#internal-properties"></a><a class="link" href="#internal-properties"><a id="internal-properties"></a> Internal Properties</a></h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="_mapStageJobs"></a> <code>_mapStageJobs</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spark-scheduler-ActiveJob.adoc">ActiveJobs</a> associated with the ShuffleMapStage.</p>
-<p class="tableblock">A new <code>ActiveJob</code> can be <a href="#addActiveJob">registered</a> and <a href="#removeActiveJob">deregistered</a>.</p>
-<p class="tableblock">The list of <code>ActiveJobs</code> registered are available using <a href="#mapStageJobs">mapStageJobs</a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="outputLocs"></a> <code>outputLocs</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tracks <a href="MapStatus.html" class="page">MapStatuses</a> for each partition.</p>
-<p class="tableblock">There could be many <code>MapStatus</code> entries per partition due to <a href="spark-taskschedulerimpl-speculative-execution.adoc">Speculative Execution of Tasks</a>.</p>
-<p class="tableblock">When <a href="#creating-instance">ShuffleMapStage is created</a>, <code>outputLocs</code> is empty, i.e. all elements are empty lists.</p>
-<p class="tableblock">The size of <code>outputLocs</code> is exactly the number of partitions of the <a href="Stage.html#rdd" class="page">RDD the stage runs on</a>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="_numAvailableOutputs"></a> <code>_numAvailableOutputs</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of available outputs for the partitions of the ShuffleMapStage.</p>
-<p class="tableblock"><code>_numAvailableOutputs</code> is incremented when the <a href="#addOutputLoc">first <code>MapStatus</code> is registered for a partition</a> (that could be more tasks per partition) and decrements when the <a href="#removeOutputLoc">last <code>MapStatus</code> is removed for a partition</a>.</p>
-<p class="tableblock"><code>_numAvailableOutputs</code> should not be greater than the number of partitions (and hence the number of <code>MapStatus</code> collections in <a href="#outputLocs">outputLocs</a> internal registry).</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </article>

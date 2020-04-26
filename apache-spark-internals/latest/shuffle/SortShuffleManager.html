@@ -85,7 +85,7 @@
     <a class="nav-link" href="../scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="../scheduler/ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../scheduler/ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="../rdd/ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -2139,10 +2139,10 @@ FIXME Copy the conditions
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The input <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> has <a href="../rdd/spark-rdd-ShuffleDependency.html#mapSideCombine" class="page"><code>mapSideCombine</code> flag enabled</a> and <a href="../rdd/spark-rdd-ShuffleDependency.html#aggregator" class="page"><code>aggregator</code> defined</a>.</p>
+<p>The input <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> has <a href="../rdd/ShuffleDependency.html#mapSideCombine" class="page"><code>mapSideCombine</code> flag enabled</a> and <a href="../rdd/ShuffleDependency.html#aggregator" class="page"><code>aggregator</code> defined</a>.</p>
 </li>
 <li>
-<p><code>mapSideCombine</code> flag is disabled (i.e. <code>false</code>) but the <a href="../rdd/spark-rdd-ShuffleDependency.html#partitioner" class="page">number of partitions (of the <code>Partitioner</code> of the input <code>ShuffleDependency</code>)</a> is at most <a href="#spark_shuffle_sort_bypassMergeThreshold">spark.shuffle.sort.bypassMergeThreshold</a> Spark property (which defaults to <code>200</code>).</p>
+<p><code>mapSideCombine</code> flag is disabled (i.e. <code>false</code>) but the <a href="../rdd/ShuffleDependency.html#partitioner" class="page">number of partitions (of the <code>Partitioner</code> of the input <code>ShuffleDependency</code>)</a> is at most <a href="#spark_shuffle_sort_bypassMergeThreshold">spark.shuffle.sort.bypassMergeThreshold</a> Spark property (which defaults to <code>200</code>).</p>
 </li>
 </ol>
 </div>
@@ -2180,10 +2180,10 @@ FIXME Copy the conditions
 <p>The <a href="../spark-Serializer.html#supportsRelocationOfSerializedObjects" class="page"><code>Serializer</code> of the input <code>ShuffleDependency</code> supports relocation of serialized objects</a>.</p>
 </li>
 <li>
-<p>The <a href="../rdd/spark-rdd-ShuffleDependency.html#aggregator" class="page"><code>Aggregator</code> of the input <code>ShuffleDependency</code> is <em>not</em> defined</a>.</p>
+<p>The <a href="../rdd/ShuffleDependency.html#aggregator" class="page"><code>Aggregator</code> of the input <code>ShuffleDependency</code> is <em>not</em> defined</a>.</p>
 </li>
 <li>
-<p>The <a href="../rdd/spark-rdd-ShuffleDependency.html#partitioner" class="page">number of shuffle output partitions of the input <code>ShuffleDependency</code></a> is at most the supported maximum number (which is <code>(1 &lt;&lt; 24) - 1</code>, i.e. <code>16777215</code>).</p>
+<p>The <a href="../rdd/ShuffleDependency.html#partitioner" class="page">number of shuffle output partitions of the input <code>ShuffleDependency</code></a> is at most the supported maximum number (which is <code>(1 &lt;&lt; 24) - 1</code>, i.e. <code>16777215</code>).</p>
 </li>
 </ol>
 </div>

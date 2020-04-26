@@ -85,7 +85,7 @@
     <a class="nav-link" href="../scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="../scheduler/ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../scheduler/ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="../rdd/ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -1846,7 +1846,7 @@
 <p><code>BypassMergeSortShuffleHandles</code> is a <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a> with no additional methods or fields and serves only to identify the choice of <strong>bypass merge sort shuffle</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Like <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a>, <code>BypassMergeSortShuffleHandles</code> takes <code>shuffleId</code>, <code>numMaps</code>, and a <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a>.</p>
+<p>Like <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a>, <code>BypassMergeSortShuffleHandles</code> takes <code>shuffleId</code>, <code>numMaps</code>, and a <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>BypassMergeSortShuffleHandle</code> is created when <a href="SortShuffleManager.html#registerShuffle" class="page"><code>SortShuffleManager</code> is requested for a <code>ShuffleHandle</code></a> (for a <code>ShuffleDependency</code>).</p>

@@ -85,7 +85,7 @@
     <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="../rdd/ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -1849,7 +1849,7 @@
 <div class="title">Figure 1. RDD actions submit jobs to DAGScheduler</div>
 </div>
 <div class="paragraph">
-<p>Computing a job is equivalent to computing the partitions of the RDD the action has been executed upon. The number of partitions in a job depends on the type of a stage - <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a> or <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>.</p>
+<p>Computing a job is equivalent to computing the partitions of the RDD the action has been executed upon. The number of partitions in a job depends on the type of a stage - <a href="ResultStage.html" class="page">ResultStage</a> or <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>.</p>
 </div>
 <div class="paragraph">
 <p>A job starts with a single target RDD, but can ultimately include other RDDs that are all part of <a href="../rdd/spark-rdd-lineage.html" class="page">RDD lineage</a>.</p>
@@ -1870,7 +1870,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Note that not all partitions have always to be computed for <a href="spark-scheduler-ResultStage.html" class="page">ResultStages</a> for actions like <code>first()</code> and <code>lookup()</code>.
+Note that not all partitions have always to be computed for <a href="ResultStage.html" class="page">ResultStages</a> for actions like <code>first()</code> and <code>lookup()</code>.
 </td>
 </tr>
 </table>
@@ -1911,7 +1911,7 @@ Note that not all partitions have always to be computed for <a href="spark-sched
 </div>
 </li>
 <li>
-<p><strong>Result job</strong> that computes a <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a> to execute an action.</p>
+<p><strong>Result job</strong> that computes a <a href="ResultStage.html" class="page">ResultStage</a> to execute an action.</p>
 </li>
 </ul>
 </div>

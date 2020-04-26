@@ -85,7 +85,7 @@
     <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="../rdd/ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -2074,7 +2074,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p>createShuffleMapStage creates a <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> for the input <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <code>jobId</code> (of a <a href="spark-scheduler-ActiveJob.html" class="page">ActiveJob</a>) possibly copying shuffle map output locations from previous jobs to avoid recomputing records.</p>
+<p>createShuffleMapStage creates a <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> for the input <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> and <code>jobId</code> (of a <a href="spark-scheduler-ActiveJob.html" class="page">ActiveJob</a>) possibly copying shuffle map output locations from previous jobs to avoid recomputing records.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2098,7 +2098,7 @@ When a <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> is create
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> is associated with exactly one <code>RDD[Product2[K, V]]</code>.
+<a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> is associated with exactly one <code>RDD[Product2[K, V]]</code>.
 </td>
 </tr>
 </table>
@@ -2113,7 +2113,7 @@ When a <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> is create
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>.
+The RDD of the new <code>ShuffleMapStage</code> is from the input <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>.
 </td>
 </tr>
 </table>
@@ -2220,7 +2220,7 @@ FIXME
 </div>
 </div>
 <div class="sect1">
-<h2 id="cleaning-up-after-activejob-and-independent-stages"><a class="anchor" href="#cleaning-up-after-activejob-and-independent-stages"></a><a class="link" href="#cleaning-up-after-activejob-and-independent-stages"><a id="cleanupStateForJobAndIndependentStages"></a> Cleaning Up After ActiveJob and Independent Stages</a></h2>
+<h2 id="cleaning-up-after-job-and-independent-stages"><a class="anchor" href="#cleaning-up-after-job-and-independent-stages"></a><a class="link" href="#cleaning-up-after-job-and-independent-stages"><a id="cleanupStateForJobAndIndependentStages"></a> Cleaning Up After Job and Independent Stages</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2294,7 +2294,7 @@ FIXME
 <p>The <code>job</code> is removed from <a href="#jobIdToStageIds">jobIdToStageIds</a>, <a href="#jobIdToActiveJob">jobIdToActiveJob</a>, <a href="#activeJobs">activeJobs</a> registries.</p>
 </div>
 <div class="paragraph">
-<p>The final stage of the <code>job</code> is removed, i.e. <a href="spark-scheduler-ResultStage.html#removeActiveJob" class="page">ResultStage</a> or <a href="ShuffleMapStage.html#removeActiveJob" class="page">ShuffleMapStage</a>.</p>
+<p>The final stage of the <code>job</code> is removed, i.e. <a href="ResultStage.html#removeActiveJob" class="page">ResultStage</a> or <a href="ShuffleMapStage.html#removeActiveJob" class="page">ShuffleMapStage</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2774,7 +2774,7 @@ The input arguments of <code>taskSetFailed</code> are exactly the arguments of <
 </div>
 </div>
 <div class="paragraph">
-<p><code>getOrCreateParentStages</code> <a href="#getShuffleDependencies">finds all direct parent <code>ShuffleDependencies</code></a> of the input <code>rdd</code> and then <a href="#getOrCreateShuffleMapStage">finds <code>ShuffleMapStage</code> stages</a> for each <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>.</p>
+<p><code>getOrCreateParentStages</code> <a href="#getShuffleDependencies">finds all direct parent <code>ShuffleDependencies</code></a> of the input <code>rdd</code> and then <a href="#getOrCreateShuffleMapStage">finds <code>ShuffleMapStage</code> stages</a> for each <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2873,7 +2873,7 @@ FIXME
 </div>
 </div>
 <div class="paragraph">
-<p><code>getOrCreateShuffleMapStage</code> finds or creates the <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> for the input <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>.</p>
+<p><code>getOrCreateShuffleMapStage</code> finds or creates the <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> for the input <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>.</p>
 </div>
 <div class="paragraph">
 <p>Internally, <code>getOrCreateShuffleMapStage</code> finds the <code>ShuffleDependency</code> in <a href="#shuffleIdToMapStage"><code>shuffleIdToMapStage</code> internal registry</a> and returns one when found.</p>
@@ -2900,7 +2900,7 @@ All the new <code>ShuffleMapStage</code> stages are associated with the input <c
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getOrCreateShuffleMapStage</code> is used when DAGScheduler <a href="#getOrCreateParentStages">finds or creates missing direct parent ShuffleMapStages</a> (for ShuffleDependencies of given RDD), <a href="#getMissingParentStages">getMissingParentStages</a> (for <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependencies</a>), <a href="DAGSchedulerEventProcessLoop.html#handleMapStageSubmitted" class="page">is notified that <code>ShuffleDependency</code> was submitted</a>, and <a href="#stageDependsOn">checks if a stage depends on another</a>.
+<code>getOrCreateShuffleMapStage</code> is used when DAGScheduler <a href="#getOrCreateParentStages">finds or creates missing direct parent ShuffleMapStages</a> (for ShuffleDependencies of given RDD), <a href="#getMissingParentStages">getMissingParentStages</a> (for <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependencies</a>), <a href="DAGSchedulerEventProcessLoop.html#handleMapStageSubmitted" class="page">is notified that <code>ShuffleDependency</code> was submitted</a>, and <a href="#stageDependsOn">checks if a stage depends on another</a>.
 </td>
 </tr>
 </table>
@@ -2941,7 +2941,7 @@ DAGScheduler clears the cache while <a href="DAGSchedulerEventProcessLoop.html#r
 </div>
 </div>
 <div class="paragraph">
-<p><code>getMissingAncestorShuffleDependencies</code> finds all missing <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">shuffle dependencies</a> for the given <a href="../rdd/index.html" class="page">RDD</a> traversing its <a href="../rdd/spark-rdd-lineage.html" class="page">RDD lineage</a>.</p>
+<p><code>getMissingAncestorShuffleDependencies</code> finds all missing <a href="../rdd/ShuffleDependency.html" class="page">shuffle dependencies</a> for the given <a href="../rdd/index.html" class="page">RDD</a> traversing its <a href="../rdd/spark-rdd-lineage.html" class="page">RDD lineage</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2981,7 +2981,7 @@ A <strong>missing shuffle dependency</strong> of a RDD is a dependency not regis
 </div>
 </div>
 <div class="paragraph">
-<p><code>getShuffleDependencies</code> finds direct parent <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">shuffle dependencies</a> for the given <a href="../rdd/index.html" class="page">RDD</a>.</p>
+<p><code>getShuffleDependencies</code> finds direct parent <a href="../rdd/ShuffleDependency.html" class="page">shuffle dependencies</a> for the given <a href="../rdd/index.html" class="page">RDD</a>.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -3143,7 +3143,7 @@ A stage <code>A</code> depends on stage <code>B</code> if <code>B</code> is amon
 </table>
 </div>
 <div class="paragraph">
-<p>Internally, <code>stageDependsOn</code> walks through the graph of RDDs of the input <code>stage</code>. For every RDD in the RDD&#8217;s dependencies (using <code>RDD.dependencies</code>) <code>stageDependsOn</code> adds the RDD of a <a href="../rdd/spark-rdd-NarrowDependency.html" class="page">NarrowDependency</a> to a stack of RDDs to visit while for a <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> it <a href="#getOrCreateShuffleMapStage">finds <code>ShuffleMapStage</code> stages for a <code>ShuffleDependency</code></a> for the dependency and the <code>stage</code>'s first job id that it later adds to a stack of RDDs to visit if the map stage is ready, i.e. all the partitions have shuffle outputs.</p>
+<p>Internally, <code>stageDependsOn</code> walks through the graph of RDDs of the input <code>stage</code>. For every RDD in the RDD&#8217;s dependencies (using <code>RDD.dependencies</code>) <code>stageDependsOn</code> adds the RDD of a <a href="../rdd/spark-rdd-NarrowDependency.html" class="page">NarrowDependency</a> to a stack of RDDs to visit while for a <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> it <a href="#getOrCreateShuffleMapStage">finds <code>ShuffleMapStage</code> stages for a <code>ShuffleDependency</code></a> for the dependency and the <code>stage</code>'s first job id that it later adds to a stack of RDDs to visit if the map stage is ready, i.e. all the partitions have shuffle outputs.</p>
 </div>
 <div class="paragraph">
 <p>After all the RDDs of the input <code>stage</code> are visited, <code>stageDependsOn</code> checks if the <code>target</code>'s RDD is among the RDDs of the <code>stage</code>, i.e. whether the <code>stage</code> depends on <code>target</code> stage.</p>
@@ -3364,7 +3364,7 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 </div>
 </div>
 <div class="sect1">
-<h2 id="handling-shufflemapstage-submission"><a class="anchor" href="#handling-shufflemapstage-submission"></a><a class="link" href="#handling-shufflemapstage-submission"><a id="handleMapStageSubmitted"></a> Handling ShuffleMapStage Submission</a></h2>
+<h2 id="handling-mapstagesubmitted-event"><a class="anchor" href="#handling-mapstagesubmitted-event"></a><a class="link" href="#handling-mapstagesubmitted-event"><a id="handleMapStageSubmitted"></a> Handling MapStageSubmitted Event</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -3475,7 +3475,7 @@ A stage itself tracks the jobs (their ids) it belongs to (using the internal <co
 </div>
 </div>
 <div class="sect1">
-<h2 id="finding-missing-parent-shufflemapstages-for-stagegetmissingparentstages-internal-method"><a class="anchor" href="#finding-missing-parent-shufflemapstages-for-stagegetmissingparentstages-internal-method"></a><a class="link" href="#finding-missing-parent-shufflemapstages-for-stagegetmissingparentstages-internal-method"><a id="getMissingParentStages"></a> Finding Missing Parent ShuffleMapStages For Stage&#8201;&#8212;&#8201;<code>getMissingParentStages</code> Internal Method</a></h2>
+<h2 id="finding-missing-parent-shufflemapstages-for-stage"><a class="anchor" href="#finding-missing-parent-shufflemapstages-for-stage"></a><a class="link" href="#finding-missing-parent-shufflemapstages-for-stage"><a id="getMissingParentStages"></a> Finding Missing Parent ShuffleMapStages For Stage</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -3513,7 +3513,7 @@ An <strong>uncached partition</strong> of a RDD is a partition that has <code>Ni
 </table>
 </div>
 <div class="paragraph">
-<p><code>getMissingParentStages</code> traverses the <a href="../rdd/index.html#dependencies" class="page">parent dependencies of the RDD</a> and acts according to their type, i.e. <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> or <a href="../rdd/spark-rdd-NarrowDependency.html" class="page">NarrowDependency</a>.</p>
+<p><code>getMissingParentStages</code> traverses the <a href="../rdd/index.html#dependencies" class="page">parent dependencies of the RDD</a> and acts according to their type, i.e. <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> or <a href="../rdd/spark-rdd-NarrowDependency.html" class="page">NarrowDependency</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3522,7 +3522,7 @@ An <strong>uncached partition</strong> of a RDD is a partition that has <code>Ni
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <a href="../rdd/spark-rdd-NarrowDependency.html" class="page">NarrowDependency</a> are the main top-level <a href="../rdd/spark-rdd-Dependency.html" class="page">Dependencies</a>.
+<a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> and <a href="../rdd/spark-rdd-NarrowDependency.html" class="page">NarrowDependency</a> are the main top-level <a href="../rdd/spark-rdd-Dependency.html" class="page">Dependencies</a>.
 </td>
 </tr>
 </table>
@@ -3552,7 +3552,7 @@ An <strong>uncached partition</strong> of a RDD is a partition that has <code>Ni
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> is a RDD dependency that represents a dependency on the output of a <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>, i.e. <strong>shuffle map stage</strong>.
+<a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> is a RDD dependency that represents a dependency on the output of a <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>, i.e. <strong>shuffle map stage</strong>.
 </td>
 </tr>
 </table>
@@ -3661,7 +3661,7 @@ That shows how important <a href="../spark-broadcast.html" class="page">broadcas
 <p><a href="ShuffleMapTask.html" class="page">ShuffleMapTasks</a> for a <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a></p>
 </li>
 <li>
-<p><a href="ResultTask.html" class="page">ResultTasks</a> for a <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a></p>
+<p><a href="ResultTask.html" class="page">ResultTasks</a> for a <a href="ResultStage.html" class="page">ResultStage</a></p>
 </li>
 </ul>
 </div>
@@ -4238,7 +4238,7 @@ FIXME Where are <code>Stage.latestInfo.accumulables</code> and <code>CompletionE
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="shuffleIdToMapStage"></a> <code>shuffleIdToMapStage</code></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table of <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>s per <a href="../rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The lookup table of <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>s per <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a id="stageIdToStage"></a> <code>stageIdToStage</code></code></p></td>

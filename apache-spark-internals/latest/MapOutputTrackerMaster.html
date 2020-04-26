@@ -85,7 +85,7 @@
     <a class="nav-link" href="scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="scheduler/ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scheduler/ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="rdd/ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -1881,7 +1881,7 @@
 <p>MapOutputTrackerMaster uses an internal registry of <a href="ShuffleStatus.html" class="page">ShuffleStatuses</a> by shuffle stages.</p>
 </div>
 <div class="paragraph">
-<p>MapOutputTrackerMaster adds a new shuffle when requested to <a href="#registerShuffle">register one</a> (when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a ShuffleMapStage</a> for a <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
+<p>MapOutputTrackerMaster adds a new shuffle when requested to <a href="#registerShuffle">register one</a> (when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a ShuffleMapStage</a> for a <a href="rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
 </div>
 <div class="paragraph">
 <p>MapOutputTrackerMaster uses the registry when requested for the following:</p>
@@ -2100,7 +2100,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>getPreferredLocationsForShuffle computes the locations (<a href="storage/BlockManager.html" class="page">BlockManagers</a>) with the most shuffle map outputs for the input <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> and <a href="rdd/spark-rdd-Partition.html" class="page">Partition</a>.</p>
+<p>getPreferredLocationsForShuffle computes the locations (<a href="storage/BlockManager.html" class="page">BlockManagers</a>) with the most shuffle map outputs for the input <a href="rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> and <a href="rdd/spark-rdd-Partition.html" class="page">Partition</a>.</p>
 </div>
 <div class="paragraph">
 <p>getPreferredLocationsForShuffle computes the locations when all of the following are met:</p>
@@ -2111,10 +2111,10 @@
 <p><a href="#spark.shuffle.reduceLocality.enabled">spark.shuffle.reduceLocality.enabled</a> configuration property is enabled</p>
 </li>
 <li>
-<p>The number of "map" partitions (of the <a href="rdd/spark-rdd-ShuffleDependency.html#rdd" class="page">RDD</a> of the input <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>) is below <a href="#SHUFFLE_PREF_MAP_THRESHOLD">SHUFFLE_PREF_MAP_THRESHOLD</a></p>
+<p>The number of "map" partitions (of the <a href="rdd/ShuffleDependency.html#rdd" class="page">RDD</a> of the input <a href="rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>) is below <a href="#SHUFFLE_PREF_MAP_THRESHOLD">SHUFFLE_PREF_MAP_THRESHOLD</a></p>
 </li>
 <li>
-<p>The number of "reduce" partitions (of the <a href="rdd/spark-rdd-ShuffleDependency.html#partitioner" class="page">Partitioner</a> of the input <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>) is below <a href="#SHUFFLE_PREF_REDUCE_THRESHOLD">SHUFFLE_PREF_REDUCE_THRESHOLD</a></p>
+<p>The number of "reduce" partitions (of the <a href="rdd/ShuffleDependency.html#partitioner" class="page">Partitioner</a> of the input <a href="rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>) is below <a href="#SHUFFLE_PREF_REDUCE_THRESHOLD">SHUFFLE_PREF_REDUCE_THRESHOLD</a></p>
 </li>
 </ul>
 </div>
@@ -2131,7 +2131,7 @@ getPreferredLocationsForShuffle is simply <a href="#getLocationsWithLargestOutpu
 </table>
 </div>
 <div class="paragraph">
-<p>Internally, getPreferredLocationsForShuffle checks whether <a href="#spark_shuffle_reduceLocality_enabled"><code>spark.shuffle.reduceLocality.enabled</code> Spark property</a> is enabled (it is by default) with the number of partitions of the <a href="rdd/spark-rdd-ShuffleDependency.html#rdd" class="page">RDD of the input <code>ShuffleDependency</code></a> and partitions in the <a href="rdd/spark-rdd-ShuffleDependency.html#partitioner" class="page">partitioner of the input <code>ShuffleDependency</code></a> both being less than <code>1000</code>.</p>
+<p>Internally, getPreferredLocationsForShuffle checks whether <a href="#spark_shuffle_reduceLocality_enabled"><code>spark.shuffle.reduceLocality.enabled</code> Spark property</a> is enabled (it is by default) with the number of partitions of the <a href="rdd/ShuffleDependency.html#rdd" class="page">RDD of the input <code>ShuffleDependency</code></a> and partitions in the <a href="rdd/ShuffleDependency.html#partitioner" class="page">partitioner of the input <code>ShuffleDependency</code></a> both being less than <code>1000</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2212,7 +2212,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 <p>containsShuffle checks if the input <code>shuffleId</code> is registered in the <a href="#cachedSerializedStatuses">cachedSerializedStatuses</a> or <a href="MapOutputTracker.html#mapStatuses" class="page">mapStatuses</a> internal caches.</p>
 </div>
 <div class="paragraph">
-<p>containsShuffle is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a createShuffleMapStage</a> (for a <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
+<p>containsShuffle is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a createShuffleMapStage</a> (for a <a href="rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
 </div>
 </div>
 </div>
@@ -2238,7 +2238,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 </div>
 </div>
 <div class="paragraph">
-<p>registerShuffle is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a ShuffleMapStage</a> (for a <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
+<p>registerShuffle is used when DAGScheduler is requested to <a href="scheduler/DAGScheduler.html#createShuffleMapStage" class="page">create a ShuffleMapStage</a> (for a <a href="rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>).</p>
 </div>
 </div>
 </div>
@@ -2372,7 +2372,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 <p>The given mapId is the <a href="scheduler/Task.html#partitionId" class="page">partitionId</a> of the <a href="scheduler/ShuffleMapTask.html" class="page">ShuffleMapTask</a> that finished.</p>
 </li>
 <li>
-<p>The given shuffleId is the <a href="rdd/spark-rdd-ShuffleDependency.html#shuffleId" class="page">shuffleId</a> of the <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> of the <a href="scheduler/ShuffleMapStage.html#shuffleDep" class="page">ShuffleMapStage</a> (for which the ShuffleMapTask completed)</p>
+<p>The given shuffleId is the <a href="rdd/ShuffleDependency.html#shuffleId" class="page">shuffleId</a> of the <a href="rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> of the <a href="scheduler/ShuffleMapStage.html#shuffleDep" class="page">ShuffleMapStage</a> (for which the ShuffleMapTask completed)</p>
 </li>
 </ul>
 </div>

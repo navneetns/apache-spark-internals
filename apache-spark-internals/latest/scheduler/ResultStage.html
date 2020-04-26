@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: The Internals Of Apache Spark</title>
-    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/exercises/spark-exercise-custom-rdd.html">
+    <title> ResultStage :: The Internals Of Apache Spark</title>
+    <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/scheduler/ResultStage.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
@@ -69,58 +69,58 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/index.html">Spark Scheduler</a>
+    <a class="nav-link" href="index.html">Spark Scheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/DAGScheduler.html">DAGScheduler</a>
+    <a class="nav-link" href="DAGScheduler.html">DAGScheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
+    <a class="nav-link" href="DAGSchedulerEventProcessLoop.html">DAGScheduler Event Bus</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/Stage.html">Stage</a>
+    <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/ResultStage.html">ResultStage</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/ShuffleMapStage.html">ShuffleMapStage</a>
+    <a class="nav-link" href="ShuffleMapStage.html">ShuffleMapStage</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
+    <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-scheduler-JobListener.html">JobListener</a>
+    <a class="nav-link" href="spark-scheduler-JobListener.html">JobListener</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-JobWaiter.html">JobWaiter</a>
+    <a class="nav-link" href="spark-scheduler-JobWaiter.html">JobWaiter</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/TaskScheduler.html">TaskScheduler</a>
+    <a class="nav-link" href="TaskScheduler.html">TaskScheduler</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/TaskSchedulerImpl.html">TaskSchedulerImpl</a>
+    <a class="nav-link" href="TaskSchedulerImpl.html">TaskSchedulerImpl</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/SchedulerBackend.html">SchedulerBackend</a>
+    <a class="nav-link" href="SchedulerBackend.html">SchedulerBackend</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
+    <a class="nav-link" href="CoarseGrainedSchedulerBackend.html">CoarseGrainedSchedulerBackend</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="../scheduler/CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
+    <a class="nav-link" href="CoarseGrainedSchedulerBackend-DriverEndpoint.html">DriverEndpoint</a>
   </li>
 </ul>
   </li>
@@ -130,84 +130,84 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/Task.html">Task</a>
+    <a class="nav-link" href="Task.html">Task</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/ShuffleMapTask.html">ShuffleMapTask</a>
+    <a class="nav-link" href="ShuffleMapTask.html">ShuffleMapTask</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/ResultTask.html">ResultTask</a>
+    <a class="nav-link" href="ResultTask.html">ResultTask</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/TaskSet.html">TaskSet</a>
+    <a class="nav-link" href="TaskSet.html">TaskSet</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/TaskSetManager.html">TaskSetManager</a>
+    <a class="nav-link" href="TaskSetManager.html">TaskSetManager</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ActiveJob.html">Jobs</a>
+    <a class="nav-link" href="spark-scheduler-ActiveJob.html">Jobs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-scheduler-SchedulableBuilder.html">SchedulableBuilder</a>
+    <a class="nav-link" href="spark-scheduler-SchedulableBuilder.html">SchedulableBuilder</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-FIFOSchedulableBuilder.html">FIFOSchedulableBuilder</a>
+    <a class="nav-link" href="spark-scheduler-FIFOSchedulableBuilder.html">FIFOSchedulableBuilder</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
+    <a class="nav-link" href="spark-scheduler-FairSchedulableBuilder.html">FairSchedulableBuilder</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-scheduler-Schedulable.html">Schedulable Entities</a>
+    <a class="nav-link" href="spark-scheduler-Schedulable.html">Schedulable Entities</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-Pool.html">Schedulable Pool</a>
+    <a class="nav-link" href="spark-scheduler-Pool.html">Schedulable Pool</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-SchedulingMode.html">Scheduling Mode</a>
+    <a class="nav-link" href="spark-scheduler-SchedulingMode.html">Scheduling Mode</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskInfo.html">TaskInfo</a>
+    <a class="nav-link" href="spark-scheduler-TaskInfo.html">TaskInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/MapStatus.html">MapStatus</a>
+    <a class="nav-link" href="MapStatus.html">MapStatus</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskDescription.html">TaskDescription</a>
+    <a class="nav-link" href="spark-scheduler-TaskDescription.html">TaskDescription</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
+    <a class="nav-link" href="spark-taskschedulerimpl-speculative-execution.html">Speculative Execution of Tasks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/TaskResultGetter.html">TaskResultGetter</a>
+    <a class="nav-link" href="TaskResultGetter.html">TaskResultGetter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../scheduler/spark-TaskContext.html">TaskContext</a>
+    <a class="nav-link" href="spark-TaskContext.html">TaskContext</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-BarrierTaskContext.html">BarrierTaskContext</a>
+    <a class="nav-link" href="spark-BarrierTaskContext.html">BarrierTaskContext</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-TaskContextImpl.html">TaskContextImpl</a>
+    <a class="nav-link" href="spark-TaskContextImpl.html">TaskContextImpl</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskResult.html">TaskResults</a>
+    <a class="nav-link" href="spark-scheduler-TaskResult.html">TaskResults</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
+    <a class="nav-link" href="spark-scheduler-TaskSetBlacklist.html">TaskSetBlacklist</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../scheduler/OutputCommitCoordinator.html">OutputCommitCoordinator</a>
+    <a class="nav-link" href="OutputCommitCoordinator.html">OutputCommitCoordinator</a>
   </li>
 </ul>
   </li>
@@ -1759,43 +1759,43 @@
     <span class="nav-text">Exercises</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-pairrddfunctions-oneliners.html">One-liners using PairRDDFunctions</a>
+    <a class="nav-link" href="../exercises/spark-exercise-pairrddfunctions-oneliners.html">One-liners using PairRDDFunctions</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-take-multiple-jobs.html">Learning Jobs and Partitions Using take Action</a>
+    <a class="nav-link" href="../exercises/spark-exercise-take-multiple-jobs.html">Learning Jobs and Partitions Using take Action</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-standalone-master-ha.html">Spark Standalone - Using ZooKeeper for High-Availability of Master</a>
+    <a class="nav-link" href="../exercises/spark-exercise-standalone-master-ha.html">Spark Standalone - Using ZooKeeper for High-Availability of Master</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-hello-world-using-spark-shell.html">Spark&#8217;s Hello World using Spark shell and Scala</a>
+    <a class="nav-link" href="../exercises/spark-hello-world-using-spark-shell.html">Spark&#8217;s Hello World using Spark shell and Scala</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-examples-wordcount-spark-shell.html">WordCount using Spark shell</a>
+    <a class="nav-link" href="../exercises/spark-examples-wordcount-spark-shell.html">WordCount using Spark shell</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-first-app.html">Your first complete Spark application (using Scala and sbt)</a>
+    <a class="nav-link" href="../exercises/spark-first-app.html">Your first complete Spark application (using Scala and sbt)</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-notable-use-cases.html">Spark (notable) use cases</a>
+    <a class="nav-link" href="../exercises/spark-notable-use-cases.html">Spark (notable) use cases</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-sql-hive-orc-example.html">Using Spark SQL to update data in Hive using ORC files</a>
+    <a class="nav-link" href="../exercises/spark-sql-hive-orc-example.html">Using Spark SQL to update data in Hive using ORC files</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-custom-scheduler-listener.html">Developing Custom SparkListener to monitor DAGScheduler in Scala</a>
+    <a class="nav-link" href="../exercises/spark-exercise-custom-scheduler-listener.html">Developing Custom SparkListener to monitor DAGScheduler in Scala</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-custom-rpc-environment.html">Developing RPC Environment</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="spark-exercise-custom-rdd.html">Developing Custom RDD</a>
+    <a class="nav-link" href="../exercises/spark-exercise-custom-rpc-environment.html">Developing RPC Environment</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-dataframe-jdbc-postgresql.html">Working with Datasets from JDBC Data Sources (and PostgreSQL)</a>
+    <a class="nav-link" href="../exercises/spark-exercise-custom-rdd.html">Developing Custom RDD</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spark-exercise-failing-stage.html">Causing Stage to Fail</a>
+    <a class="nav-link" href="../exercises/spark-exercise-dataframe-jdbc-postgresql.html">Working with Datasets from JDBC Data Sources (and PostgreSQL)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../exercises/spark-exercise-failing-stage.html">Causing Stage to Fail</a>
   </li>
 </ul>
   </li>
@@ -1830,16 +1830,86 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Apache Spark</a></li>
-    <li>Exercises</li>
-    <li><a href="spark-exercise-custom-rdd.html">Developing Custom RDD</a></li>
+    <li><a href="index.html">Spark Scheduler</a></li>
+    <li><a href="Stage.html">Stage</a></li>
+    <li><a href="ResultStage.html">ResultStage</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/exercises/pages/spark-exercise-custom-rdd.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/japila-books/apache-spark-internals/edit/master/modules/scheduler/pages/ResultStage.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
+<h1 class="page"><a id="ResultStage"></a> ResultStage</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <code>ResultStage</code> is the final stage in a job that applies a function on one or many partitions of the target RDD to compute the result of an action.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/dagscheduler-job-resultstage.png" alt="dagscheduler job resultstage">
+</div>
+<div class="title">Figure 1. Job creates ResultStage as the first stage</div>
+</div>
+<div class="paragraph">
+<p>The partitions are given as a collection of partition ids (<code>partitions</code>) and the function <code>func: (TaskContext, Iterator[_]) &#8658; _</code>.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/dagscheduler-resultstage-partitions.png" alt="dagscheduler resultstage partitions">
+</div>
+<div class="title">Figure 2. <code>ResultStage</code> and partitions</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Read about <code>TaskContext</code> in <a href="spark-TaskContext.html" class="page">TaskContext</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 <div class="sect1">
-<h2 id="developing-custom-rdd"><a class="anchor" href="#developing-custom-rdd"></a><a class="link" href="#developing-custom-rdd">Developing Custom RDD</a></h2>
+<h2 id="finding-missing-partitions"><a class="anchor" href="#finding-missing-partitions"></a><a class="link" href="#finding-missing-partitions"><a id="findMissingPartitions"></a> Finding Missing Partitions</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">findMissingPartitions(): Seq[Int]</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+findMissingPartitions is part of the <a href="Stage.html#findMissingPartitions" class="page">Stage</a> abstraction.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>findMissingPartitions&#8230;&#8203;FIXME</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/resultstage-findMissingPartitions.png" alt="resultstage findMissingPartitions">
+</div>
+<div class="title">Figure 3. ResultStage.findMissingPartitions and ActiveJob</div>
+</div>
+<div class="paragraph">
+<p>In the above figure, partitions 1 and 2 are not finished (<code>F</code> is false while <code>T</code> is true).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="func-property"><a class="anchor" href="#func-property"></a><a class="link" href="#func-property"><a id="func"></a> <code>func</code> Property</a></h2>
 <div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
@@ -1849,6 +1919,65 @@
 </td>
 <td class="content">
 FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setactivejob-method"><a class="anchor" href="#setactivejob-method"></a><a class="link" href="#setactivejob-method"><a id="setActiveJob"></a> <code>setActiveJob</code> Method</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="removeactivejob-method"><a class="anchor" href="#removeactivejob-method"></a><a class="link" href="#removeactivejob-method"><a id="removeActiveJob"></a> <code>removeActiveJob</code> Method</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="activejob-method"><a class="anchor" href="#activejob-method"></a><a class="link" href="#activejob-method"><a id="activeJob"></a> <code>activeJob</code> Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">activeJob: Option[ActiveJob]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>activeJob</code> returns the optional <code>ActiveJob</code> associated with a <code>ResultStage</code>.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+FIXME When/why would that be <code>NONE</code> (empty)?
 </td>
 </tr>
 </table>

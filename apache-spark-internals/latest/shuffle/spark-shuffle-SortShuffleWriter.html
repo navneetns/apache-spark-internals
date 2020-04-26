@@ -85,7 +85,7 @@
     <a class="nav-link" href="../scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="../scheduler/ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../scheduler/ShuffleMapStage.html">ShuffleMapStage</a>
@@ -485,7 +485,7 @@
     <a class="nav-link" href="../rdd/spark-rdd-NarrowDependency.html">NarrowDependency</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ShuffleDependency.html">ShuffleDependency</a>
+    <a class="nav-link" href="../rdd/ShuffleDependency.html">ShuffleDependency</a>
   </li>
 </ul>
   </li>
@@ -1960,7 +1960,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p>Internally, <code>write</code> creates a <a href="spark-ExternalSorter.adoc">ExternalSorter</a> with the types <code>K, V, C</code> or <code>K, V, V</code> depending on <a href="spark-rdd-ShuffleDependency.adoc#mapSideCombine"><code>mapSideCombine</code> flag of the <code>ShuffleDependency</code></a> being enabled or not, respectively.</p>
+<p>Internally, <code>write</code> creates a <a href="spark-ExternalSorter.adoc">ExternalSorter</a> with the types <code>K, V, C</code> or <code>K, V, V</code> depending on <a href="../rdd/ShuffleDependency.html#mapSideCombine" class="page"><code>mapSideCombine</code> flag of the <code>ShuffleDependency</code></a> being enabled or not, respectively.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1969,7 +1969,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> is defined when <a href="#creating-instance"><code>SortShuffleWriter</code> is created</a> (as the <a href="spark-shuffle-BaseShuffleHandle.adoc#dependency"><code>dependency</code> of <code>BaseShuffleHandle</code></a>).
+<a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> is defined when <a href="#creating-instance"><code>SortShuffleWriter</code> is created</a> (as the <a href="spark-shuffle-BaseShuffleHandle.adoc#dependency"><code>dependency</code> of <code>BaseShuffleHandle</code></a>).
 </td>
 </tr>
 </table>
@@ -1981,7 +1981,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>write</code> makes sure that <a href="spark-rdd-ShuffleDependency.adoc#aggregator"><code>Aggregator</code> is defined for <code>ShuffleDependency</code></a> when <code>mapSideCombine</code> flag is enabled.
+<code>write</code> makes sure that <a href="../rdd/ShuffleDependency.html#aggregator" class="page"><code>Aggregator</code> is defined for <code>ShuffleDependency</code></a> when <code>mapSideCombine</code> flag is enabled.
 </td>
 </tr>
 </table>
@@ -1990,10 +1990,10 @@
 <p><code>write</code> <a href="spark-ExternalSorter.adoc#insertAll">inserts all the records to <code>ExternalSorter</code></a></p>
 </div>
 <div class="paragraph">
-<p><code>write</code> <a href="IndexShuffleBlockResolver.adoc#getDataFile">requests <code>IndexShuffleBlockResolver</code> for the shuffle data output file</a> (for the <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <code>mapId</code>) and creates a temporary file for the shuffle data file in the same directory.</p>
+<p><code>write</code> <a href="IndexShuffleBlockResolver.adoc#getDataFile">requests <code>IndexShuffleBlockResolver</code> for the shuffle data output file</a> (for the <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> and <code>mapId</code>) and creates a temporary file for the shuffle data file in the same directory.</p>
 </div>
 <div class="paragraph">
-<p><code>write</code> creates a <a href="spark-BlockDataManager.adoc#ShuffleBlockId">ShuffleBlockId</a> (for the <a href="spark-rdd-ShuffleDependency.adoc">ShuffleDependency</a> and <code>mapId</code> and the special <code>IndexShuffleBlockResolver.NOOP_REDUCE_ID</code> reduce id).</p>
+<p><code>write</code> creates a <a href="spark-BlockDataManager.adoc#ShuffleBlockId">ShuffleBlockId</a> (for the <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a> and <code>mapId</code> and the special <code>IndexShuffleBlockResolver.NOOP_REDUCE_ID</code> reduce id).</p>
 </div>
 <div class="paragraph">
 <p><code>write</code> <a href="spark-ExternalSorter.adoc#writePartitionedFile">requests <code>ExternalSorter</code> to write all the records (previously inserted in) into the temporary partitioned file in the disk store</a>.</p>
