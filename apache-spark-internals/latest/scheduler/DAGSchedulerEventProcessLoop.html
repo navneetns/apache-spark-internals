@@ -93,6 +93,27 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -538,27 +559,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../ShuffleStatus.html">ShuffleStatus</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -2196,7 +2196,7 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-DAGScheduler <a href="../MapOutputTracker.html#getStatistics" class="page">requests <code>MapOutputTrackerMaster</code> for statistics for <code>ShuffleDependency</code></a> that it uses for <code>handleMapStageSubmitted</code>.
+DAGScheduler <a href="MapOutputTracker.html#getStatistics" class="page">requests <code>MapOutputTrackerMaster</code> for statistics for <code>ShuffleDependency</code></a> that it uses for <code>handleMapStageSubmitted</code>.
 </td>
 </tr>
 </table>
@@ -2410,7 +2410,7 @@ At this point DAGScheduler has no failed stages reported.
 </div>
 </div>
 <div class="paragraph">
-<p><code>handleExecutorLost</code> checks whether the input optional <code>maybeEpoch</code> is defined and if not requests the <a href="../MapOutputTracker.html#getEpoch" class="page">current epoch from <code>MapOutputTrackerMaster</code></a>.</p>
+<p><code>handleExecutorLost</code> checks whether the input optional <code>maybeEpoch</code> is defined and if not requests the <a href="MapOutputTracker.html#getEpoch" class="page">current epoch from <code>MapOutputTrackerMaster</code></a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2520,12 +2520,12 @@ FIXME Review what&#8217;s <code>filesLost</code>.
 <p><code>ShuffleMapStage.removeOutputsOnExecutor(execId)</code> is called</p>
 </li>
 <li>
-<p><a href="../MapOutputTrackerMaster.html#registerMapOutputs" class="page">MapOutputTrackerMaster.registerMapOutputs(shuffleId</a> is called.</p>
+<p><a href="MapOutputTrackerMaster.html#registerMapOutputs" class="page">MapOutputTrackerMaster.registerMapOutputs(shuffleId</a> is called.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>In case <a href="DAGScheduler.html#shuffleToMapStage" class="page">DAGScheduler&#8217;s <code>shuffleToMapStage</code> internal registry</a> has no shuffles registered,  <a href="../MapOutputTrackerMaster.html#incrementEpoch" class="page"><code>MapOutputTrackerMaster</code> is requested to increment epoch</a>.</p>
+<p>In case <a href="DAGScheduler.html#shuffleToMapStage" class="page">DAGScheduler&#8217;s <code>shuffleToMapStage</code> internal registry</a> has no shuffles registered,  <a href="MapOutputTrackerMaster.html#incrementEpoch" class="page"><code>MapOutputTrackerMaster</code> is requested to increment epoch</a>.</p>
 </div>
 <div class="paragraph">
 <p>Ultimatelly, DAGScheduler <a href="DAGScheduler.html#clearCacheLocs" class="page">clears the internal cache of RDD partition locations</a>.</p>
@@ -2902,7 +2902,7 @@ INFO DAGScheduler: failed: [failedStages]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>handleTaskCompletion</code> <a href="../MapOutputTrackerMaster.html#registerMapOutputs" class="page">registers the shuffle map outputs of the <code>ShuffleDependency</code> with <code>MapOutputTrackerMaster</code></a> (with the epoch incremented) and <a href="DAGScheduler.html#clearCacheLocs" class="page">clears internal cache of the stage&#8217;s RDD block locations</a>.</p>
+<p><code>handleTaskCompletion</code> <a href="MapOutputTrackerMaster.html#registerMapOutputs" class="page">registers the shuffle map outputs of the <code>ShuffleDependency</code> with <code>MapOutputTrackerMaster</code></a> (with the epoch incremented) and <a href="DAGScheduler.html#clearCacheLocs" class="page">clears internal cache of the stage&#8217;s RDD block locations</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2911,13 +2911,13 @@ INFO DAGScheduler: failed: [failedStages]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<a href="../MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> is given when <a href="DAGScheduler.html#creating-instance" class="page">DAGScheduler is created</a>.
+<a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> is given when <a href="DAGScheduler.html#creating-instance" class="page">DAGScheduler is created</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>If the <a href="ShuffleMapStage.html#isAvailable" class="page"><code>ShuffleMapStage</code> stage is ready</a>, all <a href="ShuffleMapStage.html#mapStageJobs" class="page">active jobs of the stage</a> (aka <em>map-stage jobs</em>) are <a href="DAGScheduler.html#markMapStageJobAsFinished" class="page">marked as finished</a> (with <a href="../MapOutputTrackerMaster.html#getStatistics" class="page"><code>MapOutputStatistics</code> from <code>MapOutputTrackerMaster</code> for the <code>ShuffleDependency</code></a>).</p>
+<p>If the <a href="ShuffleMapStage.html#isAvailable" class="page"><code>ShuffleMapStage</code> stage is ready</a>, all <a href="ShuffleMapStage.html#mapStageJobs" class="page">active jobs of the stage</a> (aka <em>map-stage jobs</em>) are <a href="DAGScheduler.html#markMapStageJobAsFinished" class="page">marked as finished</a> (with <a href="MapOutputTrackerMaster.html#getStatistics" class="page"><code>MapOutputStatistics</code> from <code>MapOutputTrackerMaster</code> for the <code>ShuffleDependency</code></a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3148,7 +3148,7 @@ FIXME What does the above code do?
 <p>For all the cases, the failed stage and map stages are both added to the internal <a href="DAGScheduler.html#failedStages" class="page">registry of failed stages</a>.</p>
 </div>
 <div class="paragraph">
-<p>If <code>mapId</code> (in the <code>FetchFailed</code> object for the case) is provided, the map stage output is cleaned up (as it is broken) using <code>mapStage.removeOutputLoc(mapId, bmAddress)</code> and <a href="../MapOutputTracker.html#unregisterMapOutput" class="page">MapOutputTrackerMaster.unregisterMapOutput(shuffleId, mapId, bmAddress)</a> methods.</p>
+<p>If <code>mapId</code> (in the <code>FetchFailed</code> object for the case) is provided, the map stage output is cleaned up (as it is broken) using <code>mapStage.removeOutputLoc(mapId, bmAddress)</code> and <a href="MapOutputTracker.html#unregisterMapOutput" class="page">MapOutputTrackerMaster.unregisterMapOutput(shuffleId, mapId, bmAddress)</a> methods.</p>
 </div>
 <div class="admonitionblock caution">
 <table>

@@ -93,6 +93,27 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="scheduler/ShuffleStatus.html">ShuffleStatus</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="scheduler/MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -538,27 +559,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -2176,7 +2176,7 @@ Despite the widest-possible <code>AnyRef</code> type of the input <code>objectFo
 </div>
 </div>
 <div class="paragraph">
-<p><code>doCleanupShuffle</code> performs a shuffle cleanup which is to remove the shuffle from the current <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> and <a href="storage/BlockManagerMaster.html" class="page">BlockManagerMaster</a>. <code>doCleanupShuffle</code> also notifies <a href="spark-CleanerListener.adoc">CleanerListeners</a>.</p>
+<p><code>doCleanupShuffle</code> performs a shuffle cleanup which is to remove the shuffle from the current <a href="scheduler/MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> and <a href="storage/BlockManagerMaster.html" class="page">BlockManagerMaster</a>. <code>doCleanupShuffle</code> also notifies <a href="spark-CleanerListener.adoc">CleanerListeners</a>.</p>
 </div>
 <div class="paragraph">
 <p>Internally, when executed, you should see the following DEBUG message in the logs:</p>
@@ -2187,7 +2187,7 @@ Despite the widest-possible <code>AnyRef</code> type of the input <code>objectFo
 </div>
 </div>
 <div class="paragraph">
-<p><code>doCleanupShuffle</code> <a href="MapOutputTracker.html#unregisterShuffle" class="page">unregisters the input <code>shuffleId</code> from <code>MapOutputTrackerMaster</code></a>.</p>
+<p><code>doCleanupShuffle</code> <a href="scheduler/MapOutputTracker.html#unregisterShuffle" class="page">unregisters the input <code>shuffleId</code> from <code>MapOutputTrackerMaster</code></a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>

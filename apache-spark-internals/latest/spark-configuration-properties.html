@@ -93,6 +93,27 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="scheduler/ShuffleStatus.html">ShuffleStatus</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="scheduler/MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -538,27 +559,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -2413,7 +2413,7 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 <h2 id="spark-shuffle-mapoutput-minsizeforbroadcast"><a class="anchor" href="#spark-shuffle-mapoutput-minsizeforbroadcast"></a><a class="link" href="#spark-shuffle-mapoutput-minsizeforbroadcast"><a id="spark.shuffle.mapOutput.minSizeForBroadcast"></a> spark.shuffle.mapOutput.minSizeForBroadcast</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Size of serialized shuffle map output statuses when <a href="MapOutputTrackerMaster.html#MessageLoop" class="page">MapOutputTrackerMaster</a> uses to determine whether to use a broadcast variable to send them to executors</p>
+<p>Size of serialized shuffle map output statuses when <a href="scheduler/MapOutputTrackerMaster.html#MessageLoop" class="page">MapOutputTrackerMaster</a> uses to determine whether to use a broadcast variable to send them to executors</p>
 </div>
 <div class="paragraph">
 <p>Default: <code>512k</code></p>
@@ -2464,7 +2464,7 @@ Use web UI to know the current scheduling mode (e.g. <a href="#spark-webui-envir
 <p>Default: <code>true</code></p>
 </div>
 <div class="paragraph">
-<p>When enabled (<code>true</code>), MapOutputTrackerMaster will <a href="MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page">compute the preferred hosts</a> on which to run a given map output partition in a given shuffle, i.e. the nodes that the most outputs for that partition are on.</p>
+<p>When enabled (<code>true</code>), MapOutputTrackerMaster will <a href="scheduler/MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page">compute the preferred hosts</a> on which to run a given map output partition in a given shuffle, i.e. the nodes that the most outputs for that partition are on.</p>
 </div>
 </div>
 </div>

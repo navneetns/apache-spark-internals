@@ -93,6 +93,27 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../scheduler/ShuffleStatus.html">ShuffleStatus</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../scheduler/MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -538,27 +559,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../ShuffleStatus.html">ShuffleStatus</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -2040,7 +2040,7 @@ FIXME
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="../MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page"><code>MapOutputTrackerMaster</code> finds preferred <code>BlockManagers</code> with most map outputs</a> for a <code>ShuffleDependency</code>,</p>
+<p><a href="../scheduler/MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page"><code>MapOutputTrackerMaster</code> finds preferred <code>BlockManagers</code> with most map outputs</a> for a <code>ShuffleDependency</code>,</p>
 </li>
 <li>
 <p><a href="../scheduler/DAGScheduler.html#getOrCreateShuffleMapStage" class="page"><code>DAGScheduler</code> finds or creates new <code>ShuffleMapStage</code> stages</a> for a <code>ShuffleDependency</code>,</p>
@@ -2082,10 +2082,10 @@ FIXME
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="../MapOutputTracker.html#getStatistics" class="page"><code>MapOutputTracker</code> computes the statistics for a <code>ShuffleDependency</code></a> (and is the size of the array with the total sizes of shuffle blocks),</p>
+<p><a href="../scheduler/MapOutputTracker.html#getStatistics" class="page"><code>MapOutputTracker</code> computes the statistics for a <code>ShuffleDependency</code></a> (and is the size of the array with the total sizes of shuffle blocks),</p>
 </li>
 <li>
-<p><a href="../MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page"><code>MapOutputTrackerMaster</code> finds preferred <code>BlockManagers</code> with most map outputs</a> for a <code>ShuffleDependency</code>,</p>
+<p><a href="../scheduler/MapOutputTrackerMaster.html#getPreferredLocationsForShuffle" class="page"><code>MapOutputTrackerMaster</code> finds preferred <code>BlockManagers</code> with most map outputs</a> for a <code>ShuffleDependency</code>,</p>
 </li>
 <li>
 <p><a href="spark-sql-ShuffledRowRDD.adoc#numPreShufflePartitions">ShuffledRowRDD.adoc#numPreShufflePartitions</a>,</p>

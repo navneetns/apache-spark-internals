@@ -93,6 +93,27 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scheduler/MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="scheduler/ShuffleStatus.html">ShuffleStatus</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="scheduler/MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scheduler/MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -538,27 +559,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1898,7 +1898,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="mapOutputTracker"></a> <a href="#MapOutputTracker">mapOutputTracker</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="MapOutputTracker.html" class="page">MapOutputTracker</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="scheduler/MapOutputTracker.html" class="page">MapOutputTracker</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -2082,7 +2082,7 @@ FIXME A picture with SparkEnv, <code>NettyBlockTransferService</code> and the po
 </div>
 <div class="paragraph">
 <p><a id="MapOutputTracker"></a><a id="create-MapOutputTracker"></a>
-<code>create</code> creates a <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> or <a href="MapOutputTrackerWorker.html" class="page">MapOutputTrackerWorker</a> for the driver and executors, respectively.</p>
+<code>create</code> creates a <a href="scheduler/MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a> or <a href="scheduler/MapOutputTrackerWorker.html" class="page">MapOutputTrackerWorker</a> for the driver and executors, respectively.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2091,14 +2091,14 @@ FIXME A picture with SparkEnv, <code>NettyBlockTransferService</code> and the po
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The choice of the real implementation of <a href="MapOutputTracker.html" class="page">MapOutputTracker</a> is based on whether the input <code>executorId</code> is <strong>driver</strong> or not.
+The choice of the real implementation of <a href="scheduler/MapOutputTracker.html" class="page">MapOutputTracker</a> is based on whether the input <code>executorId</code> is <strong>driver</strong> or not.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p><a id="MapOutputTrackerMasterEndpoint"></a><a id="create-MapOutputTrackerMasterEndpoint"></a>
-<code>create</code> <a href="#registerOrLookupEndpoint">registers or looks up <code>RpcEndpoint</code></a> as <strong>MapOutputTracker</strong>. It registers <a href="MapOutputTrackerMasterEndpoint.html" class="page">MapOutputTrackerMasterEndpoint</a> on the driver and creates a RPC endpoint reference on executors. The RPC endpoint reference gets assigned as the <a href="MapOutputTracker.html#trackerEndpoint" class="page">MapOutputTracker RPC endpoint</a>.</p>
+<code>create</code> <a href="#registerOrLookupEndpoint">registers or looks up <code>RpcEndpoint</code></a> as <strong>MapOutputTracker</strong>. It registers <a href="scheduler/MapOutputTrackerMasterEndpoint.html" class="page">MapOutputTrackerMasterEndpoint</a> on the driver and creates a RPC endpoint reference on executors. The RPC endpoint reference gets assigned as the <a href="scheduler/MapOutputTracker.html#trackerEndpoint" class="page">MapOutputTracker RPC endpoint</a>.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -2314,7 +2314,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="MapOutputTracker.html#stop" class="page">MapOutputTracker</a></p>
+<p><a href="scheduler/MapOutputTracker.html#stop" class="page">MapOutputTracker</a></p>
 </li>
 <li>
 <p><a href="shuffle/ShuffleManager.html#stop" class="page">ShuffleManager</a></p>

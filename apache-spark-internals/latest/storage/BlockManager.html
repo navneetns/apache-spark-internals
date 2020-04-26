@@ -93,6 +93,27 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scheduler/MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../scheduler/ShuffleStatus.html">ShuffleStatus</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../scheduler/MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../scheduler/MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../scheduler/spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -538,27 +559,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../ShuffleStatus.html">ShuffleStatus</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1936,7 +1936,7 @@ Use <a href="../tools/spark-submit.html" class="page">spark-submit</a>'s command
 <p><a href="#memoryManager">MemoryManager</a></p>
 </li>
 <li>
-<p><a id="mapOutputTracker"></a> <a href="../MapOutputTracker.html" class="page">MapOutputTracker</a></p>
+<p><a id="mapOutputTracker"></a> <a href="../scheduler/MapOutputTracker.html" class="page">MapOutputTracker</a></p>
 </li>
 <li>
 <p><a href="#shuffleManager">ShuffleManager</a></p>
@@ -2001,7 +2001,7 @@ It is computed specially in Spark on YARN.
 <p>BlockManager sets <a href="#spark.block.failures.beforeLocationRefresh">the maximum number of failures before this block manager refreshes the block locations from the driver</a> (as <code>maxFailuresBeforeLocationRefresh</code>).</p>
 </div>
 <div class="paragraph">
-<p>BlockManager registers <a href="spark-blockmanager-BlockManagerSlaveEndpoint.adoc">BlockManagerSlaveEndpoint</a> with the input <a href="../spark-rpc.html" class="page">RpcEnv</a>, itself, and <a href="../MapOutputTracker.html" class="page">MapOutputTracker</a> (as <code>slaveEndpoint</code>).</p>
+<p>BlockManager registers <a href="spark-blockmanager-BlockManagerSlaveEndpoint.adoc">BlockManagerSlaveEndpoint</a> with the input <a href="../spark-rpc.html" class="page">RpcEnv</a>, itself, and <a href="../scheduler/MapOutputTracker.html" class="page">MapOutputTracker</a> (as <code>slaveEndpoint</code>).</p>
 </div>
 </div>
 </div>

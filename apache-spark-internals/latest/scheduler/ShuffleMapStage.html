@@ -93,6 +93,27 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MapOutputTracker.html">MapOutputTracker</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="ShuffleStatus.html">ShuffleStatus</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="spark-scheduler-StageInfo.html">StageInfo</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -538,27 +559,6 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Core Services</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTracker.html">MapOutputTracker</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../MapOutputTrackerMaster.html">MapOutputTrackerMaster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../ShuffleStatus.html">ShuffleStatus</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../MapOutputTrackerMasterEndpoint.html">MapOutputTrackerMasterEndpoint</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../MapOutputTrackerWorker.html">MapOutputTrackerWorker</a>
-  </li>
-</ul>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-SerializerManager.html">SerializerManager</a>
   </li>
@@ -1901,7 +1901,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <p><a id="shuffleDep"></a> <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a></p>
 </li>
 <li>
-<p><a id="mapOutputTrackerMaster"></a> <a href="../MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a></p>
+<p><a id="mapOutputTrackerMaster"></a> <a href="MapOutputTrackerMaster.html" class="page">MapOutputTrackerMaster</a></p>
 </li>
 </ul>
 </div>
@@ -1940,7 +1940,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 <p>ShuffleMapStage is asked about its availability when DAGScheduler is requested for <a href="DAGScheduler.html#getMissingParentStages" class="page">missing parent map stages for a stage</a>, <a href="DAGScheduler.html#handleMapStageSubmitted" class="page">handleMapStageSubmitted</a>, <a href="DAGScheduler.html#submitMissingTasks" class="page">submitMissingTasks</a>, <a href="DAGScheduler.html#handleTaskCompletion" class="page">handleTaskCompletion</a>, <a href="DAGScheduler.html#markMapStageJobsAsFinished" class="page">markMapStageJobsAsFinished</a>, <a href="DAGScheduler.html#stageDependsOn" class="page">stageDependsOn</a>.</p>
 </div>
 <div class="paragraph">
-<p>ShuffleMapStage uses the <a href="#mapOutputTrackerMaster">MapOutputTrackerMaster</a> for the <a href="../MapOutputTrackerMaster.html#getNumAvailableOutputs" class="page">number of partitions with shuffle map outputs available</a> (of the <a href="#shuffleDep">ShuffleDependency</a> by the shuffle ID).</p>
+<p>ShuffleMapStage uses the <a href="#mapOutputTrackerMaster">MapOutputTrackerMaster</a> for the <a href="MapOutputTrackerMaster.html#getNumAvailableOutputs" class="page">number of partitions with shuffle map outputs available</a> (of the <a href="#shuffleDep">ShuffleDependency</a> by the shuffle ID).</p>
 </div>
 </div>
 </div>
@@ -1953,7 +1953,7 @@ The <strong>logical DAG</strong> or <strong>logical execution plan</strong> is t
 </div>
 </div>
 <div class="paragraph">
-<p>findMissingPartitions requests the <a href="#mapOutputTrackerMaster">MapOutputTrackerMaster</a> for the <a href="../MapOutputTrackerMaster.html#findMissingPartitions" class="page">missing partitions</a> (of the <a href="#shuffleDep">ShuffleDependency</a> by the shuffle ID) and returns them.</p>
+<p>findMissingPartitions requests the <a href="#mapOutputTrackerMaster">MapOutputTrackerMaster</a> for the <a href="MapOutputTrackerMaster.html#findMissingPartitions" class="page">missing partitions</a> (of the <a href="#shuffleDep">ShuffleDependency</a> by the shuffle ID) and returns them.</p>
 </div>
 <div class="paragraph">
 <p>If MapOutputTrackerMaster does not track the ShuffleDependency yet, findMissingPartitions simply returns all the <a href="Stage.html#numPartitions" class="page">partitions</a> as missing.</p>
