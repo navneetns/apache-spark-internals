@@ -85,10 +85,10 @@
     <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="ShuffleMapStage.html">ShuffleMapStage</a>
   </li>
 </ul>
   </li>
@@ -1880,7 +1880,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> is an intermediate stage (in the execution DAG) that produces data for other stage(s). It writes <strong>map output files</strong> for a shuffle. It can also be the final stage in a job in <a href="DAGScheduler.html#adaptive-query-planning" class="page">Adaptive Query Planning / Adaptive Scheduling</a>.</p>
+<p><a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> is an intermediate stage (in the execution DAG) that produces data for other stage(s). It writes <strong>map output files</strong> for a shuffle. It can also be the final stage in a job in <a href="DAGScheduler.html#adaptive-query-planning" class="page">Adaptive Query Planning / Adaptive Scheduling</a>.</p>
 </li>
 <li>
 <p><a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a> is the final stage that executes <a href="../rdd/index.html#actions" class="page">a Spark action</a> in a user program by running a function on an RDD.</p>
@@ -1888,7 +1888,7 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>When a job is submitted, a new stage is created with the parent <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> linked&#8201;&#8212;&#8201;they can be created from scratch or linked to, i.e. shared, if other jobs use them already.</p>
+<p>When a job is submitted, a new stage is created with the parent <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> linked&#8201;&#8212;&#8201;they can be created from scratch or linked to, i.e. shared, if other jobs use them already.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1924,7 +1924,7 @@
 <p>In the end, every stage will have only shuffle dependencies on other stages, and may compute multiple operations inside it. The actual pipelining of these operations happens in the <code>RDD.compute()</code> functions of various RDDs, e.g. <code>MappedRDD</code>, <code>FilteredRDD</code>, etc.</p>
 </div>
 <div class="paragraph">
-<p>At some point of time in a stage&#8217;s life, every partition of the stage gets transformed into a task - <a href="ShuffleMapTask.html" class="page">ShuffleMapTask</a> or <a href="ResultTask.html" class="page">ResultTask</a> for <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> and <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a>, respectively.</p>
+<p>At some point of time in a stage&#8217;s life, every partition of the stage gets transformed into a task - <a href="ShuffleMapTask.html" class="page">ShuffleMapTask</a> or <a href="ResultTask.html" class="page">ResultTask</a> for <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> and <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a>, respectively.</p>
 </div>
 <div class="paragraph">
 <p>Partitions are computed in jobs, and result stages may not always need to compute all partitions in their target RDD, e.g. for actions like <code>first()</code> and <code>lookup()</code>.</p>

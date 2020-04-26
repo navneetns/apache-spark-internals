@@ -85,10 +85,10 @@
     <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="ShuffleMapStage.html">ShuffleMapStage</a>
   </li>
 </ul>
   </li>
@@ -1849,13 +1849,13 @@
 <div class="title">Figure 1. RDD actions submit jobs to DAGScheduler</div>
 </div>
 <div class="paragraph">
-<p>Computing a job is equivalent to computing the partitions of the RDD the action has been executed upon. The number of partitions in a job depends on the type of a stage - <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a> or <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a>.</p>
+<p>Computing a job is equivalent to computing the partitions of the RDD the action has been executed upon. The number of partitions in a job depends on the type of a stage - <a href="spark-scheduler-ResultStage.html" class="page">ResultStage</a> or <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>.</p>
 </div>
 <div class="paragraph">
 <p>A job starts with a single target RDD, but can ultimately include other RDDs that are all part of <a href="../rdd/spark-rdd-lineage.html" class="page">RDD lineage</a>.</p>
 </div>
 <div class="paragraph">
-<p>The parent stages are the instances of <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a>.</p>
+<p>The parent stages are the instances of <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -1905,7 +1905,7 @@ Note that not all partitions have always to be computed for <a href="spark-sched
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Map-stage job</strong> that computes the map output files for a <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> (for <code>submitMapStage</code>) before any downstream stages are submitted.</p>
+<p><strong>Map-stage job</strong> that computes the map output files for a <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> (for <code>submitMapStage</code>) before any downstream stages are submitted.</p>
 <div class="paragraph">
 <p>It is also used for <a href="DAGScheduler.html#adaptive-query-planning" class="page">Adaptive Query Planning / Adaptive Scheduling</a>, to look at map output statistics before submitting later stages.</p>
 </div>

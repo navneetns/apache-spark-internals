@@ -85,10 +85,10 @@
     <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="ShuffleMapStage.html">ShuffleMapStage</a>
   </li>
 </ul>
   </li>
@@ -3642,7 +3642,7 @@ Since <code>TaskSetManager</code> manages execution of the tasks in a single <a 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>executorLost</code> checks out the first task in <a href="#tasks">tasks</a> as it is assumed the other belong to the same stage. If the task is a <a href="ShuffleMapTask.html" class="page">ShuffleMapTask</a>, the entire <a href="#taskSet">TaskSet</a> is for a <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a>.
+<code>executorLost</code> checks out the first task in <a href="#tasks">tasks</a> as it is assumed the other belong to the same stage. If the task is a <a href="ShuffleMapTask.html" class="page">ShuffleMapTask</a>, the entire <a href="#taskSet">TaskSet</a> is for a <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>.
 </td>
 </tr>
 </table>
@@ -3660,7 +3660,7 @@ Since <code>TaskSetManager</code> manages execution of the tasks in a single <a 
 </table>
 </div>
 <div class="paragraph">
-<p>If <code>executorLost</code> is indeed due to an executor lost that executed tasks for a <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a> (that this <code>TaskSetManager</code> manages) and no external shuffle server is enabled, <code>executorLost</code> finds <a href="#taskInfos">all the tasks</a> that were scheduled on this lost executor and marks the <a href="#successful">ones that were already successfully completed</a> as not executed yet.</p>
+<p>If <code>executorLost</code> is indeed due to an executor lost that executed tasks for a <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a> (that this <code>TaskSetManager</code> manages) and no external shuffle server is enabled, <code>executorLost</code> finds <a href="#taskInfos">all the tasks</a> that were scheduled on this lost executor and marks the <a href="#successful">ones that were already successfully completed</a> as not executed yet.</p>
 </div>
 <div class="admonitionblock note">
 <table>

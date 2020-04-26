@@ -85,10 +85,10 @@
     <a class="nav-link" href="scheduler/Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+    <a class="nav-link" href="scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scheduler/spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="scheduler/ShuffleMapStage.html">ShuffleMapStage</a>
   </li>
 </ul>
   </li>
@@ -2372,7 +2372,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 <p>The given mapId is the <a href="scheduler/Task.html#partitionId" class="page">partitionId</a> of the <a href="scheduler/ShuffleMapTask.html" class="page">ShuffleMapTask</a> that finished.</p>
 </li>
 <li>
-<p>The given shuffleId is the <a href="rdd/spark-rdd-ShuffleDependency.html#shuffleId" class="page">shuffleId</a> of the <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> of the <a href="scheduler/spark-scheduler-ShuffleMapStage.html#shuffleDep" class="page">ShuffleMapStage</a> (for which the ShuffleMapTask completed)</p>
+<p>The given shuffleId is the <a href="rdd/spark-rdd-ShuffleDependency.html#shuffleId" class="page">shuffleId</a> of the <a href="rdd/spark-rdd-ShuffleDependency.html" class="page">ShuffleDependency</a> of the <a href="scheduler/ShuffleMapStage.html#shuffleDep" class="page">ShuffleMapStage</a> (for which the ShuffleMapTask completed)</p>
 </li>
 </ul>
 </div>
@@ -2479,7 +2479,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 <p>getNumAvailableOutputs&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p>getNumAvailableOutputs is used when ShuffleMapStage is requested for the <a href="scheduler/spark-scheduler-ShuffleMapStage.html#numAvailableOutputs" class="page">number of partitions with shuffle outputs available</a>.</p>
+<p>getNumAvailableOutputs is used when ShuffleMapStage is requested for the <a href="scheduler/ShuffleMapStage.html#numAvailableOutputs" class="page">number of partitions with shuffle outputs available</a>.</p>
 </div>
 </div>
 </div>
@@ -2496,7 +2496,7 @@ The thresholds for the number of partitions in the RDD and of the partitioner wh
 <p>findMissingPartitions&#8230;&#8203;FIXME</p>
 </div>
 <div class="paragraph">
-<p>findMissingPartitions is used when ShuffleMapStage is requested for <a href="scheduler/spark-scheduler-ShuffleMapStage.html#findMissingPartitions" class="page">missing partitions</a>.</p>
+<p>findMissingPartitions is used when ShuffleMapStage is requested for <a href="scheduler/ShuffleMapStage.html#findMissingPartitions" class="page">missing partitions</a>.</p>
 </div>
 </div>
 </div>

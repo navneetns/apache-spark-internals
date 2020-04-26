@@ -85,10 +85,10 @@
     <a class="nav-link" href="Stage.html">Stage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ShuffleMapStage.html">ShuffleMapStage</a>
+    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-scheduler-ResultStage.html">ResultStage</a>
+    <a class="nav-link" href="ShuffleMapStage.html">ShuffleMapStage</a>
   </li>
 </ul>
   </li>
@@ -2166,7 +2166,7 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>handleMapStageSubmitted</code> registers the new job in <a href="DAGScheduler.html#jobIdToActiveJob" class="page">jobIdToActiveJob</a> and <a href="DAGScheduler.html#activeJobs" class="page">activeJobs</a> internal registries, and <a href="spark-scheduler-ShuffleMapStage.html#addActiveJob" class="page">with the final <code>ShuffleMapStage</code></a>.</p>
+<p><code>handleMapStageSubmitted</code> registers the new job in <a href="DAGScheduler.html#jobIdToActiveJob" class="page">jobIdToActiveJob</a> and <a href="DAGScheduler.html#activeJobs" class="page">activeJobs</a> internal registries, and <a href="ShuffleMapStage.html#addActiveJob" class="page">with the final <code>ShuffleMapStage</code></a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2187,7 +2187,7 @@ INFO DAGScheduler: Missing parents: [missingStages]</code></pre>
 <p>Ultimately, <code>handleMapStageSubmitted</code> posts <a href="spark-scheduler-SparkListener.adoc#SparkListenerJobStart">SparkListenerJobStart</a> message to <a href="spark-scheduler-LiveListenerBus.adoc">LiveListenerBus</a> and <a href="DAGScheduler.html#submitStage" class="page">submits the <code>ShuffleMapStage</code></a>.</p>
 </div>
 <div class="paragraph">
-<p>In case the <a href="spark-scheduler-ShuffleMapStage.html#isAvailable" class="page"><code>ShuffleMapStage</code> could be available</a> already, <code>handleMapStageSubmitted</code> <a href="DAGScheduler.html#markMapStageJobAsFinished" class="page">marks the job finished</a>.</p>
+<p>In case the <a href="ShuffleMapStage.html#isAvailable" class="page"><code>ShuffleMapStage</code> could be available</a> already, <code>handleMapStageSubmitted</code> <a href="DAGScheduler.html#markMapStageJobAsFinished" class="page">marks the job finished</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2512,7 +2512,7 @@ FIXME Review what&#8217;s <code>filesLost</code>.
 </div>
 </div>
 <div class="paragraph">
-<p><code>handleExecutorLost</code> walks over all <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a>s in <a href="DAGScheduler.html#shuffleToMapStage" class="page">DAGScheduler&#8217;s <code>shuffleToMapStage</code> internal registry</a> and do the following (in order):</p>
+<p><code>handleExecutorLost</code> walks over all <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>s in <a href="DAGScheduler.html#shuffleToMapStage" class="page">DAGScheduler&#8217;s <code>shuffleToMapStage</code> internal registry</a> and do the following (in order):</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2857,7 +2857,7 @@ A task succeeded notification holds the output index and the result.
 <div class="sect3">
 <h4 id="handling-successful-shufflemaptask-completion"><a class="anchor" href="#handling-successful-shufflemaptask-completion"></a><a class="link" href="#handling-successful-shufflemaptask-completion"><a id="handleTaskCompletion-Success-ShuffleMapTask"></a> Handling Successful <code>ShuffleMapTask</code> Completion</a></h4>
 <div class="paragraph">
-<p>For <a href="ShuffleMapTask.html" class="page">ShuffleMapTask</a>, the stage is assumed a  <a href="spark-scheduler-ShuffleMapStage.html" class="page">ShuffleMapStage</a>.</p>
+<p>For <a href="ShuffleMapTask.html" class="page">ShuffleMapTask</a>, the stage is assumed a  <a href="ShuffleMapStage.html" class="page">ShuffleMapStage</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>handleTaskCompletion</code> <a href="DAGScheduler.html#updateAccumulators" class="page">updates accumulators</a>.</p>
@@ -2882,7 +2882,7 @@ A task succeeded notification holds the output index and the result.
 </div>
 </div>
 <div class="paragraph">
-<p>Otherwise, <code>handleTaskCompletion</code> <a href="spark-scheduler-ShuffleMapStage.html#addOutputLoc" class="page">registers the <code>MapStatus</code> result for the partition with the stage</a> (of the completed task).</p>
+<p>Otherwise, <code>handleTaskCompletion</code> <a href="ShuffleMapStage.html#addOutputLoc" class="page">registers the <code>MapStatus</code> result for the partition with the stage</a> (of the completed task).</p>
 </div>
 <div class="paragraph">
 <p><code>handleTaskCompletion</code> does more processing only if the <code>ShuffleMapStage</code> is registered as still running (in <a href="DAGScheduler.html#runningStages" class="page"><code>runningStages</code> internal registry</a>) and the <a href="Stage.html#pendingPartitions" class="page"><code>ShuffleMapStage</code> stage has no pending partitions to compute</a>.</p>
@@ -2917,7 +2917,7 @@ INFO DAGScheduler: failed: [failedStages]</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>If the <a href="spark-scheduler-ShuffleMapStage.html#isAvailable" class="page"><code>ShuffleMapStage</code> stage is ready</a>, all <a href="spark-scheduler-ShuffleMapStage.html#mapStageJobs" class="page">active jobs of the stage</a> (aka <em>map-stage jobs</em>) are <a href="DAGScheduler.html#markMapStageJobAsFinished" class="page">marked as finished</a> (with <a href="../MapOutputTrackerMaster.html#getStatistics" class="page"><code>MapOutputStatistics</code> from <code>MapOutputTrackerMaster</code> for the <code>ShuffleDependency</code></a>).</p>
+<p>If the <a href="ShuffleMapStage.html#isAvailable" class="page"><code>ShuffleMapStage</code> stage is ready</a>, all <a href="ShuffleMapStage.html#mapStageJobs" class="page">active jobs of the stage</a> (aka <em>map-stage jobs</em>) are <a href="DAGScheduler.html#markMapStageJobAsFinished" class="page">marked as finished</a> (with <a href="../MapOutputTrackerMaster.html#getStatistics" class="page"><code>MapOutputStatistics</code> from <code>MapOutputTrackerMaster</code> for the <code>ShuffleDependency</code></a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
