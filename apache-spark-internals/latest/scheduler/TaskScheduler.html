@@ -1885,6 +1885,28 @@ TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGSch
 </div>
 </div>
 <div class="sect1">
+<h2 id="handling-executor-heartbeat"><a class="anchor" href="#handling-executor-heartbeat"></a><a class="link" href="#handling-executor-heartbeat"><a id="executorHeartbeatReceived"></a> Handling Executor Heartbeat</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">executorHeartbeatReceived(
+  execId: String,
+  accumUpdates: Array[(Long, Seq[AccumulatorV2[_, _]])],
+  blockManagerId: BlockManagerId): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Handles a heartbeat from an executor</p>
+</div>
+<div class="paragraph">
+<p>Returns <code>true</code> when the <code>execId</code> executor is managed by the TaskScheduler. <code>false</code> indicates that the <a href="../spark-Executor.html#reportHeartBeat" class="page">block manager (on the executor) should re-register</a>.</p>
+</div>
+<div class="paragraph">
+<p>Used when HeartbeatReceiver RPC endpoint is requested to <a href="../spark-HeartbeatReceiver.html#Heartbeat" class="page">handle a Heartbeat (with task metrics) from an executor</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="killing-task"><a class="anchor" href="#killing-task"></a><a class="link" href="#killing-task"><a id="killTaskAttempt"></a> Killing Task</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -1976,26 +1998,6 @@ TaskScheduler works closely with <a href="DAGScheduler.html" class="page">DAGSch
 </div>
 <div class="paragraph">
 <p>Used when <code>SparkContext</code> is requested for the <a href="../spark-SparkContext.html#defaultParallelism" class="page">default level of parallelism</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>executorHeartbeatReceived</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div id="executorHeartbeatReceived" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">executorHeartbeatReceived(
-  execId: String,
-  accumUpdates: Array[(Long, Seq[AccumulatorV2[_, _]])],
-  blockManagerId: BlockManagerId): Boolean</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Handles heartbeats (with task metrics) from executors</p>
-</div>
-<div class="paragraph">
-<p>Expected to return <code>true</code> when the executor <code>execId</code> is managed by the TaskScheduler. <code>false</code> indicates that the <a href="../spark-Executor.html#reportHeartBeat" class="page">block manager (on the executor) should re-register</a>.</p>
-</div>
-<div class="paragraph">
-<p>Used when <code>HeartbeatReceiver</code> RPC endpoint is requested to <a href="../spark-HeartbeatReceiver.html#Heartbeat" class="page">handle a Heartbeat and task metrics from an executor</a></p>
 </div></div></td>
 </tr>
 <tr>
