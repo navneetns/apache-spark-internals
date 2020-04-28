@@ -2061,7 +2061,7 @@ Read up on <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurre
 </div>
 </div>
 <div class="paragraph">
-<p>The task <a href="TaskSchedulerImpl.html#handleTaskGettingResult" class="page">notifies <code>TaskSchedulerImpl</code> that it is about to fetch a remote block for a task result</a>. It then <a href="#ROOT:BlockManager.adoc#getRemoteBytes" class="page unresolved">gets the block from remote block managers (as serialized bytes)</a>.</p>
+<p>The task <a href="TaskSchedulerImpl.html#handleTaskGettingResult" class="page">notifies <code>TaskSchedulerImpl</code> that it is about to fetch a remote block for a task result</a>. It then <a href="../storage/BlockManager.html#getRemoteBytes" class="page">gets the block from remote block managers (as serialized bytes)</a>.</p>
 </div>
 <div class="paragraph">
 <p>When the block could not be fetched, <a href="TaskSchedulerImpl.html#handleFailedTask" class="page"><code>TaskSchedulerImpl</code> is informed</a> (with <code>TaskResultLost</code> task failure reason) and the task simply returns.</p>

@@ -1857,7 +1857,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>BlockManagerMaster</code> is created in <a href="spark-SparkEnv.adoc#BlockManagerMaster"><code>SparkEnv</code> (for the driver and executors)</a>, and immediately used to create their <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManagers</a>.
+<code>BlockManagerMaster</code> is created in <a href="spark-SparkEnv.adoc#BlockManagerMaster"><code>SparkEnv</code> (for the driver and executors)</a>, and immediately used to create their <a href="BlockManager.html" class="page">BlockManagers</a>.
 </td>
 </tr>
 </table>
@@ -2140,7 +2140,7 @@ It is only executed for the driver.
 <div class="title">Figure 1. Registering BlockManager with the Driver</div>
 </div>
 <div class="paragraph">
-<p><code>registerBlockManager</code> then notifies the driver that the <code>blockManagerId</code> <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> tries to register. <code>registerBlockManager</code> posts a <a href="spark-blockmanager-BlockManagerMasterEndpoint.adoc#RegisterBlockManager">blocking <code>RegisterBlockManager</code> message to BlockManagerMaster RPC endpoint</a>.</p>
+<p><code>registerBlockManager</code> then notifies the driver that the <code>blockManagerId</code> <a href="BlockManager.html" class="page">BlockManager</a> tries to register. <code>registerBlockManager</code> posts a <a href="spark-blockmanager-BlockManagerMasterEndpoint.adoc#RegisterBlockManager">blocking <code>RegisterBlockManager</code> message to BlockManagerMaster RPC endpoint</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2149,13 +2149,13 @@ It is only executed for the driver.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The input <code>maxMemSize</code> is the <a href="#ROOT:BlockManager.adoc#maxMemory" class="page unresolved">total available on-heap and off-heap memory for storage on a <code>BlockManager</code></a>.
+The input <code>maxMemSize</code> is the <a href="BlockManager.html#maxMemory" class="page">total available on-heap and off-heap memory for storage on a <code>BlockManager</code></a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>registerBlockManager</code> waits until a confirmation comes (as <a href="#ROOT:BlockManager.adoc#BlockManagerId" class="page unresolved">BlockManagerId</a>) that becomes the return value.</p>
+<p><code>registerBlockManager</code> waits until a confirmation comes (as <a href="BlockManager.html#BlockManagerId" class="page">BlockManagerId</a>) that becomes the return value.</p>
 </div>
 <div class="paragraph">
 <p>You should see the following INFO message in the logs:</p>
@@ -2172,7 +2172,7 @@ The input <code>maxMemSize</code> is the <a href="#ROOT:BlockManager.adoc#maxMem
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>registerBlockManager</code> is used when <code>BlockManager</code> <a href="#ROOT:BlockManager.adoc#initialize" class="page unresolved">is initialized</a> or <a href="#ROOT:BlockManager.adoc#reregister" class="page unresolved">re-registers itself with the driver</a> (and reports the blocks).
+<code>registerBlockManager</code> is used when <code>BlockManager</code> <a href="BlockManager.html#initialize" class="page">is initialized</a> or <a href="BlockManager.html#reregister" class="page">re-registers itself with the driver</a> (and reports the blocks).
 </td>
 </tr>
 </table>
@@ -2211,7 +2211,7 @@ The input <code>maxMemSize</code> is the <a href="#ROOT:BlockManager.adoc#maxMem
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>updateBlockInfo</code> is used exclusively when <code>BlockManager</code> is requested to <a href="#ROOT:BlockManager.adoc#tryToReportBlockStatus" class="page unresolved">report a block status update to the driver</a>.
+<code>updateBlockInfo</code> is used exclusively when <code>BlockManager</code> is requested to <a href="BlockManager.html#tryToReportBlockStatus" class="page">report a block status update to the driver</a>.
 </td>
 </tr>
 </table>
@@ -2234,7 +2234,7 @@ The input <code>maxMemSize</code> is the <a href="#ROOT:BlockManager.adoc#maxMem
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getLocations</code> is used when <a href="#contains"><code>BlockManagerMaster</code> checks if a block was registered</a> and <a href="#ROOT:BlockManager.adoc#getLocations" class="page unresolved"><code>BlockManager</code> getLocations</a>.
+<code>getLocations</code> is used when <a href="#contains"><code>BlockManagerMaster</code> checks if a block was registered</a> and <a href="BlockManager.html#getLocations" class="page"><code>BlockManager</code> getLocations</a>.
 </td>
 </tr>
 </table>
@@ -2257,7 +2257,7 @@ The input <code>maxMemSize</code> is the <a href="#ROOT:BlockManager.adoc#maxMem
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getLocations</code> is used when <a href="../scheduler/DAGScheduler.html#getCacheLocs" class="page"><code>DAGScheduler</code> finds BlockManagers (and so executors) for cached RDD partitions</a> and when <code>BlockManager</code> <a href="#ROOT:BlockManager.adoc#getLocationBlockIds" class="page unresolved">getLocationBlockIds</a> and <a href="#ROOT:BlockManager.adoc#blockIdsToHosts" class="page unresolved">blockIdsToHosts</a>.
+<code>getLocations</code> is used when <a href="../scheduler/DAGScheduler.html#getCacheLocs" class="page"><code>DAGScheduler</code> finds BlockManagers (and so executors) for cached RDD partitions</a> and when <code>BlockManager</code> <a href="BlockManager.html#getLocationBlockIds" class="page">getLocationBlockIds</a> and <a href="BlockManager.html#blockIdsToHosts" class="page">blockIdsToHosts</a>.
 </td>
 </tr>
 </table>
@@ -2280,7 +2280,7 @@ The input <code>maxMemSize</code> is the <a href="#ROOT:BlockManager.adoc#maxMem
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<strong>Peers</strong> of a <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> are the other BlockManagers in a cluster (except the driver&#8217;s BlockManager). Peers are used to know the available executors in a Spark application.
+<strong>Peers</strong> of a <a href="BlockManager.html" class="page">BlockManager</a> are the other BlockManagers in a cluster (except the driver&#8217;s BlockManager). Peers are used to know the available executors in a Spark application.
 </td>
 </tr>
 </table>
@@ -2292,7 +2292,7 @@ The input <code>maxMemSize</code> is the <a href="#ROOT:BlockManager.adoc#maxMem
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>getPeers</code> is used when <a href="#ROOT:BlockManager.adoc#getPeers" class="page unresolved"><code>BlockManager</code> finds the peers of a <code>BlockManager</code></a>, Structured Streaming&#8217;s <code>KafkaSource</code> and Spark Streaming&#8217;s <code>KafkaRDD</code>.
+<code>getPeers</code> is used when <a href="BlockManager.html#getPeers" class="page"><code>BlockManager</code> finds the peers of a <code>BlockManager</code></a>, Structured Streaming&#8217;s <code>KafkaSource</code> and Spark Streaming&#8217;s <code>KafkaRDD</code>.
 </td>
 </tr>
 </table>

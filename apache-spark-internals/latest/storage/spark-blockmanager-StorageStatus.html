@@ -1845,7 +1845,7 @@
 <h2 id="storagestatus"><a class="anchor" href="#storagestatus"></a><a class="link" href="#storagestatus"><a id="StorageStatus"></a> StorageStatus</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>StorageStatus</code> is a developer API that Spark uses to pass "just enough" information about registered <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManagers</a> in a Spark application between Spark services (mostly for monitoring purposes like <a href="spark-webui.adoc">web UI</a> or <a href="spark-scheduler-SparkListener.adoc">SparkListeners</a>).</p>
+<p><code>StorageStatus</code> is a developer API that Spark uses to pass "just enough" information about registered <a href="BlockManager.html" class="page">BlockManagers</a> in a Spark application between Spark services (mostly for monitoring purposes like <a href="spark-webui.adoc">web UI</a> or <a href="spark-scheduler-SparkListener.adoc">SparkListeners</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1877,7 +1877,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>BlockManagerMasterEndpoint</code> <a href="spark-blockmanager-BlockManagerMasterEndpoint.adoc#storageStatus">is requested for storage status</a> (of every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> in a Spark application)</p>
+<p><code>BlockManagerMasterEndpoint</code> <a href="spark-blockmanager-BlockManagerMasterEndpoint.adoc#storageStatus">is requested for storage status</a> (of every <a href="BlockManager.html" class="page">BlockManager</a> in a Spark application)</p>
 </li>
 <li>
 <p><code>StorageStatusListener</code> <a href="spark-webui-StorageStatusListener.adoc#onBlockManagerAdded">gets notified about a new <code>BlockManager</code></a> (in a Spark application)</p>
@@ -1942,10 +1942,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a id="blockManagerId"></a> <a href="#ROOT:BlockManager.adoc#BlockManagerId" class="page unresolved">BlockManagerId</a></p>
+<p><a id="blockManagerId"></a> <a href="BlockManager.html#BlockManagerId" class="page">BlockManagerId</a></p>
 </li>
 <li>
-<p><a id="maxMem"></a> Maximum memory&#8201;&#8212;&#8201;<a href="#ROOT:BlockManager.adoc#maxMemory" class="page unresolved">total available on-heap and off-heap memory for storage on the <code>BlockManager</code></a></p>
+<p><a id="maxMem"></a> Maximum memory&#8201;&#8212;&#8201;<a href="BlockManager.html#maxMemory" class="page">total available on-heap and off-heap memory for storage on the <code>BlockManager</code></a></p>
 </li>
 </ul>
 </div>

@@ -1849,7 +1849,7 @@
 <p><code>BlockManagerMasterEndpoint</code> is the <a href="spark-rpc.adoc#ThreadSafeRpcEndpoint">ThreadSafeRpcEndpoint</a> for <a href="BlockManagerMaster.html" class="page">BlockManagerMaster</a> under <strong>BlockManagerMaster</strong> name.</p>
 </div>
 <div class="paragraph">
-<p><code>BlockManagerMasterEndpoint</code> tracks status of the <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManagers</a> (on the executors) in a Spark application.</p>
+<p><code>BlockManagerMasterEndpoint</code> tracks status of the <a href="BlockManager.html" class="page">BlockManagers</a> (on the executors) in a Spark application.</p>
 </div>
 <div class="paragraph">
 <p><a href="#creating-instance"><code>BlockManagerMasterEndpoint</code> is created</a> when <a href="spark-SparkEnv.adoc#create"><code>SparkEnv</code> is created</a> (for the driver and executors).</p>
@@ -1896,7 +1896,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="blockManagerInfo"></a> <code>blockManagerInfo</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lookup table of <code>BlockManagerInfo</code> per <a href="#ROOT:BlockManager.adoc#BlockManagerId" class="page unresolved">BlockManagerId</a></p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lookup table of <code>BlockManagerInfo</code> per <a href="BlockManager.html#BlockManagerId" class="page">BlockManagerId</a></p>
 <p class="tableblock">Updated when <code>BlockManagerMasterEndpoint</code> <a href="#register">registers a new <code>BlockManager</code></a> or <a href="#removeBlockManager">removes a <code>BlockManager</code></a></p></td>
 </tr>
 <tr>
@@ -2050,7 +2050,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<strong>Peers</strong> of a <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> are the other BlockManagers in a cluster (except the driver&#8217;s BlockManager). Peers are used to know the available executors in a Spark application.
+<strong>Peers</strong> of a <a href="BlockManager.html" class="page">BlockManager</a> are the other BlockManagers in a cluster (except the driver&#8217;s BlockManager). Peers are used to know the available executors in a Spark application.
 </td>
 </tr>
 </table>
@@ -2086,7 +2086,7 @@ extends ToBlockManagerMaster</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<strong>Peers</strong> of a <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> are the other BlockManagers in a cluster (except the driver&#8217;s BlockManager). Peers are used to know the available executors in a Spark application.
+<strong>Peers</strong> of a <a href="BlockManager.html" class="page">BlockManager</a> are the other BlockManagers in a cluster (except the driver&#8217;s BlockManager). Peers are used to know the available executors in a Spark application.
 </td>
 </tr>
 </table>
@@ -2188,7 +2188,7 @@ extends ToBlockManagerMaster</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>register</code> records the current time and registers <code>BlockManager</code> (using <a href="#ROOT:BlockManager.adoc#BlockManagerId" class="page unresolved">BlockManagerId</a>) unless it has been registered already (in <a href="#blockManagerInfo">blockManagerInfo</a> internal registry).</p>
+<p><code>register</code> records the current time and registers <code>BlockManager</code> (using <a href="BlockManager.html#BlockManagerId" class="page">BlockManagerId</a>) unless it has been registered already (in <a href="#blockManagerInfo">blockManagerInfo</a> internal registry).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2197,7 +2197,7 @@ extends ToBlockManagerMaster</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The input <code>maxMemSize</code> is the <a href="#ROOT:BlockManager.adoc#maxMemory" class="page unresolved">total available on-heap and off-heap memory for storage on a <code>BlockManager</code></a>.
+The input <code>maxMemSize</code> is the <a href="BlockManager.html#maxMemory" class="page">total available on-heap and off-heap memory for storage on a <code>BlockManager</code></a>.
 </td>
 </tr>
 </table>

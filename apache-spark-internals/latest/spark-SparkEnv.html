@@ -1916,7 +1916,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="blockManager"></a> <a href="#BlockManager">blockManager</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="storage/BlockManager.html" class="page">BlockManager</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -1987,7 +1987,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>numUsableCores</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Used to create <a href="memory/MemoryManager.html" class="page">MemoryManager</a>,
- <a href="spark-NettyBlockTransferService.adoc#creating-instance">NettyBlockTransferService</a> and <a href="#ROOT:BlockManager.adoc#creating-instance" class="page unresolved">BlockManager</a>.</p></td>
+ <a href="spark-NettyBlockTransferService.adoc#creating-instance">NettyBlockTransferService</a> and <a href="storage/BlockManager.html#creating-instance" class="page">BlockManager</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2020,7 +2020,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 <p><a href="spark-driver.adoc#spark_driver_blockManager_port">spark.driver.blockManager.port</a> for the driver (default: <code>0</code>)</p>
 </li>
 <li>
-<p><a href="#ROOT:BlockManager.adoc#spark_blockManager_port" class="page unresolved">spark.blockManager.port</a> for an executor (default: <code>0</code>)</p>
+<p><a href="storage/BlockManager.html#spark_blockManager_port" class="page">spark.blockManager.port</a> for an executor (default: <code>0</code>)</p>
 </li>
 </ul>
 </div>
@@ -2078,7 +2078,7 @@ FIXME A picture with SparkEnv, <code>NettyBlockTransferService</code> and the po
 </div>
 <div class="paragraph">
 <p><a id="BlockManager"></a><a id="create-BlockManager"></a>
-<code>create</code> creates a <a href="#ROOT:BlockManager.adoc#creating-instance" class="page unresolved">BlockManager</a> (using the above <a href="#BlockManagerMaster">BlockManagerMaster</a>, <a href="#create-NettyBlockTransferService">NettyBlockTransferService</a> and other services).</p>
+<code>create</code> creates a <a href="storage/BlockManager.html#creating-instance" class="page">BlockManager</a> (using the above <a href="#BlockManagerMaster">BlockManagerMaster</a>, <a href="#create-NettyBlockTransferService">NettyBlockTransferService</a> and other services).</p>
 </div>
 <div class="paragraph">
 <p><code>create</code> creates a <a href="spark-service-broadcastmanager.adoc">BroadcastManager</a>.</p>
@@ -2326,7 +2326,7 @@ res0: org.apache.spark.SparkEnv = org.apache.spark.SparkEnv@49322d04</code></pre
 <p><a href="spark-service-broadcastmanager.adoc#stop">BroadcastManager</a></p>
 </li>
 <li>
-<p><a href="#ROOT:BlockManager.adoc#stop" class="page unresolved">BlockManager</a></p>
+<p><a href="storage/BlockManager.html#stop" class="page">BlockManager</a></p>
 </li>
 <li>
 <p><a href="storage/BlockManagerMaster.html#stop" class="page">BlockManagerMaster</a></p>

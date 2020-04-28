@@ -1845,7 +1845,7 @@
 <h2 id="blockmanagersourcemetrics-source-for-blockmanager"><a class="anchor" href="#blockmanagersourcemetrics-source-for-blockmanager"></a><a class="link" href="#blockmanagersourcemetrics-source-for-blockmanager"><a id="BlockManagerSource"></a> BlockManagerSource&#8201;&#8212;&#8201;Metrics Source for BlockManager</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>BlockManagerSource</code> is the <a href="spark-metrics-Source.adoc">metrics source</a> of a <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>.</p>
+<p><code>BlockManagerSource</code> is the <a href="spark-metrics-Source.adoc">metrics source</a> of a <a href="BlockManager.html" class="page">BlockManager</a>.</p>
 </div>
 <div id="sourceName" class="paragraph">
 <p><code>BlockManagerSource</code> is registered under the name <strong>BlockManager</strong> (when <code>SparkContext</code> is <a href="spark-SparkContext-creating-instance-internals.adoc#registerSource">created</a>).</p>
@@ -1868,52 +1868,52 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>disk.diskSpaceUsed_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their disk space used (<code>diskUsed</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="BlockManager.html" class="page">BlockManager</a>) and sums up their disk space used (<code>diskUsed</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.maxMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their maximum memory limit (<code>maxMem</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="BlockManager.html" class="page">BlockManager</a>) and sums up their maximum memory limit (<code>maxMem</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.maxOffHeapMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their off-heap memory remaining (<code>maxOffHeapMem</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="BlockManager.html" class="page">BlockManager</a>) and sums up their off-heap memory remaining (<code>maxOffHeapMem</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.maxOnHeapMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their on-heap memory remaining (<code>maxOnHeapMem</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="BlockManager.html" class="page">BlockManager</a>) and sums up their on-heap memory remaining (<code>maxOnHeapMem</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.memUsed_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their memory used (<code>memUsed</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="BlockManager.html" class="page">BlockManager</a>) and sums up their memory used (<code>memUsed</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.offHeapMemUsed_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their off-heap memory used (<code>offHeapMemUsed</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="BlockManager.html" class="page">BlockManager</a>) and sums up their off-heap memory used (<code>offHeapMemUsed</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.onHeapMemUsed_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their on-heap memory used (<code>onHeapMemUsed</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="BlockManager.html" class="page">BlockManager</a>) and sums up their on-heap memory used (<code>onHeapMemUsed</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.remainingMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their memory remaining (<code>memRemaining</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="BlockManager.html" class="page">BlockManager</a>) and sums up their memory remaining (<code>memRemaining</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.remainingOffHeapMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their off-heap memory remaining (<code>offHeapMemRemaining</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="BlockManager.html" class="page">BlockManager</a>) and sums up their off-heap memory remaining (<code>offHeapMemRemaining</code>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>memory.remainingOnHeapMem_MB</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a>) and sums up their on-heap memory remaining (<code>onHeapMemRemaining</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests <code>BlockManagerMaster</code> for <a href="BlockManagerMaster.html#getStorageStatus" class="page">storage status</a> (for every <a href="BlockManager.html" class="page">BlockManager</a>) and sums up their on-heap memory remaining (<code>onHeapMemRemaining</code>).</p></td>
 </tr>
 </tbody>
 </table>
@@ -1937,7 +1937,7 @@
 </div>
 </div>
 <div id="blockManager" class="paragraph">
-<p><code>BlockManagerSource</code> takes a <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> when created.</p>
+<p><code>BlockManagerSource</code> takes a <a href="BlockManager.html" class="page">BlockManager</a> when created.</p>
 </div>
 <div class="paragraph">
 <p><code>BlockManagerSource</code> is <a href="#creating-instance">created</a> when <code>SparkContext</code> is <a href="spark-SparkContext-creating-instance-internals.adoc#registerSource">created</a>.</p>

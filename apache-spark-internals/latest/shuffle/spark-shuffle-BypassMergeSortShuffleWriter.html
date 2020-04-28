@@ -1951,7 +1951,7 @@ Review the <a href="SortShuffleManager.html#shouldBypassMergeSort" class="page">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a></p>
+<p><a href="../storage/BlockManager.html" class="page">BlockManager</a></p>
 </li>
 <li>
 <p><a href="IndexShuffleBlockResolver.adoc">IndexShuffleBlockResolver</a></p>
@@ -2000,7 +2000,7 @@ Review the <a href="SortShuffleManager.html#shouldBypassMergeSort" class="page">
 <p>Internally, when the input <code>records</code> iterator has no more records, <code>write</code> creates an empty <a href="#partitionLengths">partitionLengths</a> internal array of <code>numPartitions</code> size.</p>
 </div>
 <div class="paragraph">
-<p><code>write</code> then <a href="IndexShuffleBlockResolver.adoc#writeIndexFileAndCommit">requests the internal <code>IndexShuffleBlockResolver</code> to write shuffle index and data files</a> (with <code>dataTmp</code> as <code>null</code>) and sets the internal <code>mapStatus</code> (with the address of <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> in use and <a href="#partitionLengths">partitionLengths</a>).</p>
+<p><code>write</code> then <a href="IndexShuffleBlockResolver.adoc#writeIndexFileAndCommit">requests the internal <code>IndexShuffleBlockResolver</code> to write shuffle index and data files</a> (with <code>dataTmp</code> as <code>null</code>) and sets the internal <code>mapStatus</code> (with the address of <a href="../storage/BlockManager.html" class="page">BlockManager</a> in use and <a href="#partitionLengths">partitionLengths</a>).</p>
 </div>
 <div class="paragraph">
 <p>However, when there are records to write, <code>write</code> creates a new <a href="spark-Serializer.adoc">Serializer</a>.</p>
@@ -2030,13 +2030,13 @@ Review the <a href="SortShuffleManager.html#shouldBypassMergeSort" class="page">
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>write</code> uses <a href="#ROOT:BlockManager.adoc#diskBlockManager" class="page unresolved"><code>BlockManager</code> to access <code>DiskBlockManager</code></a>. <code>BlockManager</code> was specified when <a href="#creating-instance"><code>BypassMergeSortShuffleWriter</code> was created</a>.
+<code>write</code> uses <a href="../storage/BlockManager.html#diskBlockManager" class="page"><code>BlockManager</code> to access <code>DiskBlockManager</code></a>. <code>BlockManager</code> was specified when <a href="#creating-instance"><code>BypassMergeSortShuffleWriter</code> was created</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>write</code> <a href="#ROOT:BlockManager.adoc#getDiskWriter" class="page unresolved">requests <code>BlockManager</code> for a <code>DiskBlockObjectWriter</code></a> (for the temporary <code>blockId</code> and <code>file</code>, <a href="spark-SerializerInstance.adoc">SerializerInstance</a>, <code>fileBufferSize</code> and <code>writeMetrics</code>).</p>
+<p><code>write</code> <a href="../storage/BlockManager.html#getDiskWriter" class="page">requests <code>BlockManager</code> for a <code>DiskBlockObjectWriter</code></a> (for the temporary <code>blockId</code> and <code>file</code>, <a href="spark-SerializerInstance.adoc">SerializerInstance</a>, <code>fileBufferSize</code> and <code>writeMetrics</code>).</p>
 </div>
 <div class="paragraph">
 <p>After <a href="spark-blockmanager-DiskBlockObjectWriter.adoc">DiskBlockObjectWriters</a> were created, <code>write</code> <a href="spark-executor-ShuffleWriteMetrics.adoc#incWriteTime">increments shuffle write time</a>.</p>
@@ -2117,7 +2117,7 @@ This is the moment when <code>BypassMergeSortShuffleWriter</code> concatenates p
 </table>
 </div>
 <div class="paragraph">
-<p>In the end, <code>write</code> <a href="IndexShuffleBlockResolver.adoc#writeIndexFileAndCommit">requests <code>IndexShuffleBlockResolver</code> to write shuffle index and data files</a> for the <code>shuffleId</code> and <code>mapId</code> (with <code>partitionLengths</code> and the temporary file) and creates a new <a href="#mapStatus">mapStatus</a> (with the <a href="#ROOT:BlockManager.adoc#shuffleServerId" class="page unresolved">location of the <code>BlockManager</code></a> and <a href="#partitionLengths">partitionLengths</a>).</p>
+<p>In the end, <code>write</code> <a href="IndexShuffleBlockResolver.adoc#writeIndexFileAndCommit">requests <code>IndexShuffleBlockResolver</code> to write shuffle index and data files</a> for the <code>shuffleId</code> and <code>mapId</code> (with <code>partitionLengths</code> and the temporary file) and creates a new <a href="#mapStatus">mapStatus</a> (with the <a href="../storage/BlockManager.html#shuffleServerId" class="page">location of the <code>BlockManager</code></a> and <a href="#partitionLengths">partitionLengths</a>).</p>
 </div>
 </div>
 <div class="sect2">

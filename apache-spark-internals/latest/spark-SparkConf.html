@@ -2083,7 +2083,7 @@ spark.submit.deployMode=client</code></pre>
 <p><code>NettyBlockTransferService</code> <a href="spark-NettyBlockTransferService.adoc#init">is initialized</a> (and creates a <a href="spark-NettyBlockRpcServer.adoc#creating-instance">NettyBlockRpcServer</a> as well as <a href="spark-NettyBlockTransferService.adoc#appId">saves the identifier for later use</a>).</p>
 </li>
 <li>
-<p><code>Executor</code> <a href="spark-Executor.adoc#creating-instance">is created</a> (in non-local mode and <a href="#ROOT:BlockManager.adoc#initialize" class="page unresolved">requests <code>BlockManager</code> to initialize</a>).</p>
+<p><code>Executor</code> <a href="spark-Executor.adoc#creating-instance">is created</a> (in non-local mode and <a href="storage/BlockManager.html#initialize" class="page">requests <code>BlockManager</code> to initialize</a>).</p>
 </li>
 </ul>
 </div>

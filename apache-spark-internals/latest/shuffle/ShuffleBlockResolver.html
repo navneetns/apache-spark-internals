@@ -1843,7 +1843,7 @@
 <article class="doc">
 <h1 class="page"><a id="ShuffleBlockResolver"></a> ShuffleBlockResolver</h1>
 <div class="paragraph">
-<p><strong>ShuffleBlockResolver</strong> is an <a href="#contract">abstraction</a> of <a href="#implementations">shuffle block resolvers</a> that <a href="#ROOT:BlockManager.adoc" class="page unresolved">BlockManager</a> uses to <a href="#getBlockData">retrieve a shuffle block data</a> for a logical shuffle block identifier (i.e. map, reduce, and shuffle).</p>
+<p><strong>ShuffleBlockResolver</strong> is an <a href="#contract">abstraction</a> of <a href="#implementations">shuffle block resolvers</a> that <a href="../storage/BlockManager.html" class="page">BlockManager</a> uses to <a href="#getBlockData">retrieve a shuffle block data</a> for a logical shuffle block identifier (i.e. map, reduce, and shuffle).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1894,7 +1894,7 @@ Shuffle block data files are often referred to as <strong>map outputs files</str
 <p>Retrieves the data (as a <a href="#spark-ManagedBuffer.adoc" class="page unresolved">ManagedBuffer</a>) for the given <a href="#spark-BlockDataManager.adoc#ShuffleBlockId" class="page unresolved">block</a> (a tuple of <code>shuffleId</code>, <code>mapId</code> and <code>reduceId</code>).</p>
 </div>
 <div class="paragraph">
-<p>Used when <code>BlockManager</code> is requested to retrieve a <a href="#ROOT:BlockManager.adoc#getLocalBytes" class="page unresolved">block data from a local block manager</a> and <a href="#ROOT:BlockManager.adoc#getBlockData" class="page unresolved">block data</a></p>
+<p>Used when <code>BlockManager</code> is requested to retrieve a <a href="../storage/BlockManager.html#getLocalBytes" class="page">block data from a local block manager</a> and <a href="../storage/BlockManager.html#getBlockData" class="page">block data</a></p>
 </div></div></td>
 </tr>
 <tr>
