@@ -521,28 +521,28 @@
     <span class="nav-text">Specialized RDDs</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-ParallelCollectionRDD.html">ParallelCollectionRDD</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-MapPartitionsRDD.html">MapPartitionsRDD</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-OrderedRDDFunctions.html">OrderedRDDFunctions</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-rdd-CoGroupedRDD.html">CoGroupedRDD</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="spark-rdd-SubtractedRDD.html">SubtractedRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-rdd-HadoopRDD.html">HadoopRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-rdd-MapPartitionsRDD.html">MapPartitionsRDD</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spark-rdd-NewHadoopRDD.html">NewHadoopRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-rdd-OrderedRDDFunctions.html">OrderedRDDFunctions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-rdd-ParallelCollectionRDD.html">ParallelCollectionRDD</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="ShuffledRDD.html">ShuffledRDD</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="spark-rdd-SubtractedRDD.html">SubtractedRDD</a>
   </li>
 </ul>
   </li>
@@ -1987,45 +1987,40 @@ ShuffleDependency is created when <a href="ShuffledRDD.html#getDependencies" cla
 </div>
 </div>
 <div class="paragraph">
-<p><code>shuffleHandle</code> is the <code>ShuffleHandle</code> of a ShuffleDependency as assigned eagerly when <a href="#creating-instance">ShuffleDependency was created</a>.</p>
+<p>shuffleHandle is the <code>ShuffleHandle</code> of a ShuffleDependency as assigned eagerly when <a href="#creating-instance">ShuffleDependency was created</a>.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>shuffleHandle</code> is used to compute <a href="spark-rdd-CoGroupedRDD.adoc#compute">CoGroupedRDDs</a>, <a href="ShuffledRDD.html#compute" class="page">ShuffledRDD</a>, <a href="spark-rdd-SubtractedRDD.adoc#compute">SubtractedRDD</a>, and <a href="spark-sql-ShuffledRowRDD.adoc">ShuffledRowRDD</a> (to get a <a href="spark-shuffle-ShuffleReader.adoc">ShuffleReader</a> for a ShuffleDependency) and when a <a href="../scheduler/ShuffleMapTask.html#runTask" class="page"><code>ShuffleMapTask</code> runs</a> (to get a <code>ShuffleWriter</code> for a ShuffleDependency).
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>shuffleHandle is used to compute <a href="spark-rdd-CoGroupedRDD.adoc#compute">CoGroupedRDDs</a>, <a href="ShuffledRDD.html#compute" class="page">ShuffledRDD</a>, <a href="spark-rdd-SubtractedRDD.adoc#compute">SubtractedRDD</a>, and <a href="spark-sql-ShuffledRowRDD.adoc">ShuffledRowRDD</a> (to get a <a href="spark-shuffle-ShuffleReader.adoc">ShuffleReader</a> for a ShuffleDependency) and when a <a href="../scheduler/ShuffleMapTask.html#runTask" class="page"><code>ShuffleMapTask</code> runs</a> (to get a <code>ShuffleWriter</code> for a ShuffleDependency).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="map-size-aggregation-flag"><a class="anchor" href="#map-size-aggregation-flag"></a><a class="link" href="#map-size-aggregation-flag"><a id="mapSideCombine"></a> Map-Size Aggregation Flag</a></h2>
+<h2 id="map-size-partial-aggregation-flag"><a class="anchor" href="#map-size-partial-aggregation-flag"></a><a class="link" href="#map-size-partial-aggregation-flag"><a id="mapSideCombine"></a> Map-Size Partial Aggregation Flag</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>mapSideCombine</code> is a flag to control whether to use <strong>partial aggregation</strong> (<em>map-side combine</em>).</p>
+<p>ShuffleDependency uses a mapSideCombine flag that controls whether to perform <strong>map-side partial aggregation</strong> (<em>map-side combine</em>) using an <a href="#aggregator">Aggregator</a>.</p>
 </div>
 <div class="paragraph">
-<p><code>mapSideCombine</code> is by default disabled (i.e. <code>false</code>) when <a href="#creating-instance">creating a ShuffleDependency</a>.</p>
+<p>mapSideCombine is disabled (<code>false</code>) by default and can be enabled (<code>true</code>) for some use cases of <a href="ShuffledRDD.html#mapSideCombine" class="page">ShuffledRDD</a>.</p>
 </div>
 <div class="paragraph">
-<p>When enabled, <a href="../shuffle/spark-shuffle-SortShuffleWriter.html" class="page">SortShuffleWriter</a> and <a href="spark-shuffle-BlockStoreShuffleReader.adoc">BlockStoreShuffleReader</a> assume that an <a href="spark-Aggregator.adoc">Aggregator</a> is also defined.</p>
+<p>ShuffleDependency requires that the optional <a href="#aggregator">Aggregator</a> is defined when the flag is enabled.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>mapSideCombine</code> is exclusively set (and hence can be enabled) when <code>ShuffledRDD</code> is requested for <a href="ShuffledRDD.html#getDependencies" class="page">dependencies</a> (which is a single ShuffleDependency).
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>mapSideCombine is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>BlockStoreShuffleReader is requested to <a href="../shuffle/spark-shuffle-BlockStoreShuffleReader.html#read" class="page">read combined records for a reduce task</a></p>
+</li>
+<li>
+<p>SortShuffleManager is requested to <a href="../shuffle/SortShuffleManager.html#registerShuffle" class="page">register a shuffle</a></p>
+</li>
+<li>
+<p>SortShuffleWriter is requested to <a href="../shuffle/spark-shuffle-SortShuffleWriter.html#write" class="page">write records</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>

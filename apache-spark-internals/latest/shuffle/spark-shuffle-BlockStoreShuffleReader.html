@@ -521,28 +521,28 @@
     <span class="nav-text">Specialized RDDs</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-ParallelCollectionRDD.html">ParallelCollectionRDD</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-MapPartitionsRDD.html">MapPartitionsRDD</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-OrderedRDDFunctions.html">OrderedRDDFunctions</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../rdd/spark-rdd-CoGroupedRDD.html">CoGroupedRDD</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rdd/spark-rdd-SubtractedRDD.html">SubtractedRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../rdd/spark-rdd-HadoopRDD.html">HadoopRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../rdd/spark-rdd-MapPartitionsRDD.html">MapPartitionsRDD</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../rdd/spark-rdd-NewHadoopRDD.html">NewHadoopRDD</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../rdd/spark-rdd-OrderedRDDFunctions.html">OrderedRDDFunctions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../rdd/spark-rdd-ParallelCollectionRDD.html">ParallelCollectionRDD</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../rdd/ShuffledRDD.html">ShuffledRDD</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../rdd/spark-rdd-SubtractedRDD.html">SubtractedRDD</a>
   </li>
 </ul>
   </li>
@@ -1852,7 +1852,7 @@
 <p><code>BlockStoreShuffleReader</code> is <a href="#creating-instance">created</a> exclusively when <code>SortShuffleManager</code> is requested for the <a href="SortShuffleManager.html#getReader" class="page">ShuffleReader</a> for a range of reduce partitions.</p>
 </div>
 <div class="sect2">
-<h3 id="reading-combined-key-value-records-for-reduce-task-using-shuffleblockfetcheriteratorread-method"><a class="anchor" href="#reading-combined-key-value-records-for-reduce-task-using-shuffleblockfetcheriteratorread-method"></a><a class="link" href="#reading-combined-key-value-records-for-reduce-task-using-shuffleblockfetcheriteratorread-method"><a id="read"></a> Reading Combined Key-Value Records For Reduce Task (using ShuffleBlockFetcherIterator)&#8201;&#8212;&#8201;<code>read</code> Method</a></h3>
+<h3 id="reading-combined-records-for-reduce-task"><a class="anchor" href="#reading-combined-records-for-reduce-task"></a><a class="link" href="#reading-combined-records-for-reduce-task"><a id="read"></a> Reading Combined Records For Reduce Task</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">read(): Iterator[Product2[K, C]]</code></pre>
