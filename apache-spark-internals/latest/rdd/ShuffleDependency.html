@@ -400,7 +400,7 @@
     <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="../shuffle/BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
   </li>
 </ul>
   </li>
@@ -409,10 +409,10 @@
     <a class="nav-link" href="../shuffle/ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html">BypassMergeSortShuffleWriter</a>
+    <a class="nav-link" href="../shuffle/BypassMergeSortShuffleWriter.html">BypassMergeSortShuffleWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-SortShuffleWriter.html">SortShuffleWriter</a>
+    <a class="nav-link" href="../shuffle/SortShuffleWriter.html">SortShuffleWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../shuffle/spark-shuffle-UnsafeShuffleWriter.html">UnsafeShuffleWriter</a>
@@ -1974,7 +1974,7 @@ ShuffleDependency is created when <a href="ShuffledRDD.html#getDependencies" cla
 <h2 id="partitioner"><a class="anchor" href="#partitioner"></a><a class="link" href="#partitioner"><a id="partitioner"></a> Partitioner</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>ShuffleDependency is given a <a href="spark-rdd-Partitioner.html" class="page">Partitioner</a> that is used to partition the shuffle output (when <a href="../shuffle/spark-shuffle-SortShuffleWriter.html" class="page">SortShuffleWriter</a>, <a href="../shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html" class="page">BypassMergeSortShuffleWriter</a> and <a href="../shuffle/spark-shuffle-UnsafeShuffleWriter.html" class="page">UnsafeShuffleWriter</a> are requested to write).</p>
+<p>ShuffleDependency is given a <a href="spark-rdd-Partitioner.html" class="page">Partitioner</a> that is used to partition the shuffle output (when <a href="../shuffle/SortShuffleWriter.html" class="page">SortShuffleWriter</a>, <a href="../shuffle/BypassMergeSortShuffleWriter.html" class="page">BypassMergeSortShuffleWriter</a> and <a href="../shuffle/spark-shuffle-UnsafeShuffleWriter.html" class="page">UnsafeShuffleWriter</a> are requested to write).</p>
 </div>
 </div>
 </div>
@@ -2012,13 +2012,13 @@ ShuffleDependency is created when <a href="ShuffledRDD.html#getDependencies" cla
 <div class="ulist">
 <ul>
 <li>
-<p>BlockStoreShuffleReader is requested to <a href="../shuffle/spark-shuffle-BlockStoreShuffleReader.html#read" class="page">read combined records for a reduce task</a></p>
+<p>BlockStoreShuffleReader is requested to <a href="../shuffle/BlockStoreShuffleReader.html#read" class="page">read combined records for a reduce task</a></p>
 </li>
 <li>
 <p>SortShuffleManager is requested to <a href="../shuffle/SortShuffleManager.html#registerShuffle" class="page">register a shuffle</a></p>
 </li>
 <li>
-<p>SortShuffleWriter is requested to <a href="../shuffle/spark-shuffle-SortShuffleWriter.html#write" class="page">write records</a></p>
+<p>SortShuffleWriter is requested to <a href="../shuffle/SortShuffleWriter.html#write" class="page">write records</a></p>
 </li>
 </ul>
 </div>
@@ -2045,7 +2045,7 @@ ShuffleDependency is created when <a href="ShuffledRDD.html#getDependencies" cla
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>aggregator</code> is used when <a href="../shuffle/spark-shuffle-SortShuffleWriter.html#write" class="page"><code>SortShuffleWriter</code> writes records</a> and <a href="../shuffle/spark-shuffle-BlockStoreShuffleReader.html#read" class="page"><code>BlockStoreShuffleReader</code> reads combined key-values for a reduce task</a>.
+<code>aggregator</code> is used when <a href="../shuffle/SortShuffleWriter.html#write" class="page"><code>SortShuffleWriter</code> writes records</a> and <a href="../shuffle/BlockStoreShuffleReader.html#read" class="page"><code>BlockStoreShuffleReader</code> reads combined key-values for a reduce task</a>.
 </td>
 </tr>
 </table>

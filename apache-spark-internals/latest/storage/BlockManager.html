@@ -400,7 +400,7 @@
     <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="../shuffle/BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
   </li>
 </ul>
   </li>
@@ -409,10 +409,10 @@
     <a class="nav-link" href="../shuffle/ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html">BypassMergeSortShuffleWriter</a>
+    <a class="nav-link" href="../shuffle/BypassMergeSortShuffleWriter.html">BypassMergeSortShuffleWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-SortShuffleWriter.html">SortShuffleWriter</a>
+    <a class="nav-link" href="../shuffle/SortShuffleWriter.html">SortShuffleWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../shuffle/spark-shuffle-UnsafeShuffleWriter.html">UnsafeShuffleWriter</a>
@@ -3483,7 +3483,7 @@ It is acceptable that the <code>BlockInfo</code> says to use memory or disk yet 
 <div class="ulist">
 <ul>
 <li>
-<p><code>BypassMergeSortShuffleWriter</code> is requested to <a href="../shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html#write" class="page">write records</a></p>
+<p><code>BypassMergeSortShuffleWriter</code> is requested to <a href="../shuffle/BypassMergeSortShuffleWriter.html#write" class="page">write records</a></p>
 </li>
 <li>
 <p><code>ShuffleExternalSorter</code> is requested to <a href="../shuffle/ShuffleExternalSorter.html#writeSortedFile" class="page">writeSortedFile</a></p>
@@ -3844,7 +3844,7 @@ It is acceptable that the <code>BlockInfo</code> says to use memory or disk yet 
 </ul>
 </div>
 <div class="paragraph">
-<p><code>shuffleClient</code> is also used when <code>BlockStoreShuffleReader</code> is requested to <a href="spark-shuffle-BlockStoreShuffleReader.adoc#read">read combined key-value records for a reduce task</a> (and creates a <a href="ShuffleBlockFetcherIterator.html#shuffleClient" class="page">ShuffleBlockFetcherIterator</a>).</p>
+<p><code>shuffleClient</code> is also used when <code>BlockStoreShuffleReader</code> is requested to <a href="../shuffle/BlockStoreShuffleReader.html#read" class="page">read combined key-value records for a reduce task</a> (and creates a <a href="ShuffleBlockFetcherIterator.html#shuffleClient" class="page">ShuffleBlockFetcherIterator</a>).</p>
 </div>
 <div class="paragraph">
 <p><code>shuffleClient</code> can be either a <a href="spark-ShuffleClient-ExternalShuffleClient.adoc">ExternalShuffleClient</a> or the <a href="#blockTransferService">BlockTransferService</a> (that is the <a href="spark-NettyBlockTransferService.adoc">NettyBlockTransferService</a> given by <a href="spark-SparkEnv.adoc#create-BlockManager">SparkEnv</a>).</p>

@@ -400,7 +400,7 @@
     <a class="nav-link" href="shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="shuffle/BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
   </li>
 </ul>
   </li>
@@ -409,10 +409,10 @@
     <a class="nav-link" href="shuffle/ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html">BypassMergeSortShuffleWriter</a>
+    <a class="nav-link" href="shuffle/BypassMergeSortShuffleWriter.html">BypassMergeSortShuffleWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="shuffle/spark-shuffle-SortShuffleWriter.html">SortShuffleWriter</a>
+    <a class="nav-link" href="shuffle/SortShuffleWriter.html">SortShuffleWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="shuffle/spark-shuffle-UnsafeShuffleWriter.html">UnsafeShuffleWriter</a>
@@ -1857,7 +1857,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>ExternalSorter</code> is exclusively used when <a href="shuffle/spark-shuffle-SortShuffleWriter.html#write" class="page"><code>SortShuffleWriter</code> writes records</a> and <a href="spark-shuffle-BlockStoreShuffleReader.adoc#read"><code>BlockStoreShuffleReader</code> reads combined key-value pairs</a> (for reduce task when <a href="rdd/ShuffleDependency.html#keyOrdering" class="page"><code>ShuffleDependency</code> has key ordering defined (to sort output)</a>.
+<code>ExternalSorter</code> is exclusively used when <a href="shuffle/SortShuffleWriter.html#write" class="page"><code>SortShuffleWriter</code> writes records</a> and <a href="shuffle/BlockStoreShuffleReader.html#read" class="page"><code>BlockStoreShuffleReader</code> reads combined key-value pairs</a> (for reduce task when <a href="rdd/ShuffleDependency.html#keyOrdering" class="page"><code>ShuffleDependency</code> has key ordering defined (to sort output)</a>.
 </td>
 </tr>
 </table>
@@ -1960,7 +1960,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>ExternalSorter</code> is created when <a href="shuffle/spark-shuffle-SortShuffleWriter.html#write" class="page"><code>SortShuffleWriter</code> writes records</a> and <a href="spark-shuffle-BlockStoreShuffleReader.adoc#read"><code>BlockStoreShuffleReader</code> reads combined key-value pairs</a> (for reduce task when <a href="rdd/ShuffleDependency.html#keyOrdering" class="page"><code>ShuffleDependency</code> has key ordering defined (to sort output)</a>.
+<code>ExternalSorter</code> is created when <a href="shuffle/SortShuffleWriter.html#write" class="page"><code>SortShuffleWriter</code> writes records</a> and <a href="shuffle/BlockStoreShuffleReader.html#read" class="page"><code>BlockStoreShuffleReader</code> reads combined key-value pairs</a> (for reduce task when <a href="rdd/ShuffleDependency.html#keyOrdering" class="page"><code>ShuffleDependency</code> has key ordering defined (to sort output)</a>.
 </td>
 </tr>
 </table>
@@ -2064,7 +2064,7 @@ FIXME
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>insertAll</code> is used when <a href="shuffle/spark-shuffle-SortShuffleWriter.html#write" class="page"><code>SortShuffleWriter</code> writes records</a> and <a href="spark-shuffle-BlockStoreShuffleReader.adoc#read"><code>BlockStoreShuffleReader</code> reads combined key-value pairs</a> (for reduce task when <a href="rdd/ShuffleDependency.html#keyOrdering" class="page"><code>ShuffleDependency</code> has key ordering defined (to sort output)</a>.
+<code>insertAll</code> is used when <a href="shuffle/SortShuffleWriter.html#write" class="page"><code>SortShuffleWriter</code> writes records</a> and <a href="shuffle/BlockStoreShuffleReader.html#read" class="page"><code>BlockStoreShuffleReader</code> reads combined key-value pairs</a> (for reduce task when <a href="rdd/ShuffleDependency.html#keyOrdering" class="page"><code>ShuffleDependency</code> has key ordering defined (to sort output)</a>.
 </td>
 </tr>
 </table>
@@ -2092,7 +2092,7 @@ FIXME
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>32k</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Size of the in-memory buffer for each shuffle file output stream. In bytes unless the unit is specified.</p>
 <p class="tableblock">These buffers reduce the number of disk seeks and system calls made in creating intermediate shuffle files.</p>
-<p class="tableblock">Used in <code>ExternalSorter</code>, <a href="shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html" class="page">BypassMergeSortShuffleWriter</a> and <code>ExternalAppendOnlyMap</code> (for <code>fileBufferSize</code>) and in <a href="shuffle/ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a> (for <a href="shuffle/ShuffleExternalSorter.html#fileBufferSizeBytes" class="page">fileBufferSizeBytes</a>).</p>
+<p class="tableblock">Used in <code>ExternalSorter</code>, <a href="shuffle/BypassMergeSortShuffleWriter.html" class="page">BypassMergeSortShuffleWriter</a> and <code>ExternalAppendOnlyMap</code> (for <code>fileBufferSize</code>) and in <a href="shuffle/ShuffleExternalSorter.html" class="page">ShuffleExternalSorter</a> (for <a href="shuffle/ShuffleExternalSorter.html#fileBufferSizeBytes" class="page">fileBufferSizeBytes</a>).</p>
 <p class="tableblock">NOTE: <code>spark.shuffle.file.buffer</code> was previously known as <code>spark.shuffle.file.buffer.kb</code>.</p></td>
 </tr>
 <tr>

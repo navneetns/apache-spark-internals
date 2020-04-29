@@ -400,7 +400,7 @@
     <a class="nav-link" href="../shuffle/spark-shuffle-ShuffleReader.html">ShuffleReader</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
+    <a class="nav-link" href="../shuffle/BlockStoreShuffleReader.html">BlockStoreShuffleReader</a>
   </li>
 </ul>
   </li>
@@ -409,10 +409,10 @@
     <a class="nav-link" href="../shuffle/ShuffleWriter.html">ShuffleWriter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-BypassMergeSortShuffleWriter.html">BypassMergeSortShuffleWriter</a>
+    <a class="nav-link" href="../shuffle/BypassMergeSortShuffleWriter.html">BypassMergeSortShuffleWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../shuffle/spark-shuffle-SortShuffleWriter.html">SortShuffleWriter</a>
+    <a class="nav-link" href="../shuffle/SortShuffleWriter.html">SortShuffleWriter</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../shuffle/spark-shuffle-UnsafeShuffleWriter.html">UnsafeShuffleWriter</a>
@@ -1848,7 +1848,7 @@
 <p><code>ShuffleBlockFetcherIterator</code> is a Scala <a href="http://www.scala-lang.org/api/current/scala/collection/Iterator.html">Iterator</a> that fetches shuffle blocks (aka <em>shuffle map outputs</em>) from block managers.</p>
 </div>
 <div class="paragraph">
-<p><code>ShuffleBlockFetcherIterator</code> is <a href="#creating-instance">created</a> exclusively when <code>BlockStoreShuffleReader</code> is requested to <a href="spark-shuffle-BlockStoreShuffleReader.adoc#read">read combined key-value records for a reduce task</a>.</p>
+<p><code>ShuffleBlockFetcherIterator</code> is <a href="#creating-instance">created</a> exclusively when <code>BlockStoreShuffleReader</code> is requested to <a href="../shuffle/BlockStoreShuffleReader.html#read" class="page">read combined key-value records for a reduce task</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>ShuffleBlockFetcherIterator</code> allows for <a href="#next">iterating over a sequence of blocks</a> as <code>(BlockId, InputStream)</code> pairs so a caller can handle shuffle blocks in a pipelined fashion as they are received.</p>
@@ -2001,10 +2001,10 @@ FIXME
 <p><a id="streamWrapper"></a> Function to wrap the returned input stream (as <code>(BlockId, InputStream) &#8658; InputStream</code>)</p>
 </li>
 <li>
-<p><a href="#maxBytesInFlight">maxBytesInFlight</a>&#8201;&#8212;&#8201;the maximum size (in bytes) of map outputs to fetch simultaneously from each reduce task (controlled by <a href="spark-shuffle-BlockStoreShuffleReader.adoc#spark_reducer_maxSizeInFlight">spark.reducer.maxSizeInFlight</a> Spark property)</p>
+<p><a href="#maxBytesInFlight">maxBytesInFlight</a>&#8201;&#8212;&#8201;the maximum size (in bytes) of map outputs to fetch simultaneously from each reduce task (controlled by <a href="../shuffle/BlockStoreShuffleReader.html#spark_reducer_maxSizeInFlight" class="page">spark.reducer.maxSizeInFlight</a> Spark property)</p>
 </li>
 <li>
-<p><a href="#maxReqsInFlight">maxReqsInFlight</a>&#8201;&#8212;&#8201;the maximum number of remote requests to fetch blocks at any given point (controlled by <a href="spark-shuffle-BlockStoreShuffleReader.adoc#spark_reducer_maxReqsInFlight">spark.reducer.maxReqsInFlight</a> Spark property)</p>
+<p><a href="#maxReqsInFlight">maxReqsInFlight</a>&#8201;&#8212;&#8201;the maximum number of remote requests to fetch blocks at any given point (controlled by <a href="../shuffle/BlockStoreShuffleReader.html#spark_reducer_maxReqsInFlight" class="page">spark.reducer.maxReqsInFlight</a> Spark property)</p>
 </li>
 <li>
 <p><a id="maxBlocksInFlightPerAddress"></a> <code>maxBlocksInFlightPerAddress</code></p>
@@ -2013,7 +2013,7 @@ FIXME
 <p><a id="maxReqSizeShuffleToMem"></a> <code>maxReqSizeShuffleToMem</code></p>
 </li>
 <li>
-<p><a id="detectCorrupt"></a> <code>detectCorrupt</code> flag to detect any corruption in fetched blocks (controlled by <a href="spark-shuffle-BlockStoreShuffleReader.adoc#spark_shuffle_detectCorrupt">spark.shuffle.detectCorrupt</a> Spark property)</p>
+<p><a id="detectCorrupt"></a> <code>detectCorrupt</code> flag to detect any corruption in fetched blocks (controlled by <a href="../shuffle/BlockStoreShuffleReader.html#spark_shuffle_detectCorrupt" class="page">spark.shuffle.detectCorrupt</a> Spark property)</p>
 </li>
 </ul>
 </div>
