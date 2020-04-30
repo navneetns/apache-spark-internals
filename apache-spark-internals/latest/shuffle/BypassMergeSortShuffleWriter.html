@@ -437,6 +437,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="FetchFailedException.html">FetchFailedException</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ExternalSorter.html">ExternalSorter</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -582,9 +585,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-OneForOneStreamManager.html">OneForOneStreamManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-ExternalSorter.html">ExternalSorter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1971,7 +1971,7 @@ Review the <a href="SortShuffleManager.html#shouldBypassMergeSort" class="page">
 </ol>
 </div>
 <div id="fileBufferSize" class="paragraph">
-<p><code>BypassMergeSortShuffleWriter</code> uses <a href="spark-ExternalSorter.adoc#spark_shuffle_file_buffer">spark.shuffle.file.buffer</a> (for <code>fileBufferSize</code> as <code>32k</code> by default) and <a href="#spark-configuration-properties.adoc#spark.file.transferTo" class="page unresolved">spark.file.transferTo</a> (for <a href="#transferToEnabled">transferToEnabled</a> internal flag which is enabled by default) Spark properties.</p>
+<p><code>BypassMergeSortShuffleWriter</code> uses <a href="ExternalSorter.html#spark_shuffle_file_buffer" class="page">spark.shuffle.file.buffer</a> (for <code>fileBufferSize</code> as <code>32k</code> by default) and <a href="#spark-configuration-properties.adoc#spark.file.transferTo" class="page unresolved">spark.file.transferTo</a> (for <a href="#transferToEnabled">transferToEnabled</a> internal flag which is enabled by default) Spark properties.</p>
 </div>
 <div class="paragraph">
 <p><code>BypassMergeSortShuffleWriter</code> initializes the <a href="#internal-registries">internal registries and counters</a>.</p>

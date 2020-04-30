@@ -437,6 +437,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="FetchFailedException.html">FetchFailedException</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ExternalSorter.html">ExternalSorter</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -582,9 +585,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-OneForOneStreamManager.html">OneForOneStreamManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-ExternalSorter.html">ExternalSorter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1901,10 +1901,10 @@
 </div>
 </div>
 <div class="paragraph">
-<p>write creates an <a href="../spark-ExternalSorter.html" class="page">ExternalSorter</a> based on the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> (of the <a href="#handle">BaseShuffleHandle</a>), namely the <a href="../rdd/ShuffleDependency.html#mapSideCombine" class="page">Map-Size Partial Aggregation</a> flag. The ExternalSorter uses the aggregator and keyOrdering when the flag is enabled.</p>
+<p>write creates an <a href="ExternalSorter.html" class="page">ExternalSorter</a> based on the <a href="spark-shuffle-BaseShuffleHandle.html#dependency" class="page">ShuffleDependency</a> (of the <a href="#handle">BaseShuffleHandle</a>), namely the <a href="../rdd/ShuffleDependency.html#mapSideCombine" class="page">Map-Size Partial Aggregation</a> flag. The ExternalSorter uses the aggregator and keyOrdering when the flag is enabled.</p>
 </div>
 <div class="paragraph">
-<p>write requests the ExternalSorter to <a href="../spark-ExternalSorter.html#insertAll" class="page">inserts all the records</a>.</p>
+<p>write requests the ExternalSorter to <a href="ExternalSorter.html#insertAll" class="page">inserts all the records</a>.</p>
 </div>
 <div class="paragraph">
 <p>write requests the <a href="#shuffleBlockResolver">IndexShuffleBlockResolver</a> for a <a href="IndexShuffleBlockResolver.html#getDataFile" class="page">shuffle output file</a> (for the shuffle and the <a href="#mapId">map</a> IDs) and creates a temporary file alongside the shuffle output file (in the same directory).</p>
@@ -1913,7 +1913,7 @@
 <p>write creates a <a href="../storage/spark-BlockDataManager.html#ShuffleBlockId" class="page">ShuffleBlockId</a> (for the shuffle and the <a href="#mapId">map</a> IDs).</p>
 </div>
 <div class="paragraph">
-<p>write requests ExternalSorter to <a href="../spark-ExternalSorter.html#writePartitionedFile" class="page">write all the records (previously inserted in) into the temporary partitioned file in the disk store</a>. ExternalSorter returns the length of every partition.</p>
+<p>write requests ExternalSorter to <a href="ExternalSorter.html#writePartitionedFile" class="page">write all the records (previously inserted in) into the temporary partitioned file in the disk store</a>. ExternalSorter returns the length of every partition.</p>
 </div>
 <div class="paragraph">
 <p>write requests <a href="#shuffleBlockResolver">IndexShuffleBlockResolver</a> to <a href="IndexShuffleBlockResolver.html#writeIndexFileAndCommit" class="page">write an index file and commit</a> (with the shuffle and the <a href="#mapId">map</a> IDs, the temporary shuffle output file).</p>
@@ -1953,7 +1953,7 @@
 <p>Otherwise, when <a href="#stopping">stopping</a> flag is already enabled or the input <code>success</code> is disabled, stop returns no <code>MapStatus</code> (i.e. <code>None</code>).</p>
 </div>
 <div class="paragraph">
-<p>In the end, stop requests the ExternalSorter to <a href="../spark-ExternalSorter.html#stop" class="page">stop</a> and increments the shuffle write time task metrics.</p>
+<p>In the end, stop requests the ExternalSorter to <a href="ExternalSorter.html#stop" class="page">stop</a> and increments the shuffle write time task metrics.</p>
 </div>
 <div class="paragraph">
 <p>stop is part of the <a href="ShuffleWriter.html#contract" class="page">ShuffleWriter</a> abstraction.</p>

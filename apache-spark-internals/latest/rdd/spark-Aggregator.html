@@ -437,6 +437,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../shuffle/FetchFailedException.html">FetchFailedException</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../shuffle/ExternalSorter.html">ExternalSorter</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -582,9 +585,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../spark-OneForOneStreamManager.html">OneForOneStreamManager</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../spark-ExternalSorter.html">ExternalSorter</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -1861,7 +1861,7 @@ mergeCombiners: (C, C) =&gt; C</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>Aggregator</code> is created in <a href="spark-rdd-PairRDDFunctions.adoc#combineByKeyWithClassTag"><code>combineByKeyWithClassTag</code> transformations</a> to create <a href="ShuffledRDD.html" class="page">ShuffledRDDs</a> and is eventually passed on to <a href="ShuffleDependency.html#aggregator" class="page">ShuffleDependency</a>. It is also used in <a href="spark-ExternalSorter.adoc">ExternalSorter</a>.
+<code>Aggregator</code> is created in <a href="spark-rdd-PairRDDFunctions.adoc#combineByKeyWithClassTag"><code>combineByKeyWithClassTag</code> transformations</a> to create <a href="ShuffledRDD.html" class="page">ShuffledRDDs</a> and is eventually passed on to <a href="ShuffleDependency.html#aggregator" class="page">ShuffleDependency</a>. It is also used in <a href="../shuffle/ExternalSorter.html" class="page">ExternalSorter</a>.
 </td>
 </tr>
 </table>
