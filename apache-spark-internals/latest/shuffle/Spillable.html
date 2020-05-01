@@ -1849,8 +1849,125 @@
   <div class="content">
 <article class="doc">
 <h1 class="page"><a id="Spillable"></a> Spillable</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong>Spillable</strong> is&#8230;&#8203;FIXME</p>
+<p><strong>Spillable</strong> is an extension of the <a href="../memory/MemoryConsumer.html" class="page">MemoryConsumer</a> abstraction for <a href="#implementations">collections</a> that can <a href="#spill">spill to disk</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>Spillable[C]</code> is a parameterized type of <code>C</code> combiner (partial) values.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-instance"><a class="anchor" href="#creating-instance"></a><a class="link" href="#creating-instance"><a id="creating-instance"></a> Creating Instance</a></h2>
+<div class="sectionbody">
+<div id="taskMemoryManager" class="paragraph">
+<p>Spillable takes a single <a href="../memory/TaskMemoryManager.html" class="page">TaskMemoryManager</a> to be created.</p>
+</div>
+<div class="paragraph">
+<p><code>Spillable</code> is an abstract class and cannot be created directly. It is created indirectly for the <a href="#implementations">concrete Spillables</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extensions"><a class="anchor" href="#extensions"></a><a class="link" href="#extensions"><a id="extensions"></a> Extensions</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Spillables</caption>
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Spillable</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ExternalAppendOnlyMap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ExternalAppendOnlyMap"></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ExternalSorter.html" class="page">ExternalSorter</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="ExternalSorter"></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spilling-in-memory-collection-to-disk-to-release-memory"><a class="anchor" href="#spilling-in-memory-collection-to-disk-to-release-memory"></a><a class="link" href="#spilling-in-memory-collection-to-disk-to-release-memory"><a id="spill"></a> Spilling In-Memory Collection to Disk (to Release Memory)</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">spill(
+  collection: C): Unit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>spill spills the given in-memory collection to disk to release memory</p>
+</div>
+<div class="paragraph">
+<p>spill is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ExternalAppendOnlyMap is requested to forceSpill</p>
+</li>
+<li>
+<p>Spillable is requested to <a href="#maybeSpill">maybeSpill</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="forcespill-method"><a class="anchor" href="#forcespill-method"></a><a class="link" href="#forcespill-method"><a id="forceSpill"></a> forceSpill Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">forceSpill(): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>forceSpill forcefully spills the Spillable to disk to release memory</p>
+</div>
+<div class="paragraph">
+<p>forceSpill is used when Spillable is requested to <a href="#spill">spill an in-memory collection to disk</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="maybespill-method"><a class="anchor" href="#maybespill-method"></a><a class="link" href="#maybespill-method"><a id="maybeSpill"></a> maybeSpill Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">maybeSpill(
+  collection: C,
+  currentMemory: Long): Boolean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>maybeSpill&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>maybeSpill is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ExternalAppendOnlyMap is requested to insertAll</p>
+</li>
+<li>
+<p>ExternalSorter is requested to <a href="ExternalSorter.html#maybeSpillCollection" class="page">attempt to spill an in-memory collection to disk if needed</a></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
