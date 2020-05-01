@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Untitled :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/rdd/spark-Aggregator.html">
-    <meta name="generator" content="Antora 2.2.0">
+    <meta name="generator" content="Antora 2.3.1">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
     <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-86782445-1')</script>
@@ -1867,7 +1867,7 @@ mergeCombiners: (C, C) =&gt; C</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>Aggregator</code> is created in <a href="spark-rdd-PairRDDFunctions.adoc#combineByKeyWithClassTag"><code>combineByKeyWithClassTag</code> transformations</a> to create <a href="ShuffledRDD.html" class="page">ShuffledRDDs</a> and is eventually passed on to <a href="ShuffleDependency.html#aggregator" class="page">ShuffleDependency</a>. It is also used in <a href="../shuffle/ExternalSorter.html" class="page">ExternalSorter</a>.
+<code>Aggregator</code> is created in <a href="spark-rdd-PairRDDFunctions.adoc#combineByKeyWithClassTag"><code>combineByKeyWithClassTag</code> transformations</a> to create <a href="ShuffledRDD.html" class="page">ShuffledRDDs</a> and is eventually passed on to <a href="#rdd:ShuffleDependency.adoc.adoc#aggregator" class="page unresolved">ShuffleDependency</a>. It is also used in <a href="../shuffle/ExternalSorter.html" class="page">ExternalSorter</a>.
 </td>
 </tr>
 </table>

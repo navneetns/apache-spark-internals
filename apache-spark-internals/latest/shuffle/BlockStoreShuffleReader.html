@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Untitled :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/shuffle/BlockStoreShuffleReader.html">
-    <meta name="generator" content="Antora 2.2.0">
+    <meta name="generator" content="Antora 2.3.1">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
     <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-86782445-1')</script>
@@ -1904,7 +1904,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p><code>read</code> creates a new <a href="spark-SerializerInstance.adoc">SerializerInstance</a> (using <a href="../rdd/ShuffleDependency.html#serializer" class="page"><code>Serializer</code> from ShuffleDependency</a>).</p>
+<p><code>read</code> creates a new <a href="spark-SerializerInstance.adoc">SerializerInstance</a> (using <a href="#rdd:ShuffleDependency.adoc.adoc#serializer" class="page unresolved"><code>Serializer</code> from ShuffleDependency</a>).</p>
 </div>
 <div class="paragraph">
 <p><code>read</code> creates a key/value iterator by <code>deserializeStream</code> every shuffle block stream.</p>
@@ -1925,7 +1925,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p>If the <a href="../rdd/ShuffleDependency.html#aggregator" class="page"><code>ShuffleDependency</code> has an <code>Aggregator</code> defined</a>, <code>read</code> wraps the current iterator inside an iterator defined by <a href="spark-Aggregator.adoc#combineCombinersByKey">Aggregator.combineCombinersByKey</a> (for <a href="../rdd/ShuffleDependency.html#mapSideCombine" class="page"><code>mapSideCombine</code> enabled</a>) or <a href="spark-Aggregator.adoc#combineValuesByKey">Aggregator.combineValuesByKey</a> otherwise.</p>
+<p>If the <a href="#rdd:ShuffleDependency.adoc.adoc#aggregator" class="page unresolved"><code>ShuffleDependency</code> has an <code>Aggregator</code> defined</a>, <code>read</code> wraps the current iterator inside an iterator defined by <a href="spark-Aggregator.adoc#combineCombinersByKey">Aggregator.combineCombinersByKey</a> (for <a href="#rdd:ShuffleDependency.adoc.adoc#mapSideCombine" class="page unresolved"><code>mapSideCombine</code> enabled</a>) or <a href="spark-Aggregator.adoc#combineValuesByKey">Aggregator.combineValuesByKey</a> otherwise.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1934,13 +1934,13 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>run</code> reports an exception when <a href="../rdd/ShuffleDependency.html#aggregator" class="page"><code>ShuffleDependency</code> has no <code>Aggregator</code> defined</a> with <a href="../rdd/ShuffleDependency.html#mapSideCombine" class="page"><code>mapSideCombine</code> flag enabled</a>.
+<code>run</code> reports an exception when <a href="#rdd:ShuffleDependency.adoc.adoc#aggregator" class="page unresolved"><code>ShuffleDependency</code> has no <code>Aggregator</code> defined</a> with <a href="#rdd:ShuffleDependency.adoc.adoc#mapSideCombine" class="page unresolved"><code>mapSideCombine</code> flag enabled</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>For <a href="../rdd/ShuffleDependency.html#keyOrdering" class="page"><code>keyOrdering</code> defined in <code>ShuffleDependency</code></a>, <code>run</code> does the following:</p>
+<p>For <a href="#rdd:ShuffleDependency.adoc.adoc#keyOrdering" class="page unresolved"><code>keyOrdering</code> defined in <code>ShuffleDependency</code></a>, <code>run</code> does the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">

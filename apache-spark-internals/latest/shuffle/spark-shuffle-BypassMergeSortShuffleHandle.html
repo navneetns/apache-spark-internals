@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Untitled :: The Internals Of Apache Spark</title>
     <link rel="canonical" href="https://books.japila.pl/apache-spark-internals/apache-spark-internals/latest/shuffle/spark-shuffle-BypassMergeSortShuffleHandle.html">
-    <meta name="generator" content="Antora 2.2.0">
+    <meta name="generator" content="Antora 2.3.1">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86782445-1"></script>
     <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-86782445-1')</script>
@@ -1855,7 +1855,7 @@
 <p><code>BypassMergeSortShuffleHandles</code> is a <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a> with no additional methods or fields and serves only to identify the choice of <strong>bypass merge sort shuffle</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Like <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a>, <code>BypassMergeSortShuffleHandles</code> takes <code>shuffleId</code>, <code>numMaps</code>, and a <a href="../rdd/ShuffleDependency.html" class="page">ShuffleDependency</a>.</p>
+<p>Like <a href="spark-shuffle-BaseShuffleHandle.adoc">BaseShuffleHandle</a>, <code>BypassMergeSortShuffleHandles</code> takes <code>shuffleId</code>, <code>numMaps</code>, and a <a href="#rdd:ShuffleDependency.adoc.adoc" class="page unresolved">ShuffleDependency</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>BypassMergeSortShuffleHandle</code> is created when <a href="SortShuffleManager.html#registerShuffle" class="page"><code>SortShuffleManager</code> is requested for a <code>ShuffleHandle</code></a> (for a <code>ShuffleDependency</code>).</p>
