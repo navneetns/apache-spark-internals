@@ -1899,6 +1899,26 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="in-memory-collections"><a class="anchor" href="#in-memory-collections"></a><a class="link" href="#in-memory-collections"><a id="buffer"></a><a id="map"></a> In-Memory Collections</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ExternalSorter uses PartitionedPairBuffers or PartitionedAppendOnlyMaps to store objects in memory before spilling to disk. ExternalSorter uses PartitionedPairBuffers when created with no <a href="#aggregator">Aggregator</a> specified. With an Aggregator, ExternalSorter uses PartitionedAppendOnlyMaps.</p>
+</div>
+<div class="paragraph">
+<p>ExternalSorter creates a PartitionedPairBuffer and a PartitionedAppendOnlyMap when created.</p>
+</div>
+<div class="paragraph">
+<p>ExternalSorter inserts records to the collections when <a href="#insertAll">insertAll</a>.</p>
+</div>
+<div class="paragraph">
+<p>ExternalSorter <a href="#maybeSpill">maybeSpill</a> and, if spilled to disk, creates a new collection.</p>
+</div>
+<div class="paragraph">
+<p>ExternalSorter releases the collections (<code>null</code>s them) when requested to <a href="#forceSpill">forceSpill</a> and <a href="#stop">stop</a>. That is whne the JVM garbage collector takes care of evicting them from memory whatsoever.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="spills-internal-registry"><a class="anchor" href="#spills-internal-registry"></a><a class="link" href="#spills-internal-registry"><a id="spills"></a> Spills Internal Registry</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2077,6 +2097,38 @@
 </div>
 <div class="paragraph">
 <p>maybeSpillCollection is used when ExternalSorter is requested to <a href="#insertAll">insertAll</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="iterator-method"><a class="anchor" href="#iterator-method"></a><a class="link" href="#iterator-method"><a id="iterator"></a> iterator Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">iterator: Iterator[Product2[K, C]]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>iterator&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>iterator is used when BlockStoreShuffleReader is requested to <a href="BlockStoreShuffleReader.html#read" class="page">read combined records for a reduce task</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="partitionediterator-method"><a class="anchor" href="#partitionediterator-method"></a><a class="link" href="#partitionediterator-method"><a id="partitionedIterator"></a> partitionedIterator Method</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">partitionedIterator: Iterator[(Int, Iterator[Product2[K, C]])]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>partitionedIterator&#8230;&#8203;FIXME</p>
+</div>
+<div class="paragraph">
+<p>partitionedIterator is used when ExternalSorter is requested for an <a href="#iterator">iterator</a> and to <a href="#writePartitionedFile">write a partitioned file</a></p>
 </div>
 </div>
 </div>
